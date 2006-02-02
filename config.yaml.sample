@@ -11,7 +11,19 @@ plugins:
       password: foobar
       mark_read: 1
 
+  - module: Filter::URLBL
+    config:
+      dnsbl: rbl.bulkfeeds.jp
+      rate:  -1
+
+  - module: Widget::Delicious
+    config:
+      username: miyagawa
+
   - module: Publish::Gmail
+    condition:
+      - module: Rating
+        rate:   '>= 0'
     config:
       mailto:   miyagawa@example.com
       mailfrom: miyagawa@example.net

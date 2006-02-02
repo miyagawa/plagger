@@ -3,7 +3,7 @@ use strict;
 
 sub new {
     my $class = shift;
-    bless {}, $class;
+    bless { feeds => [] }, $class;
 }
 
 sub add {

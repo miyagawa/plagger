@@ -8,5 +8,5 @@ Link: <a href="[% link | html %]">[% link | html %]</a><br />
 [% IF item.body -%]
 [% IF item.body.match('(?i)^<p[ >]') %][% item.body %][% ELSE %]<div style="padding: 1em 0">[% item.body %]</div>[% END %]
 [% ELSE %]<br />[% END %]
-<div style="font-size:0.8em">[% IF item.date %]Posted on [% item.date.format('Mail') %][% END %] | <a href="[% link | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% var = 'delicious-username'; IF cfg.$var %][% SET u = "http://del.icio.us/" _ cfg.$var; USE delicious = url(u) %] | <a href="[% SET t = feed.title _ ": " _ item.title; delicious(v=3, url=item.link, title=utf8(t)) %]">Post to del.icio.us</a>[% END %]<br clear="all" /></div>
+<div style="font-size:0.8em">[% IF item.date %]Posted on [% item.date.format('Mail') %][% END %] | <a href="[% link | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% FOREACH widget = item.widgets %]| [% widget.html %][% END %]<br clear="all" /></div>
 </div>

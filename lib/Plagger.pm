@@ -75,8 +75,8 @@ sub register_hook {
     my($self, $plugin, @hooks) = @_;
     while (my($hook, $callback) = splice @hooks, 0, 2) {
         push @{ $self->{hooks}->{$hook} }, +{
-            callback => $callback,
-            plugin   => $plugin,
+            callback  => $callback,
+            plugin    => $plugin,
         };
     }
 }
@@ -84,7 +84,10 @@ sub register_hook {
 sub run_hook {
     my($self, $hook, @args) = @_;
     for my $action (@{ $self->{hooks}->{$hook} }) {
-        $action->{callback}->($action->{plugin}, $self, @args);
+        my $plugin = $action->{plugin};
+        if ( $plugin->condition->dispatch(@args) ) {
+            $action->{callback}->($plugin, $self, @args);
+        }
     }
 }
 
@@ -95,6 +98,10 @@ sub run {
     $self->run_hook('subscription.aggregate');
 
     for my $feed ($self->update->feeds) {
+        for my $entry ($feed->entries) {
+            $self->run_hook('filter.content', $entry, $entry->text);
+        }
+
         $self->run_hook('publish.notify', $feed);
     }
 
@@ -105,7 +112,14 @@ sub log {
     my($self, $level, $msg) = @_;
     my $caller = caller(0);
     chomp($msg);
-    warn "$caller: $msg\n";
+    warn "$caller [$level] $msg\n";
+}
+
+sub error {
+    my($self, $msg) = @_;
+    my $caller = caller(0);
+    chomp($msg);
+    die "$caller $msg\n";
 }
 
 sub dumper {
