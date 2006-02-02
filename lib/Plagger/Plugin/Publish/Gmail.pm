@@ -70,8 +70,7 @@ sub do_send_mail {
 
     my $route = $cfg->{mailroute} || { via => 'smtp', host => 'localhost' };
     my @args  = $route->{host} ? ($route->{host}) : ();
-#    $msg->send($route->{via}, @args);
-    $context->dumper($msg);
+    $msg->send($route->{via}, @args);
 }
 
 sub templatize {
