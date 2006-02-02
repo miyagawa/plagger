@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use lib 'lib';
+use Plagger;
+
+use Getopt::Long;
+
+my $config = 'config.yaml';
+GetOptions('--config=s', \$config);
+
+Plagger->bootstrap(config => $config);
+

@@ -1,0 +1,22 @@
+global:
+  plugin_path:
+    - /home/miyagawa/plagger/plugins
+  #template_path: /home/miyagawa/plagger/templates
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: Subscription::Bloglines
+    config:
+      username: miyagawa@example.com
+      password: foobar
+      mark_read: 1
+
+  - module: Publish::Gmail
+    config:
+      mailto:   miyagawa@example.com
+      mailfrom: miyagawa@example.net
+      group_items: 1
+      mailroute:
+        via: smtp
+        host: smtp.example.com
+
