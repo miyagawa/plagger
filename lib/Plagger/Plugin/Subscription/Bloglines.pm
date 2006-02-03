@@ -31,7 +31,7 @@ sub aggregate {
 
     return unless $self->{bloglines_new};
 
-    my @updates = $self->{bloglines}->getitems(0, $self->conf->{mark_unread});
+    my @updates = $self->{bloglines}->getitems(0, $self->conf->{mark_read});
     $context->log(debug => scalar(@updates) . " feed(s) updated.");
 
     for my $update (@updates) {
