@@ -8,5 +8,5 @@ Link: <a href="[% link | html %]">[% link | html %]</a><br />
 [% IF item.body -%]
 [% IF item.body.match('(?i)^<p[ >]') %][% item.body %][% ELSE %]<div style="padding: 1em 0">[% item.body %]</div>[% END %]
 [% ELSE %]<br />[% END %]
-<div style="font-size:0.8em">[% IF item.date %]Posted on [% item.date.format('Mail') %][% END %] | <a href="[% link | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% FOREACH widget = item.widgets %] | [% widget.html %][% END %]<br clear="all" /></div>
+<div style="font-size:0.8em">[% IF item.date %]Posted on [% item.date.format('Mail') %][% END %] | <a href="[% link | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% FOREACH widget = item.widgets %] | [% widget.html(item) %][% END %]<br clear="all" /></div>
 </div>

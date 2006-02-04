@@ -1,4 +1,4 @@
-package Plagger::Plugin::Widget::Delicious;
+package Plagger::Plugin::Widget::HatenaBookmark;
 use strict;
 use base qw( Plagger::Plugin );
 
@@ -21,15 +21,11 @@ sub add {
 
 sub html {
     my($self, $entry) = @_;
-    my $uri = URI->new('http://del.icio.us/' . $self->conf->{username});
-    $uri->query_form(
-        v => 3,
-        url => $entry->link,
-        title => encode('utf-8', $entry->title),
-    );
+    my $uri = URI->new('http://b.hatena.ne.jp/append');
+    $uri->query($entry->link);
 
     my $url = HTML::Entities::encode($uri->as_string);
-    return qq(<a href="$url">Post to del.icio.us</a>);
+    return qq(<a href="$url"><img src="http://b.hatena.ne.jp/images/append.gif" alt="Post to Hatena Bookmark" style="border:0;vertical-align:middle" /></a>);
 }
 
 1;
