@@ -29,7 +29,7 @@ sub html {
     );
 
     my $url = HTML::Entities::encode($uri->as_string);
-    return qq(<a href="$url">Post to del.icio.us</a>);
+    return qq(<a href="$url"><img src="http://del.icio.us/static/img/delicious.small.gif" alt="del.icio.us it!" style="border:0;vertical-align:middle" /></a>);
 }
 
 1;
