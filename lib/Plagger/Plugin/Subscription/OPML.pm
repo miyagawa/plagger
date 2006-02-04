@@ -41,7 +41,7 @@ sub load {
 
     my $opml = XML::OPML->new;
     $opml->parse($xml);
-    $self->walk_down(@{ $opml->outline }, $context);
+    $self->walk_down(@{ $opml->outline }, $context, 0, []);
 }
 
 sub walk_down {
@@ -59,6 +59,7 @@ sub walk_down {
         $feed->url($outline->{xmlUrl});
         $feed->link($outline->{htmlUrl});
         $feed->title($outline->{title});
+        $feed->tags($containers);
         $context->subscription->add($feed);
     }
 }
