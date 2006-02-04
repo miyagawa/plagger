@@ -7,21 +7,8 @@ __PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate )
 use DateTime::Format::Mail;
 
 sub new {
-    my($class, $item) = @_;
-
-    my @subject = $item->{dc}->{subject} ? ($item->{dc}->{subject}) : ();
-
-    my $date = DateTime::Format::Mail->parse_datetime($item->{pubDate});
-    $date = Plagger::Date->rebless($date);
-
+    my $class = shift;
     bless {
-        title  => $item->{title},
-        author => $item->{dc}->{creator},
-        tags   => \@subject,
-        date   => $date,
-        link   => $item->{link},
-        id     => $item->{guid},
-        body   => $item->{description},
         rate   => 0,
         widgets => [],
     }, $class;

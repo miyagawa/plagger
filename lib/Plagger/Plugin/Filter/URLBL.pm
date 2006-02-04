@@ -23,7 +23,9 @@ sub content {
     my $finder = URI::Find->new(
         sub {
             my($uri, $orig_uri) = @_;
-            push @urls, $uri;
+            if ($orig_uri =~ m!^https?://!) {
+                push @urls, $uri;
+            }
             return $orig_uri;
         },
     );
@@ -37,6 +39,8 @@ sub content {
         my $uri = URI->new($url);
         my $domain = $uri->host;
         $domain =~ s/^www\.//;
+
+        next if $self->{__done}->{$domain}++;
 
         for my $dns (@$dnsbl) {
             $context->log(debug => "looking up $domain.$dns");

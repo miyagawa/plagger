@@ -21,7 +21,7 @@ plugins:
       username: miyagawa
 
   - module: Publish::Gmail
-    condition:
+    rule:
       - module: Rating
         rate:   '>= 0'
     config:

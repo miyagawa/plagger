@@ -2,17 +2,11 @@ package Plagger::Feed;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( title link image description language webmaster tags stash ));
+__PACKAGE__->mk_accessors(qw( title link url image description language author updated tags stash ));
 
 sub new {
-    my($class, $feed) = @_;
+    my $class = shift;
     bless {
-        title => $feed->{title},
-        link  => $feed->{link},
-        image => $feed->{image},
-        description => $feed->{description},
-        language  => $feed->{language},
-        webmaster => $feed->{webmaster},
         stash => {},
         tags  => [],
         entries => [],
@@ -27,6 +21,11 @@ sub add_entry {
 sub entries {
     my $self = shift;
     wantarray ? @{ $self->{entries} } : $self->{entries};
+}
+
+sub count {
+    my $self = shift;
+    scalar @{ $self->{entries} };
 }
 
 1;

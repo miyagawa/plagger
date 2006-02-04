@@ -4,8 +4,16 @@ use base qw( DateTime );
 
 use UNIVERSAL::require;
 
-sub rebless {
-    my($class, $dt) = @_;
+sub parse {
+    my($class, $format, $date) = @_;
+    my $module = "DateTime::Format::$format";
+    $module->require or die $@;
+    my $dt = $module->parse_datetime($date);
+
+    if (my $context = Plagger->context) {
+        $dt->set_time_zone($context->conf->{timezone});
+    }
+
     bless $dt, $class;
 }
 

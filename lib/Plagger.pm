@@ -8,9 +8,13 @@ use Data::Dumper;
 use YAML;
 use UNIVERSAL::require;
 
+use base qw( Class::Accessor::Fast );
+__PACKAGE__->mk_accessors( qw(conf stash update subscription) );
+
 use Plagger::Date;
 use Plagger::Entry;
 use Plagger::Feed;
+use Plagger::Subscription;
 use Plagger::Update;
 use Template;
 
@@ -25,6 +29,7 @@ sub bootstrap {
         conf  => {},
         stash => {},
         update => Plagger::Update->new,
+        subscription => Plagger::Subscription->new,
     }, $class;
 
     my $config;
@@ -40,10 +45,6 @@ sub bootstrap {
     $self->load_plugins(@{ $config->{plugins} || [] });
     $self->run();
 }
-
-sub conf   { $_[0]->{conf}  }
-sub stash  { $_[0]->{stash} }
-sub update { $_[0]->{update} }
 
 sub load_plugins {
     my($self, @plugins) = @_;
@@ -85,7 +86,7 @@ sub run_hook {
     my($self, $hook, @args) = @_;
     for my $action (@{ $self->{hooks}->{$hook} }) {
         my $plugin = $action->{plugin};
-        if ( $plugin->condition->dispatch(@args) ) {
+        if ( $plugin->rule->dispatch(@args) ) {
             $action->{callback}->($plugin, $self, @args);
         }
     }
@@ -95,7 +96,7 @@ sub run {
     my $self = shift;
 
     $self->run_hook('subscription.load');
-    $self->run_hook('subscription.aggregate');
+    $self->run_hook('aggregator.aggregate');
 
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {

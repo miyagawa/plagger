@@ -1,6 +1,6 @@
-package Plagger::Condition::Rating;
+package Plagger::Rule::Rating;
 use strict;
-use base qw( Plagger::Condition );
+use base qw( Plagger::Rule );
 
 my %ops = (
     '<'  => sub { $_[0] < $_[1] },
