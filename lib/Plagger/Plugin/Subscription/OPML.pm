@@ -62,7 +62,6 @@ sub walk_down {
         $feed->link($outline->{htmlUrl});
         $feed->title($outline->{title});
         $feed->tags($containers);
-        $context->dumper($feed->tags);
         $context->subscription->add($feed);
     }
 }
