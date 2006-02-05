@@ -48,6 +48,8 @@ sub send_email_item {
 sub do_send_mail {
     my($self, $context, $feed, $subject, $body) = @_;
 
+    $body = $self->htmlize($body);
+
     my $cfg = $self->conf;
     $context->log(warn => "Sending $subject to $cfg->{mailto}");
 
@@ -71,6 +73,20 @@ sub do_send_mail {
     my $route = $cfg->{mailroute} || { via => 'smtp', host => 'localhost' };
     my @args  = $route->{host} ? ($route->{host}) : ();
     $msg->send($route->{via}, @args);
+}
+
+sub htmlize {
+    my($self, $body) = @_;
+    return <<HTML;
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+<body>
+$body
+</body>
+</html>
+HTML
 }
 
 sub templatize {
