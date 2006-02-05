@@ -43,7 +43,8 @@ sub aggregate {
             $entry->title($e->title);
             $entry->author($e->author);
             $entry->tags([ $e->category ]) if $e->category;
-            $entry->date( Plagger::Date->rebless($e->issued) ) if $e->issued;
+            $entry->date( Plagger::Date->rebless($e->issued) )
+                if eval { $e->issued };
             $entry->link($e->link);
             $entry->id($e->id);
             $entry->body($e->content->body);
