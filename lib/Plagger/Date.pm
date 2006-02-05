@@ -8,10 +8,16 @@ sub rebless { bless $_[1], $_[0] }
 
 sub parse {
     my($class, $format, $date) = @_;
-    my $module = "DateTime::Format::$format";
-    $module->require or die $@;
-    my $dt = $module->parse_datetime($date);
 
+    my $module;
+    if (ref $format) {
+        $module = $format;
+    } else {
+        $module = "DateTime::Format::$format";
+        $module->require or die $@;
+    }
+
+    my $dt = $module->parse_datetime($date);
     if (my $context = Plagger->context) {
         $dt->set_time_zone($context->conf->{timezone});
     }
