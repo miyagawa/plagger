@@ -54,7 +54,7 @@ sub load_plugins {
     }
 
     for my $plugin (@plugins) {
-        $self->load_plugin($plugin);
+        $self->load_plugin($plugin) unless $plugin->{disable};
     }
 }
 
