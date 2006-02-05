@@ -4,6 +4,9 @@ use base qw( Plagger::Plugin);
 
 use URI;
 use XML::Feed;
+use XML::Feed::RSS;
+
+$XML::Feed::RSS::PREFERRED_PARSER = 'XML::RSS::LibXML';
 
 sub register {
     my($self, $context) = @_;
@@ -40,7 +43,7 @@ sub aggregate {
             $entry->title($e->title);
             $entry->author($e->author);
             $entry->tags([ $e->category ]) if $e->category;
-            $entry->date( Plagger::Date->rebless($e->issued) );
+            $entry->date( Plagger::Date->rebless($e->issued) ) if $e->issued;
             $entry->link($e->link);
             $entry->id($e->id);
             $entry->body($e->content->body);
