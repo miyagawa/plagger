@@ -74,9 +74,9 @@ sub send_by_smtp_tls {
     my($self, @args) = @_;
 
     ### We need the "From:" and "To:" headers to pass to the SMTP mailer:
-    my $hdr  = $self->fields();
-    my $from = $self->get('From');
-    my $to   = $self->get('To');
+    my $hdr   = $self->fields();
+    my($from) = extract_addrs( $self->get('From') );
+    my $to    = $self->get('To');
 
     ### Sanity check:
     defined($to) or Carp::croak "send_by_smtp_tls: missing 'To:' address\n";
