@@ -99,7 +99,12 @@ sub run {
     my $self = shift;
 
     $self->run_hook('subscription.load');
-    $self->run_hook('aggregator.aggregate');
+
+    for my $type ($self->subscription->types) {
+        for my $feed ($self->subscription->feeds_by_type($type)) {
+            $self->run_hook("aggregator.aggregate.$type", $feed);
+        }
+    }
 
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {

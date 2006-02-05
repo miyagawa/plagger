@@ -13,13 +13,13 @@ sub register {
     if ($self->conf->{no_sync_api}) {
         $context->register_hook(
             $self,
-            'subscription.load'    => \&getsubs,
+            'subscription.load' => \&getsubs,
         );
     } else {
         $context->register_hook(
             $self,
-            'subscription.load'    => \&notifier,
-            'aggregator.aggregate' => \&sync,
+            'subscription.load' => \&notifier,
+            'aggregator.aggregate.bloglines' => \&sync,
         );
     }
 }
@@ -62,13 +62,15 @@ sub notifier {
 
     my $count = $self->{bloglines}->notify();
     $context->log(debug => "You have $count unread item(s) on Bloglines.");
-    $self->{bloglines_new} = $count;
+    if ($count) {
+        my $feed = Plagger::Feed->new;
+        $feed->type('bloglines');
+        $context->subscription->add($feed);
+    }
 }
 
 sub sync {
-    my($self, $context) = @_;
-
-    return unless $self->{bloglines_new};
+    my($self, $context, $sub) = @_;
 
     my @updates = $self->{bloglines}->getitems(0, $self->conf->{mark_read});
     $context->log(debug => scalar(@updates) . " feed(s) updated.");

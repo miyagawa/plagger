@@ -2,7 +2,7 @@ package Plagger::Feed;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( link url image description language author updated tags stash ));
+__PACKAGE__->mk_accessors(qw( link url image description language author updated tags stash type ));
 
 sub new {
     my $class = shift;
@@ -10,6 +10,7 @@ sub new {
         stash => {},
         tags  => [],
         entries => [],
+        type  => 'feed',
     }, $class;
 }
 
