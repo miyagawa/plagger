@@ -5,6 +5,7 @@ use base qw( Plagger::Plugin );
 use DateTime::Format::Strptime;
 use Encode;
 use WWW::Mixi;
+use Time::HiRes;
 
 sub register {
     my($self, $context) = @_;
@@ -52,6 +53,20 @@ sub aggregate {
         $entry->link($msg->{link});
         $entry->author( decode('euc-jp', $msg->{name}) );
         $entry->date( Plagger::Date->parse($format, $msg->{time}) );
+
+        if ($self->conf->{fetch_body}) {
+            $context->log(info => "Fetch body from $msg->{link}");
+            Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.0 );
+            my($item) = $self->{mixi}->get_view_diary($msg->{link});
+            if ($item) {
+                my $body = decode('euc-jp', $item->{description});
+                for my $image (@{ $item->{images} }) {
+                    # xxx this should be $entry->enclosures
+                    $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
+                }
+                $entry->body($body);
+            }
+        }
 
         $feed->add_entry($entry);
     }
