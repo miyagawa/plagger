@@ -25,9 +25,9 @@ sub notify {
 sub finalize {
     my($self, $context) = @_;
 
-    my $body= $self->templatize($context, $self->{__feeds});
-    my $cfg = $self->conf;
-    my $file= $cfg->{output_file};
+    my $body = $self->templatize($context, $self->{__feeds});
+    my $cfg  = $self->conf;
+    my $file = $cfg->{output_file};
 
     open(FH, ">:utf8", $file) or die $!;
     print FH $body;
@@ -39,7 +39,6 @@ sub templatize {
     my $tt = $context->template();
     $tt->process('psp.tt', {
         feeds => $feeds,
-        utf8 => sub { encode("utf-8", $_[0]) }
     }, \my $out) or die $tt->error;
     $out;
 }

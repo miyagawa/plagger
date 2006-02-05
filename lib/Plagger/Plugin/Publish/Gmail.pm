@@ -96,7 +96,6 @@ sub templatize {
         feed => $feed,
         item => $item,
         cfg  => $self->conf,
-        utf8 => sub { encode("utf-8", $_[0]) }
     }, \my $out) or die $tt->error;
     $out;
 }
