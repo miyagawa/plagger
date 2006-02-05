@@ -4,6 +4,8 @@ use base qw( DateTime );
 
 use UNIVERSAL::require;
 
+sub rebless { bless $_[1], $_[0] }
+
 sub parse {
     my($class, $format, $date) = @_;
     my $module = "DateTime::Format::$format";

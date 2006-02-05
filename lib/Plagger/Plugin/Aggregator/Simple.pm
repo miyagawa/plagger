@@ -35,16 +35,15 @@ sub aggregate {
         $feed->author($remote->author);
         $feed->updated($remote->modified);
 
-        for my $remote_entry ($remote->entries) {
+        for my $e ($remote->entries) {
             my $entry = Plagger::Entry->new;
-            $entry->title($remote_entry->title);
-            $entry->author($remote_entry->author);
-            $entry->tags([ $remote_entry->category ])
-                if $remote_entry->category;
-            $entry->date($remote_entry->issued);
-            $entry->link($remote_entry->link);
-            $entry->id($remote_entry->id);
-            $entry->body($remote_entry->content->body);
+            $entry->title($e->title);
+            $entry->author($e->author);
+            $entry->tags([ $e->category ]) if $e->category;
+            $entry->date( Plagger::Date->rebless($e->issued) );
+            $entry->link($e->link);
+            $entry->id($e->id);
+            $entry->body($e->content->body);
 
             $feed->add_entry($entry);
         }
