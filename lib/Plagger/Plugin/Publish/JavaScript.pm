@@ -18,7 +18,7 @@ sub notify {
 
     my $dir = $self->conf->{dir};
     unless (-e $dir && -d _) {
-        mkdir $dir, 0755 or $context->erorr("mkdir $dir: $!");
+        mkdir $dir, 0755 or $context->error("mkdir $dir: $!");
     }
 
     my $file = $self->gen_filename($feed);
