@@ -41,7 +41,9 @@ sub load {
 
     my $opml = XML::OPML->new;
     $opml->parse($xml);
-    $self->walk_down(@{ $opml->outline }, $context, 0, []);
+    for my $outline (@{ $opml->outline }) {
+        $self->walk_down($outline, $context, 0, []);
+    }
 }
 
 sub walk_down {
