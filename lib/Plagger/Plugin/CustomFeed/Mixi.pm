@@ -43,10 +43,12 @@ sub aggregate {
     my $format = DateTime::Format::Strptime->new(pattern => '%Y/%m/%d %H:%M');
 
     my @msgs = $self->{mixi}->get_new_friend_diary;
-    $context->log(info => scalar(@msgs). " messages from new_friend_diary.pl");
+    my $items = $self->conf->{fetch_items} || 20;
 
+    my $i = 0;
     for my $msg (@msgs) {
         next unless $msg->{image}; # external blog
+        last if $i++ >= $items;
 
         my $entry = Plagger::Entry->new;
         $entry->title( decode('euc-jp', $msg->{subject}) );
@@ -56,10 +58,11 @@ sub aggregate {
 
         if ($self->conf->{fetch_body}) {
             $context->log(info => "Fetch body from $msg->{link}");
-            Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.0 );
+            Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
             my($item) = $self->{mixi}->get_view_diary($msg->{link});
             if ($item) {
                 my $body = decode('euc-jp', $item->{description});
+                   $body =~ s!\n!<br />!g;
                 for my $image (@{ $item->{images} }) {
                     # xxx this should be $entry->enclosures
                     $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
