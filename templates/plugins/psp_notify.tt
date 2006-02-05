@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>[% feed.title | html %]</title>
+</head>
+<body>
+[% IF feed.image %]<a href="[% feed.image.link %]"><img src="[% feed.image.url | html %]" alt="[% feed.image.title | html %]" /></a>[% END %]
+[% FOREACH item = items %]
+<h1>[% item.title %]</h1>
+<div>
+<div>
+[% SET link = item.link || item.id -%]
+Link: <a href="[% link | html %]">[% link | html %]</a><br />
+[% IF item.author %]by [% item.author | html %][% END %][% IF item.tags.size %] on [% item.tags.join(',') %][% END %]</div>
+[% IF item.body -%]
+[% IF item.body.match('(?i)^<p[ >]') %][% item.body %][% ELSE %]<div class="item_body">[% item.body %]</div>[% END %]
+[% ELSE %]<br />[% END %]
+<div class="post">[% IF item.date %]Posted on [% item.date.format('Mail') %][% END %] | <a href="[% link | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% FOREACH widget = item.widgets %] | [% widget.html(item) %][% END %]<br clear="all" /></div>
+</div>
+[% END %]
+</body>
+</html>
