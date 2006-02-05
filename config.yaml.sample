@@ -11,6 +11,19 @@ plugins:
       password: foobar
       mark_read: 1
 
+  - module: CustomFeed::Mixi
+    config:
+      email: miyagawa@example.com
+      password: foobar
+      fetch_body: 1
+      fetch_body_internal: 1.5
+
+  - module: Subscription::OPML
+    config:
+      url: http://example.com/mySubscription.opml
+
+  - module: Aggregator::Simple
+
   - module: Filter::URLBL
     config:
       dnsbl: rbl.bulkfeeds.jp
