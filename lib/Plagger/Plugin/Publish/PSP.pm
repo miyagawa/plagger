@@ -26,12 +26,11 @@ sub finalize {
     my($self, $context) = @_;
 
     my $body = $self->templatize($context, $self->{__feeds});
-    my $cfg  = $self->conf;
-    my $file = $cfg->{output_file};
+    my $file = $self->conf->{output_file};
 
-    open(FH, ">:utf8", $file) or die $!;
-    print FH $body;
-    close (FH);
+    open my $out, ">:utf8", $file or $context->error("$file: $!");
+    print $out $body;
+    close $out;
 }
 
 sub templatize {
@@ -39,7 +38,7 @@ sub templatize {
     my $tt = $context->template();
     $tt->process('psp.tt', {
         feeds => $feeds,
-    }, \my $out) or die $tt->error;
+    }, \my $out) or $context->error($tt->error);
     $out;
 }
 1;

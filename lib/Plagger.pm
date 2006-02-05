@@ -67,7 +67,7 @@ sub load_plugin {
     my $module = delete $config->{module};
     $module =~ s/^Plagger::Plugin:://;
     $module = "Plagger::Plugin::$module";
-    $module->require or warn $@;
+    $module->require or die $@;
 
     $self->log(info => "plugin $module loaded.");
 
@@ -126,9 +126,9 @@ sub log {
 
 sub error {
     my($self, $msg) = @_;
-    my $caller = caller(0);
+    my($caller, $filename, $line) = caller(0);
     chomp($msg);
-    die "$caller $msg\n";
+    die "$caller [fatal] $msg at line $line\n";
 }
 
 sub dumper {
