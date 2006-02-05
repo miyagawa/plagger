@@ -2,7 +2,7 @@ package Plagger::Feed;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( title link url image description language author updated tags stash ));
+__PACKAGE__->mk_accessors(qw( link url image description language author updated tags stash ));
 
 sub new {
     my $class = shift;
@@ -26,6 +26,16 @@ sub entries {
 sub count {
     my $self = shift;
     scalar @{ $self->{entries} };
+}
+
+sub title {
+    my $self = shift;
+    if (@_) {
+        my $title = shift;
+        utf8::decode($title) unless utf8::is_utf8($title);
+        $self->{title} = $title;
+    }
+    $self->{title};
 }
 
 1;

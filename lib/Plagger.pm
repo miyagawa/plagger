@@ -16,7 +16,10 @@ use Plagger::Entry;
 use Plagger::Feed;
 use Plagger::Subscription;
 use Plagger::Update;
+
 use Template;
+use Template::Provider::Encoding 0.04;
+use Template::Stash::ForceUTF8;
 
 our $TT;
 
@@ -133,7 +136,14 @@ sub template {
     my $self = shift;
     unless ($TT) {
         my $path = $self->conf->{template_path} || 'templates';
-        $TT = Template->new({ INCLUDE_PATH => [ $path, "$path/plugins" ] });
+        my $paths = [ $path, "$path/plugins" ];
+        $TT = Template->new({
+            INCLUDE_PATH => $paths,
+            LOAD_TEMPLATES => [
+                Template::Provider::Encoding->new({ INCLUDE_PATH => $paths }),
+            ],
+            STASH => Template::Stash::ForceUTF8->new,
+        });
     }
     $TT;
 }

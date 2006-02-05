@@ -33,14 +33,14 @@ sub notify {
 
 sub send_email_feed {
     my($self, $context, $feed, $items) = @_;
-    my $subject = $feed->{title} || '(no-title)';
+    my $subject = $feed->title || '(no-title)';
     my $body = join '<hr />', map $self->templatize($context, $feed, $_), @$items;
     $self->do_send_mail($context, $feed, $subject, $body);
 }
 
 sub send_email_item {
     my($self, $context, $feed, $item) = @_;
-    my $subject = $item->{title} || '(no-title)';
+    my $subject = $item->title || '(no-title)';
     my $body    = $self->templatize($context, $feed, $item);
     $self->do_send_mail($context, $feed, $subject, $body);
 }
@@ -51,7 +51,7 @@ sub do_send_mail {
     my $cfg = $self->conf;
     $context->log(warn => "Sending $subject to $cfg->{mailto}");
 
-    my $feed_title = $feed->{title};
+    my $feed_title = $feed->title;
        $feed_title =~ tr/,//d;
 
     my $now = Plagger::Date->now(timezone => $context->conf->{timezone});
