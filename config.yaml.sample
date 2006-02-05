@@ -40,7 +40,6 @@ plugins:
     config:
       mailto:   miyagawa@example.com
       mailfrom: miyagawa@example.net
-      group_items: 1
       mailroute:
         via: smtp
         host: smtp.example.com
