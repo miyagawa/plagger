@@ -22,7 +22,7 @@ sub aggregate {
     for my $sub ($context->subscription->feeds) {
         my $url = $sub->url;
         $context->log(info => "Fetch $url");
-        my $remote = XML::Feed->parse(URI->new($url));
+        my $remote = eval { XML::Feed->parse(URI->new($url)) };
 
         unless ($remote) {
             $context->log(info => "Parsing $url failed. " . XML::Feed->errstr);
