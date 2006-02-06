@@ -26,7 +26,7 @@ sub load {
 }
 
 sub aggregate {
-    my($self, $context, $sub) = @_;
+    my($self, $context, $args) = @_;
 
     my $response = $self->{mixi}->login;
     unless ($response->is_success) {

@@ -9,11 +9,11 @@ sub new {
 }
 
 sub dispatch {
-    my($self, @args) = @_;
+    my($self, $args) = @_;
 
     my $bool = 1;
     for my $rule (@{ $self->{rules} }) {
-        $bool = 0 unless $rule->dispatch(@args); # AND mode
+        $bool = 0 unless $rule->dispatch($args); # AND mode
     }
 
     $bool;

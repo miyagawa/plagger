@@ -15,8 +15,8 @@ sub register {
 }
 
 sub add {
-    my($self, $context, $entry, $content) = @_;
-    $entry->add_widget($self);
+    my($self, $context, $args) = @_;
+    $args->{entry}->add_widget($self);
 }
 
 sub html {

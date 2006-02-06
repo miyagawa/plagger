@@ -17,9 +17,9 @@ sub register {
 }
 
 sub aggregate {
-    my($self, $context, $sub) = @_;
+    my($self, $context, $args) = @_;
 
-    my $url = $sub->url;
+    my $url = $args->{feed}->url;
     $context->log(info => "Fetch $url");
     my $remote = eval { XML::Feed->parse(URI->new($url)) };
 
@@ -30,7 +30,7 @@ sub aggregate {
 
     my $feed = Plagger::Feed->new;
     $feed->title($remote->title);
-    $feed->url($sub->url);
+    $feed->url($url);
     $feed->link($remote->link);
     $feed->description($remote->tagline);
     $feed->language($remote->language);

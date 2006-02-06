@@ -3,7 +3,7 @@ use strict;
 use base qw( Plagger::Rule );
 
 sub dispatch {
-    my($self, $feed) = @_;
+    my($self, $args) = @_;
     my $status = eval $self->{expression};
     if ($@) {
         Plagger->context->log(error => "Expression error: $@ with '$self->{expression}'");

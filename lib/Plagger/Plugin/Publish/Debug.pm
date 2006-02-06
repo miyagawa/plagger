@@ -13,8 +13,8 @@ sub register {
 }
 
 sub notify {
-    my($self, $context, $feed) = @_;
-    $context->dumper($feed);
+    my($self, $context, $args) = @_;
+    $context->dumper($args->{feed});
 }
 
 1;

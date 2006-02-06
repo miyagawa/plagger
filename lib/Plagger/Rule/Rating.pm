@@ -23,7 +23,10 @@ sub init {
 }
 
 sub dispatch {
-    my($self, $feed) = @_;
+    my($self, $args) = @_;
+
+    my $feed = $args->{feed}
+        or Plagger->context->error("No feed object in this plugin phase");
 
     my $rate = 0;
     $rate += $_->rate for $feed->entries;

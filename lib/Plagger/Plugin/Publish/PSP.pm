@@ -14,10 +14,7 @@ sub register {
 }
 
 sub notify {
-    my($self, $context, $feed) = @_;
-
-    $feed->{title} = $feed->{title} || '(no-title)';
-    $context->log(warn => "Store $feed->{title}");
+    my($self, $context, $args) = @_;
     push @{ $self->{__feeds} }, $feed;
 }
 

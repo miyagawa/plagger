@@ -19,8 +19,9 @@ sub register {
 }
 
 sub notify {
-    my($self, $context, $feed) = @_;
+    my($self, $context, $args) = @_;
 
+    my $feed = $args->{feed};
     my $subject = $feed->title || '(no-title)';
     my $body = $self->templatize($context, $feed);
 

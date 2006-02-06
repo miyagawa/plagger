@@ -86,11 +86,11 @@ sub register_hook {
 }
 
 sub run_hook {
-    my($self, $hook, @args) = @_;
+    my($self, $hook, $args) = @_;
     for my $action (@{ $self->{hooks}->{$hook} }) {
         my $plugin = $action->{plugin};
-        if ( $plugin->rule->dispatch(@args) ) {
-            $action->{callback}->($plugin, $self, @args);
+        if ( $plugin->rule->dispatch($args) ) {
+            $action->{callback}->($plugin, $self, $args);
         }
     }
 }
@@ -102,16 +102,15 @@ sub run {
 
     for my $type ($self->subscription->types) {
         for my $feed ($self->subscription->feeds_by_type($type)) {
-            $self->run_hook("aggregator.aggregate.$type", $feed);
+            $self->run_hook("aggregator.aggregate.$type", { feed => $feed });
         }
     }
 
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
-            $self->run_hook('filter.content', $entry, $entry->text);
+            $self->run_hook('filter.content', { entry => $entry, content => $entry->text });
         }
-
-        $self->run_hook('publish.notify', $feed);
+        $self->run_hook('publish.notify', { feed => $feed });
     }
 
     $self->run_hook('publish.finalize');

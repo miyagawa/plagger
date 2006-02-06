@@ -17,7 +17,7 @@ sub register {
 }
 
 sub content {
-    my($self, $context, $entry, $content) = @_;
+    my($self, $context, $args) = @_;
 
     my @urls;
     my $finder = URI::Find->new(
@@ -29,7 +29,7 @@ sub content {
             return $orig_uri;
         },
     );
-    $finder->find(\$content);
+    $finder->find(\$args->{content});
 
     my $res = Net::DNS::Resolver->new;
     my $dnsbl = $self->conf->{dnsbl};
@@ -48,7 +48,7 @@ sub content {
             if ($q && $q->answer) {
                 my $rate = $self->conf->{rate} || -1;
                 $context->log(warn => "$domain.$dns found. Add rate $rate");
-                $entry->add_rate($rate);
+                $args->{entry}->add_rate($rate);
             }
         }
     }

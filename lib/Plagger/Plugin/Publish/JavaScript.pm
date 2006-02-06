@@ -14,18 +14,18 @@ sub register {
 }
 
 sub notify {
-    my($self, $context, $feed) = @_;
+    my($self, $context, $args) = @_;
 
     my $dir = $self->conf->{dir};
     unless (-e $dir && -d _) {
         mkdir $dir, 0755 or $context->error("mkdir $dir: $!");
     }
 
-    my $file = $self->gen_filename($feed);
+    my $file = $self->gen_filename($args->{feed});
     my $path = File::Spec->catfile($dir, $file);
     $context->log(info => "writing output to $path");
 
-    my $body = $self->templatize($context, $feed);
+    my $body = $self->templatize($context, $args->{feed});
 
     open my $out, ">:utf8", $path or $context->error("$path: $!");
     print $out $body;

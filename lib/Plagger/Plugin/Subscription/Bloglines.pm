@@ -70,7 +70,7 @@ sub notifier {
 }
 
 sub sync {
-    my($self, $context, $sub) = @_;
+    my($self, $context, $args) = @_;
 
     my @updates = $self->{bloglines}->getitems(0, $self->conf->{mark_read});
     $context->log(debug => scalar(@updates) . " feed(s) updated.");
