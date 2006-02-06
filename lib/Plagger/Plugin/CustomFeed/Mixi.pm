@@ -31,6 +31,7 @@ sub aggregate {
     my $response = $self->{mixi}->login;
     unless ($response->is_success) {
         $context->log(error => "Login failed.");
+        return;
     }
 
     $context->log(info => 'Login to mixi succeed.');
@@ -46,6 +47,7 @@ sub aggregate {
     my $items = $self->conf->{fetch_items} || 20;
 
     my $i = 0;
+    my $blocked = 0;
     for my $msg (@msgs) {
         next unless $msg->{image}; # external blog
         last if $i++ >= $items;
@@ -56,7 +58,7 @@ sub aggregate {
         $entry->author( decode('euc-jp', $msg->{name}) );
         $entry->date( Plagger::Date->parse($format, $msg->{time}) );
 
-        if ($self->conf->{fetch_body}) {
+        if ($self->conf->{fetch_body} && !$blocked) {
             $context->log(info => "Fetch body from $msg->{link}");
             Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
             my($item) = $self->{mixi}->get_view_diary($msg->{link});
@@ -68,6 +70,9 @@ sub aggregate {
                     $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
                 }
                 $entry->body($body);
+            } else {
+                $context->log(warn => "Fetch body failed. You might be blocked?");
+                $blocked++;
             }
         }
 
