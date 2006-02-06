@@ -110,7 +110,7 @@ sub run {
         for my $entry ($feed->entries) {
             $self->run_hook('filter.content', { entry => $entry, content => $entry->text });
         }
-        $self->run_hook('publish.notify', { feed => $feed });
+        $self->run_hook('publish.add_feed', { feed => $feed });
     }
 
     $self->run_hook('publish.finalize');
