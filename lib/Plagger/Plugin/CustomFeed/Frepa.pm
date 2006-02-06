@@ -28,8 +28,10 @@ sub aggregate {
     my($self, $context, $args) = @_;
 
 
-    $context->log(error => "Login failed.")
-	unless $self->{frepa}->login;
+    unless ($self->{frepa}->login) {
+	$context->log(error => "Login failed.");
+        return;
+    }
 
     $context->log(info => 'Login to frepa succeed.');
 
@@ -44,6 +46,7 @@ sub aggregate {
     my $items = $self->conf->{fetch_items} || 20;
 
     my $i = 0;
+    my $blocked = 0;
     for my $msg (@msgs) {
         last if $i++ >= $items;
 
@@ -53,7 +56,7 @@ sub aggregate {
         $entry->author( decode('euc-jp', $msg->{name}) );
         $entry->date( Plagger::Date->parse($format, $msg->{time}) );
 
-        if ($self->conf->{fetch_body}) {
+        if ($self->conf->{fetch_body} && !$blocked) {
             $context->log(info => "Fetch body from $msg->{link}");
             Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
             my($item) = $self->{frepa}->get_view_diary($msg->{link});
@@ -61,6 +64,9 @@ sub aggregate {
                 my $body = decode('euc-jp', $item->{description});
                    $body =~ s!<br>!<br />!g;
                 $entry->body($body);
+            } else {
+                $context->log(warn => "Fetch body failed. You might be blocked?");
+                $blocked++;
             }
         }
 
@@ -154,7 +160,7 @@ sub list_regexp {
     return <<'RE';
 <tr class="bgwhite">
 <td width="1%" style="padding:5px 30px;" nowrap><small>(\d\d\d\d)..(\d\d)..(\d\d).. (\d\d):(\d\d)</small></td>
-<td width="99%"><img src="/img/icon/diary_fp.gif" border="0" alt=".........." title="..........">
+<td width="99%"><img src="/img/icon/diary_fp.gif" border="0" alt=".*?" title=".*?">
 <small>
 
 
