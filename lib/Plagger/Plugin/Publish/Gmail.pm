@@ -52,6 +52,7 @@ sub notify {
             $route->{host},
             User     => $route->{username},
             Password => $route->{password},
+            Port     => $route->{port} || 587,
         );
     } else {
         my @args  = $route->{host} ? ($route->{host}) : ();
@@ -67,6 +68,7 @@ sub templatize {
     }, \my $out) or $context->error($tt->error);
     $out;
 }
+
 
 # hack MIME::Lite to support TLS Authentication
 package MIME::Lite;
@@ -93,8 +95,12 @@ sub send_by_smtp_tls {
 
     ### Create SMTP TLS client:
     require Net::SMTP::TLS;
-    my $smtp = MIME::Lite::SMTP::TLS->new(@args)
-        or Carp::croak("Failed to connect to mail server: $!\n");
+    my $smtp;
+    unless ($self->{__smtp}) {
+       $smtp = MIME::Lite::SMTP::TLS->new(@args)
+           or Carp::croak("Failed to connect to mail server: $!\n");
+       $self->{__smtp} = $smtp;
+    }
     $smtp->mail($from);
     $smtp->to(@to_all);
     $smtp->data();
@@ -102,17 +108,19 @@ sub send_by_smtp_tls {
     ### MIME::Lite can print() to anything with a print() method:
     $self->print_for_smtp($smtp);
     $smtp->dataend();
+
+    1;
+}
+sub DESTORY {
+    my $self = shift;
     eval {
         local $SIG{__WARN__} = sub { };
-        $smtp->quit;
+        $self->{__smtp}->quit;
     };
-
     # known error from Gmail SMTP
     if ($@ && $@ !~ /An error occurred disconnecting from the mail server/) {
         warn $@;
     }
-
-    1;
 }
 
 package MIME::Lite::SMTP::TLS;
