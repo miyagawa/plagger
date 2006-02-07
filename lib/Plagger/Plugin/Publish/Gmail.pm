@@ -10,6 +10,8 @@ use Encode;
 use Encode::MIME::Header;
 use MIME::Lite;
 
+our %TLSConn;
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
@@ -48,12 +50,13 @@ sub notify {
 
     my $route = $cfg->{mailroute} || { via => 'smtp', host => 'localhost' };
     if ($route->{via} eq 'smtp_tls') {
-        $msg->send_by_smtp_tls(
+        $self->{tls_args} = [
             $route->{host},
             User     => $route->{username},
             Password => $route->{password},
             Port     => $route->{port} || 587,
-        );
+        ];
+        $msg->send_by_smtp_tls(@{ $self->{tls_args} });
     } else {
         my @args  = $route->{host} ? ($route->{host}) : ();
         $msg->send($route->{via}, @args);
@@ -69,6 +72,21 @@ sub templatize {
     $out;
 }
 
+sub DESTORY {
+    my $self = shift;
+    return unless $self->{tls_args};
+
+    my $conn_key = join "|", @{ $self->{tls_args} };
+    eval {
+        local $SIG{__WARN__} = sub { };
+        $TLSConn{$conn_key} && $TLSConn{$conn_key}->quit;
+    };
+
+    # known error from Gmail SMTP
+    if ($@ && $@ !~ /An error occurred disconnecting from the mail server/) {
+        warn $@;
+    }
+}
 
 # hack MIME::Lite to support TLS Authentication
 package MIME::Lite;
@@ -95,11 +113,12 @@ sub send_by_smtp_tls {
 
     ### Create SMTP TLS client:
     require Net::SMTP::TLS;
+
+    my $conn_key = join "|", @args;
     my $smtp;
-    unless ($self->{__smtp}) {
-       $smtp = MIME::Lite::SMTP::TLS->new(@args)
-           or Carp::croak("Failed to connect to mail server: $!\n");
-       $self->{__smtp} = $smtp;
+    unless ($smtp = $TLSConn{$conn_key}) {
+        $smtp = $TLSConn{$conn_key} = MIME::Lite::SMTP::TLS->new(@args)
+            or Carp::croak("Failed to connect to mail server: $!\n");
     }
     $smtp->mail($from);
     $smtp->to(@to_all);
@@ -110,17 +129,6 @@ sub send_by_smtp_tls {
     $smtp->dataend();
 
     1;
-}
-sub DESTORY {
-    my $self = shift;
-    eval {
-        local $SIG{__WARN__} = sub { };
-        $self->{__smtp}->quit;
-    };
-    # known error from Gmail SMTP
-    if ($@ && $@ !~ /An error occurred disconnecting from the mail server/) {
-        warn $@;
-    }
 }
 
 package MIME::Lite::SMTP::TLS;
