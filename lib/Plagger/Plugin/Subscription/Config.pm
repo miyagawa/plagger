@@ -2,6 +2,8 @@ package Plagger::Plugin::Subscription::Config;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Plagger::Tag;
+
 sub register {
     my($self, $context) = @_;
 
@@ -24,8 +26,7 @@ sub load {
         $feed->title($config->{title}) if $config->{title};
 
         if ($config->{tags}) {
-            require Text::Tags::Parser;
-            my @tags = Text::Tags::Parser->new->parse_tags($config->{tags});
+            my @tags = Plagger::Tag->parse($config->{tags});
             $feed->tags(\@tags);
         }
 
