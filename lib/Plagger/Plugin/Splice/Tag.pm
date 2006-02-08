@@ -21,6 +21,7 @@ sub splicer {
     my $feed = Plagger::Feed->new;
     $feed->type('spliced:tag');
     $feed->id( $self->conf->{id} || ('spliced:tag:' . join('+', @tags)) );
+    $feed->title( $self->conf->{title} || $self->gen_title($op, @tags) );
 
     for my $f ($context->update->feeds) {
         for my $entry ($f->entries) {
@@ -35,6 +36,12 @@ sub splicer {
         $context->log(info => "$op search for tag @tags: found $count entries");
         $context->update->add($feed);
     }
+}
+
+sub gen_title {
+    my($self, $op, @tags) = @_;
+    return "Entries tagged with " .
+        join(" $op ", map { qq('$_') } @tags);
 }
 
 sub match_tags {
