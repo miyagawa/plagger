@@ -44,7 +44,7 @@ sub title {
 sub id {
     my $self = shift;
     $self->{id} = shift if @_;
-    $self->{id} || Digest::MD5::md5_hex($self->url);
+    $self->{id} || Digest::MD5::md5_hex($self->url || $self->link);
 }
 
 1;
