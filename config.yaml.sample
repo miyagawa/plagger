@@ -22,13 +22,19 @@ plugins:
     config:
       url: http://example.com/mySubscription.opml
 
-- module: Subscription::Config
+  - module: Subscription::Config
     config:
       feed:
         - url:  http://bulknews.typepad.com/blog/index.rdf
           tags: tech rss atom
 
   - module: Aggregator::Simple
+
+  - module: Splice::Tag
+    config:
+      tag: perl tech
+      op: OR
+      id: perl-tech
 
   - module: Filter::URLBL
     config:

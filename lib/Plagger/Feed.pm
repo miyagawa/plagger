@@ -4,6 +4,8 @@ use strict;
 use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( link url image description language author updated tags stash type ));
 
+use Digest::MD5 qw(md5_hex);
+
 sub new {
     my $class = shift;
     bless {
@@ -37,6 +39,12 @@ sub title {
         $self->{title} = $title;
     }
     $self->{title};
+}
+
+sub id {
+    my $self = shift;
+    $self->{id} = shift if @_;
+    $self->{id} || Digest::MD5::md5_hex($self->url);
 }
 
 1;

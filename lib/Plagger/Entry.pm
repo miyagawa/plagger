@@ -9,8 +9,9 @@ use DateTime::Format::Mail;
 sub new {
     my $class = shift;
     bless {
-        rate   => 0,
+        rate    => 0,
         widgets => [],
+        tags    => [],
     }, $class;
 }
 
@@ -32,6 +33,14 @@ sub add_widget {
 sub widgets {
     my $self = shift;
     wantarray ? @{ $self->{widgets} } : $self->{widgets};
+}
+
+sub has_tag {
+    my($self, $want_tag) = @_;
+    for my $tag (@{$self->tags}) {
+        return 1 if $tag eq $want_tag;
+    }
+    return 0;
 }
 
 1;

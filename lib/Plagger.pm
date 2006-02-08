@@ -107,6 +107,8 @@ sub run {
         }
     }
 
+    $self->run_hook('update.fixup');
+
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
             $self->run_hook('filter.content', { entry => $entry, content => $entry->text });
