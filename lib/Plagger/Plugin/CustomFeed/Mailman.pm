@@ -2,7 +2,6 @@ package Plagger::Plugin::CustomFeed::Mailman;
 use strict;
 use base qw( Plagger::Plugin );
 
-use Mail::MboxParser;
 use Encode;
 use Plagger::UserAgent;
 
