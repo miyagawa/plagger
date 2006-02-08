@@ -22,6 +22,12 @@ plugins:
     config:
       url: http://example.com/mySubscription.opml
 
+- module: Subscription::Config
+    config:
+      feed:
+        - url:  http://bulknews.typepad.com/blog/index.rdf
+          tags: tech rss atom
+
   - module: Aggregator::Simple
 
   - module: Filter::URLBL
