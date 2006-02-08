@@ -15,7 +15,7 @@ sub register {
 
 sub add_feed {
     my($self, $context, $args) = @_;
-    push @{ $self->{__feeds} }, $feed;
+    push @{ $self->{__feeds} }, $args->{feed};
 }
 
 
