@@ -5,6 +5,7 @@ our $VERSION = '0.10';
 use 5.8.1;
 use Carp;
 use Data::Dumper;
+use File::Find::Rule;
 use YAML;
 use UNIVERSAL::require;
 
@@ -54,7 +55,16 @@ sub load_plugins {
     my($self, @plugins) = @_;
 
     if ($self->conf->{plugin_path}) {
-        unshift @INC, @{ $self->conf->{plugin_path} };
+        my $rule = File::Find::Rule->new;
+           $rule->file;
+           $rule->name( qr/^\w[\w\.]*$/ );
+        my @files = $rule->in(@{ $self->conf->{plugin_path} });
+
+        for my $file (@files) {
+            next if $file =~ /\W(?:\.svn|CVS)\b/;
+            eval { require $file };
+            die "loading plugin $file failed: $@" if $@;
+        }
     }
 
     for my $plugin (@plugins) {
@@ -68,7 +78,10 @@ sub load_plugin {
     my $module = delete $config->{module};
     $module =~ s/^Plagger::Plugin:://;
     $module = "Plagger::Plugin::$module";
-    $module->require or die $@;
+
+    unless ($module->isa('Plagger::Plugin')) {
+        $module->require or die $@;
+    }
 
     $self->log(info => "plugin $module loaded.");
 
