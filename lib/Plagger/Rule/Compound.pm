@@ -6,7 +6,7 @@ use List::Util qw(reduce);
 our %Ops = (
     AND  => [ sub { $_[0] && $_[1] } ],
     OR   => [ sub { $_[0] || $_[1] } ],
-    XOR  => [ sub { $_[0] xor $_[1] }, 0 ],
+    XOR  => [ sub { $_[0] xor $_[1] } ],
     NAND => [ sub { $_[0] && $_[1] }, 1 ],
     NOR  => [ sub { $_[0] || $_[1] }, 1 ],
 );
