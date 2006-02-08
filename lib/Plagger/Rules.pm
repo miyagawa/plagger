@@ -1,4 +1,4 @@
-package Plagger::Rule::Compound;
+package Plagger::Rules;
 use strict;
 
 use List::Util qw(reduce);
@@ -31,6 +31,9 @@ sub dispatch {
         next unless $rule->can_run($hook);
         push @bool, ($rule->dispatch($args) ? 1 : 0);
     }
+
+    # can't find rules for this phase: execute it
+    return 1 unless @bool;
 
     my $bool = reduce { $self->{ops_sub}->($a, $b) } @bool;
     $bool = !$bool if $self->{ops_not};

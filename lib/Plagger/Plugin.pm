@@ -2,7 +2,7 @@ package Plagger::Plugin;
 use strict;
 
 use Plagger::Rule;
-use Plagger::Rule::Compound;
+use Plagger::Rules;
 
 sub new {
     my($class, $opt) = @_;
@@ -21,7 +21,7 @@ sub init {
     if (my $rule = $self->{rule}) {
         $rule = [ $rule ] if ref($rule) eq 'HASH';
         my $op = $self->{rule_op};
-        $self->{rule} = Plagger::Rule::Compound->new($op, @$rule);
+        $self->{rule} = Plagger::Rules->new($op, @$rule);
     } else {
         $self->{rule} = Plagger::Rule->new({ module => 'Always' });
     }
