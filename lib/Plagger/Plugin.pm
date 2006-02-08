@@ -9,6 +9,7 @@ sub new {
     my $self = bless {
         conf => $opt->{config} || {},
         rule => $opt->{rule},
+        rule_op => $opt->{rule_op} || 'AND',
         stash => {},
     }, $class;
     $self->init();
@@ -19,7 +20,8 @@ sub init {
     my $self = shift;
     if (my $rule = $self->{rule}) {
         $rule = [ $rule ] if ref($rule) eq 'HASH';
-        $self->{rule} = Plagger::Rule::Compound->new(@$rule);
+        my $op = $self->{rule_op};
+        $self->{rule} = Plagger::Rule::Compound->new($op, @$rule);
     } else {
         $self->{rule} = Plagger::Rule->new({ module => 'Always' });
     }
