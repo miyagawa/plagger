@@ -24,10 +24,11 @@ sub new {
 }
 
 sub dispatch {
-    my($self, $args) = @_;
+    my($self, $hook, $args) = @_;
 
     my @bool;
     for my $rule (@{ $self->{rules} }) {
+        next unless $rule->can_run($hook);
         push @bool, ($rule->dispatch($args) ? 1 : 0);
     }
 

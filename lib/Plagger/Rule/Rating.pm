@@ -22,6 +22,8 @@ sub init {
     $self->{dispatcher} = sub { $ops{$op}->($_[0], $value) };
 }
 
+sub hooks { [ 'publish.add_feed' ] }
+
 sub dispatch {
     my($self, $args) = @_;
 

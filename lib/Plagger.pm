@@ -18,6 +18,12 @@ use Plagger::Subscription;
 use Plagger::Template;
 use Plagger::Update;
 
+sub active_hooks {
+    my $self = shift;
+    my @hooks= keys %{$self->{hooks}};
+    wantarray ? @hooks : \@hooks;
+}
+
 sub context { undef }
 
 sub bootstrap {
@@ -84,7 +90,7 @@ sub run_hook {
     my($self, $hook, $args) = @_;
     for my $action (@{ $self->{hooks}->{$hook} }) {
         my $plugin = $action->{plugin};
-        if ( $plugin->rule->dispatch($args) ) {
+        if ( $plugin->rule->dispatch($hook, $args) ) {
             $action->{callback}->($plugin, $self, $args);
         }
     }
