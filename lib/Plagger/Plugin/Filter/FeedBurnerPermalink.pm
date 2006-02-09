@@ -23,7 +23,7 @@ sub filter {
 sub feedburner_filter {
     my($self, $context, $entry) = @_;
 
-    if ($entry->link =~ m!^http://feeds\.feedburner\.com/!) {
+    if ($entry->link =~ m!^http://feeds\.feedburner\.(com|jp)/!) {
         $entry->permalink( $entry->id );
     }
 }
