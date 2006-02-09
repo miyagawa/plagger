@@ -15,7 +15,7 @@ Link: <a href="[% link | html %]">[% link | html %]</a><br />
 [% IF entry.body -%]
 [% IF entry.body.match('(?i)^<p[ >]') %][% entry.body %][% ELSE %]<div style="padding: 1em 0">[% entry.body %]</div>[% END %]
 [% ELSE %]<br />[% END %]
-<div style="font-size:0.8em">[% IF entry.date %]Posted on [% entry.date.format('Mail') %][% END %] | <a href="[% link | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% FOREACH widget = entry.widgets %] | [% widget.html(entry) %][% END %]<br clear="all" /></div>
+<div style="font-size:0.8em">[% IF entry.date %]Posted on [% entry.date.format('Mail') %][% END %] | <a href="[% entry.permalink | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% FOREACH widget = entry.widgets %] | [% widget.html(entry) %][% END %]<br clear="all" /></div>
 </div>
 [% UNLESS loop.last %]<hr />[% END %]
 [%- END %]

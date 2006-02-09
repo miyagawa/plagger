@@ -24,7 +24,7 @@ sub html {
     my $uri = URI->new('http://del.icio.us/' . $self->conf->{username});
     $uri->query_form(
         v => 3,
-        url => $entry->link,
+        url => $entry->permalink,
         title => encode('utf-8', $entry->title),
     );
 

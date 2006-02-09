@@ -26,8 +26,7 @@ sub splicer {
     for my $f ($context->update->feeds) {
         for my $entry ($f->entries) {
             if ($self->match_tags($op, $entry, \@tags)) {
-                # xxx don't we have to clone it?
-                $feed->add_entry($entry);
+                $feed->add_entry($entry->clone);
             }
         }
     }

@@ -22,7 +22,7 @@ sub add {
 sub html {
     my($self, $entry) = @_;
     my $uri = URI->new('http://b.hatena.ne.jp/append');
-    $uri->query($entry->link);
+    $uri->query($entry->permalink);
 
     my $url = HTML::Entities::encode($uri->as_string);
     return qq(<a href="$url"><img src="http://b.hatena.ne.jp/images/append.gif" alt="Post to Hatena Bookmark" style="border:0;vertical-align:middle" /></a>);

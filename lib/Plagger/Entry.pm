@@ -5,6 +5,7 @@ use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate ));
 
 use DateTime::Format::Mail;
+use Storable;
 
 sub new {
     my $class = shift;
@@ -41,6 +42,18 @@ sub has_tag {
         return 1 if $tag eq $want_tag;
     }
     return 0;
+}
+
+sub permalink {
+    my $self = shift;
+    $self->{permalink} = shift if @_;
+    $self->{permalink} || $self->link;
+}
+
+sub clone {
+    my $self = shift;
+    my $clone = Storable::dclone($self);
+    $clone;
 }
 
 1;
