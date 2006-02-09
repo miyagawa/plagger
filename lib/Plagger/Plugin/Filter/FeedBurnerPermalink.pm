@@ -1,4 +1,4 @@
-package Plagger::Plugin::Filter::FeedBurner;
+package Plagger::Plugin::Filter::FeedBurnerPermalink;
 use strict;
 use base qw( Plagger::Plugin );
 
