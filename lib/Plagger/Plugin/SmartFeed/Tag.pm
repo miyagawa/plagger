@@ -1,4 +1,4 @@
-package Plagger::Plugin::Splice::Tag;
+package Plagger::Plugin::SmartFeed::Tag;
 use strict;
 use base qw( Plagger::Plugin );
 
@@ -8,19 +8,19 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'update.fixup' => \&splicer,
+        'update.fixup' => \&fixup,
     );
 }
 
-sub splicer {
+sub fixup {
     my($self, $context) = @_;
 
     my @tags = Plagger::Tag->parse($self->conf->{tag});
     my $op   = $self->conf->{op} || 'AND';
 
     my $feed = Plagger::Feed->new;
-    $feed->type('spliced:tag');
-    $feed->id( $self->conf->{id} || ('spliced:tag:' . join('+', @tags)) );
+    $feed->type('smartfeed:tag');
+    $feed->id( $self->conf->{id} || ('smartfeed:tag:' . join('+', @tags)) );
     $feed->title( $self->conf->{title} || $self->gen_title($op, @tags) );
 
     for my $f ($context->update->feeds) {

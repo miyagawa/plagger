@@ -30,7 +30,7 @@ plugins:
 
   - module: Aggregator::Simple
 
-  - module: Splice::Tag
+  - module: SmartFeed::Tag
     config:
       tag: perl tech
       op: OR
