@@ -37,6 +37,10 @@ sub aggregate {
     $feed->author($remote->author);
     $feed->updated($remote->modified);
 
+    if ($remote->format eq 'Atom') {
+        $feed->id( $remote->{atom}->id );
+    }
+
     for my $e ($remote->entries) {
         my $entry = Plagger::Entry->new;
         $entry->title($e->title);

@@ -35,10 +35,11 @@ sub add_feed {
 my %formats = (
     'u' => sub { my $s = $_[0]->url;  $s =~ s!^https?://!!; $s },
     'l' => sub { my $s = $_[0]->link; $s =~ s!^https?://!!; $s },
-    't' => sub { $_[0]->title }
+    't' => sub { $_[0]->title },
+    'i' => sub { $_[0]->id },
 );
 
-my $format_re = qr/%(u|l|t)/;
+my $format_re = qr/%(u|l|t|i)/;
 
 sub gen_filename {
     my($self, $feed) = @_;
