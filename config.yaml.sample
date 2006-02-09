@@ -56,3 +56,16 @@ plugins:
         via: smtp
         host: smtp.example.com
 
+  - module: Publish::CHTML
+    rule:
+      - module: FeedAttr
+        attrs:
+            name: type
+            op: NOR
+            value:
+              - mixi
+              - frepa
+    config:
+      work: /home/yappo/plagger/chtml
+      title: Plagger for Mobile
+      mobile_gw: http://bp.to/login.php?anonymous=on&url=

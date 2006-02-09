@@ -1,0 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD Compact HTML 1.0 Draft//EN">
+<html><head><title>[% conf.title | html %]</title></head>
+<body>
+[% conf.title | html %]<br>
+<hr size="1">
+[% FOREACH feed = feeds -%]
+&gt;<a href="[% feed.feed_link | html %]">[% feed.title %]</a>([% feed.count %])<br>
++ [% feed.lastdate.format('Mail') %]
+[% UNLESS loop.last %]<hr size="1" width="50%">[% END %]
+[%- END %]
+[% IF earlier %]<hr size="1"><a href="./[% earlier %].html">&lt; earlier</a><br>[% END %]
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD Compact HTML 1.0 Draft//EN">
+<html><head><title>[% feed.title %]</title></head>
+<body>
+[% feed.title %]<br>
+<hr size="1">
+[% FOREACH entry = feed.entries -%]
+&gt;<a href="[% entry.feed2entry_link | html %]">[% (entry.title || '(no-title)') | html %]</a>
+[% IF entry.date %]<br>+ [% entry.date.format('Mail') %][% END %]
+[% IF entry.author %]<br>by [% entry.author | html %][% END %]
+[% UNLESS loop.last %]<hr size="1" width="50%">[% END %]
+[%- END %]
+<hr size="1">
+[% IF earlier %]<a href="./[% earlier %].html">&lt; earlier</a><br>[% END %]
+<a href="../../">top</a>
+</body>
+</html>
