@@ -79,6 +79,7 @@ sub sync {
         my $source = $update->feed;
 
         my $feed = Plagger::Feed->new;
+        $feed->type('bloglines');
         $feed->title($source->{title});
         $feed->link($source->{link});
         $feed->image($source->{image});
