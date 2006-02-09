@@ -10,7 +10,7 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'filter.content' => \&add,
+        'entry.fixup' => \&add,
     );
 }
 

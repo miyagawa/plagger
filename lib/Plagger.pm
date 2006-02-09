@@ -124,7 +124,7 @@ sub run {
 
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
-            $self->run_hook('filter.content', { entry => $entry, content => $entry->text });
+            $self->run_hook('entry.fixup', { entry => $entry, content => $entry->text });
         }
         $self->run_hook('publish.add_feed', { feed => $feed });
     }
