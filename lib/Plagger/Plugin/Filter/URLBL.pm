@@ -12,12 +12,22 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'filter.content' => \&content,
+        'update.fixup' => \&filter,
     );
 }
 
-sub content {
+sub filter {
     my($self, $context, $args) = @_;
+
+    for my $feed ($context->update->feeds) {
+        for my $entry ($feed->entries) {
+            $self->urlbl_filter($context, $entry);
+        }
+    }
+}
+
+sub urlbl_filter {
+    my($self, $context, $entry) = @_;
 
     my @urls;
     my $finder = URI::Find->new(
@@ -29,7 +39,9 @@ sub content {
             return $orig_uri;
         },
     );
-    $finder->find(\$args->{content});
+
+    my $content = $entry->text;
+    $finder->find(\$content);
 
     my $res = Net::DNS::Resolver->new;
     my $dnsbl = $self->conf->{dnsbl};
@@ -48,7 +60,7 @@ sub content {
             if ($q && $q->answer) {
                 my $rate = $self->conf->{rate} || -1;
                 $context->log(warn => "$domain.$dns found. Add rate $rate");
-                $args->{entry}->add_rate($rate);
+                $entry->add_rate($rate);
             }
         }
     }
