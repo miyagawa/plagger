@@ -6,7 +6,7 @@
 </head>
 <body>
 [% FOREACH feed = feeds %]
-[% IF feed.image %]<a href="[% feed.image.link %]"><img src="[% feed.image.url | html %]" alt="[% feed.image.title | html %]" /></a>[% END %]
+[% IF feed.image %]<a href="[% feed.link %]"><img src="[% feed.image.url | html %]" alt="[% feed.title | html %]" /></a>[% END %]
 [% FOREACH item = feed.entries %]
 <h1>[% item.title %]</h1>
 <div>

@@ -41,6 +41,14 @@ sub aggregate {
         $feed->id( $remote->{atom}->id );
     }
 
+    if ($remote->format =~ /^RSS/) {
+        $feed->image( $remote->{rss}->image )
+            if $remote->{rss}->image;
+    } elsif ($remote->format eq 'Atom') {
+        $feed->image({ url => $remote->{atom}->logo })
+            if $remote->{atom}->logo;
+    }
+
     for my $e ($remote->entries) {
         my $entry = Plagger::Entry->new;
         $entry->title($e->title);
