@@ -32,7 +32,6 @@ sub update {
 sub entry {
     my($self, $context, $args) = @_;
     return unless $self->map;
-    $self->map->{$args->{entry}->permalink} = 0;
     $args->{entry}->add_widget($self) if $self->map->{$args->{entry}->permalink};
 }
 
