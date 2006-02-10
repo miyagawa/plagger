@@ -45,6 +45,16 @@ plugins:
     config:
       username: miyagawa
 
+  - module: Widget::HatenaBookmarkUsersCount
+    rule:
+      - module: FeedAttr
+        attrs:
+          name: type
+          op: NOR
+          value:
+            - mixi
+            - frepa
+
   - module: Publish::Gmail
     rule:
       - module: Rating
