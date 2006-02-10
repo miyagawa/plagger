@@ -120,11 +120,18 @@ sub run {
         }
     }
 
+    for my $feed ($self->update->feeds) {
+        for my $entry ($feed->entries) {
+            $self->run_hook('update.entry.fixup', { feed => $feed, entry => $entry });
+        }
+        $self->run_hook('update.feed.fixup', { feed => $feed });
+    }
+
     $self->run_hook('update.fixup');
 
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
-            $self->run_hook('entry.fixup', { feed => $feed, entry => $entry, content => $entry->text });
+            $self->run_hook('publish.entry.fixup', { feed => $feed, entry => $entry });
         }
         $self->run_hook('publish.add_feed', { feed => $feed });
     }

@@ -10,7 +10,7 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'entry.fixup' => \&add,
+        'publish.entry.fixup' => \&add,
     );
 }
 
