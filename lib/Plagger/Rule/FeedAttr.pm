@@ -40,7 +40,7 @@ sub init {
     }
 }
 
-sub hooks { [ 'publish.add_feed' ] }
+sub hooks { [ 'publish.add_feed', 'entry.fixup' ] }
 
 sub dispatch {
     my($self, $args) = @_;
