@@ -20,8 +20,6 @@ sub init {
     }
 }
 
-sub hooks { [ 'publish.add_feed' ] }
-
 sub dispatch {
     my($self, $args) = @_;
 

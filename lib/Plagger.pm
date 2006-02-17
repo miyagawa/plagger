@@ -111,6 +111,9 @@ sub load_plugin {
 sub register_hook {
     my($self, $plugin, @hooks) = @_;
     while (my($hook, $callback) = splice @hooks, 0, 2) {
+        # set default rule_hook $hook to $plugin
+        $plugin->rule_hook($hook) unless $plugin->rule_hook;
+
         push @{ $self->{hooks}->{$hook} }, +{
             callback  => $callback,
             plugin    => $plugin,
@@ -122,7 +125,7 @@ sub run_hook {
     my($self, $hook, $args) = @_;
     for my $action (@{ $self->{hooks}->{$hook} }) {
         my $plugin = $action->{plugin};
-        if ( $plugin->rule->dispatch($hook, $args) ) {
+        if ( $plugin->rule->dispatch($plugin, $hook, $args) ) {
             $action->{callback}->($plugin, $self, $args);
         }
     }

@@ -18,8 +18,6 @@ sub init {
     Plagger->context->error("Can't parse crontab : $@") if $@;
 }
 
-sub hooks { Plagger->context->active_hooks }
-
 sub dispatch {
     my($self, $args) = @_;
     $self->{cron_valid};

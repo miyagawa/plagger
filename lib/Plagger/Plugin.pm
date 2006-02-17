@@ -30,4 +30,11 @@ sub init {
 sub conf { $_[0]->{conf} }
 sub rule { $_[0]->{rule} }
 
+sub rule_hook { '' }
+
+sub dispatch_rule_on {
+    my($self, $hook) = @_;
+    $self->rule_hook eq $hook;
+}
+
 1;
