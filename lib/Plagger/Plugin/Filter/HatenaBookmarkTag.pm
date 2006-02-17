@@ -19,7 +19,7 @@ sub update {
     my($self, $context, $args) = @_;
 
     # xxx need cache & interval
-    my $url  = 'http://b.hatena.ne.jp/entry/rss/' . $entry->permalink;
+    my $url  = 'http://b.hatena.ne.jp/entry/rss/' . $args->{entry}->permalink;
     my $feed = XML::Feed->parse( URI->new($url) );
 
     unless ($feed) {
@@ -32,7 +32,7 @@ sub update {
         $tag = [ $tag ] unless ref($tag);
 
         for my $t (@{$tag}) {
-            $entry->add_tag($t);
+            $args->{entry}->add_tag($t);
         }
     }
 }
