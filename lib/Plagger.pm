@@ -10,7 +10,7 @@ use YAML;
 use UNIVERSAL::require;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors( qw(conf stash update subscription plugins_path) );
+__PACKAGE__->mk_accessors( qw(conf update subscription plugins_path) );
 
 use Plagger::Date;
 use Plagger::Entry;
@@ -32,7 +32,6 @@ sub bootstrap {
 
     my $self = bless {
         conf  => {},
-        stash => {},
         update => Plagger::Update->new,
         subscription => Plagger::Subscription->new,
         plugins_path => {},

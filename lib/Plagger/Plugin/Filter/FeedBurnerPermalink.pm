@@ -6,25 +6,16 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'update.fixup' => \&filter,
+        'update.entry.fixup' => \&filter,
     );
 }
 
 sub filter {
     my($self, $context, $args) = @_;
 
-    for my $feed ($context->update->feeds) {
-        for my $entry ($feed->entries) {
-            $self->feedburner_filter($context, $entry);
-        }
-    }
-}
-
-sub feedburner_filter {
-    my($self, $context, $entry) = @_;
-
+    my $entry = $args->{entry};
     if ($entry->link =~ m!^http://feeds\.feedburner\.(com|jp)/!) {
-        $entry->permalink( $entry->id );
+        $entry->permalink( $entry->id . "" ); # stringify guid
     }
 }
 

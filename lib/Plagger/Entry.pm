@@ -2,7 +2,7 @@ package Plagger::Entry;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate ));
+__PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate  meta));
 
 use DateTime::Format::Mail;
 use Storable;
@@ -13,6 +13,7 @@ sub new {
         rate    => 0,
         widgets => [],
         tags    => [],
+        meta    => {},
     }, $class;
 }
 

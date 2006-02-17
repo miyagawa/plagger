@@ -10,7 +10,7 @@ sub new {
         conf => $opt->{config} || {},
         rule => $opt->{rule},
         rule_op => $opt->{rule_op} || 'AND',
-        stash => {},
+        meta => {},
     }, $class;
     $self->init();
     $self;

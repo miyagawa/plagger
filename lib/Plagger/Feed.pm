@@ -2,14 +2,14 @@ package Plagger::Feed;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( link url image description language author updated tags stash type ));
+__PACKAGE__->mk_accessors(qw( link url image description language author updated tags meta type ));
 
 use Digest::MD5 qw(md5_hex);
 
 sub new {
     my $class = shift;
     bless {
-        stash => {},
+        meta  => {},
         tags  => [],
         entries => [],
         type  => 'feed',
