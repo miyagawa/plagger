@@ -45,6 +45,12 @@ sub has_tag {
     return 0;
 }
 
+sub add_tag {
+    my($self, $tag) = @_;
+    push @{$self->tags}, $tag
+        unless $self->has_tag($tag);
+}
+
 sub permalink {
     my $self = shift;
     $self->{permalink} = shift if @_;
