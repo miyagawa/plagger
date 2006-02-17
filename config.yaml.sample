@@ -25,21 +25,27 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - url:  http://bulknews.typepad.com/blog/index.rdf
-          tags: tech rss atom
+        - url: http://bulknews.typepad.com/blog/index.rdf
+          tag: tech rss atom
 
   - module: Aggregator::Simple
 
-  - module: SmartFeed::Tag
+  - module: SmartFeed
     config:
+      id: perl-tech
+    rule:
+      module: EntryTag
       tag: perl tech
       op: OR
-      id: perl-tech
+
+  - module: Filter::FeedBurnerPermalink
 
   - module: Filter::URLBL
     config:
       dnsbl: rbl.bulkfeeds.jp
       rate:  -1
+
+  - module: Filter::HatenaBookmarkUsersCount
 
   - module: Widget::Delicious
     config:
@@ -60,8 +66,8 @@ plugins:
       - module: Rating
         rate:   '>= 0'
     config:
-      mailto:   miyagawa@example.com
-      mailfrom: miyagawa@example.net
+      mailto:   example@gmail.com
+      mailfrom: miyagawa@example.com
       mailroute:
         via: smtp
         host: smtp.example.com
