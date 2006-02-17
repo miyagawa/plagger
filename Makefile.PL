@@ -1,6 +1,6 @@
 use inc::Module::Install;
 
-name('plagger');
+name('Plagger');
 all_from('lib/Plagger.pm');
 requires(YAML => 0.39);
 build_requires(Test::More => 0.42);
