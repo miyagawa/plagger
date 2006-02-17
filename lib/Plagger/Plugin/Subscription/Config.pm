@@ -25,9 +25,11 @@ sub load {
         $feed->link($config->{link})   if $config->{link};
         $feed->title($config->{title}) if $config->{title};
 
-        if ($config->{tags}) {
-            my @tags = Plagger::Tag->parse($config->{tags});
-            $feed->tags(\@tags);
+        if (my $tags = $config->{tag}) {
+            unless (ref $tags) {
+                $tags = [ Plagger::Tag->parse($config->{tag}) ];
+            }
+            $feed->tags($tags);
         }
 
         $context->subscription->add($feed);
