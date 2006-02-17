@@ -1,6 +1,6 @@
 package Plagger;
 use strict;
-our $VERSION = '0.10';
+our $VERSION = '0.5.0';
 
 use 5.8.1;
 use Carp;
@@ -201,15 +201,19 @@ Plagger - Pluggable RSS/Atom Aggregator
 
 =head1 SYNOPSIS
 
-  use Plagger;
+  % plagger
 
 =head1 DESCRIPTION
 
-Plagger is a pluggable RSS/Atom feed aggregator.
+Plagger is a pluggable RSS/Atom feed aggregator. See
+L<http://plagger.org/> for the latest code, development community and
+bug tracking.
 
 =head1 AUTHOR
 
 Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
+
+See I<AUTHORS> file for the name of all the contributors.
 
 =head1 COPYRIGHT
 
@@ -218,6 +222,6 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<http://plagger.bulknews.net/>
+L<http://plagger.org/>
 
 =cut
