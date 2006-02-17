@@ -29,4 +29,14 @@ sub dispatch {
     Plagger::Operator->call($self->{op}, @bool);
 }
 
+sub id {
+    my $self = shift;
+    join '|', map $_->id, @{$self->{rules}};
+}
+
+sub as_title {
+    my $self = shift;
+    join " $self->{op} ", map $_->as_title, @{$self->{rules}};
+}
+
 1;

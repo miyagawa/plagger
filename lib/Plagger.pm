@@ -150,6 +150,13 @@ sub run {
 
     $self->run_hook('update.fixup');
 
+    $self->run_hook('smartfeed.init');
+    for my $feed ($self->update->feeds) {
+        for my $entry ($feed->entries) {
+            $self->run_hook('smartfeed.entry', { feed => $feed, entry => $entry });
+        }
+    }
+
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
             $self->run_hook('publish.entry.fixup', { feed => $feed, entry => $entry });

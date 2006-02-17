@@ -20,4 +20,14 @@ sub new {
 
 sub init { }
 
+sub id {
+    my $self = shift;
+    "xxx";
+}
+
+sub as_title {
+    my $self = shift;
+    "xxx";
+}
+
 1;
