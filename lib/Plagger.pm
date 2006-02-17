@@ -10,7 +10,7 @@ use YAML;
 use UNIVERSAL::require;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors( qw(conf stash update subscription) );
+__PACKAGE__->mk_accessors( qw(conf stash update subscription plugins_path) );
 
 use Plagger::Date;
 use Plagger::Entry;
@@ -35,6 +35,7 @@ sub bootstrap {
         stash => {},
         update => Plagger::Update->new,
         subscription => Plagger::Subscription->new,
+        plugins_path => {},
     }, $class;
 
     my $config;
@@ -55,21 +56,37 @@ sub load_plugins {
     my($self, @plugins) = @_;
 
     if ($self->conf->{plugin_path}) {
-        my $rule = File::Find::Rule->new;
-           $rule->file;
-           $rule->name( qr/^\w[\w\.]*$/ );
-        my @files = $rule->in(@{ $self->conf->{plugin_path} });
+        for my $path (@{ $self->conf->{plugin_path} }) {
+            my $rule = File::Find::Rule->new;
+               $rule->file;
+               $rule->name( qr/^\w[\w\.]*$/ );
+            my @files = $rule->in($path);
 
-        for my $file (@files) {
-            next if $file =~ /\W(?:\.svn|CVS)\b/;
-            eval { require $file };
-            die "loading plugin $file failed: $@" if $@;
+            for my $file (@files) {
+                next if $file =~ /\W(?:\.svn|CVS)\b/;
+                my $pkg = $self->extract_package($file)
+                    or die "Can't find package from $file";
+
+                (my $base = $file) =~ s!^$path/!!;
+                $self->plugins_path->{$pkg} = $file;
+            }
         }
     }
 
     for my $plugin (@plugins) {
         $self->load_plugin($plugin) unless $plugin->{disable};
     }
+}
+
+sub extract_package {
+    my($self, $file) = @_;
+
+    open my $fh, $file or die "$file: $!";
+    while (<$fh>) {
+        /^package (Plagger::Plugin::.*?);/ and return $1;
+    }
+
+    return;
 }
 
 sub load_plugin {
@@ -79,7 +96,9 @@ sub load_plugin {
     $module =~ s/^Plagger::Plugin:://;
     $module = "Plagger::Plugin::$module";
 
-    unless ($module->isa('Plagger::Plugin')) {
+    if (my $path = $self->plugins_path->{$module}) {
+        eval { require $path } or die $@;
+    } else {
         $module->require or die $@;
     }
 
