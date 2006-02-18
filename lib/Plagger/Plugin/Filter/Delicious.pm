@@ -2,7 +2,7 @@ package Plagger::Plugin::Filter::Delicious;
 use strict;
 use base qw( Plagger::Plugin );
 
-# NOTE this module is untested and wrote just for a proof of
+# NOTE this module is untested and written just for a proof of
 # concept. If you run this on your box with real feeds, del.icio.us
 # wlil be likely to ban your IP. See http://del.icio.us/help/ for
 # details.
