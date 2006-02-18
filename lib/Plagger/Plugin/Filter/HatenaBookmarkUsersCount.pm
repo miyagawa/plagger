@@ -17,15 +17,19 @@ sub update {
 
     my @permalink = map $_->permalink, $args->{feed}->entries;
 
+    $context->log(info => 'Requesting XMLRPC call to Hatena Bookmark with ' . scalar(@permalink) . ' link(s)');
+
     my $map = XMLRPC::Lite
-        -> proxy('http://b.hatena.ne.jp/xmlrpc')
-        -> call('bookmark.getCount', @permalink)
-        -> result;
+        ->proxy('http://b.hatena.ne.jp/xmlrpc')
+        ->call('bookmark.getCount', @permalink)
+        ->result;
 
     unless ($map) {
         $context->log(warn => 'Hatena Bookmark XMLRPC failed');
         return;
     }
+
+    $context->log(info => 'XMLRPC request success.');
 
     for my $entry ($args->{feed}->entries) {
         if (defined(my $count = $map->{$entry->permalink})) {
