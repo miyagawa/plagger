@@ -2,6 +2,8 @@ package Plagger::Plugin::CustomFeed::Mailman;
 use strict;
 use base qw( Plagger::Plugin );
 
+use List::Util qw(min);
+use DateTime::Locale;
 use Encode;
 use Plagger::UserAgent;
 
@@ -59,28 +61,39 @@ sub aggregate {
     }
 
     my $year  = $now->year;
-    my $title = ($content =~ /<title>(.*?) $year/)[0]; # xxx hack
+
+    # TODO: only tested with ja and en localization
+    my $month = join '|', @{ DateTime::Locale->load('en_us')->month_names };
+    my $title = ($content =~ /<title>(?:The )?(.*?) (?:(?:$month) )?$year/)[0];
 
     my $feed = Plagger::Feed->new;
     $feed->type('mailman');
     $feed->title($title);
     $feed->link($self->conf->{url}); # base
 
-    my $i = 0;
-    my $items = $self->conf->{fetch_items} || 20;
+    my @matches;
     while ($content =~ m!<LI><A HREF="(\d+\.html)">(.*?)\n</A><A NAME="(\d+)">&nbsp;</A>\n<I>(.*?)\n</I>!g) {
-        last if $i++ >= $items;
+        push @matches, {
+            link    => $1,
+            subject => $2,
+            id      => $3,
+            from    => $4,
+        };
+    }
 
-        my($link, $subject, $id, $from) = ($1, $2, $3, $4);
+    my $items = min( $self->conf->{fetch_items} || 20, scalar(@matches));
+    @matches  = reverse @matches[-$items .. -1];
+
+    for my $match (@matches) {
         if ($self->conf->{trim_prefix}) {
             # don't use $id here. Some Re: messages contain original ID
-            $subject =~ s/\[$title \d+\]\s+//;
+            $match->{subject} =~ s/\[$title \d+\]\s+//;
         }
 
         my $entry = Plagger::Entry->new;
-        $entry->title($subject);
-        $entry->link($base_url . $link);
-        $entry->author($from);
+        $entry->title($match->{subject});
+        $entry->link($base_url . $match->{link});
+        $entry->author($match->{from});
 
         $feed->add_entry($entry);
     }
