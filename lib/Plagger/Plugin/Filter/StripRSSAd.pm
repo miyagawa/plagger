@@ -20,7 +20,7 @@ sub filter {
     my($self, $body) = @_;
 
     # rssad.jp
-    $body =~ s!<br/><a href="http://rss\.rssad\.jp/rss/ad/.*?" target="_blank"><img .* src="http://rss\.rssad\.jp/rss/img/.*" border="0"/></a><br/>\n?!!;
+    $body =~ s!<br clear="all" /><a href="http://rss\.rssad\.jp/rss/ad/.*?" target="_blank"><img .*? src="http://rss\.rssad\.jp/rss/img/.*?" border="0"/></a><br/>!!;
 
     # Google AdSense for Feeds
     $body =~ s!<p><map name="google_ad_map_\d+\-\d+"><area.*?></map><img usemap="#google_ad_map_\d+-\d+" border="0" src="http://imageads\.googleadservices\.com/pagead/ads\?.*?" /></p>!!;
