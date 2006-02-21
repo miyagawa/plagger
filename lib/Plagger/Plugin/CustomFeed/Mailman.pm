@@ -85,10 +85,7 @@ sub aggregate {
     @matches  = reverse @matches[-$items .. -1];
 
     for my $match (@matches) {
-        if ($self->conf->{trim_prefix}) {
-            # don't use $id here. Some Re: messages contain original ID
-            $match->{subject} =~ s/\[$title \d+\]\s+//;
-        }
+        $match->{subject} =~ s/\[$title \d+\]\s+//;
 
         my $entry = Plagger::Entry->new;
         $entry->title($match->{subject});
