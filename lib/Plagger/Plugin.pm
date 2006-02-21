@@ -10,6 +10,7 @@ sub new {
         conf => $opt->{config} || {},
         rule => $opt->{rule},
         rule_op => $opt->{rule_op} || 'AND',
+        rule_hook => '',
         meta => {},
     }, $class;
     $self->init();
@@ -30,11 +31,15 @@ sub init {
 sub conf { $_[0]->{conf} }
 sub rule { $_[0]->{rule} }
 
-sub rule_hook { '' }
+sub rule_hook {
+    my $self = shift;
+    $self->{rule_hook} = shift if @_;
+    $self->{rule_hook};
+}
 
 sub dispatch_rule_on {
     my($self, $hook) = @_;
-    $self->rule_hook eq $hook;
+    $self->rule_hook && $self->rule_hook eq $hook;
 }
 
 1;
