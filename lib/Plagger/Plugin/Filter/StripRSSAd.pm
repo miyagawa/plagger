@@ -29,3 +29,29 @@ sub filter {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Filter::StripRSSAd - Strip RSS Ads from feed content
+
+=head1 SYNOPSIS
+
+  - module: Filter::StripRSSAd
+
+=head1 DESCRIPTION
+
+This plugin strips RSS context based ads from feed content, like
+Google AdSense or rssad.jp. It uses quick regular expression to strip
+the images and map tags.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa, Masahiro Nagano
+
+=head1 SEE ALSO
+
+L<Plagger>
+
+=cut
