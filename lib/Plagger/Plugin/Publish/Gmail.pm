@@ -16,7 +16,7 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.add_feed' => \&notify,
+        'publish.feed' => \&notify,
     );
 }
 

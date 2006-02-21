@@ -10,7 +10,7 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.add_feed' => \&feed,
+        'publish.feed' => \&feed,
         'publish.finalize' => \&finalize,
     );
     $self->chtml_init($context);

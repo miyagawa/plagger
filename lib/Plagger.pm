@@ -161,7 +161,7 @@ sub run {
         for my $entry ($feed->entries) {
             $self->run_hook('publish.entry.fixup', { feed => $feed, entry => $entry });
         }
-        $self->run_hook('publish.add_feed', { feed => $feed });
+        $self->run_hook('publish.feed', { feed => $feed });
     }
 
     $self->run_hook('publish.finalize');

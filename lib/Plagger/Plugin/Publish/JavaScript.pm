@@ -9,11 +9,11 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.add_feed' => \&add_feed,
+        'publish.feed' => \&feed,
     );
 }
 
-sub add_feed {
+sub feed {
     my($self, $context, $args) = @_;
 
     my $dir = $self->conf->{dir};
