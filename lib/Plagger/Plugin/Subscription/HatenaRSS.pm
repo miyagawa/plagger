@@ -32,8 +32,9 @@ sub load {
         },
     );
 
-    if ( $mech->content =~ m!<div class="erorr">! ) {
+    if ( $mech->content =~ m!<div class="error">! ) {
         $context->log(error => "Login to HatenaRSS failed.");
+        return;
     }
 
     $context->log(info => "Login to HatenaRSS succeed.");
