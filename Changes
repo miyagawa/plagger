@@ -1,4 +1,19 @@
-Revision history for Perl extension Plagger
+The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
-0.01  Thu Feb  2 06:34:10 2006
-	- original version
+== 0.5.2 (2006/02/22) ==
+
+ * Added Subscription::HatenaRSS plugin to fetch subscription from Hatena RSS (http://r.hatena.ne.jp/)
+ * Added Subscription::Odeo plugin to fetch subscription from Odeo (http://www.odeo.com/): #43
+ * Added Publish::IRC plugin to notify updates to IRC channel: #46 (Masayoshi Sekimura)
+ * Fixed critical bug that Rule::Expression is broken: #51
+ * Fixed Mailman CustomFeed bug around English localization: #49
+ * Added Filter::RSSStripAd plugin to strip ads of Google AdSense or RssAd.jp: #33
+
+== 0.5.1 (2006/02/17) ==
+ 
+ * Updated package name from "plagger" to "Plagger"
+ * Fixed MANIFEST problem that doesn't contain "config.yaml.sample"
+
+== 0.5.0 (2006/02/17) ==
+
+ * First release
