@@ -36,14 +36,7 @@ sub load {
     $context->log(info => "Login to HatenaRSS succeed.");
 
     $mech->get("http://r.hatena.ne.jp/miyagawa/config");
-
-    # HatenaRSS config has two different 'opml' forms :/
-    # so we loop through it and use the latter one
-    for my $form ($mech->forms) {
-        $mech->{form} = $form if $form->attr('name') eq 'opml';
-    }
-
-    $mech->submit_form();
+    $mech->submit_form(form_name => 'opmlexport');
 
     my $opml = $mech->content;
     $context->log(info => "Exported OPML: " . length($opml) . " bytes");
