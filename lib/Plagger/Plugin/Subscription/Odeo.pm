@@ -2,6 +2,9 @@ package Plagger::Plugin::Subscription::Odeo;
 use strict;
 use base qw( Plagger::Plugin::Subscription::OPML );
 
+use URI::Escape;
+use HTML::Entities;
+
 sub register {
     my($self, $context) = @_;
 
@@ -18,7 +21,33 @@ sub load {
         or $context->error("config 'account' is missing");
 
     my $uri = URI->new("http://www.odeo.com/profile/$account/opml.xml");
-    $self->load_opml($context, $uri);
+    $context->log(debug => "Fetch remote OPML from $uri");
+
+    my $response = Plagger::UserAgent->new->get($uri);
+    unless ($response->is_success) {
+        $context->error("Fetch $uri failed: ". $response->status_line);
+    }
+
+    my $xml = $response->content;
+
+    # fix Odeo's bad OPML
+    $xml =~ s{<outline text="(.*?)" type="link" url="(http://.*?)" count="(\d+)"/>}{
+        my($title, $url, $count) = ($1, $2, $3);
+
+        $title = uri_unescape($title);
+        $title =~ s/\r\n//g;
+        $title =~ tr/\+/ /;
+        $title = encode_html($title);
+        $url   = encode_html($url);
+
+        qq(<outline text="$title" type="rss" xmlUrl="$url" count="$count"/>)
+    }eg;
+
+    $self->load_opml($context, \$xml);
+}
+
+sub encode_html {
+    HTML::Entities::encode($_[0], q("<>&));
 }
 
 1;
