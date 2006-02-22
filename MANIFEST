@@ -1,4 +1,5 @@
 AUTHORS
+bin/plagger-ircbot.pl
 Changes
 config.yaml.sample
 inc/Module/AutoInstall.pm
@@ -27,15 +28,19 @@ lib/Plagger/Plugin/Filter/Delicious.pm
 lib/Plagger/Plugin/Filter/FeedBurnerPermalink.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkUsersCount.pm
+lib/Plagger/Plugin/Filter/StripRSSAd.pm
 lib/Plagger/Plugin/Filter/URLBL.pm
 lib/Plagger/Plugin/Publish/CHTML.pm
 lib/Plagger/Plugin/Publish/Debug.pm
 lib/Plagger/Plugin/Publish/Gmail.pm
+lib/Plagger/Plugin/Publish/IRC.pm
 lib/Plagger/Plugin/Publish/JavaScript.pm
 lib/Plagger/Plugin/Publish/PSP.pm
 lib/Plagger/Plugin/SmartFeed.pm
 lib/Plagger/Plugin/Subscription/Bloglines.pm
 lib/Plagger/Plugin/Subscription/Config.pm
+lib/Plagger/Plugin/Subscription/HatenaRSS.pm
+lib/Plagger/Plugin/Subscription/Odeo.pm
 lib/Plagger/Plugin/Subscription/OPML.pm
 lib/Plagger/Plugin/Widget/Delicious.pm
 lib/Plagger/Plugin/Widget/HatenaBookmark.pm
@@ -63,5 +68,6 @@ templates/plugins/chtml_entry.tt
 templates/plugins/chtml_feed.tt
 templates/plugins/chtml_index.tt
 templates/plugins/gmail_notify.tt
+templates/plugins/irc_notify.tt
 templates/plugins/javascript.tt
 templates/plugins/psp.tt
