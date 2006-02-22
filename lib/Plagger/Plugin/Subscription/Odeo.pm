@@ -56,7 +56,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Subscrption::Odeo - Odeo Subscription via OPML
+Plagger::Plugin::Subscription::Odeo - Odeo Subscription via OPML
 
 =head1 SYNOPSIS
 

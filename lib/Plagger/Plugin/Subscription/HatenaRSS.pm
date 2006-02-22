@@ -54,7 +54,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Subscrption::HatenaRSS - HatenaRSS Subscription via OPML
+Plagger::Plugin::Subscription::HatenaRSS - HatenaRSS Subscription via OPML
 
 =head1 SYNOPSIS
 

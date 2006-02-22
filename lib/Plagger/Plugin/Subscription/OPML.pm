@@ -81,7 +81,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Subscrption::OPML - OPML subscription
+Plagger::Plugin::Subscription::OPML - OPML subscription
 
 =head1 SYNOPSIS
 
