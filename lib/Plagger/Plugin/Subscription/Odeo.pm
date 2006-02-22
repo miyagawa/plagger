@@ -71,10 +71,8 @@ L<http://www.odeo.com/> OPML by HTTP.
 
 =head1 NOTE
 
-As of this module writing, The way Odeo escapes HTML entities and URLs
-in their OPML is kind of wrong. We should probably use C<rss.xml> or
-C<pcast.xml> they provide and synchronizes enclosures as well, ala
-Bloglines Subscription plugin.
+We should probably better use C<rss.xml> or C<pcast.xml> they provide and
+synchronizes enclosures as well, ala Bloglines Subscription plugin.
 
 =head1 AUTHOR
 
