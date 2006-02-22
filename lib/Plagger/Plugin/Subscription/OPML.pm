@@ -27,7 +27,10 @@ sub load_opml {
     my($self, $context, $uri) = @_;
 
     my $xml;
-    if ($uri->scheme =~ /^https?$/) {
+    if (ref($uri) eq 'SCALAR') {
+        $xml = $$uri;
+    }
+    elsif ($uri->scheme =~ /^https?$/) {
         $context->log(debug => "Fetch remote OPML from $uri");
         my $response = Plagger::UserAgent->new->get($uri);
         unless ($response->is_success) {
