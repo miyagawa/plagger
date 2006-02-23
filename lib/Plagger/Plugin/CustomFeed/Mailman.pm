@@ -85,7 +85,7 @@ sub aggregate {
     @matches  = reverse @matches[-$items .. -1];
 
     for my $match (@matches) {
-        $match->{subject} =~ s/\[$title \d+\]\s+//;
+        $match->{subject} =~ s/\[$title(?: \d+)?\]\s+//;
 
         my $entry = Plagger::Entry->new;
         $entry->title($match->{subject});
