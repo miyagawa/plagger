@@ -69,3 +69,35 @@ sub templatize {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Publish::Spotlight - Publish Webbookmark files for Spotlight
+
+=head1 SYNOPSIS
+
+  - module: Publish::Spotlight
+    config:
+      dir: /Users/youpy/Library/Caches/Metadata/Plagger/
+      filename: %i.webbookmark
+
+=head1 DESCRIPTION
+
+This plugin creates webbookmark files and make feed updates searchable
+by Mac ODX Spotlight.
+
+=head1 SCREENSHOT
+
+L<http://subtech.g.hatena.ne.jp/youpy/20060223/p1>
+
+=head1 AUTHOR
+
+id:youpy
+
+=head1 SEE ALSO
+
+L<Plagger>
+
+=cut
