@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Name</key>
-	<string>[% entry.title | html %]</string>
+	<string>[% entry.title | html %][% IF entry.tags.size %] [[% entry.tags.join(' ') %]][% END %]</string>
 	<key>URL</key>
 	<string>[% entry.permalink | html %]</string>
 </dict>
