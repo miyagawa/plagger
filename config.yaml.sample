@@ -85,3 +85,8 @@ plugins:
       work: /home/yappo/plagger/chtml
       title: Plagger for Mobile
       mobile_gw: http://bp.to/login.php?anonymous=on&url=
+
+  - module: Publish::Spotlight
+    config:
+      dir: /Users/youpy/Library/Caches/Metadata/Plagger/
+      filename: %i.webbookmark
