@@ -20,7 +20,7 @@ sub load {
     my($self, $context) = @_;
 
     my $url = $self->conf->{url}
-        or $context->error("pipemail url not set");
+        or $context->error("pipermail url not set");
 
     my $feed = Plagger::Feed->new;
        $feed->type('mailman');
@@ -69,7 +69,7 @@ sub aggregate {
     my $feed = Plagger::Feed->new;
     $feed->type('mailman');
     $feed->title($title);
-    $feed->link($self->conf->{url}); # base
+    $feed->link($args->{feed}->url); # base
 
     my @matches;
     while ($content =~ m!<LI><A HREF="(\d+\.html)">(.*?)\n</A><A NAME="(\d+)">&nbsp;</A>\n<I>(.*?)\n</I>!g) {
