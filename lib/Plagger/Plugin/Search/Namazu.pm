@@ -103,6 +103,6 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<http://www.namzu.org/>
+L<Plagger>, L<http://www.namazu.org/>
 
 =cut
