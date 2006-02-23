@@ -21,7 +21,7 @@ sub init {
     $self->SUPER::init(@_);
 
     my $dir = $self->conf->{dir};
-    $self->{encode} = $self->conf->{encode} || 'utf8';
+    $self->{encode} = $self->conf->{encode} eq 'euc_jp' ? 'euc_jp' : 'utf8';
 
     unless (-e $dir && -d _) {
 	my $ret = Rast->create($dir, {
@@ -66,9 +66,6 @@ sub init {
 	}
 	Plagger->context->log(info => "create index $dir");
     }
-
-    #euc_jp to euc-jp
-    $self->{encode} =~ s/_/-/;
     $self->{rast} = Rast->open($dir, RAST_DB_RDWR);
 }
 
@@ -117,8 +114,8 @@ sub feed {
 
 sub convert {
     my ($self, $str) = @_;
-    $str = encode($self->{encode}, $str) unless $self->{encode} eq 'utf8';
-    $str;
+    utf8::decode($str) unless utf8::is_utf8($str);
+    return encode($self->{encode}, $str);
 }
 
 sub finalize {
