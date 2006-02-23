@@ -58,6 +58,25 @@ sub aggregate {
         $entry->author( decode('euc-jp', $msg->{name}) );
         $entry->date( Plagger::Date->parse($format, $msg->{time}) );
 
+        if ($self->conf->{show_icon} && !$blocked) {
+            # TODO: cache owner_id -> URL
+            my $owner_id = ($msg->{link} =~ /owner_id=(\d+)/)[0];
+            my $link = "http://mixi.jp/show_friend.pl?id=$owner_id";
+            $context->log(info => "Fetch icon from $link");
+
+            my($item) = $self->{mixi}->get_show_friend_outline($link);
+            if ($item && $item->{image} !~ /no_photo/) {
+                # prefer smaller image
+                my $image = $item->{image};
+                   $image =~ s/\.jpg$/s.jpg/;
+                $entry->icon({
+                    title => $item->{name},
+                    url   => $image,
+                    link  => $link,
+                });
+            }
+        }
+
         if ($self->conf->{fetch_body} && !$blocked) {
             $context->log(info => "Fetch body from $msg->{link}");
             Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
