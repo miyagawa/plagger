@@ -70,7 +70,7 @@ sub aggregate {
                 my $image = $item->{image};
                    $image =~ s/\.jpg$/s.jpg/;
                 $entry->icon({
-                    title => $item->{name},
+                    title => decode('euc-jp', $item->{name}),
                     url   => $image,
                     link  => $link,
                 });
