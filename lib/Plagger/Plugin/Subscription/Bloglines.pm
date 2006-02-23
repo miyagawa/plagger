@@ -100,7 +100,8 @@ sub sync {
                 if $item->{dc}->{subject};
             $entry->date( Plagger::Date->parse('Mail', $item->{pubDate}) );
             $entry->link($item->{link});
-            $entry->id($item->{guid});
+            $entry->id($item->{guid})
+                if $item->{guid} && $item->{guid} !~ m!^http://!;
             $entry->body($item->{description});
 
             $feed->add_entry($entry);

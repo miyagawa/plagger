@@ -89,4 +89,3 @@ plugins:
   - module: Publish::Spotlight
     config:
       dir: /Users/youpy/Library/Caches/Metadata/Plagger/
-      filename: %i.webbookmark
