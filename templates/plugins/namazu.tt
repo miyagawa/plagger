@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>[% feed.title %]: [% entry.title %]</title>
+<link rel="self" type="text/html" href="[% entry.permalink %]" />
+<meta http-equiv="Content-Type"  content="text/html; charset=euc-jp" />
+[% IF entry.author -%]
+<meta name="DC.author" content="[% entry.author | html %]" />
+<link rev="made" href="mailto:[% entry.author | html %]" />
+[% END -%]
+[% IF entry.tags.size -%]
+<meta name="keywords" content="[% tag.join(' ') | html %]" />
+[% END -%]
+[% IF entry.date -%]
+<meta name="DC.date" content="[% entry.date.format('W3CDTF') %]" />
+[% END -%]
+</head>
+<body>
+<h1 class="title"><a href="[% feed.link %]">[% feed.title %]</a>: <a href="[% entry.permalink | html %]">[% entry.title %]</a></h1>
+<div>
+[% IF entry.body -%]
+[% IF entry.body.match('(?i)^<p[ >]') %][% entry.body %][% ELSE %]<div class="entry_body">[% entry.body %]</div>[% END %]
+[% ELSE %]<br />[% END %]
+</div>
+</body>
+</html>
