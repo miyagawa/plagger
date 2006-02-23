@@ -57,7 +57,7 @@ sub aggregate {
         $entry->date( Plagger::Date->rebless($e->issued) )
             if eval { $e->issued };
         $entry->link($e->link);
-        $entry->id( $e->id ) if $e->id !~ m!^http://!;
+        $entry->id($e->id);
         $entry->body($e->content->body);
 
         $feed->add_entry($entry);

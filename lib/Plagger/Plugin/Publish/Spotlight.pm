@@ -21,7 +21,7 @@ sub feed {
     }
 
     for my $entry ($args->{feed}->entries) {
-	my $file = $entry->id . '.webbookmark';
+	my $file = $entry->id_safe . '.webbookmark';
 	my $path = File::Spec->catfile($dir, $file);
 	$context->log(info => "writing output to $path");
 
