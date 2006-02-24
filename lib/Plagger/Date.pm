@@ -35,6 +35,14 @@ sub now {
     $self;
 }
 
+sub from_epoch {
+    my $class = shift;
+    my %p = @_ == 1 ? (epoch => $_[0]) : @_;
+
+    $p{time_zone} = Plagger->context->conf->{timezone} || 'local';
+    $class->SUPER::from_epoch(%p);
+}
+
 sub format {
     my($self, $format) = @_;
     my $module = "DateTime::Format::$format";
