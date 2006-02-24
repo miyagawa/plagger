@@ -64,6 +64,7 @@ sub aggregate {
                 my $body = decode('euc-jp', $item->{description});
                    $body =~ s!<br>!<br />!g;
                 $entry->body($body);
+                $entry->title( decode('euc-jp', $item->{subject}) ); # replace with full title
             } else {
                 $context->log(warn => "Fetch body failed. You might be blocked?");
                 $blocked++;
@@ -164,7 +165,7 @@ sub get_view_diary {
     my $html = $self->{mecha}->content;
     my $reg = $self->detail_regexp();
     if ($html =~ m|$reg|is) {
-        $item = +{description => $7};
+        $item = +{ subject => $6, description => $7};
     }
 
     return $item;
