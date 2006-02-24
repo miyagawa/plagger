@@ -71,8 +71,13 @@ sub update
 {
     my ( $kernel, $heap, $msg ) = @_[ KERNEL, HEAP, ARG0 ];
     eval {
-        $kernel->post( bot => notice => $_, $msg )
-            for @{ $config->{server_channels} }
+        for my $channel (@{ $config->{server_channels} }) {
+            if ($config->{announce} =~ /action/i) {
+                $kernel->post( bot => ctcp => $channel, "ACTION $msg");
+            } else {
+                $kernel->post( bot => notice => $channel, $msg )
+            }
+        }
     };
     err "update error: $@" if $@;
 }

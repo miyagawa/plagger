@@ -157,6 +157,7 @@ sub run {
             $self->run_hook('smartfeed.entry', { feed => $feed, entry => $entry });
         }
     }
+    $self->run_hook('smartfeed.finalize');
 
     $self->run_hook('publish.init');
     for my $feed ($self->update->feeds) {

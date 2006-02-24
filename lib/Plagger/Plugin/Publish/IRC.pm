@@ -30,8 +30,7 @@ sub update {
 
     $context->log(info => "Notifying " . $args->{feed}->title . " to IRC");
 
-    my $feed = $args->{feed};
-    my $body = $self->templatize($context, $feed);
+    my $body = $self->templatize($context, $args->{feed});
     Encode::_utf8_off($body) if Encode::is_utf8($body);
     Encode::from_to($body, 'utf-8', $self->conf->{charset})
         if $self->conf->{charset} && $self->conf->{charset} ne 'utf-8';
@@ -68,6 +67,7 @@ Plagger::Plugin::Publish::IRC - Notify feed updates to IRC
       server_channels:
         - #plagger-test
       charset: iso-2022-jp
+      announce: notice
 
 =head1 DESCRIPTION
 
