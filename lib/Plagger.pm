@@ -140,6 +140,7 @@ sub run {
             $self->run_hook("aggregator.aggregate.$type", { feed => $feed });
         }
     }
+    $self->run_hook('aggregator.finalize');
 
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
@@ -157,6 +158,7 @@ sub run {
         }
     }
 
+    $self->run_hook('publish.init');
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
             $self->run_hook('publish.entry.fixup', { feed => $feed, entry => $entry });
