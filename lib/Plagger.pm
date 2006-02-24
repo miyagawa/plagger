@@ -41,6 +41,7 @@ sub bootstrap {
     if (-e $opt{config} && -r _) {
         $config = YAML::LoadFile($opt{config});
         $self->{conf} = $config->{global};
+        $self->{conf}->{log} ||= { level => 'debug' };
     } else {
         croak "Plagger->bootstrap: $opt{config}: $!";
     }
@@ -179,7 +180,21 @@ sub log {
     my($self, $level, $msg) = @_;
     my $caller = caller(0);
     chomp($msg);
-    warn "$caller [$level] $msg\n";
+    if ($self->should_log($level)) {
+        warn "$caller [$level] $msg\n";
+    }
+}
+
+my %levels = (
+    debug => 0,
+    warn  => 1,
+    info  => 2,
+    error => 3,
+);
+
+sub should_log {
+    my($self, $level) = @_;
+    $levels{$level} >= $levels{$self->conf->{log}->{level}};
 }
 
 sub error {

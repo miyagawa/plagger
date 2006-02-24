@@ -3,6 +3,8 @@ global:
     - /home/miyagawa/plagger/plugins
   #template_path: /home/miyagawa/plagger/templates
   timezone: Asia/Tokyo
+  log:
+    level: info
 
 plugins:
   - module: Subscription::Bloglines
