@@ -16,7 +16,7 @@ plugins:
       email: miyagawa@example.com
       password: foobar
       fetch_body: 1
-      fetch_body_internal: 1.5
+      fetch_body_interval: 1.5
 
   - module: Subscription::OPML
     config:
