@@ -29,7 +29,7 @@ sub now {
     my($class, %opt) = @_;
     my $self = $class->SUPER::now();
 
-    my $tz = $opt{timezone} || 'local';
+    my $tz = $opt{timezone} || Plagger->context->conf->{timezone} || 'local';
     $self->set_time_zone($tz);
 
     $self;
