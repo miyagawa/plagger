@@ -12,18 +12,28 @@ sub register {
 
 sub update {
     my($self, $context, $args) = @_;
-    my $body = $self->filter($args->{entry}->body);
+    my $body = $self->filter($args->{feed}->url, $args->{entry}->body);
     $args->{entry}->body($body);
 }
 
 sub filter {
-    my($self, $body) = @_;
+    my($self, $link, $body) = @_;
 
     # rssad.jp
-    $body =~ s!<br clear="all" /><a href="http://rss\.rssad\.jp/rss/ad/.*?" target="_blank".*?><img .*? src="http://rss\.rssad\.jp/rss/img/.*?" border="0"/></a><br/>!!;
+    if ($link =~ m!^http://rss\.rssad\.jp/rss!) {
+        my $count = $body =~ s!<br clear="all" /><a href="http://rss\.rssad\.jp/rss/ad/.*?" target="_blank".*?><img .*? src="http://rss\.rssad\.jp/rss/img/.*?" border="0"/></a><br/>!!;
+        Plagger->context->log(debug => "Stripped rssad.jp ad") if $count;
+    }
+
+    # plaza.rakuten.co.jp
+    if ($link =~ m!^http://api\.plaza\.rakuten\.ne\.jp/!) {
+        my $count = $body =~ s!<br clear?=all /><br><SMALL>\n<SCRIPT LANGUAGE="Javascript">\n<\!--\nfunction random\(\).*?</SCRIPT>\n<NOSCRIPT>.*?</NOSCRIPT>\n</SMALL>\n!!s;
+        Plagger->context->log(debug => "Stripped plaza.rakuten ad") if $count;
+    }
 
     # Google AdSense for Feeds
-    $body =~ s!<p><map name="google_ad_map_\d+\-\d+"><area.*?></map><img usemap="#google_ad_map_\d+-\d+" border="0" src="http://imageads\.googleadservices\.com/pagead/ads\?.*?" /></p>!!;
+    my $count = $body =~ s!<p><map name="google_ad_map_\d+\-\d+"><area.*?></map><img usemap="#google_ad_map_\d+-\d+" border="0" src="http://imageads\.googleadservices\.com/pagead/ads\?.*?" /></p>!!;
+    Plagger->context->log(debug => "Stripped Google AdSense for feeds") if $count;
 
     $body;
 }
