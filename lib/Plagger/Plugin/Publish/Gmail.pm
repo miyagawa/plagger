@@ -89,9 +89,7 @@ sub DESTORY {
 }
 
 # hack MIME::Lite to support TLS Authentication
-package MIME::Lite;
-
-sub send_by_smtp_tls {
+*MIME::Lite::send_by_smtp_tls = sub {
     my($self, @args) = @_;
 
     ### We need the "From:" and "To:" headers to pass to the SMTP mailer:
@@ -129,11 +127,9 @@ sub send_by_smtp_tls {
     $smtp->dataend();
 
     1;
-}
+};
 
-package MIME::Lite::SMTP::TLS;
-use base qw( Net::SMTP::TLS );
-
-sub print { shift->datasend(@_) }
+@MIME::Lite::SMTP::TLS::ISA = qw( Net::SMTP::TLS );
+sub MIME::Lite::SMTP::TLS::print { shift->datasend(@_) }
 
 1;
