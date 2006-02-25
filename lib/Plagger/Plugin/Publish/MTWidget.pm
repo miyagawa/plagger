@@ -107,8 +107,8 @@ Plagger::Plugin::Publish::MTWidget - Publish feeds as MT widget
     config:
       blog_id: 1
       mt_path: /path/to/mt
-    rebuild:
-      - Main Index
+      rebuild:
+        - Main Index
 
 =head1 DESCRIPTION
 
