@@ -4,7 +4,7 @@ use base qw( Plagger::Plugin );
 
 use Encode;
 use File::Spec;
-use Mac::AppleScript qw(RunAppleScript);
+use Mac::Glue;
 
 sub register {
     my($self, $context) = @_;
@@ -39,16 +39,11 @@ sub feed {
 	    utf8::decode($comment) unless utf8::is_utf8($comment);
 	    $comment =~ s/<[^>]*>//g;
 	    $comment =~ s/\n//g;
-            $comment =~ s/"/\\"/g;
-            $comment = encode("shift_jis", $comment); # xxx
-
-            my $script = <<SCRIPT;
-tell application "Finder"
-  set comment of ((POSIX file "$path") as file) to "$comment"
-end tell
-SCRIPT
-
-	    RunAppleScript($script) or $context->error("$path: $!");
+	    $comment = encode("shift_jis", $comment); # xxx
+	    
+	    my $finder = Mac::Glue->new("Finder");
+	    my $file = $finder->obj(file => $path);
+	    $file->prop('comment')->set(to => $comment);
 	}
     }
 }
