@@ -1,5 +1,27 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.5.3 (2006/02/25) ==
+
+=== Core ===
+
+ * Added aggregator.finalize, publish.entry and publish.init hook
+ * Added Plagger::Rule::Fresh to match with 'fresh' entries (thanks to youpy)
+ * Fixed bug with SmartFeed creating duplicated entries #61
+ * Support log:level global configuration flag to set min loglevel
+
+=== Plugins ===
+
+ * Added Publish::Spotlight to create WebBookmark searchable with Spotlight (youpy)
+ * Added Search::Namazu to create HTML files searchable with Namazu (miyagawa)
+ * Added Search::Rast to index entries with Rast (Yappo)
+ * Added Publish::MTWidget to publish Movable Type Sidebar Manager widget (miyagawa)
+ * Added an option 'show_icon: 1', to show users pic in Frepa and Mixi custom feeds
+ * Fixed Subscription::Mailman to handle subject prefixes without index
+ * Publish::IRC now has 'announce: action' option to use CTCP ACTION rather than NOTICE
+ * Filter::StripRSSAd now strips Rakuten Hiroba (plaza.rakuten.co.jp) ad pattern
+ * Fixed CustomFeed::Frepa to complete the trimmed title under fetch_body mode
+ * Fixed typo in Subscription::HatenaRSS
+
 == 0.5.2 (2006/02/22) ==
 
  * Added Subscription::HatenaRSS plugin to fetch subscription from Hatena RSS (http://r.hatena.ne.jp/)

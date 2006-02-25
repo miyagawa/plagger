@@ -35,7 +35,11 @@ lib/Plagger/Plugin/Publish/Debug.pm
 lib/Plagger/Plugin/Publish/Gmail.pm
 lib/Plagger/Plugin/Publish/IRC.pm
 lib/Plagger/Plugin/Publish/JavaScript.pm
+lib/Plagger/Plugin/Publish/MTWidget.pm
 lib/Plagger/Plugin/Publish/PSP.pm
+lib/Plagger/Plugin/Publish/Spotlight.pm
+lib/Plagger/Plugin/Search/Namazu.pm
+lib/Plagger/Plugin/Search/Rast.pm
 lib/Plagger/Plugin/SmartFeed.pm
 lib/Plagger/Plugin/Subscription/Bloglines.pm
 lib/Plagger/Plugin/Subscription/Config.pm
@@ -52,6 +56,7 @@ lib/Plagger/Rule/EntryTag.pm
 lib/Plagger/Rule/Expression.pm
 lib/Plagger/Rule/FeedAttr.pm
 lib/Plagger/Rule/FeedType.pm
+lib/Plagger/Rule/Fresh.pm
 lib/Plagger/Rule/Rating.pm
 lib/Plagger/Rules.pm
 lib/Plagger/Subscription.pm
@@ -70,4 +75,7 @@ templates/plugins/chtml_index.tt
 templates/plugins/gmail_notify.tt
 templates/plugins/irc_notify.tt
 templates/plugins/javascript.tt
+templates/plugins/mt_widget.tt
+templates/plugins/namazu.tt
 templates/plugins/psp.tt
+templates/plugins/spotlight.tt
