@@ -39,6 +39,7 @@ sub feed {
 	    utf8::decode($comment) unless utf8::is_utf8($comment);
 	    $comment =~ s/<[^>]*>//g;
 	    $comment =~ s/\n//g;
+            $comment =~ s/"/\\"/g;
             $comment = encode("shift_jis", $comment); # xxx
 
             my $script = <<SCRIPT;
