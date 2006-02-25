@@ -2,7 +2,9 @@ package Plagger::Plugin::Publish::Spotlight;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Encode;
 use File::Spec;
+use Mac::AppleScript qw(RunAppleScript);
 
 sub register {
     my($self, $context) = @_;
@@ -30,6 +32,23 @@ sub feed {
 	open my $out, ">:utf8", $path or $context->error("$path: $!");
 	print $out $body;
 	close $out;
+
+	# Add $entry->body as spotlight comment using AppleScript (OSX only)
+	if ($self->{conf}->{add_comment}) {
+	    my $comment = $entry->body;
+	    utf8::decode($comment) unless utf8::is_utf8($comment);
+	    $comment =~ s/<[^>]*>//g;
+	    $comment =~ s/\n//g;
+            $comment = encode("shift_jis", $comment); # xxx
+
+            my $script = <<SCRIPT;
+tell application "Finder"
+  set comment of ((POSIX file "$path") as file) to "$comment"
+end tell
+SCRIPT
+
+	    RunAppleScript($script) or $context->error("$path: $!");
+	}
     }
 }
 
@@ -55,6 +74,7 @@ Plagger::Plugin::Publish::Spotlight - Publish Webbookmark files for Spotlight
   - module: Publish::Spotlight
     config:
       dir: /Users/youpy/Library/Caches/Metadata/Plagger/
+      add_comment: 1
 
 =head1 DESCRIPTION
 
