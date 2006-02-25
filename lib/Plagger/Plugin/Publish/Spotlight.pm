@@ -4,7 +4,6 @@ use base qw( Plagger::Plugin );
 
 use Encode;
 use File::Spec;
-use Mac::Glue;
 
 sub register {
     my($self, $context) = @_;
@@ -35,6 +34,7 @@ sub feed {
 
 	# Add $entry->body as spotlight comment using AppleScript (OSX only)
 	if ($self->{conf}->{add_comment}) {
+	    eval { require Mac::Glue };
 	    my $comment = $entry->body;
 	    utf8::decode($comment) unless utf8::is_utf8($comment);
 	    $comment =~ s/<[^>]*>//g;
