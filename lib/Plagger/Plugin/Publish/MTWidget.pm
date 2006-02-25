@@ -17,11 +17,10 @@ sub init {
     eval {
 	require MT; 
         require MT::Template;
-	MT->new(Config => $mt_home . 'mt.cfg',
-		Directory => $mt_home) or Plagger->context->error(MT->errstr);
+	$self->{mt} = MT->new or Plagger->context->error(MT->errstr);
     };
     if ($@) {
-        Plagger->context->error("Can't find MT modules. Check your mt_path: $@");
+        Plagger->context->error("Error loading MT: $@");
     }
 }
 
@@ -30,6 +29,7 @@ sub register {
     $context->register_hook(
         $self,
         'publish.feed' => \&feed,
+        'publish.finalize' => \&finalize,
     );
 }
 
@@ -70,6 +70,29 @@ sub templatize {
     $out;
 }
 
+sub finalize {
+    my($self, $context) = @_;
+
+    my $rebuild = $self->conf->{rebuild} or return;
+       $rebuild = [ $rebuild ] unless ref($rebuild);
+    my $blog_id = $self->conf->{blog_id};
+
+    for my $tmpl (@{$rebuild}) {
+	$context->log(info => "Rebuilding Template $tmpl");
+
+	my $template = MT::Template->load({
+	    name => $rebuild, blog_id => $blog_id,
+	});
+	unless ($template) {
+	    $context->log(error => "Can't load template $rebuild");
+	    next;
+	}
+
+	$self->{mt}->rebuild_indexes( BlogID => $blog_id, Template => $template, Force => 1 )
+	    or $context->log(error => "Rebuild error: " . $self->{mt}->errstr);
+    }
+}
+
 1;
 
 __END__
@@ -84,6 +107,8 @@ Plagger::Plugin::Publish::MTWidget - Publish feeds as MT widget
     config:
       blog_id: 1
       mt_path: /path/to/mt
+    rebuild:
+      - Main Index
 
 =head1 DESCRIPTION
 
