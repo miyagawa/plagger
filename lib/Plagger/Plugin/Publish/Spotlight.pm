@@ -75,7 +75,7 @@ Plagger::Plugin::Publish::Spotlight - Publish Webbookmark files for Spotlight
 =head1 DESCRIPTION
 
 This plugin creates webbookmark files and make feed updates searchable
-by Mac ODX Spotlight.
+by Mac OSX Spotlight.
 
 =head1 SCREENSHOT
 
