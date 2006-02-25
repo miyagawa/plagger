@@ -94,18 +94,18 @@ sub DESTORY {
 
     ### We need the "From:" and "To:" headers to pass to the SMTP mailer:
     my $hdr   = $self->fields();
-    my($from) = extract_addrs( $self->get('From') );
+    my($from) = MIME::Lite::extract_addrs( $self->get('From') );
     my $to    = $self->get('To');
 
     ### Sanity check:
     defined($to) or Carp::croak "send_by_smtp_tls: missing 'To:' address\n";
 
     ### Get the destinations as a simple array of addresses:
-    my @to_all = extract_addrs($to);
+    my @to_all = MIME::Lite::extract_addrs($to);
     if ($MIME::Lite::AUTO_CC) {
         foreach my $field (qw(Cc Bcc)) {
             my $value = $self->get($field);
-            push @to_all, extract_addrs($value) if defined($value);
+            push @to_all, MIME::Lite::extract_addrs($value) if defined($value);
         }
     }
 
