@@ -88,7 +88,7 @@ Plagger::Rule::Fresh - Rule to find 'fresh' entries or feeds
   # entries fresher than mtime of /tmp/foo.tmp
   - module: Publish::Gmail
     rule:
-      module: fresh
+      module: Fresh
       mtime:
         path: /tmp/foo.tmp
         autoupdate: 1
