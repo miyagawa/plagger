@@ -5,6 +5,7 @@ use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( link url image description language author updated tags meta type ));
 
 use Digest::MD5 qw(md5_hex);
+use Plagger::Util;
 
 sub new {
     my $class = shift;
@@ -45,6 +46,11 @@ sub id {
     my $self = shift;
     $self->{id} = shift if @_;
     $self->{id} || Digest::MD5::md5_hex($self->url || $self->link);
+}
+
+sub title_text {
+    my $self = shift;
+    Plagger::Util::strip_html($self->title);
 }
 
 1;

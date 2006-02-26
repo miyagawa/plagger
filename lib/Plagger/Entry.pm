@@ -7,6 +7,7 @@ __PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate  
 use Digest::MD5;
 use DateTime::Format::Mail;
 use Storable;
+use Plagger::Util;
 
 sub new {
     my $class = shift;
@@ -68,6 +69,16 @@ sub id_safe {
     my $self = shift;
     my $id   = $self->id || $self->link;
     $id =~ m!^https?://! ? Digest::MD5::md5_hex($id) : $id;
+}
+
+sub title_text {
+    my $self = shift;
+    Plagger::Util::strip_html($self->title);
+}
+
+sub body_text {
+    my $self = shift;
+    Plagger::Util::strip_html($self->body);
 }
 
 1;
