@@ -1,6 +1,12 @@
 package Plagger::Plugin::Filter::TTP;
 use strict;
 use base qw( Plagger::Plugin );
+use URI::Find;
+
+{
+    package URI::ttp;
+    use base qw(URI::http);
+}
 
 sub register {
     my($self, $context) = @_;
@@ -13,7 +19,13 @@ sub register {
 sub update {
     my($self, $context, $args) = @_;
     my $body = $args->{entry}->body;
-    $body =~ s!\b(ttp://)!h$1!g;
+
+    my $finder = URI::Find->new(sub {
+        my ($uri, $orig_uri) = @_;
+        return ($uri->scheme eq 'ttp') ? qq{<a href="h$orig_uri">$orig_uri</a>} : $orig_uri;
+    });
+    $finder->find(\$body);
+
     $args->{entry}->body($body);
 }
 
