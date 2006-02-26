@@ -21,10 +21,26 @@ sub aggregate {
 
     my $url = $args->{feed}->url;
     $context->log(info => "Fetch $url");
-    my $remote = eval { XML::Feed->parse(URI->new($url)) };
+
+    my $agent = Plagger::UserAgent->new;
+    my $response = $agent->get($url);
+
+    unless ($response->is_success) {
+        $context->log(error => "GET $url failed: " . $response->status_line);
+        return;
+    }
+
+    $self->handle_feed($url, \$response->content);
+}
+
+sub handle_feed {
+    my($self, $url, $xml_ref) = @_;
+
+    my $context = Plagger->context;
+    my $remote = eval { XML::Feed->parse($xml_ref) };
 
     unless ($remote) {
-        $context->log(info => "Parsing $url failed. " . XML::Feed->errstr);
+        $context->log(error => "Parsing $url failed. " . XML::Feed->errstr);
         next;
     }
 
