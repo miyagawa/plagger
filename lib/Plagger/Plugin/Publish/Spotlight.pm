@@ -5,6 +5,15 @@ use base qw( Plagger::Plugin );
 use Encode;
 use File::Spec;
 
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
+
+    if ($self->conf->{add_comment}) {
+        $self->{has_macglue} = eval { require Mac::Glue; 1 };
+    }
+}
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
@@ -27,22 +36,34 @@ sub entry {
     $context->log(info => "writing output to $path");
 
     my $body = $self->templatize($context, $entry);
-    
+
     open my $out, ">:utf8", $path or $context->error("$path: $!");
     print $out $body;
     close $out;
 
     # Add $entry->body as spotlight comment using AppleScript (OSX only)
-    if ($self->{conf}->{add_comment}) {
-	eval { require Mac::Glue };
+    if ($self->conf->{add_comment}) {
 	my $comment = $entry->body_text;
 	utf8::decode($comment) unless utf8::is_utf8($comment);
-	$comment = encode("shift_jis", $comment); # xxx
-	
+	$comment = encode("shift_jis", $comment); # xxx UTF-16?
+        $self->add_comment($path, $comment);
+    }
+}
+
+sub add_comment {
+    my($self, $path, $comment) = @_;
+
+    if ($self->{has_macglue}) {
 	my $finder = Mac::Glue->new("Finder");
 	my $file = $finder->obj(file => $path);
 	$file->prop('comment')->set(to => $comment);
-    }
+    } else {
+        system(
+            'osascript',
+            'bin/spotlight_comment.scpt',
+            $path,
+            $comment,
+        ) == 0 or Plagger->context->error("$path: $!");
 }
 
 sub templatize {
