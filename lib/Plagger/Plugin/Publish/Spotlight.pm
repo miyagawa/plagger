@@ -64,6 +64,7 @@ sub add_comment {
             $path,
             $comment,
         ) == 0 or Plagger->context->error("$path: $!");
+    }
 }
 
 sub templatize {
