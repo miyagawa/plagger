@@ -61,7 +61,7 @@ sub notifier {
     my($self, $context) = @_;
 
     my $count = $self->{bloglines}->notify();
-    $context->log(debug => "You have $count unread item(s) on Bloglines.");
+    $context->log(info => "You have $count unread item(s) on Bloglines.");
     if ($count) {
         my $feed = Plagger::Feed->new;
         $feed->type('bloglines');
@@ -76,7 +76,7 @@ sub sync {
        $mark_read = 1 unless defined $mark_read;
 
     my @updates = $self->{bloglines}->getitems(0, $mark_read);
-    $context->log(debug => scalar(@updates) . " feed(s) updated.");
+    $context->log(dnfo => scalar(@updates) . " feed(s) updated.");
 
     for my $update (@updates) {
         my $source = $update->feed;
