@@ -114,3 +114,52 @@ sub sync {
 
 1;
 
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Subscription::Bloglines - Bloglines Subscription
+
+=head1 SYNOPSIS
+
+  - module: Subscription::Bloglines
+    config:
+      username: your-email@account
+      password: your-password
+      mark_read: 1
+
+=head1 DESCRIPTION
+
+This plugin allows you to synchronize your subscription using
+Bloglines Web Services sync API.
+
+=head1 CONFIGURATION
+
+=over 4
+
+=item username, password
+
+Your username & password to use with Bloglines API.
+
+=item mark_read
+
+C<mark_read> specifies whether this plugin "marks as read" the items
+you synchronize. Without this option, you will get the duplicated
+updates everytime you run Plagger, until you mark them unread using
+Bloglines browser interface. Defaults to 1.
+
+Setting this to 0 is recommended only for testing, or users who don't
+use Publish::Gmail plugin.
+
+=back
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>, L<WebService::Bloglines>, L<http://www.bloglines.com/>
+
+=cut
+

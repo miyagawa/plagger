@@ -100,3 +100,32 @@ sub aggregate {
 
 1;
 
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::CustomFeed::Mailman - Custom feed for Mailman pipermail
+
+=head1 SYNOPSIS
+
+  - module: CustomFeed::Mailman
+    config:
+      url: http://lists.rawmode.org/pipermail/catalyst/
+
+=head1 DESCRIPTION
+
+B<Note: Plagger has a bug that you'll have duplicated entries when you
+have multiple installations of identical CustomFeed. It will be fixed
+and this plugin's config interface may be changed altogether>
+
+This plugin creates a custom feed off of Mailman's pipermail URL.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>
+
+=cut

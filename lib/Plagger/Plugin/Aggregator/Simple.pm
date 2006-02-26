@@ -90,3 +90,32 @@ sub handle_feed {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Aggregator::Simple - Dumb simple aggregator
+
+=head1 SYNOPSIS
+
+  - module: Aggregator::Simple
+
+=head1 DESCRIPTION
+
+This plugin implements a Plagger dumb aggregator. It crawls
+subscription sequentially and parses XML feeds using L<XML::Feed>
+module.
+
+It can be also used as a base class for custom aggregators. See
+L<Plagger::Plugin::Aggregator::Xango> for example.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>, L<XML::Feed>, L<XML::RSS::LibXML>
+
+=cut

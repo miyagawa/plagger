@@ -103,3 +103,61 @@ sub aggregate {
 
 1;
 
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::CustomFeed::Mixi -  Custom feed for mixi.jp
+
+=head1 SYNOPSIS
+
+    - module: CustomFeed::Mixi
+      config:
+        email: email@example.com
+        password: password
+        fetch_body: 1
+        show_icon: 1
+
+=head1 DESCRIPTION
+
+This plugin fetches your friends diary updates from mixi
+(L<http://mixi.jp/>) and creates a custom feed.
+
+=head CONFIGURATION
+
+=over 4
+
+=item email, password
+
+Credential you need to login to mixi.jp.
+
+=item fetch_body
+
+With this option set, this plugin fetches entry body HTML, not just a
+link to the entry. Defaults to 0.
+
+=item fetch_body_interval
+
+With C<fetch_body> option set, your Plagger script is recommended to
+wait for a little, to avoid mixi.jp throttling. Defaults to 1.5.
+
+=item show_icon: 1
+
+With this option set, this plugin fetches users buddy icon from
+mixi.jp site, which makes the output HTML very user-friendly.
+
+=back
+
+=head1 SCREENSHOT
+
+L<http://blog.bulknews.net/mt/archives/plagger-mixi-icon.gif>
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>, L<WWW::Mixi>
+
+=cut

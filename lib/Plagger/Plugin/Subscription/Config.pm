@@ -37,3 +37,32 @@ sub load {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Subscription::Config - Subscription in config.yaml
+
+=head1 SYNOPSIS
+
+    - module: Subscription::Config
+      config:
+        feed:
+          - url: http://bulknews.typepad.com/blog/atom.xml
+          - url: http://blog.bulknews.net/mt/index.rdf
+
+=head1 DESCRIPTION
+
+This plugin allows you to configure your subscription I<hardwired> in
+C<config.yaml>.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>
+
+=cut

@@ -237,11 +237,39 @@ RE
 }
 
 1;
+
 __END__
-config example.
+
+=head1 NAME
+
+Plagger::Plugin::CustomFeed::Frepa - Custom feed for livedoor Frepa
+
+=head1 SYNOPSIS
 
   - module: CustomFeed::Frepa
     config:
-      livedoor_id: id
-      password: pass
+      livedoor_id: your-id
+      password: password
       fetch_body: 1
+      show_icon: 1
+
+=head1 DESCRIPTION
+
+This plugin fetches your friend blog updates from livedoor Frepa
+(L<http://frepa.livedoor.com/>) and creates a custom feed.
+
+=head1 CONFIGURATION
+
+See L<Plagger::Plugin::CustomFeed::Mixi> for C<fetch_body>,
+C<fetch_body_interval> and C<show_icon>.
+
+=head1 AUTHOR
+
+Kazuhiro Osawa
+
+=head1 SEE ALSO
+
+L<Plagger>, L<Plagger::Plugin::CustomFeed::Mixi>, L<WWW::Mechanize>,
+L<http://frepa.livedoor.com/>
+
+=cut

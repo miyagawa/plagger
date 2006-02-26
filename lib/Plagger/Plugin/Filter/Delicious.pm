@@ -2,11 +2,6 @@ package Plagger::Plugin::Filter::Delicious;
 use strict;
 use base qw( Plagger::Plugin );
 
-# NOTE this module is untested and written just for a proof of
-# concept. If you run this on your box with real feeds, del.icio.us
-# wlil be likely to ban your IP. See http://del.icio.us/help/ for
-# details.
-
 use Digest::MD5 qw(md5_hex);
 use URI;
 use XML::Feed;
@@ -45,3 +40,35 @@ sub update {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Filter::Delicious - Fetch tags and users count from del.icio.us
+
+=head1 SYNOPSIS
+
+  - module: Filter::Delicious
+
+=head1 DESCRIPTION
+
+B<Note: this module is mostly untested and written just for a proof of
+concept. If you run this on your box with real feeds, del.icio.us wlil
+be likely to ban your IP. See http://del.icio.us/help/ for details.>
+
+This plugin queries del.icio.us using its RSS feeds API to get the
+tags people added to the entries, and how many people bookmarked them.
+
+Users count is stored in C<delicious_users> metadata of
+Plagger::Entry, so that other plugins and smartfeeds can make use of.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>, L<http://del.icio.us/help/>
+
+=cut
