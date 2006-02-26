@@ -2,6 +2,7 @@ package Plagger::Plugin::Aggregator::Simple;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Plagger::UserAgent;
 use URI;
 use XML::Feed;
 use XML::Feed::RSS;
