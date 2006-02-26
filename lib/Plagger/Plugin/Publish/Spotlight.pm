@@ -35,10 +35,8 @@ sub entry {
     # Add $entry->body as spotlight comment using AppleScript (OSX only)
     if ($self->{conf}->{add_comment}) {
 	eval { require Mac::Glue };
-	my $comment = $entry->body;
+	my $comment = $entry->body_text;
 	utf8::decode($comment) unless utf8::is_utf8($comment);
-	$comment =~ s/<[^>]*>//g;
-	$comment =~ s/\n//g;
 	$comment = encode("shift_jis", $comment); # xxx
 	
 	my $finder = Mac::Glue->new("Finder");
