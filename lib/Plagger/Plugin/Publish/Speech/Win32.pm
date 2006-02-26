@@ -1,6 +1,7 @@
 package Plagger::Plugin::Publish::Speech::Win32;
 use base qw( Plagger::Plugin::Publish::Speech );
 
+use strict;
 use Encode;
 use Locale::Country;
 use Locale::Language;
@@ -35,8 +36,8 @@ sub speak {
     my $code = $voice->Language2LanguageID($key);
     my $gender = $self->conf->{voice} || 'male';
     my @try_gender  = $gender =~ /^male$/i ? (1, 2) : (2, 1);
-    
-    TRY: for my $gender (@try_gender) {
+
+ TRY: for my $gender (@try_gender) {
         for my $i (1 .. $voice->CountEngines) {
             if ( $voice->LanguageID($i) == $code && $voice->Gender($i) == $gender ) {
                 Plagger->context->log(debug => "Found voice $i for Lang $lang and Gender $gender");
