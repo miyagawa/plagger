@@ -32,6 +32,15 @@ features(
         -default => 1,
         recommends('XML::Feed', 0),
     ],
+    'Aggregator::Xango' => [
+        -default => 1,
+        recommends('POE', 0),
+        recommends('Xango', 0),
+        recommends('XML::Feed', 0),
+        recommends('Cache::FastMmap', 0),
+        recommends('HTTP::Component::Client::DNS', 0),
+        recommends('HTTP::Component::Client::HTTP', 0),
+    ],
     'Publish::Gmail' => [
         -default => 1,
         recommends('MIME::Lite', 0),
