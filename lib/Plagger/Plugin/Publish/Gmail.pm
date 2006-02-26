@@ -28,7 +28,7 @@ sub notify {
     my $body = $self->templatize($context, $feed);
 
     my $cfg = $self->conf;
-    $context->log(warn => "Sending $subject to $cfg->{mailto}");
+    $context->log(info => "Sending $subject to $cfg->{mailto}");
 
     my $feed_title = $feed->title;
        $feed_title =~ tr/,//d;
