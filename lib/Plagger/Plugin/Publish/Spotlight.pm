@@ -9,11 +9,11 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.feed' => \&feed,
+        'publish.entry' => \&entry,
     );
 }
 
-sub feed {
+sub entry {
     my($self, $context, $args) = @_;
 
     my $dir = $self->conf->{dir};
@@ -21,30 +21,29 @@ sub feed {
         mkdir $dir, 0755 or $context->error("mkdir $dir: $!");
     }
 
-    for my $entry ($args->{feed}->entries) {
-	my $file = $entry->id_safe . '.webbookmark';
-	my $path = File::Spec->catfile($dir, $file);
-	$context->log(info => "writing output to $path");
+    my $entry = $args->{entry};
+    my $file = $entry->id_safe . '.webbookmark';
+    my $path = File::Spec->catfile($dir, $file);
+    $context->log(info => "writing output to $path");
 
-	my $body = $self->templatize($context, $entry);
+    my $body = $self->templatize($context, $entry);
+    
+    open my $out, ">:utf8", $path or $context->error("$path: $!");
+    print $out $body;
+    close $out;
 
-	open my $out, ">:utf8", $path or $context->error("$path: $!");
-	print $out $body;
-	close $out;
-
-	# Add $entry->body as spotlight comment using AppleScript (OSX only)
-	if ($self->{conf}->{add_comment}) {
-	    eval { require Mac::Glue };
-	    my $comment = $entry->body;
-	    utf8::decode($comment) unless utf8::is_utf8($comment);
-	    $comment =~ s/<[^>]*>//g;
-	    $comment =~ s/\n//g;
-	    $comment = encode("shift_jis", $comment); # xxx
-	    
-	    my $finder = Mac::Glue->new("Finder");
-	    my $file = $finder->obj(file => $path);
-	    $file->prop('comment')->set(to => $comment);
-	}
+    # Add $entry->body as spotlight comment using AppleScript (OSX only)
+    if ($self->{conf}->{add_comment}) {
+	eval { require Mac::Glue };
+	my $comment = $entry->body;
+	utf8::decode($comment) unless utf8::is_utf8($comment);
+	$comment =~ s/<[^>]*>//g;
+	$comment =~ s/\n//g;
+	$comment = encode("shift_jis", $comment); # xxx
+	
+	my $finder = Mac::Glue->new("Finder");
+	my $file = $finder->obj(file => $path);
+	$file->prop('comment')->set(to => $comment);
     }
 }
 
