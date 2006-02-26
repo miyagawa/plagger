@@ -20,10 +20,12 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.feed' => 'feed',
-        'publish.finalize' => 'finalize',
+        'publish.feed' => $self->can('feed'),
+        'publish.finalize' => $self->can('finalize'),
     );
 }
 
+sub feed      { $_[1]->error('Subclass should override this') }
+sub finalize { $_[1]->error('Subclass should override this') }
 
 1;
