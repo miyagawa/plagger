@@ -2,7 +2,7 @@ package Plagger::Feed;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( link url image description language author updated tags meta type ));
+__PACKAGE__->mk_accessors(qw( link url image description language author updated tags meta type source_xml ));
 
 use Digest::MD5 qw(md5_hex);
 use Plagger::Util;
@@ -20,6 +20,12 @@ sub new {
 sub add_entry {
     my($self, $entry) = @_;
     push @{ $self->{entries} }, $entry;
+}
+
+sub delete_entry {
+    my($self, $entry) = @_;
+    my @entries = grep { $_ ne $entry } $self->entries;
+    $self->{entries} = \@entries;
 }
 
 sub entries {

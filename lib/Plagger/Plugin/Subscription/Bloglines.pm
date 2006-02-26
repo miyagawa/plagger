@@ -90,6 +90,7 @@ sub sync {
         $feed->language($source->{language});
         $feed->author($source->{webmaster});
         $feed->meta->{bloglines_id} = $source->{bloglines}->{siteid};
+        $feed->source_xml($update->{_xml});
 
         for my $item ( $update->items ) {
             my $entry = Plagger::Entry->new;

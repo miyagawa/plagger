@@ -53,6 +53,7 @@ sub handle_feed {
     $feed->language($remote->language);
     $feed->author($remote->author);
     $feed->updated($remote->modified);
+    $feed->source_xml($$xml_ref);
 
     if ($remote->format eq 'Atom') {
         $feed->id( $remote->{atom}->id );
