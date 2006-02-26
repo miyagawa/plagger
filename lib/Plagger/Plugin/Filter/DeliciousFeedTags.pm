@@ -21,8 +21,6 @@ sub filter {
 
     my @tags = Plagger::Tag->parse($args->{entry}->tags->[0]);
     $args->{entry}->tags(\@tags);
-
-    $context->dumper($args->{entry}->tags);
 }
 
 1;
