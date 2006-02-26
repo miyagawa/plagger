@@ -238,10 +238,10 @@ Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
 
 See I<AUTHORS> file for the name of all the contributors.
 
-=head1 COPYRIGHT
+=head1 LICENSE
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+Except where otherwise noted, Plagger is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
