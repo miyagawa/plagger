@@ -70,7 +70,11 @@ sub handle_feed {
         my $entry = Plagger::Entry->new;
         $entry->title($e->title);
         $entry->author($e->author);
-        $entry->tags([ $e->category ]) if $e->category;
+
+        my $category = $e->category;
+           $category = [ $category ] if $category && !ref($category);
+        $entry->tags($category) if $category;
+
         $entry->date( Plagger::Date->rebless($e->issued) )
             if eval { $e->issued };
         $entry->link($e->link);
