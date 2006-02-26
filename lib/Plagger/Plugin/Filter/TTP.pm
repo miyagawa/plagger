@@ -3,11 +3,6 @@ use strict;
 use base qw( Plagger::Plugin );
 use URI::Find;
 
-{
-    package URI::ttp;
-    use base qw(URI::http);
-}
-
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
@@ -19,6 +14,8 @@ sub register {
 sub update {
     my($self, $context, $args) = @_;
     my $body = $args->{entry}->body;
+
+    local @URI::ttp::ISA = qw(URI::http);
 
     my $finder = URI::Find->new(sub {
         my ($uri, $orig_uri) = @_;
@@ -35,7 +32,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::TTP - auto link the ttp://
+Plagger::Plugin::Filter::TTP - Replace ttp:// with http://
 
 =head1 SYNOPSIS
 
@@ -43,7 +40,8 @@ Plagger::Plugin::Filter::TTP - auto link the ttp://
 
 =head1 DESCRIPTION
 
-ttp:// => http://
+This plugin replaces C<ttp://> with C<http://>. C<ttp://> is a widely
+adopted way of linking an URL without leaking a referer.
 
 =head1 AUTHOR
 
