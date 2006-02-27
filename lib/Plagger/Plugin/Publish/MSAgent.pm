@@ -27,7 +27,8 @@ sub feed {
     $char->SoundEffectsOn(1);
     $char->Show();
 
-    $char->MoveTo(300,300);
+    my @pos = split /,\s*/, ($self->conf->{position} || "300,300");
+    $char->MoveTo(@pos);
     sleep(5);
 
     if (my $animation = $self->conf->{animation}) {
@@ -106,6 +107,7 @@ Plagger::Plugin::Publish::MSAgent - Let your Agent speak feed updates
     config:
       character: Merlin
       voice: male
+      position: 300,300
       animation: Announce
 
 =head1 DESCRIPTION
