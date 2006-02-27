@@ -25,7 +25,7 @@ sub register {
     );
 }
 
-sub feed      { $_[1]->error('Subclass should override this') }
-sub finalize { $_[1]->error('Subclass should override this') }
+sub feed     { $_[1]->log(warn => 'Subclass should override this') }
+sub finalize { $_[1]->log(warn => 'Subclass should override this') }
 
 1;
