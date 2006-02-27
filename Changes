@@ -1,5 +1,33 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.5.4 (2006/02/27) ==
+
+=== Core ===
+
+ * Makefile.PL has a much better dependencies #59 (Thanks to Daisuke Maki)
+ * Fixed multiple categories handling bug in Aggregator::Simple (Thanks to koyachi)
+ * Added body_text, title_text convinience methods to Feed and Entry
+ * Now uses FindBin module to find templates directory in a better way (youpy)
+ * New authors: Daisuke Maki, Tokuhiro Matsuno and Tsutomu Koyachi
+
+=== New Plugins ===
+
+ * Aggregator::Xango - POE based high-speed parallel crawling (daisuke)
+ * Publish::PDF - Create PDF files based on feeds (miyagawa)
+ * Publish::Speech - Make the feeds as an audio using Text-to-Speech (miyagawa)
+ * Publish::MSAgent - Let Microsoft Agent to speak feeds content (miyagawa)
+ * Publish::Growl - Send feed notifications to Mac OSX Growl (kazeburo)
+ * Filter::tDiaryComment - strip comments from tDiary RSS (tokuhirom)
+ * Filter::TTP - replace ttp: with http: (tokuhirom)
+ * Filter::DeliciousFeedTags - split del.icio.us "foo bar baz" tags into array (miyagawa)
+ * Publish::Delicious - post entries to del.icio.us automatically (koyachi)
+
+=== Plugins Updates ===
+
+ * Publish::Spotlight: Now it without Mac::Glue using osascript call
+ * Publish::MTWidget: Added an option to rebuild the blog templates after updating widgets
+ * Publish::Gmail: Added an option to support POP3 before SMTP (tokuhirom)
+
 == 0.5.3 (2006/02/25) ==
 
 === Core ===

@@ -1,5 +1,6 @@
 AUTHORS
 bin/plagger-ircbot.pl
+bin/spotlight_comment.scpt
 Changes
 config.yaml.sample
 inc/Module/AutoInstall.pm
@@ -21,22 +22,32 @@ lib/Plagger/Feed.pm
 lib/Plagger/Operator.pm
 lib/Plagger/Plugin.pm
 lib/Plagger/Plugin/Aggregator/Simple.pm
+lib/Plagger/Plugin/Aggregator/Xango.pm
 lib/Plagger/Plugin/CustomFeed/Frepa.pm
 lib/Plagger/Plugin/CustomFeed/Mailman.pm
 lib/Plagger/Plugin/CustomFeed/Mixi.pm
 lib/Plagger/Plugin/Filter/Delicious.pm
+lib/Plagger/Plugin/Filter/DeliciousFeedTags.pm
 lib/Plagger/Plugin/Filter/FeedBurnerPermalink.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkUsersCount.pm
 lib/Plagger/Plugin/Filter/StripRSSAd.pm
+lib/Plagger/Plugin/Filter/tDiaryComment.pm
+lib/Plagger/Plugin/Filter/TTP.pm
 lib/Plagger/Plugin/Filter/URLBL.pm
 lib/Plagger/Plugin/Publish/CHTML.pm
 lib/Plagger/Plugin/Publish/Debug.pm
+lib/Plagger/Plugin/Publish/Delicious.pm
 lib/Plagger/Plugin/Publish/Gmail.pm
+lib/Plagger/Plugin/Publish/Growl.pm
 lib/Plagger/Plugin/Publish/IRC.pm
 lib/Plagger/Plugin/Publish/JavaScript.pm
+lib/Plagger/Plugin/Publish/MSAgent.pm
 lib/Plagger/Plugin/Publish/MTWidget.pm
+lib/Plagger/Plugin/Publish/PDF.pm
 lib/Plagger/Plugin/Publish/PSP.pm
+lib/Plagger/Plugin/Publish/Speech.pm
+lib/Plagger/Plugin/Publish/Speech/Win32.pm
 lib/Plagger/Plugin/Publish/Spotlight.pm
 lib/Plagger/Plugin/Search/Namazu.pm
 lib/Plagger/Plugin/Search/Rast.pm
@@ -64,6 +75,7 @@ lib/Plagger/Tag.pm
 lib/Plagger/Template.pm
 lib/Plagger/Update.pm
 lib/Plagger/UserAgent.pm
+lib/Plagger/Util.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml

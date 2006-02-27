@@ -9,4 +9,4 @@
 ^MakeMaker-\d
 \.gz$
 \.cvsignore
-^config\.yaml$
+^.*\.yaml$
