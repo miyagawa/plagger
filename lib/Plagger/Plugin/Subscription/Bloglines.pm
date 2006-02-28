@@ -36,7 +36,7 @@ sub getsubs {
 }
 
 sub add_subscription {
-    my($self, $context, $subscription, $subid, $title) = @_;
+    my($self, $subscription, $subid, $title) = @_;
 
     my @feeds = $subscription->feeds_in_folder($subid);
     for my $source (@feeds) {
