@@ -32,7 +32,7 @@ sub update {
 
     if (my $fault = $res->fault){
         for (keys %{$fault}){
-            $context->log(warn => "hatena diary keyword auto link failed : $_ => " . $fault->{$_});
+            $context->log(error => "hatena diary keyword auto link failed : $_ => " . $fault->{$_});
         }
     } else {
         $body = $res->result;
@@ -54,7 +54,7 @@ Plagger::Plugin::Filter::HatenaDiaryKeywordLink - HatenaDiary keyword link
 
 =head1 SYNOPSIS
 
-  - module: Filter::HatenaBookmarkTag
+  - module: Filter::HatenaDiaryKeywordLink
 
 =head1 DESCRIPTION
 
