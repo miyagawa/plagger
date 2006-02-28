@@ -31,6 +31,7 @@ features(
     'Aggregator::Simple' => [
         -default => 1,
         recommends('XML::Feed'),
+        recommends('XML::RSS::LibXML', 0.16),
     ],
     'Publish::Gmail' => [
         -default => 1,
@@ -78,23 +79,32 @@ features(
         -default => 0,
         recommends('XMLRPC::Lite'),
     ],
+    'Filter::HatenaDiaryKeywordLink' => [
+        -default => 0,
+        recommends('XMLRPC::Lite'),
+    ],
+    'Publish::Feed' => [
+        -default => 1,
+        recommends('XML::Feed'),
+        recommends('XML::RSS::LibXML', 0.16),
+    ],
 );
 
 if ($^O eq 'Darwin') {
     features(
         'Publish::Spotlight' => [
             -default => 1,
-            recommends('Mac::Glue' => 0),
+            recommends('Mac::Glue'),
         ],
     );
 } elsif ($^O eq 'MSWin32') {
     features(
         'Publish::Speech' => [
             -default => 0,
-            recommends('Win32::OLE' => 0),
-            recommends('Win32::SAPI4' => 0),
-            recommends('Locale::Country' => 0),
-            recommends('Locale::Language' => 0),
+            recommends('Win32::OLE'),
+            recommends('Win32::SAPI4'),
+            recommends('Locale::Country'),
+            recommends('Locale::Language'),
         ],
     );
 }
