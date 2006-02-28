@@ -144,12 +144,16 @@ Your username & password to use with Bloglines API.
 =item mark_read
 
 C<mark_read> specifies whether this plugin "marks as read" the items
-you synchronize. Without this option, you will get the duplicated
-updates everytime you run Plagger, until you mark them unread using
-Bloglines browser interface. Defaults to 1.
+you synchronize. With this option set to 0, you will get the
+duplicated updates everytime you run Plagger, until you mark them
+unread using Bloglines browser interface. Defaults to 1.
 
-Setting this to 0 is recommended only for testing, or users who don't
-use Publish::Gmail plugin.
+For people who uses Bloglines browser interface regularly, and use
+Plagger as a tool to synchronize feed updates to mobile devices (like
+PSP or iPod), I'd recommend set this option to 0.
+
+Otherwise, especially for Publish::Gmail plugin users, I recommend set
+to 1, the default.
 
 =back
 
