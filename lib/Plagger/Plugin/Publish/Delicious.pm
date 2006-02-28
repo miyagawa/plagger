@@ -2,8 +2,8 @@ package Plagger::Plugin::Publish::Delicious;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Encode;
 use Net::Delicious;
-use URI::Escape qw(uri_escape uri_escape_utf8);
 
 sub register {
     my($self, $context) = @_;
@@ -23,24 +23,29 @@ sub initialize {
 }
 
 sub add_entry {
-    my ($self, $context, $args) = @_;
+    my($self, $context, $args) = @_;
 
     my @tags = @{$args->{entry}->tags};
     my $tag_string;
     if (scalar(@tags)) {
-        $tag_string = uri_escape_utf8( join ' ', @tags );
+        $tag_string = join ' ', @tags;
     } else {
         $tag_string = "";
     }
 
-    $self->{delicious}->add_post({
-        url         => uri_escape( $args->{entry}->link ),
-        description => uri_escape_utf8( $args->{entry}->title ),
-        extended    => uri_escape_utf8( $args->{entry}->body ),
-        tags        => $tag_string,
-    });
+    my $params = {
+        url         => $args->{entry}->link,
+        description => encode('utf-8', $args->{entry}->title),
+        tags        => encode('utf-8', $tag_string),
+    };
 
-    my $sleeping_time = $context->conf->{interval} || 4;
+    if ($self->conf->{post_body}) {
+        $params->{extended} = encode('utf-8', $args->{entry}->body_text),
+    }
+
+    $self->{delicious}->add_post($params);
+
+    my $sleeping_time = $context->conf->{interval} || 3;
     $context->log(info => "Post entry success. sleep $sleeping_time.");
     sleep( $sleeping_time );
 }
@@ -60,10 +65,29 @@ Plagger::Plugin::Publish::Delicious - Post to del.icio.us automatically
       username: your-username
       password: your-password
       interval: 2
+      post_body: 1
 
 =head1 DESCRIPTION
 
 This plugin posts feed updates to del.icio.us, using its REST API.
+
+=head1 CONFIGURATION
+
+=over 4
+
+=item username, password
+
+Your login and password for logging in del.icio.us.
+
+=item interval
+
+Interval (as seconds) to sleep after posting each bookmark. Defaults to 3.
+
+=item post_body
+
+A flag to post entry's body as extended field for del.icio.us. Defaults to 0.
+
+=cut
 
 =head1 AUTHOR
 
