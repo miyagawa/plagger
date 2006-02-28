@@ -29,10 +29,10 @@ sub getsubs {
     my $subscription = $self->{bloglines}->listsubs();
 
     for my $folder ($subscription->folders) {
-        $self->add_subscription($context, $subscription, $folder->{BloglinesSubId}, $folder->{title});
+        $self->add_subscription($subscription, $folder->{BloglinesSubId}, $folder->{title});
     }
 
-    $self->add_subscription($context, $subscription, 0);
+    $self->add_subscription($subscription, 0);
 }
 
 sub add_subscription {
@@ -45,7 +45,7 @@ sub add_subscription {
         $feed->link($source->{htmlUrl});
         $feed->url($source->{xmlUrl} );
         $feed->tags([ $title ]) if $title;
-        $context->subscription->add($feed);
+        Plagger->context->subscription->add($feed);
     }
 }
 
@@ -66,6 +66,29 @@ sub notifier {
         my $feed = Plagger::Feed->new;
         $feed->type('bloglines');
         $context->subscription->add($feed);
+
+        if ($self->conf->{fetch_folders}) {
+            # TODO: cache it!
+            $self->fetch_folders($context);
+        }
+    }
+}
+
+sub fetch_folders {
+    my($self, $context) = @_;
+
+    $self->{folders} = {};
+    $context->log(info => "call Bloglines listsubs API to get folder structure");
+
+    my $subscription = $self->{bloglines}->listsubs();
+
+    for my $folder ($subscription->folders) {
+        my @feeds = $subscription->feeds_in_folder($folder->{BloglinesSubId});
+        for my $feed (@feeds) {
+            # BloglinesSubId is different from bloglines:siteid. Don't use it
+            $self->{folders}->{$feed->{htmlUrl}} = $folder->{title};
+            $context->log(debug => "$feed->{htmlUrl}: $folder->{title}");
+        }
     }
 }
 
@@ -90,6 +113,12 @@ sub sync {
         $feed->language($source->{language});
         $feed->author($source->{webmaster});
         $feed->meta->{bloglines_id} = $source->{bloglines}->{siteid};
+
+        # under fetch_folders option, set folder as tags to feeds
+        if (my $folder = $self->{folders}->{$feed->link}) {
+            $feed->tags([ $folder ]);
+        }
+
         $feed->source_xml($update->{_xml});
 
         for my $item ( $update->items ) {
@@ -143,7 +172,7 @@ Your username & password to use with Bloglines API.
 
 =item mark_read
 
-C<mark_read> specifies whether this plugin "marks as read" the items
+C<mark_read> specifies whether this plugin I<marks as read> the items
 you synchronize. With this option set to 0, you will get the
 duplicated updates everytime you run Plagger, until you mark them
 unread using Bloglines browser interface. Defaults to 1.
@@ -154,6 +183,14 @@ PSP or iPod), I'd recommend set this option to 0.
 
 Otherwise, especially for Publish::Gmail plugin users, I recommend set
 to 1, the default.
+
+=item fetch_folders
+
+C<fetch_folders> specifies whether this plugin fetches I<folder>
+strucuture using listsubs API. With this option on, all feeds under
+I<Plagger> folder will have I<Plagger> as its tag.
+
+You can use this tags information using Rules in later phase.
 
 =back
 

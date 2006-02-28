@@ -1,7 +1,7 @@
 package Plagger::Entry;
 use strict;
 
-use base qw( Class::Accessor::Fast );
+use base qw( Plagger::Thing );
 __PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate  icon meta));
 
 use Digest::MD5;
@@ -37,20 +37,6 @@ sub add_widget {
 sub widgets {
     my $self = shift;
     wantarray ? @{ $self->{widgets} } : $self->{widgets};
-}
-
-sub has_tag {
-    my($self, $want_tag) = @_;
-    for my $tag (@{$self->tags}) {
-        return 1 if $tag eq $want_tag;
-    }
-    return 0;
-}
-
-sub add_tag {
-    my($self, $tag) = @_;
-    push @{$self->tags}, $tag
-        unless $self->has_tag($tag);
 }
 
 sub permalink {

@@ -1,7 +1,7 @@
 package Plagger::Feed;
 use strict;
 
-use base qw( Class::Accessor::Fast );
+use base qw( Plagger::Thing );
 __PACKAGE__->mk_accessors(qw( link url image description language author updated tags meta type source_xml ));
 
 use Digest::MD5 qw(md5_hex);

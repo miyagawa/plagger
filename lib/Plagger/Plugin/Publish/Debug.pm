@@ -14,7 +14,13 @@ sub register {
 
 sub feed {
     my($self, $context, $args) = @_;
-    $context->dumper($args->{feed});
+
+    if ($self->conf->{expression}) {
+        eval $self->conf->{expression};
+        $context->log(error => "Expression error: $@ with '" . $self->conf->{expression} . "'") if $@;
+    } else {
+        $context->dumper($args->{feed});
+    }
 }
 
 1;

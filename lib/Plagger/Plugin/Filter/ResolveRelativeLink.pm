@@ -17,7 +17,8 @@ sub filter {
     my($self, $context, $args) = @_;
     my $entry = $args->{entry};
 
-    my $resolver = HTML::ResolveLink->new(base => $entry->permalink);
+    my $base = $entry->permalink || $args->{feed}->link;
+    my $resolver = HTML::ResolveLink->new(base => $base);
     my $html = $resolver->resolve($entry->body);
 
     if (my $count = $resolver->resolved_count) {
