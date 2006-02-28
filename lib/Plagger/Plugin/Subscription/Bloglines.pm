@@ -76,7 +76,7 @@ sub sync {
        $mark_read = 1 unless defined $mark_read;
 
     my @updates = $self->{bloglines}->getitems(0, $mark_read);
-    $context->log(dnfo => scalar(@updates) . " feed(s) updated.");
+    $context->log(info => scalar(@updates) . " feed(s) updated.");
 
     for my $update (@updates) {
         my $source = $update->feed;
