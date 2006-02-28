@@ -88,6 +88,10 @@ features(
         recommends('XML::Feed'),
         recommends('XML::RSS::LibXML', 0.16),
     ],
+    'Filter::ResolveRelativeLink' => [
+        -default => 0,
+        recommends('HTML::ResolveLink', 0.02),
+    ],
 );
 
 if ($^O eq 'Darwin') {
