@@ -7,11 +7,12 @@ our $VERSION = 0.01;
 
 use XML::Feed;
 use XML::Feed::Entry;
+use XML::RSS::LibXML;
 use File::Spec;
 
-# Now XML::RSS::LibXML(0.15) has a bug when it process for RSS 2.0.
-# So this module uses XML::RSS temporarily.
-$XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS";
+# xxx ugh
+$XML::Feed::RSS::PREFERRED_PARSER =
+    $XML::RSS::LibXML::VERSION >= 0.16 ? "XML::RSS::LibXML" : "XML::RSS";
 
 sub register {
     my($self, $context) = @_;
@@ -40,17 +41,16 @@ sub publish_feed {
     my $feed_format = $conf->{format} || 'Atom';
 
     # generate feed
-    $context->log(info => "generate feed: " . $f->type);
     my $feed = XML::Feed->new($feed_format);
-    $feed->title($f->title_text);
+    $feed->title($f->title);
     $feed->link($f->link);
-    $feed->modified(Plagger::Date->now(timezone => $context->conf->{timezone}));
-    $feed->generator("Plagger-$Plagger::VERSION");
+    $feed->modified(Plagger::Date->now);
+    $feed->generator("Plagger/$Plagger::VERSION");
 
     # add entry
     for my $e ($f->entries) {
         my $entry = XML::Feed::Entry->new($feed_format);
-        $entry->title($e->title_text);
+        $entry->title($e->title);
         $entry->link($e->link);
         $entry->summary($e->body_text);
         $entry->category(join(' ', @{$e->tags}));
@@ -62,8 +62,8 @@ sub publish_feed {
     # generate file path
     my $filepath = File::Spec->catfile($self->conf->{dir}, $self->gen_filename($f));
 
+    $context->log(info => "save feed for " . $f->url . " to $filepath");
 
-    # output feed
     my $xml = $feed->as_xml;
     utf8::decode($xml) unless utf8::is_utf8($xml);
     open my $output, ">:utf8", $filepath or $context->error("$filepath: $!");
@@ -104,21 +104,22 @@ __END__
 
 =head1
 
-Plagger::Plugin::Publish::Feed
+Plagger::Plugin::Publish::Feed - republish RSS/Atom feeds
 
 =head1 SYNOPSYS
 
-    - module: Publish::Feed
-      config:
-        format: RSS
-        dir: /home/yoshiki/plagger/feed
-        filename: my_%t.rss
+  - module: Publish::Feed
+    config:
+      format: RSS
+      dir: /home/yoshiki/plagger/feed
+      filename: my_%t.rss
 
 =head1 CONFIG
 
 =head2 format
 
-Specify the format of feed. C<Plagger::Plugin::Publish::Feed> supports the following syndication feed formats:
+Specify the format of feed. C<Plagger::Plugin::Publish::Feed> supports
+the following syndication feed formats:
 
 =over 4
 
@@ -130,11 +131,13 @@ Specify the format of feed. C<Plagger::Plugin::Publish::Feed> supports the follo
 
 =head2 dir
 
-Directory for saving feed files.
+Directory to save feed files in.
 
 =head2 filename
 
-File name for feed files. A default file name is used, if you do not specify it. It supports the following format like printf():
+Filename to be used to create feed files. It defaults to C<%i.rss> for
+RSS and C<%i.atom> for Atom feed. It supports the following format
+like printf():
 
 =over 4
 
