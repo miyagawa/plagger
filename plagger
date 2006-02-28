@@ -8,7 +8,13 @@ use Plagger;
 use Getopt::Long;
 
 my $config = 'config.yaml';
-GetOptions('--config=s', \$config);
+GetOptions('--config=s', \$config, '--version' => \my $version);
+Getopt::Long::Configure("bundling"); # allows -c -v
+
+if ($version) {
+    print "Plagger version $Plagger::VERSION\n";
+    exit;
+}
 
 Plagger->bootstrap(config => $config);
 
