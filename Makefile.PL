@@ -114,6 +114,10 @@ if ($^O eq 'Darwin') {
             recommends('Locale::Country'),
             recommends('Locale::Language'),
         ],
+        'Publish::Speech' => [
+            -default => 0,
+            recommends('Win32::MCI::Basic'),
+        ],
     );
 }
 
