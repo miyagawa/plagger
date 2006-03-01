@@ -5,13 +5,16 @@ our $VERSION = '0.5.4';
 use 5.8.1;
 use Carp;
 use Data::Dumper;
+use File::Basename;
 use File::Find::Rule;
 use YAML;
 use UNIVERSAL::require;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors( qw(conf update subscription plugins_path) );
+__PACKAGE__->mk_accessors( qw(conf update subscription plugins_path cache) );
 
+use Plagger::Cache;
+use Plagger::CacheProxy;
 use Plagger::Date;
 use Plagger::Entry;
 use Plagger::Feed;
@@ -41,15 +44,30 @@ sub bootstrap {
     if (-e $opt{config} && -r _) {
         $config = YAML::LoadFile($opt{config});
         $self->{conf} = $config->{global};
-        $self->{conf}->{log} ||= { level => 'debug' };
+        $self->{conf}->{log}   ||= { level => 'debug' };
     } else {
         croak "Plagger->bootstrap: $opt{config}: $!";
     }
 
-    local *Plagger::context = sub { $self };
+    $self->load_cache($opt{config});
 
+    local *Plagger::context = sub { $self };
     $self->load_plugins(@{ $config->{plugins} || [] });
     $self->run();
+}
+
+sub load_cache {
+    my($self, $config) = @_;
+
+    # use config filename as a base directory for cache
+    my $base = ( basename($config) =~ /^(.*?)\.yaml$/ )[0];
+    my $dir  = $base eq 'config' ? ".plagger" : ".plagger-$base";
+
+    $self->{conf}->{cache} ||= {
+        base => File::Spec->catfile($ENV{HOME}, $dir),
+    };
+
+    $self->cache( Plagger::Cache->new($self->{conf}->{cache}) );
 }
 
 sub load_plugins {
@@ -105,6 +123,7 @@ sub load_plugin {
     $self->log(info => "plugin $module loaded.");
 
     my $plugin = $module->new($config);
+    $plugin->cache( Plagger::CacheProxy->new($plugin, $self->cache) );
     $plugin->register($self);
 }
 

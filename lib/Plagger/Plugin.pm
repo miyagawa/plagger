@@ -1,5 +1,8 @@
 package Plagger::Plugin;
 use strict;
+use base qw( Class::Accessor::Fast );
+
+__PACKAGE__->mk_accessors( qw(conf rule rule_hook cache) );
 
 use Plagger::Rule;
 use Plagger::Rules;
@@ -31,15 +34,19 @@ sub init {
 sub conf { $_[0]->{conf} }
 sub rule { $_[0]->{rule} }
 
-sub rule_hook {
-    my $self = shift;
-    $self->{rule_hook} = shift if @_;
-    $self->{rule_hook};
-}
-
 sub dispatch_rule_on {
     my($self, $hook) = @_;
     $self->rule_hook && $self->rule_hook eq $hook;
+}
+
+sub class_id {
+    my $self = shift;
+
+    my $pkg = ref($self);
+       $pkg =~ s/Plagger::Plugin:://;
+    my @pkg = split /::/, $pkg;
+
+    return join '-', map lc, @pkg;
 }
 
 1;
