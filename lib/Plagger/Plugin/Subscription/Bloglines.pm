@@ -67,14 +67,14 @@ sub notifier {
         $feed->type('bloglines');
         $context->subscription->add($feed);
 
-        if ($self->conf->{fetch_folders}) {
+        if ($self->conf->{fetch_meta}) {
             # TODO: cache it!
-            $self->fetch_folders($context);
+            $self->fetch_meta($context);
         }
     }
 }
 
-sub fetch_folders {
+sub fetch_meta {
     my($self, $context) = @_;
 
     $self->{folders} = {};
@@ -86,8 +86,10 @@ sub fetch_folders {
         my @feeds = $subscription->feeds_in_folder($folder->{BloglinesSubId});
         for my $feed (@feeds) {
             # BloglinesSubId is different from bloglines:siteid. Don't use it
-            $self->{folders}->{$feed->{htmlUrl}} = $folder->{title};
-            $context->log(debug => "$feed->{htmlUrl}: $folder->{title}");
+            $self->{bloglines_meta}->{$feed->{htmlUrl}} = {
+                folder => $folder->{title},
+                xmlUrl => $feed->{xmlUrl},
+            };
         }
     }
 }
@@ -114,9 +116,10 @@ sub sync {
         $feed->author($source->{webmaster});
         $feed->meta->{bloglines_id} = $source->{bloglines}->{siteid};
 
-        # under fetch_folders option, set folder as tags to feeds
-        if (my $folder = $self->{folders}->{$feed->link}) {
-            $feed->tags([ $folder ]);
+        # under fetch_pfolders option, set folder as tags to feeds
+        if (my $meta = $self->{bloglines_meta}->{$feed->link}) {
+            $feed->tags([ $meta->{folder} ]);
+            $feed->url($meta->{xmlUrl});
         }
 
         $feed->source_xml($update->{_xml});
@@ -184,9 +187,9 @@ PSP or iPod), I'd recommend set this option to 0.
 Otherwise, especially for Publish::Gmail plugin users, I recommend set
 to 1, the default.
 
-=item fetch_folders
+=item fetch_meta
 
-C<fetch_folders> specifies whether this plugin fetches I<folder>
+C<fetch_meta> specifies whether this plugin fetches I<folder>
 strucuture using listsubs API. With this option on, all feeds under
 I<Plagger> folder will have I<Plagger> as its tag.
 
