@@ -59,4 +59,15 @@ sub title_text {
     Plagger::Util::strip_html($self->title);
 }
 
+sub sort_entries {
+    my $self = shift;
+
+    # xxx reverse chron only, using Schwartzian transform
+    my @entries = map { $_->[1] }
+        sort { $b->[0] <=> $a->[0] }
+        map { [ $_->date || '', $_ ] } $self->entries;
+
+    $self->{entries} = \@entries;
+}
+
 1;

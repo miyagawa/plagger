@@ -17,7 +17,7 @@ sub parse {
         $module->require or die $@;
     }
 
-    my $dt = $module->parse_datetime($date);
+    my $dt = $module->parse_datetime($date) or return;
     if (my $context = Plagger->context) {
         $dt->set_time_zone($context->conf->{timezone});
     }
