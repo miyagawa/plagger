@@ -92,6 +92,10 @@ features(
         -default => 0,
         recommends('HTML::ResolveLink', 0.02),
     ],
+    'Filter::BulkfeedsTerms' => [
+        -default => 0,
+        recommends('XML::Simple'),
+    ],
 );
 
 if ($^O eq 'Darwin') {
