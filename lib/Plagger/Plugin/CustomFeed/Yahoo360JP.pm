@@ -112,7 +112,7 @@ RE
 RE
     ;
 
-    if ($link) {
+    if ($link && $self->conf->{fetch_blast}) {
         $mech->get($link->url);
         my $content = decode('utf-8', $mech->content);
         while ($content =~ /$re/g) {
@@ -188,11 +188,32 @@ Plagger::Plugin::CustomFeed::Yahoo360JP - Yahoo! 360 JAPAN custom feed
       username: your-yahoo-id
       password: xxxxxxxx
       fetch_body: 1
+      fetch_blast: 1
 
 =head1 DESCRIPTION
 
 This plugin fetches your friends' blog updates and blast updates from
 Yahoo! JAPAN 360 and make a custom feed off of them.
+
+=head1 CONFIG
+
+=over 4
+
+=item username, password
+
+Your Yahoo! ID and password to login.
+
+=item fetch_body
+
+Specifies whether this plugin fetches body of your friends' blog
+entry. Defaults to 0.
+
+=item fetch_blast
+
+Specifies whether this plugin fetches a list of your friends'
+blasts. Defaults to 0.
+
+=back
 
 =head1 AUTHOR
 
