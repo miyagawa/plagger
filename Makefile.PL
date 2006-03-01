@@ -16,6 +16,7 @@ requires('DateTime::Format::W3CDTF' => 0);
 requires('DateTime::Format::Strptime' => 0);
 requires('Digest::MD5' => 0);
 requires('LWP' => 0);
+requires('HTML::Parser' => 3.40);
 
 build_requires(Test::More => 0.42);
 
