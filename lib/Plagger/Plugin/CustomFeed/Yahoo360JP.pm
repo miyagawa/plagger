@@ -55,7 +55,7 @@ sub aggregate {
     # get friends blogs
     $mech->get("http://360.yahoo.co.jp/friends/content.html");
 
-    # preserve link to Hitokoto page here ... used later
+    # preserve link to blast page here ... used later
     my $link = $mech->find_link( url_regex => qr/form_submitted=friends_content_head/ );
 
     my $re = decode('utf-8', <<'RE');
@@ -129,7 +129,7 @@ RE
             }, $now, $format);
         }
     } else {
-        $context->log(error => "Can't find link to Hitokoto page.");
+        $context->log(error => "Can't find link to blast page.");
     }
 
     $feed->sort_entries;
@@ -175,4 +175,31 @@ sub fetch_body {
 
 1;
 
+__END__
 
+=head1 NAME
+
+Plagger::Plugin::CustomFeed::Yahoo360JP - Yahoo! 360 JAPAN custom feed
+
+=head1 SYNOPSIS
+
+  - module: CustomFeed::Yahoo360JP
+    config:
+      username: your-yahoo-id
+      password: xxxxxxxx
+      fetch_body: 1
+
+=head1 DESCRIPTION
+
+This plugin fetches your friends' blog updates and blast updates from
+Yahoo! JAPAN 360 and make a custom feed off of them.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>, L<WWW::Mechanize>, L<Plagger::Plugin::CustomFeed::Mixi>
+
+=cut
