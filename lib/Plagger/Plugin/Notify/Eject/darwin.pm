@@ -21,9 +21,7 @@ Plagger::Plugin::Notify::Eject - Notify feed updates to CD Drive for darwin
 
 =head1 AUTHOR
 
-Kazuhiro Osawa
-
-Thanks to kazeburo
+Kazuhiro Osawa, Masahiro Nagano
 
 =head1 SEE ALSO
 

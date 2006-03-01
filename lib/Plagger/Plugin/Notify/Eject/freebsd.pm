@@ -21,9 +21,7 @@ Plagger::Plugin::Notify::Eject - Notify feed updates to CD Drive for freebsd
 
 =head1 AUTHOR
 
-Kazuhiro Osawa
-
-Thanks to otsune
+Kazuhiro Osawa, Masafumi Otsune
 
 =head1 SEE ALSO
 
