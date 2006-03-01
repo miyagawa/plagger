@@ -1,4 +1,4 @@
-package Plagger::Plugin::Publish::Growl;
+package Plagger::Plugin::Notify::Growl;
 use strict;
 use base qw( Plagger::Plugin );
 

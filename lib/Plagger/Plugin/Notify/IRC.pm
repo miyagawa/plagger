@@ -1,4 +1,4 @@
-package Plagger::Plugin::Publish::IRC;
+package Plagger::Plugin::Notify::IRC;
 use strict;
 use base qw( Plagger::Plugin );
 
@@ -54,11 +54,11 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Publish::IRC - Notify feed updates to IRC
+Plagger::Plugin::Notify::IRC - Notify feed updates to IRC
 
 =head1 SYNOPSIS
 
-  - module: Publish::IRC
+  - module: Notify::IRC
     config:
       daemon_port: 9999
       nickname: plaggerbot

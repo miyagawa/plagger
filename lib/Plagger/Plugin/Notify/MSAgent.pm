@@ -1,4 +1,4 @@
-package Plagger::Plugin::Publish::MSAgent;
+package Plagger::Plugin::Notify::MSAgent;
 use base qw( Plagger::Plugin );
 
 use strict;
@@ -99,11 +99,11 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Publish::MSAgent - Let your Agent speak feed updates
+Plagger::Plugin::Notify::MSAgent - Let your Agent speak feed updates
 
 =head1 SYNOPSIS
 
-  - module: Publish::MSAgent
+  - module: Notify::MSAgent
     config:
       character: Merlin
       voice: male
