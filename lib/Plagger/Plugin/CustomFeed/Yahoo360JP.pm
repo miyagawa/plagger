@@ -91,7 +91,12 @@ RE
          };
 
          if ($self->conf->{fetch_body}) {
-             $args->{body} = $self->fetch_body($mech, $args->{link});
+             my $item = $self->cache->get_callback(
+                 "item-$args->{link}",
+                 sub { $self->fetch_body($mech, $args->{link}) },
+                 "1 hour",
+             );
+             $args->{body} = $item->{body} if $item->{body};
          }
          $self->add_entry($feed, $args, $now, $format);
     }
@@ -168,7 +173,7 @@ sub fetch_body {
     $mech->get($link);
     my $content = decode('utf-8', $mech->content);
     if ($content =~ m!<div id="mgbp_body">\n(.*?)</div>!sg) {
-        return $1;
+        return { body => $1 };
     }
     return;
 }

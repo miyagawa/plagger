@@ -59,12 +59,19 @@ sub aggregate {
         $entry->date( Plagger::Date->parse($format, $msg->{time}) );
 
         if ($self->conf->{show_icon} && !$blocked) {
-            # TODO: cache owner_id -> URL
             my $owner_id = ($msg->{link} =~ /owner_id=(\d+)/)[0];
             my $link = "http://mixi.jp/show_friend.pl?id=$owner_id";
             $context->log(info => "Fetch icon from $link");
 
-            my($item) = $self->{mixi}->get_show_friend_outline($link);
+            my $item = $self->cache->get_callback(
+                "outline-$owner_id",
+                sub {
+                    Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
+                    my($item) = $self->{mixi}->get_show_friend_outline($link);
+                    $item;
+                },
+                '12 hours',
+            );
             if ($item && $item->{image} !~ /no_photo/) {
                 # prefer smaller image
                 my $image = $item->{image};
@@ -79,8 +86,15 @@ sub aggregate {
 
         if ($self->conf->{fetch_body} && !$blocked) {
             $context->log(info => "Fetch body from $msg->{link}");
-            Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
-            my($item) = $self->{mixi}->get_view_diary($msg->{link});
+            my $item = $self->cache->get_callback(
+                "item-$msg->{link}",
+                sub {
+                    Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
+                    my($item) = $self->{mixi}->get_view_diary($msg->{link});
+                    $item;
+                },
+                '1 hour',
+            );
             if ($item) {
                 my $body = decode('euc-jp', $item->{description});
                    $body =~ s!\n!<br />!g;

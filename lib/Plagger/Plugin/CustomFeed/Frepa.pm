@@ -58,8 +58,14 @@ sub aggregate {
 
         if ($self->conf->{fetch_body} && !$blocked) {
             $context->log(info => "Fetch body from $msg->{link}");
-            Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
-            my($item) = $self->{frepa}->get_view_diary($msg->{link});
+            my $item = $self->cache->get_callback(
+                "item-$msg->{link}",
+                sub {
+                    Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
+                    $self->{frepa}->get_view_diary($msg->{link});
+                },
+                "1 hour",
+            );
             if ($item) {
                 my $body = decode('euc-jp', $item->{description});
                    $body =~ s!<br>!<br />!g;
@@ -91,12 +97,12 @@ sub aggregate {
 sub fetch_icon {
     my($self, $url) = @_;
 
-    unless ($self->{__icon_cache}->{$url}) {
-        Plagger->context->log(info => "Fetch icon from $url");
-        $self->{__icon_cache}->{$url} = $self->{frepa}->get_top($url);
-    }
-
-    $self->{__icon_cache}->{$url};
+    Plagger->context->log(info => "Fetch icon from $url");
+    $self->cache->get_callback(
+        "icon-$url",
+        sub { $self->{frepa}->get_top($url) },
+        '1 day',
+    );
 }
 
 package Plagger::Plugin::CustomFeed::Frepa::Mechanize;
@@ -125,6 +131,7 @@ sub login {
     $self->{mecha}->set_fields(livedoor_id => $self->{livedoor_id}, password => $self->{password});
     my $res = $self->{mecha}->submit;
     return 0 unless $self->{mecha}->success;
+    return 0 if $self->{mecha}->content =~ /loginside/;
 
     return 1;
 }
@@ -158,7 +165,7 @@ sub get_view_diary {
     my $self = shift;
     my $link = shift;
 
-    my $item;
+    my $item = {};
     my $res = $self->{mecha}->get($link);
     return $item unless $self->{mecha}->success;
 
@@ -175,7 +182,7 @@ sub get_top {
     my $self = shift;
     my $link = shift;
 
-    my $item;
+    my $item = {};
     my $res = $self->{mecha}->get($link);
     return $item unless $self->{mecha}->success;
 

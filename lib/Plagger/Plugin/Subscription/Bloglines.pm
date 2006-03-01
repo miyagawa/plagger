@@ -68,8 +68,11 @@ sub notifier {
         $context->subscription->add($feed);
 
         if ($self->conf->{fetch_meta}) {
-            # TODO: cache it!
-            $self->fetch_meta($context);
+            $self->{bloglines_meta} = $self->cache->get_callback(
+                'listsubs_meta',
+                sub { $self->fetch_meta($context) },
+                '1 day',
+            );
         }
     }
 }
@@ -82,16 +85,19 @@ sub fetch_meta {
 
     my $subscription = $self->{bloglines}->listsubs();
 
+    my $meta;
     for my $folder ($subscription->folders) {
         my @feeds = $subscription->feeds_in_folder($folder->{BloglinesSubId});
         for my $feed (@feeds) {
             # BloglinesSubId is different from bloglines:siteid. Don't use it
-            $self->{bloglines_meta}->{$feed->{htmlUrl}} = {
+            $meta->{$feed->{htmlUrl}} = {
                 folder => $folder->{title},
                 xmlUrl => $feed->{xmlUrl},
             };
         }
     }
+
+    $meta;
 }
 
 sub sync {
