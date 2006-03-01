@@ -23,7 +23,7 @@ build_requires(Test::More => 0.42);
 features(
     'Subscription::Bloglines' => [
         -default => 1,
-        recommends('WebService::Bloglines', 0.06),
+        recommends('WebService::Bloglines', 0.10),
     ],
     'Subscription::OPML' => [
         -default => 1,
