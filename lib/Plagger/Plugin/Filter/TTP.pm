@@ -35,13 +35,18 @@ sub rewrite_ttp {
 
     local @URI::ttp::ISA = qw(URI::http);
 
+    my $count = 0;
     my $finder = URI::Find->new(sub {
         my ($uri, $orig_uri) = @_;
-        return ($uri->scheme eq 'ttp') ? qq{<a href="h$orig_uri">$orig_uri</a>} : $orig_uri;
+        if ($uri->scheme eq 'ttp') {
+            $count++;
+            return qq{<a href="h$orig_uri">$orig_uri</a>};
+        } else {
+            return $orig_uri;
+        }
     });
 
-    my $count = $finder->find(\$body);
-
+    $finder->find(\$body);
     ($count, $body);
 }
 
