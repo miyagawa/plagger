@@ -12,12 +12,31 @@ use MIME::Lite;
 
 our %TLSConn;
 
+sub rule_hook { 'publish.feed' }
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
+        'publish.init' => \&initialize,
         'publish.feed' => \&notify,
     );
+}
+
+sub initialize {
+    my($self,$context) = @_;
+
+    # authenticatE POP before SMTP
+    if (my $conf = $self->conf->{pop3}) {
+        require Net::POP3;
+        my $pop = Net::POP3->new($conf->{host});
+        if ($pop->login($conf->{username}, $conf->{password})) {
+            $context->log(info => 'POP3 login succeed');
+        } else {
+            $context->log(error => 'POP3 login error');
+        }
+        $pop->quit;
+    }
 }
 
 sub notify {
@@ -47,18 +66,6 @@ sub notify {
         Type => 'text/html; charset=utf-8',
         Data => encode("utf-8", $body),
     );
-
-    # POP before SMTP
-    if ($cfg->{pop3}) {
-        require Net::POP3;
-        my $pop = Net::POP3->new($cfg->{pop3}->{host});
-        if ($pop->login($cfg->{pop3}->{username}, $cfg->{pop3}->{password})) {
-            $context->log(info => 'POP3 login succeed');
-        } else {
-            $context->log(info => 'POP3 login error');
-        }
-        $pop->quit;
-    }
 
     my $route = $cfg->{mailroute} || { via => 'smtp', host => 'localhost' };
     if ($route->{via} eq 'smtp_tls') {
