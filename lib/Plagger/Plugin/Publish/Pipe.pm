@@ -52,6 +52,10 @@ Plagger::Plugin::Publish::Pipe - Publish to other program
 
 This plugin publish feed updates to other program using a pipe.
 
+=head1 EXAMPLE
+
+L<http://subtech.g.hatena.ne.jp/youpy/20060301/p2>
+
 =head1 AUTHOR
 
 id:youpy
