@@ -69,14 +69,19 @@ sub login {
     return 1 if ( $self->{mecha}->content =~ /chat-wrapper/);
 
     if ( $self->{guest_url} ) {
-        $self->{mecha}
-          ->submit_form( fields => { name => $self->{nickname}, }, );
+        $self->{mecha}->submit_form(
+            fields => {
+                name => $self->{nickname},
+                remember => 1,
+            },
+        );
     }
     else {
         $self->{mecha}->submit_form(
             fields => {
                 email_address => $self->{email},
                 password      => $self->{password},
+                remember      => 1,
             },
         );
     }
