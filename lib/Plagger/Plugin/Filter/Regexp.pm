@@ -78,7 +78,7 @@ Plagger::Plugin::Filter::Regexp - Rewrite entry body using regular expression
 
 =head1 SYNOPSIS
 
-  - module: Filter::Expression
+  - module: Filter::Regexp
     config:
       regexp: s/Plagger/$1, the pluggable Aggregator/g
       text_only: 1
