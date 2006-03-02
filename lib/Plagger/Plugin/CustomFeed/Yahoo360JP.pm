@@ -27,22 +27,14 @@ sub load {
 sub aggregate {
     my($self, $context, $args) = @_;
 
-    # TODO: save cookies
-    my $start = "https://login.yahoo.co.jp/config/login?.src=360&.done=http%3A%2F%2F360.yahoo.co.jp%2F%3F.login%3D1"; # SSL
+    my $start = "http://360.yahoo.co.jp/";
 
-    my $mech = WWW::Mechanize->new;
+    my $mech = WWW::Mechanize->new(cookie_jar => $self->cache->cookie_jar);
+    $mech->agent_alias( 'Windows IE 6' );
     $mech->get($start);
-    $mech->submit_form(
-        fields => {
-            login  => $self->conf->{username},
-            passwd => $self->conf->{password},
-            '.persistent' => 'y',
-        },
-    );
 
-    if ($mech->content =~ m!<span class="error">!) {
-        $context->log(error => "Login to Yahoo! failed.");
-        return;
+    if ($mech->content =~ /mgb_login/) {
+        $self->login($mech) or return;
     }
 
     $context->log(info => "Login to Yahoo! succeeded.");
@@ -141,6 +133,37 @@ RE
     $context->update->add($feed);
 }
 
+sub login {
+    my($self, $mech) = @_;
+
+    $mech->submit_form(
+        fields => {
+            login  => $self->conf->{username},
+            passwd => $self->conf->{password},
+            '.persistent' => 'y',
+        },
+    );
+
+    while ($mech->content =~ m!<span class="error">!) {
+        Plagger->context->log(error => "Login to Yahoo! failed.");
+        if ($mech->content =~ m!(https://captcha.yahoo.co.jp/img/.*\.jpg)!) {
+            my $captcha = $self->prompt_captcha($1) or return;
+            $mech->submit_form(
+                fields => {
+                    login  => $self->conf->{username},
+                    passwd => $self->conf->{password},
+                    '.secword'    => $captcha,
+                    '.persistent' => 'y',
+                },
+            );
+        } else {
+            return;
+        }
+    }
+
+    return 1;
+}
+
 sub add_entry {
     my($self, $feed, $args, $now, $format) = @_;
 
@@ -176,6 +199,23 @@ sub fetch_body {
         return { body => $1 };
     }
     return;
+}
+
+sub prompt_captcha {
+    my($self, $url) = @_;
+    print STDERR "CAPTCHA:\n$url\nEnter the code: ";
+
+    # use alarm timeout for cron job
+    my $key;
+    eval {
+        local $SIG{ALRM} = sub { die "alarm\n" };
+        alarm 30;
+        chomp($key = <STDIN>);
+        alarm 0;
+    };
+    return if $@;
+
+    return $key;
 }
 
 1;

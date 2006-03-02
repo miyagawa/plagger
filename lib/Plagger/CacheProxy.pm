@@ -19,4 +19,9 @@ for my $meth (qw(get get_callback set remove)) {
     };
 }
 
+sub cookie_jar {
+    my $self = shift;
+    $self->{cache}->cookie_jar($self->{namespace});
+}
+
 1;

@@ -1,6 +1,7 @@
 package Plagger::Cache;
 use strict;
 use File::Spec;
+use HTTP::Cookies;
 use UNIVERSAL::require;
 
 sub new {
@@ -59,6 +60,19 @@ sub set {
 sub remove {
     my $self = shift;
     $self->{cache}->remove(@_);
+}
+
+sub cookie_jar {
+    my($self, $ns) = @_;
+    my $file = $ns ? "global.dat" : "$ns.dat";
+
+    my $dir = File::Spec->catfile($self->{base}, 'cookies');
+    mkdir $dir, 0755 unless -e $dir && -d _;
+
+    return HTTP::Cookies->new(
+        file => File::Spec->catfile($dir, $file),
+        autosave => 1,
+    );
 }
 
 1;
