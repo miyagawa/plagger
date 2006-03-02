@@ -1,4 +1,3 @@
-
 package Plagger::Plugin::Notify::Campfire;
 
 use strict;
@@ -68,7 +67,7 @@ sub login {
 
     # still login
     return 1 if ( $self->{mecha}->content =~ /chat-wrapper/);
-    
+
     if ( $self->{guest_url} ) {
         $self->{mecha}
           ->submit_form( fields => { name => $self->{nickname}, }, );
@@ -88,7 +87,7 @@ sub login {
     unless ( $self->{room_url} ) {
         $self->{room_url} = $self->{guest_url};
         my ( $room_no, ) = $self->{mecha}->content =~ /participant_list-(\d+)/;
-        $self->{room_url} =~ s/\/\w+$/\/room\/$room_no/;
+        $self->{room_url} =~ s!/\w+$!/room/$room_no!;
     }
 
 }
@@ -106,18 +105,40 @@ sub speak {
 
 __END__
 
-- module: Notify::Campfire
-config:
-  guest_url: http://exmaple.campfirenow.com/room/xxxxx
-  nickname: nickname
-  speak_interval: 3
+=head1 NAME
 
-OR
+Plagger::Plugin::Notify::Campfire - Notification bot for Campfire
 
-- module: Notify::Campfire
-config:
-  room_url: http://exmaple.campfirenow.com/xxxxxx
-  email: example@example.com
-  password: xxxxxx
-  speak_interval: 2
+=head1 SYNOPSIS
 
+To use bot as a guest (recommended),
+
+  - module: Notify::Campfire
+    config:
+      guest_url: http://exmaple.campfirenow.com/room/NNNN
+      nickname: nickname
+      speak_interval: 3
+
+Or, to use bot using existent login credentials,
+
+  - module: Notify::Campfire
+    config:
+      room_url: http://exmaple.campfirenow.com/NNNN
+      email: example@example.com
+      password: xxxxxx
+      speak_interval: 2
+
+=head1 DESCRIPTION
+
+This plugin notifies feed updates to 37 Signals' Campfire
+L<http://www.campfirenow.com/> chat room.
+
+=head1 AUTHOR
+
+Takeshi Nagayama
+
+=head1 SEE ALSO
+
+L<Plagger>, L<http://www.campfirenow.com/>, L<WWW::Mechanize>
+
+=cut
