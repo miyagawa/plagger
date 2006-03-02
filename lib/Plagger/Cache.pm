@@ -64,7 +64,7 @@ sub remove {
 
 sub cookie_jar {
     my($self, $ns) = @_;
-    my $file = $ns ? "global.dat" : "$ns.dat";
+    my $file = $ns ? "$ns.dat" : "global.dat";
 
     my $dir = File::Spec->catfile($self->{base}, 'cookies');
     mkdir $dir, 0755 unless -e $dir && -d _;
