@@ -19,6 +19,7 @@ sub register {
 sub load {
     my($self, $context) = @_;
     $self->{mixi} = WWW::Mixi->new($self->conf->{email}, $self->conf->{password});
+    $self->{mixi}->cookie_jar($self->cache->cookie_jar);
 
     my $feed = Plagger::Feed->new;
        $feed->type('mixi');
@@ -28,13 +29,27 @@ sub load {
 sub aggregate {
     my($self, $context, $args) = @_;
 
-    my $response = $self->{mixi}->login;
-    unless ($response->is_success) {
-        $context->log(error => "Login failed.");
-        return;
-    }
+    my $start_url = 'http://mixi.jp/new_friend_diary.pl';
+    my $response  = $self->{mixi}->get($start_url);
 
-    $context->log(info => 'Login to mixi succeed.');
+    if ($response->content =~ /action=login\.pl/) {
+        $context->log(debug => "Cookie not foud. Logging in");
+        $response = $self->{mixi}->post("http://mixi.jp/login.pl", {
+            next_url => "/new_friend_diary.pl",
+            email    => $self->conf->{email},
+            password => $self->conf->{password},
+            sticky   => 'on',
+        });
+        if (!$response->is_success || $response->content =~ /action=login\.pl/) {
+            $context->log(error => "Login failed.");
+            return;
+        }
+
+        # meta refresh, ugh!
+        if ($response->content =~ m!"0;url=(.*?)"!) {
+            $response = $self->{mixi}->get($1);
+        }
+    }
 
     my $feed = Plagger::Feed->new;
     $feed->type('mixi');
@@ -43,7 +58,7 @@ sub aggregate {
 
     my $format = DateTime::Format::Strptime->new(pattern => '%Y/%m/%d %H:%M');
 
-    my @msgs = $self->{mixi}->get_new_friend_diary;
+    my @msgs = $self->{mixi}->parse_new_friend_diary($response);
     my $items = $self->conf->{fetch_items} || 20;
 
     my $i = 0;
