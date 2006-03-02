@@ -35,7 +35,7 @@ sub add_entry {
     my $link  = XML::Atom::Link->new;
     $link->rel('related');
     $link->type('text/html');
-    $link->href(encode('utf-8', $args->{entry}->link));
+    $link->href($args->{entry}->link);
     $entry->add_link($link);
 
     if ($self->conf->{post_body}) {
