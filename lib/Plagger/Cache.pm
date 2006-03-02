@@ -26,8 +26,18 @@ sub new {
 
 sub get {
     my $self = shift;
-    my $getter = $self->{cache}->isa('Cache') ? 'thaw' : 'get';
-    $self->{cache}->$getter(@_);
+
+    my $value;
+    if ( $self->{cache}->isa('Cache') ) {
+        eval { $value = $self->{cache}->thaw(@_) };
+        if ($@ && $@ =~ /Storable binary/) {
+            $value = $self->{cache}->get(@_);
+        }
+    } else {
+        $value = $self->{cache}->get(@_);
+    }
+
+    $value;
 }
 
 sub get_callback {
@@ -53,7 +63,7 @@ sub set {
     my $self = shift;
     my($key, $value, $expiry) = @_;
 
-    my $setter = $self->{cache}->isa('Cache') ? 'freeze' : 'set';
+    my $setter = $self->{cache}->isa('Cache') && ref $value ? 'freeze' : 'set';
     $self->{cache}->$setter(@_);
 }
 
