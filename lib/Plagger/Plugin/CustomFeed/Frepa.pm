@@ -17,7 +17,7 @@ sub register {
 
 sub load {
     my($self, $context) = @_;
-    $self->{frepa} = Plagger::Plugin::CustomFeed::Frepa::Mechanize->new($self->conf->{livedoor_id}, $self->conf->{password});
+    $self->{frepa} = Plagger::Plugin::CustomFeed::Frepa::Mechanize->new($self);
 
     my $feed = Plagger::Feed->new;
     $feed->type('frepa');
@@ -27,13 +27,12 @@ sub load {
 sub aggregate {
     my($self, $context, $args) = @_;
 
-
     unless ($self->{frepa}->login) {
-	$context->log(error => "Login failed.");
+	$context->log(error => "Login to frepa failed.");
         return;
     }
 
-    $context->log(info => 'Login to frepa succeed.');
+    $context->log(info => 'Login to frepa succeeded.');
 
     my $feed = Plagger::Feed->new;
     $feed->type('frepa');
@@ -112,26 +111,38 @@ use WWW::Mechanize;
 
 sub new {
     my $class = shift;
+    my $plugin = shift;
+
+    my $mech = WWW::Mechanize->new(cookie_jar => $plugin->cache->cookie_jar);
+    $mech->agent_alias( "Windows IE 6" );
 
     bless {
-	mecha       => WWW::Mechanize->new,
-	livedoor_id => shift,
-	password    => shift,
-
-        login_url => 'http://member.livedoor.com/login/?.next=http%3A%2F%2Ffrepa.livedoor.com&.sv=frepa&.nofrepa=1',
+	mecha       => $mech,
+	livedoor_id => $plugin->conf->{livedoor_id},
+	password    => $plugin->conf->{password},
+        start_url => 'http://www.frepa.livedoor.com/',
     }, $class;
 }
 
 sub login {
     my $self = shift;
 
-    my $res = $self->{mecha}->get($self->{login_url});
+    my $res = $self->{mecha}->get($self->{start_url});
     return 0 unless $self->{mecha}->success;
 
-    $self->{mecha}->set_fields(livedoor_id => $self->{livedoor_id}, password => $self->{password});
-    my $res = $self->{mecha}->submit;
-    return 0 unless $self->{mecha}->success;
-    return 0 if $self->{mecha}->content =~ /loginside/;
+    if ($self->{mecha}->content =~ /loginside/) {
+        Plagger->context->log(debug => "cookie not found. logging in");
+        $self->{mecha}->submit_form(
+            fields => {
+                livedoor_id => $self->{livedoor_id},
+                password    => $self->{password},
+                auto_login  => 'on',
+            },
+        );
+        $self->{mecha}->submit;
+        return 0 unless $self->{mecha}->success;
+        return 0 if $self->{mecha}->content =~ /loginside/;
+    }
 
     return 1;
 }
