@@ -49,9 +49,9 @@ sub bootstrap {
         croak "Plagger->bootstrap: $opt{config}: $!";
     }
 
-    $self->load_cache($opt{config});
-
     local *Plagger::context = sub { $self };
+
+    $self->load_cache($opt{config});
     $self->load_plugins(@{ $config->{plugins} || [] });
     $self->run();
 }

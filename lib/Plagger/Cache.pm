@@ -13,10 +13,16 @@ sub new {
     $conf->{class}  ||= 'Cache::FileCache';
     $conf->{params} ||= {
         cache_root         => File::Spec->catfile($conf->{base}, 'cache'),
-        default_expires_in => '30 minutes',
     };
 
-    $conf->{class}->require or die $@;
+    $conf->{class}->require;
+
+    # If class is not loadable, falls back to on memory cache
+    if ($@) {
+        Plagger->context->log(error => "Can't load $conf->{class}. Fallbacks to Plagger::Cache::Null");
+        require Plagger::Cache::Null;
+        $conf->{class} = 'Plagger::Cache::Null';
+    }
 
     my $self = bless {
         base  => $conf->{base},
