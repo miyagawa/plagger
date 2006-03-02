@@ -33,6 +33,7 @@ features(
     'Aggregator::Simple' => [
         -default => 1,
         recommends('XML::Feed'),
+        recommends('XML::Atom'),
         recommends('XML::RSS::LibXML', 0.16),
     ],
     'Publish::Gmail' => [
@@ -97,6 +98,10 @@ features(
     'Filter::BulkfeedsTerms' => [
         -default => 0,
         recommends('XML::Simple'),
+    ],
+    'Publish::HatenaBookmark' => [
+        -default => 0,
+        recommends('XML::Atom'),
     ],
 );
 
