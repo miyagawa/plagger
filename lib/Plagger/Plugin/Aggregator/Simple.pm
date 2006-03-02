@@ -23,13 +23,16 @@ sub aggregate {
     my $url = $args->{feed}->url;
     $context->log(info => "Fetch $url");
 
-    my $agent = Plagger::UserAgent->new;
-    my $response = $agent->get($url);
+    my $agent    = Plagger::UserAgent->new;
+    my $response = $agent->fetch($url, $self);
 
-    unless ($response->is_success) {
-        $context->log(error => "GET $url failed: " . $response->status_line);
+    unless ($response) {
+        $context->log(error => "GET $url failed: " . $response->status);
         return;
     }
+
+    # TODO: handle 301 Moved Permenently and 410 Gone
+    $context->log(debug => $response->status . ": $url");
 
     $self->handle_feed($url, \$response->content);
 }

@@ -10,10 +10,10 @@ sub new {
     mkdir $conf->{base}, 0777 unless -e $conf->{base} && -d_;
 
     # Cache default configuration
-    $conf->{class}  ||= 'Cache::File';
+    $conf->{class}  ||= 'Cache::FileCache';
     $conf->{params} ||= {
-        cache_root      => File::Spec->catfile($conf->{base}, 'cache'),
-        default_expires => '30 minutes',
+        cache_root         => File::Spec->catfile($conf->{base}, 'cache'),
+        default_expires_in => '30 minutes',
     };
 
     $conf->{class}->require or die $@;
@@ -37,6 +37,9 @@ sub get {
         $value = $self->{cache}->get(@_);
     }
 
+    my $hit_miss = defined $value ? "HIT" : "MISS";
+    Plagger->context->log(debug => "Cache $hit_miss: $_[0]");
+
     $value;
 }
 
@@ -46,11 +49,9 @@ sub get_callback {
 
     my $data = $self->get($key);
     if (defined $data) {
-        Plagger->context->log(debug => "Cache hit: $key");
         return $data;
     }
 
-    Plagger->context->log(debug => "Cache miss: $key");
     $data = $callback->();
     if (defined $data) {
         $self->set($key => $data, $expiry);

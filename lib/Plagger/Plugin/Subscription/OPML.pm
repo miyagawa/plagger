@@ -32,9 +32,10 @@ sub load_opml {
     }
     elsif ($uri->scheme =~ /^https?$/) {
         $context->log(debug => "Fetch remote OPML from $uri");
-        my $response = Plagger::UserAgent->new->get($uri);
-        unless ($response->is_success) {
-            $context->error("Fetch $uri failed: ". $response->status_line);
+
+        my $response = Plagger::UserAgent->new->fetch($uri, $self);
+        unless ($response) {
+            $context->error("Fetch $uri failed: ". $response->status);
         }
         $xml = $response->content;
     }
