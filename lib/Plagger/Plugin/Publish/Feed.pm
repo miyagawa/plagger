@@ -53,6 +53,7 @@ sub publish_feed {
         $entry->title($e->title);
         $entry->link($e->link);
         $entry->summary($e->body_text);
+        $entry->content($e->body);
         $entry->category(join(' ', @{$e->tags}));
         $entry->issued($e->date);
         $entry->author($e->author);
