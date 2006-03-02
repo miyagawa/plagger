@@ -17,7 +17,7 @@ sub update {
     my $body = $args->{entry}->body;
 
     my $count;
-    if ($self->conf->{html_paranoia}) {
+    if ($self->conf->{text_only}) {
         ($count, $body) = $self->paranoia_rewrite($body);
     } else {
         ($count, $body) = $self->rewrite_ttp($body);
@@ -91,10 +91,10 @@ adopted way of linking an URL without leaking a referer.
 
 =over 4
 
-=item html_paranoia
+=item text_only
 
 When set to 1, uses HTML::Parser to avoid replacing C<ttp://> inside
-HTML elements. Defaults to 0.
+HTML attributes. Defaults to 0.
 
 =back
 
