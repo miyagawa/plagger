@@ -26,12 +26,7 @@ sub add_entry {
     my($self, $context, $args) = @_;
 
     my @tags = @{$args->{entry}->tags};
-    my $tag_string;
-    if (scalar(@tags)) {
-        $tag_string = join ' ', @tags;
-    } else {
-        $tag_string = "";
-    }
+    my $tag_string = @tags ? join(' ', @tags) : '';
 
     my $params = {
         url         => $args->{entry}->link,
