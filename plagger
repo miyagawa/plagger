@@ -1,13 +1,15 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use FindBin;
+use File::Spec;
 
-use lib 'lib';
+use lib File::Spec->catdir($FindBin::Bin, 'lib');
 use Plagger;
 
 use Getopt::Long;
 
-my $config = 'config.yaml';
+my $config = File::Spec->catfile($FindBin::Bin, 'config.yaml');
 GetOptions('--config=s', \$config, '--version' => \my $version);
 Getopt::Long::Configure("bundling"); # allows -c -v
 
