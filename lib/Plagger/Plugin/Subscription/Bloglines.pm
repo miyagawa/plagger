@@ -28,11 +28,11 @@ sub getsubs {
     my($self, $context) = @_;
     my $subscription = $self->{bloglines}->listsubs();
 
-    for my $folder ($subscription->folders) {
-        $self->add_subscription($subscription, $folder->{BloglinesSubId}, $folder->{title});
+    for my $folder ($subscription->folders, 0) {
+        my $subid = $folder ? $folder->{BloglinesSubId} : 0;
+        my $title = $folder ? $folder->{title} : undef;
+        $self->add_subscription($subscription, $subid, $title);
     }
-
-    $self->add_subscription($subscription, 0);
 }
 
 sub add_subscription {
