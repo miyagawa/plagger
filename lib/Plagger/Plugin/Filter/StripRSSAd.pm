@@ -24,11 +24,15 @@ sub filter {
     Plagger->context->log(debug => "Stripped rssad.jp ad") if $count;
 
     # plaza.rakuten.co.jp
-    my $count = $body =~ s!<br clear?=all /><br><SMALL>\n(?:<SCRIPT LANGUAGE="Javascript">\n<\!--\nfunction random\(\).*?infoseek.*?RssPlaza.*</SCRIPT>)?\n<NOSCRIPT>.*?infoseek.*?RssPlaza.*?</NOSCRIPT>\n</SMALL>!!s;
+    $count = $body =~ s!<br clear?=all /><br><SMALL>\n(?:<SCRIPT LANGUAGE="Javascript">\n<\!--\nfunction random\(\).*?infoseek.*?RssPlaza.*</SCRIPT>)?\n<NOSCRIPT>.*?infoseek.*?RssPlaza.*?</NOSCRIPT>\n</SMALL>!!s;
     Plagger->context->log(debug => "Stripped plaza.rakuten ad") if $count;
 
     # Google AdSense for Feeds
-    my $count = $body =~ s!<p><map name="google_ad_map_\d+\-\d+"><area.*?></map><img usemap="#google_ad_map_\d+-\d+" border="0" src="http://imageads\.googleadservices\.com/pagead/ads\?.*?" /></p>!!;
+    $count = $body =~ s!<p><map name="google_ad_map_\d+\-\d+"><area.*?></map><img usemap="#google_ad_map_\d+-\d+" border="0" src="http://imageads\.googleadservices\.com/pagead/ads\?.*?" /></p>!!;
+
+    # Google AdSense for Feeds, part 2.
+    $count += $body =~ s!<table [^>]*>\n\s*<tr>\n\s*<td><(?:defanged-)?span[^>]*> <br[^>]*></(?:defanged-)?span></td>\n\s*</tr>\s*\n\s*<tr>\n\s*<td><a href="http://imageads\.googleadservices\.com/pagead/imgclick/[^"]*"[^>]*>\n<img [^>]* src="http://imageads\.googleadservices\.com/pagead/ads\?[^"]*" / ></a></td>\n\s*</tr>\n\s*<tr>\n\s*<td><div align="right"><a href="http://www\.google\.com/ads_by_google\.html" [^>]*>Ads by Google</a></div></td>\n\s*</tr>\n\s*</table>!!s;
+
     Plagger->context->log(debug => "Stripped Google AdSense for feeds") if $count;
 
     $body;
