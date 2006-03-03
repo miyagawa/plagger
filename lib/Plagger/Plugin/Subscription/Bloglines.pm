@@ -86,12 +86,13 @@ sub fetch_meta {
     my $subscription = $self->{bloglines}->listsubs();
 
     my $meta;
-    for my $folder ($subscription->folders) {
-        my @feeds = $subscription->feeds_in_folder($folder->{BloglinesSubId});
+    for my $folder ($subscription->folders, 0) {
+        my $subid = ref $folder ? $folder->{BloglinesSubId} : 0;
+        my @feeds = $subscription->feeds_in_folder($subid);
         for my $feed (@feeds) {
             # BloglinesSubId is different from bloglines:siteid. Don't use it
             $meta->{$feed->{htmlUrl}} = {
-                folder => $folder->{title},
+                folder => $folder ? $folder->{title} : undef,
                 xmlUrl => $feed->{xmlUrl},
             };
         }
@@ -124,7 +125,7 @@ sub sync {
 
         # under fetch_pfolders option, set folder as tags to feeds
         if (my $meta = $self->{bloglines_meta}->{$feed->link}) {
-            $feed->tags([ $meta->{folder} ]);
+            $feed->tags([ $meta->{folder} ]) if $meta->{folder};
             $feed->url($meta->{xmlUrl});
         }
 
