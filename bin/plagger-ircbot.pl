@@ -19,6 +19,7 @@ sub err (@) { print "[err] ", "@_\n" }
 
 my $path = "$FindBin::Bin/../config.yaml";
 GetOptions("--config=s", \$path);
+Getopt::Long::Configure("bundling"); # allows -c
 
 msg "loading configuration $path";
 
