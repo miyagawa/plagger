@@ -32,7 +32,7 @@ features(
     ],
     'Aggregator::Simple' => [
         -default => 1,
-        recommends('XML::Feed'),
+        recommends('XML::Feed', 0.08),
         recommends('XML::Atom'),
         recommends('XML::RSS::LibXML', 0.16),
     ],
@@ -44,7 +44,7 @@ features(
         -default => 0,
         recommends('POE'),
         recommends('Xango'),
-        recommends('XML::Feed'),
+        recommends('XML::Feed', 0.08),
         recommends('Cache::FastMmap'),
         recommends('POE::Component::Client::DNS'),
         recommends('POE::Component::Client::HTTP'),
@@ -88,7 +88,7 @@ features(
     ],
     'Publish::Feed' => [
         -default => 1,
-        recommends('XML::Feed'),
+        recommends('XML::Feed', 0.08),
         recommends('XML::RSS::LibXML', 0.16),
     ],
     'Filter::ResolveRelativeLink' => [
