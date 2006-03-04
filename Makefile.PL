@@ -139,5 +139,6 @@ install_script('bin/spotlight_comment.scpt');
 
 auto_include;
 auto_install;
+install_script('plagger');
 install_script('bin/plagger-ircbot');
 WriteAll;
