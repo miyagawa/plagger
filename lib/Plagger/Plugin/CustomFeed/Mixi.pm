@@ -99,7 +99,7 @@ sub aggregate {
             }
         }
 
-        if ($self->conf->{fetch_body} && !$blocked) {
+        if ($self->conf->{fetch_body} && !$blocked && $msg->{link} =~ /view_diary/) {
             $context->log(info => "Fetch body from $msg->{link}");
             my $item = $self->cache->get_callback(
                 "item-$msg->{link}",
