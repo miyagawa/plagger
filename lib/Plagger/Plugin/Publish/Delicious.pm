@@ -82,6 +82,8 @@ Interval (as seconds) to sleep after posting each bookmark. Defaults to 3.
 
 A flag to post entry's body as extended field for del.icio.us. Defaults to 0.
 
+=back
+
 =cut
 
 =head1 AUTHOR

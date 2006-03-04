@@ -23,6 +23,11 @@ requires('Cache::Cache' => 1.04);
 build_requires(Test::More => 0.42);
 
 features(
+    'POD Testing' => [
+        -default => 0,
+        recommends('Test::Pod'),
+        recommends('Test::Pod::Coverage'),
+    ],
     'Subscription::Bloglines' => [
         -default => 1,
         recommends('WebService::Bloglines', 0.10),
