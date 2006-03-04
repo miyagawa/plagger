@@ -34,7 +34,18 @@ sub aggregate {
     $mech->get($start);
 
     if ($mech->content =~ /mgb_login/) {
-        $self->login($mech) or return;
+	my $success;
+	eval { $success = $self->login($mech) };
+
+	if ($@ && $@ =~ /persistent/) {
+	    $context->log(error => "Login failed. Clear cookie and redo.");
+	    $mech->cookie_jar->clear;
+	    $mech->get($start);
+	    sleep 3;
+	    eval { $success = $self->login($mech) };
+	}
+
+	return unless $success;
     }
 
     $context->log(info => "Login to Yahoo! succeeded.");
@@ -134,22 +145,15 @@ RE
 }
 
 sub login {
-    my($self, $mech) = @_;
+    my($self, $mech, $retry) = @_;
 
-    eval { 
-	$mech->submit_form(
-            fields => {
-                login  => $self->conf->{username},
-                passwd => $self->conf->{password},
-                '.persistent' => 'y',
-            },
-        );
-    };
-
-    if ($@) {
-	Plagger->context->log(error => "Login to Yahoo! 360 failed: $@");
-	return;
-    }
+    $mech->submit_form(
+        fields => {
+            login  => $self->conf->{username},
+            passwd => $self->conf->{password},
+            '.persistent' => 'y',
+        },
+    );
 
     while ($mech->content =~ m!<span class="error">!) {
         Plagger->context->log(error => "Login to Yahoo! failed.");
