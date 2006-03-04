@@ -1,0 +1,29 @@
+global:
+  log:
+    level: debug
+
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: http://caseywest.com/journal/index.rdf
+        - url: http://del.icio.us/rss/popular
+        - url: http://feeds.technorati.com/feed/posts/tag/miyagawa
+
+  - module: Aggregator::Simple
+  
+  - module: SmartFeed::All
+
+  - module: Publish::Planet
+    rule:
+      expression: $args->{feed}->id eq 'smartfeed:all'
+    config:
+      dir: /tmp/planet
+      skin: planet
+
+  - module: Publish::Feed
+    rule:
+      expression:  $args->{feed}->id eq 'smartfeed:all'
+    config:
+      dir: /tmp/planet
+
