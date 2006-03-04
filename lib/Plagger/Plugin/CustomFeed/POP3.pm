@@ -37,17 +37,13 @@ sub aggregate {
 
     $context->log(info => "Login to pop3 server($host) succeeded.");
 
-    my $feed = Plagger::Feed->new;
-    $feed->type('pop3');
-    $feed->title("POP3: $host");
-
     my $msgnums = $pop->list;
     for my $msgnum (keys %$msgnums) {
         $context->log(debug => "get the message : $msgnum");
 
         my $msg = $pop->get($msgnum);
-        my $entry = $self->mail2entry(join '', @$msg);
-        $feed->add_entry($entry);
+        my $feed = $self->mail2feed(join '', @$msg);
+        $context->update->add($feed);
 
         if ($self->conf->{delete}) {
             $context->log(info => "delete message : $msgnum");
@@ -56,23 +52,27 @@ sub aggregate {
     }
 
     $pop->quit;
-
-    $context->update->add($feed);
 }
 
-sub mail2entry {
+sub mail2feed {
     my ($self, $message) = @_;
 
     my $entry  = Plagger::Entry->new;
     my $email  = Email::MIME->new($message);
     my $format = DateTime::Format::Mail->new->loose;
 
+    my $feed = Plagger::Feed->new;
+    $feed->type('pop3');
+    $feed->title($email->header('Subject'));
+
     $entry->title($email->header('Subject'));
     $entry->author($email->header('From'));
     $entry->date(Plagger::Date->parse($format, $email->header('Date'))) if $email->header('Date');
     $entry->body($self->get_body($email));
 
-    return $entry;
+    $feed->add_entry($entry);
+
+    return $feed;
 }
 
 sub get_body {
