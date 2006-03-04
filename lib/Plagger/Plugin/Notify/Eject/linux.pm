@@ -11,7 +11,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Notify::Eject - Notify feed updates to CD Drive for linux
+Plagger::Plugin::Notify::Eject::linux - Notify feed updates to CD Drive for linux
 
 =head1 SYNOPSIS
 

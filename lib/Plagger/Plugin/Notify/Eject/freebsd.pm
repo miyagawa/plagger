@@ -11,7 +11,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Notify::Eject - Notify feed updates to CD Drive for freebsd
+Plagger::Plugin::Notify::Eject::freebsd - Notify feed updates to CD Drive for freebsd
 
 =head1 SYNOPSIS
 

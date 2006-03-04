@@ -11,7 +11,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Notify::Eject - Notify feed updates to CD Drive for darwin
+Plagger::Plugin::Notify::Eject::darwin - Notify feed updates to CD Drive for darwin
 
 =head1 SYNOPSIS
 

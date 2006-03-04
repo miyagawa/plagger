@@ -12,7 +12,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Notify::Eject - Notify feed updates to CD Drive for MSWin32
+Plagger::Plugin::Notify::Eject::mswin32 - Notify feed updates to CD Drive for MSWin32
 
 =head1 SYNOPSIS
 
