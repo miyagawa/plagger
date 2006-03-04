@@ -76,6 +76,10 @@ sub notify {
             Port     => $route->{port} || 587,
         ];
         $msg->send_by_smtp_tls(@{ $self->{tls_args} });
+    } elsif ($route->{via} eq 'sendmail') {
+        my %param = (FromSender => "<$cfg->{mailfrom}>");
+        $param{Sendmail} = $route->{command} if defined $route->{command};
+        $msg->send('sendmail', %param);
     } else {
         my @args  = $route->{host} ? ($route->{host}) : ();
         $msg->send($route->{via}, @args);
