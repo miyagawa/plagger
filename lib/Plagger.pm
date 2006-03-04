@@ -240,7 +240,7 @@ sub dumper {
 
 sub template {
     my $self = shift;
-    $self->{template} ||= Plagger::Template->new($self);
+    Plagger::Template->new($self, (caller)[0]->class_id);
 }
 
 1;

@@ -7,6 +7,9 @@ __PACKAGE__->mk_accessors( qw(conf rule rule_hook cache) );
 use Plagger::Rule;
 use Plagger::Rules;
 
+use FindBin;
+use File::Spec;
+
 sub new {
     my($class, $opt) = @_;
     my $self = bless {
@@ -42,11 +45,21 @@ sub dispatch_rule_on {
 sub class_id {
     my $self = shift;
 
-    my $pkg = ref($self);
+    my $pkg = ref($self) || $self;
        $pkg =~ s/Plagger::Plugin:://;
     my @pkg = split /::/, $pkg;
 
     return join '-', map lc, @pkg;
+}
+
+sub assets_dir {
+    my $self = shift;
+
+    my $assets_dir = File::Spec->catfile(
+                            $self->conf->{assets_path}
+                         || ($FindBin::Bin, "assets/plugins", $self->class_id)
+                     );
+
 }
 
 1;

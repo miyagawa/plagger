@@ -9,10 +9,10 @@ use Template::Provider::Encoding 0.04;
 use Template::Stash::ForceUTF8;
 
 sub new {
-    my($class, $context) = @_;
+    my($class, $context, $plugin_class_id) = @_;
 
-    my $path = $context->conf->{template_path} || File::Spec->catfile($FindBin::Bin, "templates");
-    my $paths = [ $path, "$path/plugins" ];
+    my $path = $context->conf->{assets_path} || File::Spec->catfile($FindBin::Bin, "assets");
+    my $paths = [ "$path/plugins/$plugin_class_id" ];
 
     return $class->SUPER::new({
         INCLUDE_PATH => $paths,

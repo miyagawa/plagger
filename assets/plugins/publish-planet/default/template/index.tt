@@ -1,0 +1,51 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <link rel="alternate" type="application/atom+xml" title="Planet [% title %]" href="smartfeed_all.atom" />
+    <link rel="stylesheet" type="text/css" href="css/screen.css" />
+    <title>Planet [% title %]</title>
+  </head>
+  <body>
+    <h1 "feed-title">[% feed.title %]</h1>
+
+    [% FOREACH item IN feed.entries %]
+      <div class="item">
+        <div class="item-header">
+          <a class="item-link item-title" href="[% (item.link || item.id) | html %]">[% item.title | html %]</a>
+          [% IF item.author %]
+            <span class="item-by-line">
+              by <span class="item-author">[% item.author | html %]</span>
+            </span>
+          [% END %]
+          [% IF item.tags.size %]
+            <span class="item-tags">
+              on
+              <span class="item-tag">
+                [% item.tags.join('</span>, <span class="item-tag">') %]
+              </span>
+          [% END %]
+        </div>
+        [% IF item.body %]
+          <div class="item-body">
+            [% item.body %]
+          </div>
+        [% END %]
+        <div class="item-footer">
+          [% IF item.date %]
+            <span class="item-posted">
+              Posted on
+              <span class="item-post-date">[% item.date.format('Mail') %]</span>
+            </span>
+          [% END %]
+          <a class="item-permalink" href="[% entry.permalink | html %]">permalink</a>
+          <a class="item-link item-title" href="[% feed.link | html %]">[% feed.title | html %]</a>
+          [% FOREACH widget = item.widgets %]
+            <span class="item-widget">[% widget.html(item) %]</span>
+          [% END %]
+        </div>
+      </div>
+    [% END %]
+  </body>
+</html>
