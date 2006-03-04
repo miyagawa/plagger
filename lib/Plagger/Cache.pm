@@ -7,7 +7,7 @@ use UNIVERSAL::require;
 sub new {
     my($class, $conf, $name) = @_;
 
-    mkdir $conf->{base}, 0777 unless -e $conf->{base} && -d_;
+    mkdir $conf->{base}, 0700 unless -e $conf->{base} && -d_;
 
     # Cache default configuration
     $conf->{class}  ||= 'Cache::FileCache';
