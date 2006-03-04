@@ -35,7 +35,7 @@ sub load_opml {
 
         my $response = Plagger::UserAgent->new->fetch($uri, $self);
         if ($response->is_error) {
-            $context->log(error => "GET $url failed: " .
+            $context->log(error => "GET $uri failed: " .
                           $response->http_status . " " .
                           $response->http_response->message);
         }
