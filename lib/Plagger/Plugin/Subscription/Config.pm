@@ -20,6 +20,9 @@ sub load {
        $feeds = [ $feeds ] unless ref $feeds;
 
     for my $config (@$feeds) {
+        if (!ref($config)) {
+            $config = { url => $config };
+        }
         my $feed = Plagger::Feed->new;
         $feed->url($config->{url}) or $context->error("Feed URL is missing");
         $feed->link($config->{link})   if $config->{link};
