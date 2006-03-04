@@ -1,10 +1,52 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.5.5 (2006/03/03) ==
+
+=== Core ===
+
+ * Added --version and shorter -c & -v to plagger script
+ * $entry->body_text now decode HTML entities correctly. #82
+ * New Plagger::Cache framework, accessible via $plugin->cache
+ * Added cookie_jar method to cache. $plugin->cache->cookie_jar
+ * config.yaml is now found using FindBin, rather than the current directory (Naoya Ito)
+ * New AUTHORS: Yoshiki Kurihara, Fumiaki Yoshimatsu, Masafumi Otsune, Takeshi Nagayama and fuba
+
+=== New Plugins ===
+
+ * Filter::HatenaDiaryKeywordLink: Automatically link Hatena Diary Keywords in entry body (tokuhirom)
+ * Publish::Feed: Output Atom and RSS feeds using XML::Feed (clouder)
+ * Filter::ResolveRelativeLink: Fix relative links in entry body (miyagawa)
+ * CustomFeed::Yahoo360JP: Login to Yahoo! 360 Japan and fetch blogs and blasts (miyagawa)
+ * Filter::BulkfeedsTerms: Use Bulkfeeds API to fetch specific terms in entry (miyagawa)
+ * Filter::2chNewsokuTitle: Add prefix and postfix to entry title ala 2ch.net Newsoku style (miyagawa)
+ * Notify::Eject: eject your CD drive to notify feed updates! :-) (Yappo, fumiakiy, otsune)
+ * Publish::Pipe: use UNIX pipe to notify the updates to commands (e.g: lpr, /usr/bin/say) (youpy)
+ * Notidy::Campfire: Notify feed updates to 37 signals' Campfire chat service (nagayama)
+ * Filter::Regexp: Update entry body by a regular expression in config (miyagawa)
+ * Publish::HatenaBookmark: post updates to Hatena Bookmark using Atom Protocol (fuba)
+ * CustomFeed::POP3: Fetch email using POP3 protocl and creates feed off of it (tokuhirom)
+ * Filter::RSSTimeZone: Fix RSS 2.0 bad timezone string in RFC 822 date format (miyagawa)
+ * Filter::FloatingDate: Fix floating datetime (dc:date and such) to your local timezone (kazeburo)
+
+=== Plugins Updates ===
+ 
+ * Publish::Delicious: fix UTF-8 escape bug.
+ * Subscription::Bloglines: Added 'fetch_meta' option to fetch folder structure and feed URL
+ * Subscription::Bloglines: Fix annoying UTF-8 bad sequences by upgrading to WebService::Bloglines 0.10
+ * Filter::TTP: Added 'text_only' option to filter text element only in HTML. #76
+ * Fitler::StripRSSAd: Now it works with Bloglines subscription. Added Google AdSense pattern.
+ * Publish::IRC, Publish::MSAgent and Publish::Growl are now renamed to Notify::*
+ * Publish::Gmail: fixed typo in "Permalink" footer
+ * CustomFeed::Mixi, CustomFeed::Frepa now uses Cache framework to store persistent cookies 
+ * CustomFeed::Frepa: support PNG buddyicon
+ * Publish::Gmail: do POP before SMTP authentication only once per whole publish
+ * Subscription::OPML and Aggregator::Simple now use URI::Fetch and Cache framework for conditional GET
+
 == 0.5.4 (2006/02/27) ==
 
 === Core ===
 
- * Makefile.PL has a much better dependencies #59 (Thanks to Daisuke Maki)
+ * Makefile.PL has a much better dependencies definition #59 (Thanks to Daisuke Maki)
  * Fixed multiple categories handling bug in Aggregator::Simple (Thanks to koyachi)
  * Added body_text, title_text convinience methods to Feed and Entry
  * Now uses FindBin module to find templates directory in a better way (youpy)
@@ -15,7 +57,7 @@ The latest, HTML version of this document is always available at http://plagger.
  * Aggregator::Xango - POE based high-speed parallel crawling (daisuke)
  * Publish::PDF - Create PDF files based on feeds (miyagawa)
  * Publish::Speech - Make the feeds as an audio using Text-to-Speech (miyagawa)
- * Publish::MSAgent - Let Microsoft Agent to speak feeds content (miyagawa)
+ * Publish::MSAgent - Let Microsoft Agent speak feeds content (miyagawa)
  * Publish::Growl - Send feed notifications to Mac OSX Growl (kazeburo)
  * Filter::tDiaryComment - strip comments from tDiary RSS (tokuhirom)
  * Filter::TTP - replace ttp: with http: (tokuhirom)
@@ -24,7 +66,7 @@ The latest, HTML version of this document is always available at http://plagger.
 
 === Plugins Updates ===
 
- * Publish::Spotlight: Now it without Mac::Glue using osascript call
+ * Publish::Spotlight: Now it fallbacks to osascript when Mac::Glue is not installed
  * Publish::MTWidget: Added an option to rebuild the blog templates after updating widgets
  * Publish::Gmail: Added an option to support POP3 before SMTP (tokuhirom)
 
