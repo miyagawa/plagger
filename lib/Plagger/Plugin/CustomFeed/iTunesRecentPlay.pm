@@ -2,8 +2,9 @@ package Plagger::Plugin::CustomFeed::iTunesRecentPlay;
 use strict;
 use warnings;
 use base qw( Plagger::Plugin );
+use File::Spec;
 use Encode;
-use Date::Parse;
+use DateTime::Format::W3CDTF;
 use HTML::Entities;
 
 sub register {
@@ -25,22 +26,23 @@ sub load {
 
 sub aggregate {
     my($self, $context, $args) = @_;
-    my $conf = $self->conf;
 
     my $file = $self->conf->{library_path};
     unless ($file) {
         if ($^O eq 'MSWin32') {
+            require File::HomeDir::Windows;
             my $mymusic = File::HomeDir::Windows->my_win32_folder('My Music');
             $file = File::Spec->catfile($mymusic, 'iTunes', 'iTunes Music Library.xml');
         } elsif ($^O eq 'darwin') {
             $file = File::Spec->catfile($ENV{HOME}, 'Music', 'iTunes', 'iTunes Music Library.xml');
         } else {
-            $context->log(error => "I can't guess library.xml path using your OS name $^O. Specify using --library option.");
+            $context->log(error => "I can't guess library.xml path using your OS name $^O.");
             return;
         }
     }
 
-    open my $fh, "<:encoding(utf-8)", $file or die "$file: $!";
+    open my $fh, "<:encoding(utf-8)", $file
+        or return $class->log(error => "$file: $!");
 
     my $feed = Plagger::Feed->new;
     $feed->type('itunesrecentplay');
@@ -61,9 +63,15 @@ sub aggregate {
         m!</dict>!
             and do {
                 my $entry = Plagger::Entry->new;
-                if( $data->{date} and $data->{artist} and str2time($data->{date}) > time - $conf->{reload_period} ){
-                    for(keys %$data){
-                        $entry->meta->{$_} = $data->{$_};
+
+                my $dt = DateTime::Format::W3CDTF->parse_datetime($data->{date});
+                unless ($dt) {
+                    $context->log( warn => "Can't parse $data->{date}");
+                    next;
+                }
+                if( $data->{date} and $data->{artist} and $dt->epoch > time - $self->conf->{reload_period} ){
+                    for my $key (keys %$data){
+                        $entry->meta->{$key} = $data->{$key};
                     }
                     $context->log( info => $data->{artist} . ' ' . $data->{track});
                     $feed->add_entry($entry);
@@ -113,6 +121,8 @@ period of plagger with cron.
 =head1 AUTHOR
 
 Gosuke Miyashita, E<lt>gosukenator@gmail.comE<gt>
+
+Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
