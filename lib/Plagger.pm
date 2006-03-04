@@ -252,13 +252,27 @@ Plagger - Pluggable RSS/Atom Aggregator
 
 =head1 SYNOPSIS
 
-  % plagger
+  % plagger -c config.yaml
 
 =head1 DESCRIPTION
 
-Plagger is a pluggable RSS/Atom feed aggregator. See
-L<http://plagger.org/> for the latest code, development community and
-bug tracking.
+Plagger is a pluggable RSS/Atom feed aggregator and remixer platform.
+
+Everything is implemented as a small plugin just like qpsmtpd, blosxom
+and perlbal. All you have to do is write a flow of aggregation,
+filters, syndication, publishing and notification plugins in config
+YAML file.
+
+See L<http://plagger.org/> for cookbook examples, quickstart document,
+development community (Mailing List and IRC), subversion repository
+and bug tracking.
+
+=head1 BUGS / DEVELOPMENT
+
+If you find any bug, or you have an idea of nice plugin and want help
+on it, drop us a line to our mailing list
+L<http://groups.google.com/group/plagger-dev> or stop by the IRC
+channel C<#plagger> at irc.freenode.net.
 
 =head1 AUTHOR
 
