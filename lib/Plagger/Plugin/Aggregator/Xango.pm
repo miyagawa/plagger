@@ -21,6 +21,8 @@ sub register {
     $self->{xango_alias} = $xango_args{Alias};
     Plagger::Plugin::Aggregator::Xango::Crawler->spawn(
         Plugin => $self,
+        UseCache => exists $self->conf->{use_cache} ?
+            $self->conf->{use_cache} : 1,
     );
     Xango::Broker::Push->spawn(%xango_args);
     $context->register_hook(
@@ -46,6 +48,7 @@ sub finalize {
 package Plagger::Plugin::Aggregator::Xango::Crawler;
 use strict;
 use POE;
+use Storable qw(freeze thaw);
 use XML::Feed;
 
 sub apply_policy { 1 }
@@ -54,15 +57,31 @@ sub spawn  {
     my %args  = @_;
 
     POE::Session->create(
-        heap => { PLUGIN => $args{Plugin} },
+        heap => { PLUGIN => $args{Plugin}, USE_CACHE => $args{UseCache} },
         package_states => [
-            $class => [ qw(_start _stop apply_policy handle_response) ]
+            $class => [ qw(_start _stop apply_policy prep_request handle_response) ]
         ]
     );
 }
 
 sub _start { $_[KERNEL]->alias_set('xghandler') }
 sub _stop  { }
+sub prep_request {
+    return unless $_[HEAP]->{USE_CACHE};
+
+    my $job = $_[ARG0];
+    my $req = $_[ARG1];
+    my $plugin = $_[HEAP]->{PLUGIN};
+
+    my $ref = $plugin->cache->get($job->uri);
+    if ($ref) {
+        $req->if_modified_since($ref->{LastModified})
+            if $ref->{LastModified};
+        $req->header('If-None-Match', $ref->{ETag})
+            if $ref->{ETag};
+    }
+}
+
 sub handle_response {
     my $job = $_[ARG0];
     my $plugin = $_[HEAP]->{PLUGIN};
@@ -70,7 +89,15 @@ sub handle_response {
     my $r = $job->notes('http_response');
     my $url    = $job->uri;
 
+    return unless $r->is_success;
     $plugin->handle_feed($url, $r->content_ref);
+    if ($_[HEAP]->{USE_CACHE}) {
+        $plugin->cache->set(
+            $job->uri,
+            {ETag => $r->header('ETag'),
+                LastModified => $r->header('Last-Modified')}
+        );
+    }
 }
 
 1;

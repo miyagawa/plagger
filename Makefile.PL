@@ -44,7 +44,7 @@ features(
     'Aggregator::Xango' => [
         -default => 0,
         recommends('POE'),
-        recommends('Xango'),
+        recommends('Xango', 1.02), # avoid prep_request bug
         recommends('XML::Feed', 0.08),
         recommends('Cache::FastMmap'),
         recommends('POE::Component::Client::DNS'),

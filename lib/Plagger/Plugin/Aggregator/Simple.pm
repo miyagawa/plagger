@@ -44,7 +44,7 @@ sub handle_feed {
     my $remote = eval { XML::Feed->parse($xml_ref) };
 
     unless ($remote) {
-        $context->log(error => "Parsing $url failed. " . XML::Feed->errstr);
+        $context->log(error => "Parsing $url failed. " . ($@ || XML::Feed->errstr));
         next;
     }
 
