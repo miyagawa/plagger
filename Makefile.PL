@@ -118,6 +118,9 @@ if ($^O eq 'Darwin') {
             recommends('Mac::Glue'),
         ],
     );
+
+install_script('bin/spotlight_comment.scpt');
+
 } elsif ($^O eq 'MSWin32') {
     features(
         'Publish::Speech' => [
@@ -136,4 +139,5 @@ if ($^O eq 'Darwin') {
 
 auto_include;
 auto_install;
+install_script('bin/plagger-ircbot');
 WriteAll;
