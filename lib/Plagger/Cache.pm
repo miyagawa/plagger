@@ -84,7 +84,7 @@ sub cookie_jar {
     my $file = $ns ? "$ns.dat" : "global.dat";
 
     my $dir = File::Spec->catfile($self->{base}, 'cookies');
-    mkdir $dir, 0755 unless -e $dir && -d _;
+    mkdir $dir, 0700 unless -e $dir && -d _;
 
     return HTTP::Cookies->new(
         file => File::Spec->catfile($dir, $file),
