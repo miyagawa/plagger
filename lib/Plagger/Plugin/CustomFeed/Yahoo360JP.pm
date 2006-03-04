@@ -136,13 +136,20 @@ RE
 sub login {
     my($self, $mech) = @_;
 
-    $mech->submit_form(
-        fields => {
-            login  => $self->conf->{username},
-            passwd => $self->conf->{password},
-            '.persistent' => 'y',
-        },
-    );
+    eval { 
+	$mech->submit_form(
+            fields => {
+                login  => $self->conf->{username},
+                passwd => $self->conf->{password},
+                '.persistent' => 'y',
+            },
+        );
+    };
+
+    if ($@) {
+	Plagger->context->log(error => "Login to Yahoo! 360 failed: $@");
+	return;
+    }
 
     while ($mech->content =~ m!<span class="error">!) {
         Plagger->context->log(error => "Login to Yahoo! failed.");
