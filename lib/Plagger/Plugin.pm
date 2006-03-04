@@ -7,13 +7,6 @@ __PACKAGE__->mk_accessors( qw(conf rule rule_hook cache) );
 use Plagger::Rule;
 use Plagger::Rules;
 
-sub plugin_id {
-    my $self = shift;
-    my $pkg  = ref $self;
-
-    return join '-', map lc, split /::/, $pkg;
-}
-
 sub new {
     my($class, $opt) = @_;
     my $self = bless {
