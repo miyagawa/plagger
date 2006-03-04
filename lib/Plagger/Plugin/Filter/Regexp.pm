@@ -2,6 +2,8 @@ package Plagger::Plugin::Filter::Regexp;
 use strict;
 use base qw( Plagger::Plugin );
 
+use HTML::Entities;
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
@@ -57,9 +59,9 @@ sub rewrite_text_only {
     my $p = HTML::Parser->new(api_version => 3);
     $p->handler( default => sub { $output .= $_[0] }, "text" );
     $p->handler( text => sub {
-        my($c, $body) = $self->rewrite($_[0], $regexp);
+        my($c, $body) = $self->rewrite( decode_entities($_[0]), $regexp );
         $count  += $c;
-        $output .= $body;
+        $output .= encode_entities($body, q("<>&));
     }, "text");
 
     $p->parse($body);
