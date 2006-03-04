@@ -24,6 +24,7 @@ sub fetch {
 
 # xxx
 *URI::Fetch::Response::is_success = sub { $_[0]->http_response->is_success };
+*URI::Fetch::Response::is_error   = sub { $_[0]->http_response->is_error };
 
 1;
 
