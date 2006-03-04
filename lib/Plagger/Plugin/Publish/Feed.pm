@@ -158,6 +158,6 @@ Yoshiki KURIHARA
 
 =head1 SEE ALSO
 
-C<Plagger>, C<XML::Feed>
+L<Plagger>, L<XML::Feed>
 
 =cut
