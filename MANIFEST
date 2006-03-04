@@ -1,8 +1,7 @@
 AUTHORS
-bin/plagger-ircbot.pl
+bin/plagger-ircbot
 bin/spotlight_comment.scpt
 Changes
-config.yaml.sample
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
@@ -12,6 +11,7 @@ inc/Module/Install/Fetch.pm
 inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
+inc/Module/Install/Scripts.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Test/More.pm
@@ -27,6 +27,7 @@ lib/Plagger/Plugin.pm
 lib/Plagger/Plugin/Aggregator/Simple.pm
 lib/Plagger/Plugin/Aggregator/Xango.pm
 lib/Plagger/Plugin/CustomFeed/Frepa.pm
+lib/Plagger/Plugin/CustomFeed/iTunesRecentPlay.pm
 lib/Plagger/Plugin/CustomFeed/Mailman.pm
 lib/Plagger/Plugin/CustomFeed/Mixi.pm
 lib/Plagger/Plugin/CustomFeed/POP3.pm
@@ -56,6 +57,7 @@ lib/Plagger/Plugin/Notify/Eject/mswin32.pm
 lib/Plagger/Plugin/Notify/Growl.pm
 lib/Plagger/Plugin/Notify/IRC.pm
 lib/Plagger/Plugin/Notify/MSAgent.pm
+lib/Plagger/Plugin/Notify/SSTP.pm
 lib/Plagger/Plugin/Publish/CHTML.pm
 lib/Plagger/Plugin/Publish/Debug.pm
 lib/Plagger/Plugin/Publish/Delicious.pm
@@ -66,6 +68,7 @@ lib/Plagger/Plugin/Publish/JavaScript.pm
 lib/Plagger/Plugin/Publish/MTWidget.pm
 lib/Plagger/Plugin/Publish/PDF.pm
 lib/Plagger/Plugin/Publish/Pipe.pm
+lib/Plagger/Plugin/Publish/Playlog.pm
 lib/Plagger/Plugin/Publish/PSP.pm
 lib/Plagger/Plugin/Publish/Speech.pm
 lib/Plagger/Plugin/Publish/Speech/Win32.pm
@@ -73,6 +76,7 @@ lib/Plagger/Plugin/Publish/Spotlight.pm
 lib/Plagger/Plugin/Search/Namazu.pm
 lib/Plagger/Plugin/Search/Rast.pm
 lib/Plagger/Plugin/SmartFeed.pm
+lib/Plagger/Plugin/SmartFeed/All.pm
 lib/Plagger/Plugin/Subscription/Bloglines.pm
 lib/Plagger/Plugin/Subscription/Config.pm
 lib/Plagger/Plugin/Subscription/HatenaRSS.pm
@@ -103,3 +107,5 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
+t/98-pod.t
+t/99-pod-coverage.t
