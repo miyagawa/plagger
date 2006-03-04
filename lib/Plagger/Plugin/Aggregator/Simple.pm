@@ -26,8 +26,8 @@ sub aggregate {
     my $agent    = Plagger::UserAgent->new;
     my $response = $agent->fetch($url, $self);
 
-    unless ($response) {
-        $context->log(error => "GET $url failed: " . $response->status);
+    unless ($response->is_success) {
+        $context->log(error => "GET $url failed: " . $response->http_response->message);
         return;
     }
 

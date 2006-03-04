@@ -17,7 +17,7 @@ requires('DateTime::Format::Strptime' => 0);
 requires('Digest::MD5' => 0);
 requires('LWP' => 0);
 requires('HTML::Parser' => 3.40);
-requires('URI::Fetch' => 0.04);
+requires('URI::Fetch' => 0.05);
 requires('Cache::Cache' => 1.04);
 
 build_requires(Test::More => 0.42);
