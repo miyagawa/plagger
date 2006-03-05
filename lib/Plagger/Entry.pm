@@ -45,12 +45,6 @@ sub permalink {
     $self->{permalink} || $self->link;
 }
 
-sub clone {
-    my $self = shift;
-    my $clone = Storable::dclone($self);
-    $clone;
-}
-
 sub id_safe {
     my $self = shift;
     my $id   = $self->id || $self->link;

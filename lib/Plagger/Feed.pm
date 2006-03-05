@@ -2,7 +2,7 @@ package Plagger::Feed;
 use strict;
 
 use base qw( Plagger::Thing );
-__PACKAGE__->mk_accessors(qw( link url image description language author updated tags meta type source_xml ));
+__PACKAGE__->mk_accessors(qw( link url image description language author updated tags meta type source_xml source ));
 
 use Digest::MD5 qw(md5_hex);
 use Plagger::Util;
@@ -68,6 +68,11 @@ sub sort_entries {
         map { [ $_->date || '', $_ ] } $self->entries;
 
     $self->{entries} = \@entries;
+}
+
+sub clear_entries {
+    my $self = shift;
+    $self->{entries} = [];
 }
 
 1;

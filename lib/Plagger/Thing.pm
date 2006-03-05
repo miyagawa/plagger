@@ -16,4 +16,10 @@ sub add_tag {
         unless $self->has_tag($tag);
 }
 
+sub clone {
+    my $self = shift;
+    my $clone = Storable::dclone($self);
+    $clone;
+}
+
 1;

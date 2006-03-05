@@ -29,7 +29,13 @@ sub feed_init {
 
 sub feed_entry {
     my($self, $context, $args) = @_;
-    $self->{feed}->add_entry($args->{entry}->clone);
+
+    my $entry = $args->{entry}->clone;
+    my $feed  = $args->{feed}->clone;
+       $feed->clear_entries;
+    $entry->source($feed); # xxx is it only valid for SmartFeed
+
+    $self->{feed}->add_entry($entry);
 }
 
 sub feed_finalize {
