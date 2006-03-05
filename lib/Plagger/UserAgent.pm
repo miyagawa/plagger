@@ -2,7 +2,7 @@ package Plagger::UserAgent;
 use strict;
 use base qw( LWP::UserAgent );
 
-use URI::Fetch;
+use URI::Fetch 0.05;
 
 sub new {
     my $class = shift;
