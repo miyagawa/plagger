@@ -3,6 +3,8 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use File::Copy::Recursive qw[rcopy];
+use HTML::Tidy;
+use HTML::Scrubber;
 
 our $VERSION = '0.01';
 
@@ -20,6 +22,8 @@ sub add_feed {
     if ($feed->id ne 'smartfeed:all') {
         $context->error("Publish::Planet requires SmartFeed::All to run.");
     }
+
+    $self->_sanitize_entries($context, $feed);
 
     $self->_write_index(
         $context,
@@ -42,9 +46,17 @@ sub templatize {
 
     $tt->process("$skin/template/index.tt", {
         feed  => $feed,
-        title => $self->conf->{title},
     }, \my $out) or $context->error($tt->error);
     $out;
+}
+
+sub _sanitize_entries {
+    my ($self, $context, $feed) = shift;
+    
+    foreach my $entry (@{$feed->{entries}}) {
+        $entry->{body} = HTML::Tidy->new->clean($entry->{body});
+        $entry->{body} = HTML::Scrubber->new->scrub($entry->{body});
+    }
 }
 
 sub _write_index {

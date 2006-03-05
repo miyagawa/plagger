@@ -1,3 +1,28 @@
 body {
-    background-color: blue;
+    background-color: #ccc;
+    color: black;
+    font-family: Verdana, sans-serif;
+}
+
+#feed-title {
+    font-size: xx-large;
+    text-align: center;
+    border: 1px solid #aaa;
+    margin: 1em;
+    padding: 1em;
+    background-color: white;
+}
+
+.entry {
+    border: 1px solid #aaa;
+    margin: 2em;
+    padding: 1em;
+    background-color: white;
+}
+
+.entry-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1em;
+    font-size: large;
 }

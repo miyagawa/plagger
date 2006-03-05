@@ -6,20 +6,21 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - url: http://caseywest.com/journal/index.rdf
-        - url: http://del.icio.us/rss/popular
-        - url: http://feeds.technorati.com/feed/posts/tag/miyagawa
+        - url: http://bulknews.typepad.com/blog/index.rdf
+        - url: http://engadget.com/rss.xml
 
   - module: Aggregator::Simple
   
   - module: SmartFeed::All
+    config:
+      title: Planet Plagger
 
   - module: Publish::Planet
     rule:
       expression: $args->{feed}->id eq 'smartfeed:all'
     config:
       dir: /tmp/planet
-      skin: planet
+      skin: default
 
   - module: Publish::Feed
     rule:
@@ -27,3 +28,9 @@ plugins:
     config:
       dir: /tmp/planet
 
+  - module: Publish::Feed
+    rule:
+      expression:  $args->{feed}->id eq 'smartfeed:all'
+    config:
+      dir: /tmp/planet
+      format: RSS
