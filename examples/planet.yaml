@@ -21,6 +21,8 @@ plugins:
     config:
       dir: /tmp/planet
       skin: default
+      template:
+        members_list: 0
 
   - module: Publish::Feed
     rule:
@@ -34,3 +36,4 @@ plugins:
     config:
       dir: /tmp/planet
       format: RSS
+
