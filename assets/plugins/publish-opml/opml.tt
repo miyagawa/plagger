@@ -1,0 +1,14 @@
+<opml version="1.0">
+<head>
+<title>Plagger Subscriptions</title>
+<dateCreated>[% now.format('Mail') %]</dateCreated>
+<ownerName />
+</head>
+<body>
+<outline title="Subscriptions">
+[% FOREACH feed IN feeds -%]
+<outline title="[% feed.title | html %]" htmlUrl="[% feed.link | html %]" type="rss" xmlUrl="[% feed.url | html %]" />
+[% END -%]
+</outline>
+</body>
+</opml>

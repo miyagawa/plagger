@@ -240,8 +240,17 @@ sub dumper {
 
 sub template {
     my $self = shift;
-    Plagger::Template->new($self, (caller)[0]->class_id);
+    my $plugin = shift || (caller)[0];
+    Plagger::Template->new($self, $plugin->class_id);
 }
+
+sub templatize {
+    my($self, $plugin, $file, $vars) = @_;
+    my $tt = $self->template($plugin);
+    $tt->process($file, $vars, \my $out) or $self->error($tt->error);
+    $out;
+}
+
 
 1;
 __END__

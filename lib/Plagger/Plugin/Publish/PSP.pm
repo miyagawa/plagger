@@ -39,5 +39,6 @@ sub templatize {
     }, \my $out) or $context->error($tt->error);
     $out;
 }
+
 1;
 
