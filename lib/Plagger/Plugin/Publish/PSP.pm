@@ -25,6 +25,7 @@ sub finalize {
     my $body = $self->templatize($context, $self->{__feeds});
     my $file = $self->conf->{output_file};
 
+    $context->log(info => "Output HTML to $file");
     open my $out, ">:utf8", $file or $context->error("$file: $!");
     print $out $body;
     close $out;
