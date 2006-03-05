@@ -67,7 +67,7 @@ features(
         -default => 0,
         recommends('Net::Delicious'),
     ],
-    'Publish::IRC' => [
+    'Notify::IRC' => [
         -default => 0,
         recommends('POE::Component::IRC'),
         recommends('POE::Component::IKC::Client'),
@@ -108,6 +108,33 @@ features(
     'Publish::HatenaBookmark' => [
         -default => 0,
         recommends('XML::Atom'),
+    ],
+    'Publish::Playlog' => [
+        -default => 0,
+        recommends('XML::Atom', 0.13),
+    ],
+    'Publish::Planet' => [
+        -default => 0,
+        recommends('HTML::Tidy'),
+        recommends('HTML::Scrubber'),
+    ],
+    'Publish::CSV' => [
+        -default => 0,
+        recommends('Text::CSV_PP'),
+    ],
+    'Filter::HatenaFormat' => [
+        -default => 0,
+        recommends('Text::Hatena'),
+    ],
+    'Publish::MT' => [
+        -default => 0,
+        recommends('Net::MovableType'),
+    ],
+    'CustomFeed::FlickrSearch' => [
+        -default => 0,
+        recommends('XML::LibXML'),
+        recommends('Flickr::API'),
+        recommends('DateTime::Format::Epoch'),
     ],
 );
 
