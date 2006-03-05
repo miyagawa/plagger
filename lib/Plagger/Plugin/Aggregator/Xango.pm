@@ -16,7 +16,7 @@ sub register {
     my %xango_args = (
         Alias => 'xgbroker',
         HandlerAlias => 'xghandler',
-        HttpCompArgs => [ Agent => "Plagger/$Plagger::VERSION (http://plagger.bulknews.net/)" ],
+        HttpCompArgs => [ Agent => "Plagger/$Plagger::VERSION (http://plagger.org/)" ],
         %{$self->conf->{xango_args} || {}},
     );
     $self->{xango_alias} = $xango_args{Alias};
