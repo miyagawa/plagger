@@ -1,4 +1,4 @@
-package Plagger::Plugin::Filter::Hatena;
+package Plagger::Plugin::Filter::HatenaFormat;
 use strict;
 use warnings;
 use base qw( Plagger::Plugin );
