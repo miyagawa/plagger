@@ -12,3 +12,4 @@
 ^[^/]+\.yaml$
 plugins
 9.*-pod.*.t
+\.tar$
