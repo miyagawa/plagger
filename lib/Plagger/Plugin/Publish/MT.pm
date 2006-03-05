@@ -16,11 +16,11 @@ sub register {
 }
 
 sub mt {
-    my ($self, $context, $args) = @_;
+    my $self = shift;
     return $self->{mt} if $self->{mt};
     $self->{mt} = Net::MovableType->new($self->conf->{rsd});
     unless (defined $self->{mt}) {
-        $context->error("couldn't create MT object: " . Net::MovableType->errstr);
+        die "couldn't create MT object: " . Net::MovableType->errstr;
     }
     $self->{mt}->username($self->conf->{username});
     $self->{mt}->password($self->conf->{password});
