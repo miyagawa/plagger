@@ -2,7 +2,7 @@ package Plagger::Entry;
 use strict;
 
 use base qw( Plagger::Thing );
-__PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate  icon meta));
+__PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate  icon meta source ));
 
 use Digest::MD5;
 use DateTime::Format::Mail;
