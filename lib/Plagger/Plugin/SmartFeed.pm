@@ -10,9 +10,9 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'smartfeed.init'  => \&feed_init,
-        'smartfeed.entry' => \&feed_entry,
-        'smartfeed.finalize' => \&feed_finalize,
+        'smartfeed.init'  => $self->can('feed_init'),
+        'smartfeed.entry' => $self->can('feed_entry'),
+        'smartfeed.finalize' => $self->can('feed_finalize'),
     );
 }
 

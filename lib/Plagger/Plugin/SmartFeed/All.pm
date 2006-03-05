@@ -2,18 +2,6 @@ package Plagger::Plugin::SmartFeed::All;
 use strict;
 use base qw( Plagger::Plugin::SmartFeed );
 
-sub rule_hook { 'smartfeed.entry' }
-
-sub register {
-    my($self, $context) = @_;
-    $context->register_hook(
-        $self,
-        'smartfeed.init'  => \&feed_init,
-        'smartfeed.entry' => \&feed_entry,
-        'smartfeed.finalize' => \&feed_finalize,
-    );
-}
-
 sub feed_init {
     my($self, $context, $args) = @_;
 
