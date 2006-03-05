@@ -25,11 +25,6 @@ sub feed_init {
     $self->{feed} = $feed;
 }
 
-sub feed_entry {
-    my($self, $context, $args) = @_;
-    $self->{feed}->add_entry($args->{entry}->clone);
-}
-
 sub feed_finalize {
     my($self, $context, $args) = @_;
 
