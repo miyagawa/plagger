@@ -1,4 +1,4 @@
-package Plagger::Plugin::CustomFeed::Flickr::Search;
+package Plagger::Plugin::CustomFeed::FlickrSearch;
 use strict;
 use warnings;
 use base qw( Plagger::Plugin );
