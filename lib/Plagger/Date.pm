@@ -19,7 +19,7 @@ sub parse {
 
     my $dt = $module->parse_datetime($date) or return;
     if (my $context = Plagger->context) {
-        $dt->set_time_zone($context->conf->{timezone});
+        $dt->set_time_zone($context->conf->{timezone} || 'local');
     }
 
     bless $dt, $class;
