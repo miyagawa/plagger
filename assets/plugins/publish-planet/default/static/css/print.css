@@ -1,0 +1,28 @@
+body {
+    background: white;
+    color: black;
+    padding: 2em;
+}
+
+#feed-title {
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.entry {
+    border-top: black 1px solid;
+    padding: 1em;
+}
+
+.entry-header {
+    font-weight: bold;
+    font-size: large;
+}
+
+a {
+    color: black;
+}
+
+.entry-title a {
+    text-decoration: none;
+}
