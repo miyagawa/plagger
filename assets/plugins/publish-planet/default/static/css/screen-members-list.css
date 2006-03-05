@@ -1,0 +1,18 @@
+
+#members-list {
+    border: 1px solid #aaa;
+    margin: 2em;
+    margin-top: 0;
+    padding: 1em;
+    background-color: white;
+    float: right;
+    width: 15em;
+}
+
+.member {
+    display: block;
+}
+
+.entry {
+    margin-right: 20em;
+}

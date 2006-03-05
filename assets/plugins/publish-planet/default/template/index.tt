@@ -6,10 +6,23 @@
     <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title %]" href="smartfeed_all.atom" />
     <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title %]" href="smartfeed_all.rss" />
     <link rel="stylesheet" type="text/css" href="css/screen.css" />
+    [% IF members_list %]
+      <link rel="stylesheet" type="text/css" href="css/screen-members-list.css" />
+    [% END %]
     <title>[% feed.title %]</title>
   </head>
   <body>
     <div id="feed-title">[% feed.title %]</div>
+
+    [% IF members_list %]
+      <ul id="members-list">
+        [% FOREACH member IN members %]
+          <li class="member">
+            <a class="member-link" href="[% member.link | html %]">[% member.title | html %]</a>
+          </li>
+        [% END %]
+      </ul>
+    [% END %]
 
     [% FOREACH entry IN feed.entries %]
       <div class="entry">
