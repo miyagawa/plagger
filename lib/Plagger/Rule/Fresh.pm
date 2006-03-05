@@ -64,7 +64,8 @@ sub dispatch {
         Plagger->context->error("No entry nor feed object in this plugin phase");
     }
 
-    $date >= $self->{compare_dt};
+    # no date field ... should be Fresh, ugh.
+    $date ? $date >= $self->{compare_dt} : 1;
 }
 
 1;
