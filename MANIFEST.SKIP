@@ -9,5 +9,6 @@
 ^MakeMaker-\d
 \.gz$
 \.cvsignore
-^.*\.yaml$
+^[^/]+\.yaml$
 plugins
+9.*-pod.*.t
