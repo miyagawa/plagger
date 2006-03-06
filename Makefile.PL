@@ -138,6 +138,10 @@ features(
         recommends('Flickr::API'),
         recommends('DateTime::Format::Epoch'),
     ],
+    'Filter::ImageInfo' => [
+        -default => 0,
+        recommends('Image::Info'),
+    ],
 );
 
 if ($^O eq 'Darwin') {
