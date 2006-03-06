@@ -43,6 +43,7 @@ sub bootstrap {
     my $config;
     if (-e $opt{config} && -r _) {
         $config = YAML::LoadFile($opt{config});
+        $self->load_include($config);
         $self->{conf} = $config->{global};
         $self->{conf}->{log}   ||= { level => 'debug' };
     } else {
@@ -51,9 +52,49 @@ sub bootstrap {
 
     local *Plagger::context = sub { $self };
 
+    $self->load_recipes($config);
     $self->load_cache($opt{config});
     $self->load_plugins(@{ $config->{plugins} || [] });
     $self->run();
+}
+
+sub load_include {
+    my($self, $config) = @_;
+
+    return unless $config->{include};
+    for (@{ $config->{include} }) {
+        my $include = YAML::LoadFile($_);
+
+        for my $key (keys %{ $include }) {
+            my $add = $include->{$key};
+            unless ($config->{$key}) {
+                $config->{$key} = $add;
+                next;
+            }
+            if (ref($config->{$key}) eq 'HASH') {
+                next unless ref($add) eq 'HASH';
+                for (keys %{ $include->{$key} }) {
+                    $config->{$key}->{$_} = $include->{$key}->{$_};
+                }
+            } elsif (ref($include->{$key}) eq 'ARRAY') {
+                $add = [ $add ] unless ref($add) eq 'ARRAY';
+                push(@{ $config->{$key} }, @{ $include->{$key} });
+            } elsif ($add) {
+                $config->{$key} = $add;
+            }
+        }
+    }
+}
+
+sub load_recipes {
+    my($self, $config) = @_;
+
+    for (@{ $config->{define_recipes} }) {
+        $self->error("no such recipe to $_") unless $config->{recipe}->{$_};
+        my $plugin = $config->{recipe}->{$_};
+        $plugin = [ $plugin ] unless ref($plugin) eq 'ARRAY';
+        push(@{ $config->{plugins} }, @{ $plugin });
+    }
 }
 
 sub load_cache {
