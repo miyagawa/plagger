@@ -35,6 +35,10 @@ sub filter {
 
     Plagger->context->log(debug => "Stripped Google AdSense for feeds") if $count;
 
+    # Pheedo ads
+    $count = $body =~ s!<br /><br />\n<a href="http://www\.pheedo\.com/click\.phdo\?feedUrl=.*?"*?><img border="0" src="http://www\.pheedo\.com/img\.phdo\?feedUrl=.*?" /></a>!!;
+    Plagger->context->log(debug => "Stripped Pheedo Ads") if $count;
+
     $body;
 }
 
