@@ -42,6 +42,7 @@ features(
         recommends('XML::Feed', 0.08),
         recommends('XML::Atom'),
         recommends('XML::RSS::LibXML', 0.18),
+        recommends('XML::RSS::Liberal'),
     ],
     'Publish::Gmail' => [
         -default => 1,
