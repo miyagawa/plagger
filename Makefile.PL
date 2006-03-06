@@ -30,7 +30,8 @@ features(
     ],
     'Subscription::Bloglines' => [
         -default => 1,
-        recommends('WebService::Bloglines', 0.10),
+        recommends('WebService::Bloglines', 0.11),
+        recommends('XML::Liberal', 0.03),
     ],
     'Subscription::OPML' => [
         -default => 1,
