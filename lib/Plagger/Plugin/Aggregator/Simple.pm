@@ -36,7 +36,10 @@ sub aggregate {
     # TODO: handle 301 Moved Permenently and 410 Gone
     $context->log(debug => $response->status . ": $url");
 
-    $self->handle_feed($url, \$response->content);
+    my $args = { content => $response->content };
+    Plagger->context->run_hook('aggregator.filter.feed', $args);
+
+    $self->handle_feed($url, \$args->{content});
 }
 
 sub handle_feed {

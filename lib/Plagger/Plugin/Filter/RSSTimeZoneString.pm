@@ -19,32 +19,21 @@ my %tz = qw(
   NT      -1100   IDLW    -1200
 );
 
-my $tz_RE = join '|', keys %tz;
+my $tz_RE   = join '|', keys %tz;
 
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'update.entry.fixup' => \&update,
+        'aggregator.filter.feed' => \&filter,
     );
 }
 
-sub update {
+sub filter {
     my($self, $context, $args) = @_;
-    my $entry = $args->{entry}->{feed_entry};
 
-    ## only work with RSS 0.91/2.0 and XML::Feed (Aggregator::Simple)
-    return unless $entry && $entry->{entry} && $entry->{entry}->{pubDate};
-
-    my $ts = $entry->{entry}->{pubDate};
-    if ($ts =~ s/($tz_RE)$/$tz{$1}/) {
-        $context->log(info => "Fixing bad timezone $1 to $tz{$1}");
-
-        require DateTime::Format::Mail;
-        my $parser = DateTime::Format::Mail->new;
-           $parser->loose;
-        my $date = $parser->parse_datetime($ts);
-        $args->{entry}->date( Plagger::Date->rebless($date) );
+    while ($args->{content} =~ s!($tz_RE)</(pubDate|lastBuildDate)>!$tz{$1}</$2>!) {
+        $context->log(info => "Fixed bad timezone $1 to $tz{$1}");
     }
 }
 
@@ -58,7 +47,7 @@ Plagger::Plugin::Filter::RSSTimeZoneString - Fix bad RFC822 timezone string in R
 
 =head1 SYNOPSIS
 
-    - module: Filter::RSSTimeZoneString
+  - module: Filter::RSSTimeZoneString
 
 =head1 DESCRIPTION
 
