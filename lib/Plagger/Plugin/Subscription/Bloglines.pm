@@ -54,7 +54,7 @@ sub init_bloglines {
     $self->{bloglines} = WebService::Bloglines->new(
         username => $self->conf->{username},
         password => $self->conf->{password},
-#        use_liberal => 1,
+        use_liberal => 1,
     );
 }
 
