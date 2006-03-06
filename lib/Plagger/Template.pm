@@ -21,6 +21,7 @@ sub new {
             Template::Provider::Encoding->new({ INCLUDE_PATH => $paths }),
         ],
         STASH => Template::Stash::ForceUTF8->new,
+        PLUGIN_BASE => [ 'Plagger::TT' ],
     });
 }
 

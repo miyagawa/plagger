@@ -33,7 +33,8 @@ sub feed_entry {
     my $entry = $args->{entry}->clone;
     my $feed  = $args->{feed}->clone;
        $feed->clear_entries;
-    $entry->source($feed); # xxx is it only valid for SmartFeed
+    $entry->source($feed); # xxx is it only valid for SmartFeed?
+    $entry->icon($feed->image) if !$entry->icon && $feed->image;
 
     $self->{feed}->add_entry($entry);
 }
