@@ -54,7 +54,7 @@ sub init_bloglines {
     $self->{bloglines} = WebService::Bloglines->new(
         username => $self->conf->{username},
         password => $self->conf->{password},
-        use_liberal => 1,
+#        use_liberal => 1,
     );
 }
 
@@ -108,7 +108,24 @@ sub sync {
     my $mark_read = $self->conf->{mark_read};
        $mark_read = 1 unless defined $mark_read;
 
-    my @updates = $self->{bloglines}->getitems(0, $mark_read);
+    my @updates;
+
+    # catch bad XML feed by Bloglines
+    eval {
+        @updates = $self->{bloglines}->getitems(0, $mark_read);
+    };
+
+    if ($@) {
+        $context->log(warn => "Bloglines Sync API returned bad XML. fallbacks to loop mode");
+        my @feeds = $self->{bloglines}->listsubs()->feeds;
+        for my $feed (@feeds) {
+            if ($feed->{BloglinesUnread}) {
+                $context->log(debug => "Fetch $feed->{BloglinesSubId}");
+                push @updates, eval { $self->{bloglines}->getitems($feed->{BloglinesSubId}, $mark_read) };
+            }
+        }
+    }
+
     $context->log(info => scalar(@updates) . " feed(s) updated.");
 
     for my $update (@updates) {
