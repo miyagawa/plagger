@@ -7,8 +7,8 @@ use DateTime::Event::Cron;
 
 sub init {
     my $self = shift;
-    my $now = Plagger::Date->now(%{Plagger->context->conf});
-    $now->set_second(0);
+    my $now = Plagger::Date->now;
+       $now->set_second(0);
     $self->{cron_valid} = 1;
     eval {
         Plagger->context->log(debug => "crontab $self->{crontab} set");
