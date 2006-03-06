@@ -3,7 +3,7 @@ use strict;
 use base qw( Template );
 
 use FindBin;
-use File::Spec;
+use File::Spec::Functions qw(catfile);
 
 use Template::Provider::Encoding 0.04;
 use Template::Stash::ForceUTF8;
@@ -11,8 +11,9 @@ use Template::Stash::ForceUTF8;
 sub new {
     my($class, $context, $plugin_class_id) = @_;
 
-    my $path = $context->conf->{assets_path} || File::Spec->catfile($FindBin::Bin, "assets");
-    my $paths = [ "$path/plugins/$plugin_class_id" ];
+    my $path = $context->conf->{assets_path} || catfile($FindBin::Bin, "assets");
+    my $paths = [ catfile($path, "plugins", $plugin_class_id),
+                  catfile($path, "common") ];
 
     return $class->SUPER::new({
         INCLUDE_PATH => $paths,
