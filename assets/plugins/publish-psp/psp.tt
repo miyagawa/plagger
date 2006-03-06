@@ -1,23 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 </head>
 <body>
 [% FOREACH feed = feeds %]
 [% IF feed.image %]<a href="[% feed.link %]"><img src="[% feed.image.url | html %]" alt="[% feed.title | html %]" /></a>[% END %]
-[% FOREACH item = feed.entries %]
-<h1>[% item.title %]</h1>
+[% FOREACH entry = feed.entries %]
+<h1>[% entry.title %]</h1>
 <div>
 <div>
-[% SET link = item.link || item.id -%]
+[% SET link = entry.link || entry.id -%]
 Link: <a href="[% link | html %]">[% link | html %]</a><br />
-[% IF item.author %]by [% item.author | html %][% END %][% IF item.tags.size %] on [% item.tags.join(',') %][% END %]</div>
-[% IF item.body -%]
-[% IF item.body.match('(?i)^<p[ >]') %][% item.body %][% ELSE %]<div class="item_body">[% item.body %]</div>[% END %]
+[% IF entry.author %]by [% entry.author | html %][% END %][% IF entry.tags.size %] on [% entry.tags.join(',') %][% END %]</div>
+[% IF entry.body -%]
+[% IF entry.body.match('(?i)^<p[ >]') %][% entry.body %][% ELSE %]<div class="entry_body">[% entry.body %]</div>[% END %]
 [% ELSE %]<br />[% END %]
-<div class="post">[% IF item.date %]Posted on [% item.date.format('Mail') %][% END %] | <a href="[% entry.permalink | html %]">permalink</a> | <a href="[% feed.link | html %]">[% (feed.title || '(no-title)') | html %]</a>[% FOREACH widget = item.widgets %] | [% widget.html(item) %][% END %]<br clear="all" /></div>
+<div class="post">[% IF entry.date %]Posted on [% entry.date.format('Mail') %][% END %] | <a href="[% entry.permalink | html %]">permalink</a> | <a href="[% feed.link | html %]">[% (feed.title || '(no-title)') | html %]</a>[% FOREACH widget = entry.widgets %] | [% widget.html(entry) %][% END %]<br clear="all" /></div>
 </div>
 [% END %]
 <hr />
