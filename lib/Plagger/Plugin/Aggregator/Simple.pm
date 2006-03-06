@@ -36,17 +36,17 @@ sub aggregate {
     # TODO: handle 301 Moved Permenently and 410 Gone
     $context->log(debug => $response->status . ": $url");
 
-    my $args = { content => $response->content };
-    Plagger->context->run_hook('aggregator.filter.feed', $args);
-
-    $self->handle_feed($url, \$args->{content});
+    $self->handle_feed($url, \$response->content);
 }
 
 sub handle_feed {
     my($self, $url, $xml_ref) = @_;
 
+    my $args = { content => $$xml_ref };
+    Plagger->context->run_hook('aggregator.filter.feed', $args);
+
     my $context = Plagger->context;
-    my $remote = eval { XML::Feed->parse($xml_ref) };
+    my $remote = eval { XML::Feed->parse(\$args->{content}) };
 
     unless ($remote) {
         $context->log(error => "Parsing $url failed. " . ($@ || XML::Feed->errstr));
