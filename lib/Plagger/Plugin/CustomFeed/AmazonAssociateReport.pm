@@ -1,4 +1,4 @@
-package Plagger::Plugin::CustomFeed::AmazonAssociateReport;
+package Plagger::Plugin::CustomFeed::AmazonAssociateReportJP;
 use strict;
 use warnings;
 use base qw (Plagger::Plugin);
@@ -48,7 +48,7 @@ sub aggregate {
     $context->update->add($feed);
 }
 
-package Plagger::Plugin::CustomFeed::AmazonAssociateReport::Mechanize;
+package Plagger::Plugin::CustomFeed::AmazonAssociateReportJP::Mechanize;
 use strict;
 use warnings;
 use WWW::Mechanize;
@@ -114,12 +114,12 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::CustomFeed::AmazonAssociateReport - Custom feed for
+Plagger::Plugin::CustomFeed::AmazonAssociateReportJP - Custom feed for
 Amazon.co.jp associate central
 
 =head1 SYNOPSIS
 
-  - module: CustomFeed::AmazonAssociateReport
+  - module: CustomFeed::AmazonAssociateReportJP
     config:
       email: foobar@example.com
       password: barbaz
