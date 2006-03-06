@@ -42,7 +42,7 @@ sub aggregate {
     }
 
     open my $fh, "<:encoding(utf-8)", $file
-        or return $class->log(error => "$file: $!");
+        or return $context->log(error => "$file: $!");
 
     my $feed = Plagger::Feed->new;
     $feed->type('itunesrecentplay');
@@ -64,16 +64,17 @@ sub aggregate {
             and do {
                 my $entry = Plagger::Entry->new;
 
-                my $dt = DateTime::Format::W3CDTF->parse_datetime($data->{date});
-                unless ($dt) {
-                    $context->log( warn => "Can't parse $data->{date}");
-                    next;
-                }
-                if( $data->{date} and $data->{artist} and $dt->epoch > time - $self->conf->{reload_period} ){
+                if( $data->{date} and $data->{artist} ){
+                    my $dt = DateTime::Format::W3CDTF->parse_datetime($data->{date});
+                    unless ($dt) {
+                        $context->log( warn => "Can't parse $data->{date}");
+                        next;
+                    }
                     for my $key (keys %$data){
                         $entry->meta->{$key} = $data->{$key};
                     }
-                    $context->log( info => $data->{artist} . ' ' . $data->{track});
+                    $entry->date(Plagger::Date->from_epoch($dt->epoch));
+                    $context->log( debug => $data->{artist} . ' ' . $data->{track});
                     $feed->add_entry($entry);
                 }
                 $data = {};

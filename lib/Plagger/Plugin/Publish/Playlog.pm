@@ -5,32 +5,28 @@ use base qw( Plagger::Plugin );
 use XML::Atom::Client;
 use XML::Atom::Entry;
 
-sub rule_hook { 'publish.feed' }
-
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.feed' => \&feed,
+        'publish.entry' => \&entry,
     );
 }
 
-sub feed {
+sub entry {
     my($self, $context, $args) = @_;
 
     my $api = XML::Atom::Client->new;
     $api->username($self->conf->{username});
     $api->password($self->conf->{password});
 
-   for (@{$args->{feed}->entries}){
-        my $entry = XML::Atom::Entry->new;
-        my $otolog = XML::Atom::Namespace->new(otolog => 'http://otolog.org/ns/music#');
-        for my $key (keys %{$_->meta}){
-            $entry->set($otolog, 'otolog:' . $key, $_->meta->{$key});
-        }
-        $context->log( info => $_->meta->{artist} . ' ' . $_->meta->{track});
-        $api->createEntry('http://mss.playlog.jp/playlog', $entry);
+    my $entry = XML::Atom::Entry->new;
+    my $otolog = XML::Atom::Namespace->new(otolog => 'http://otolog.org/ns/music#');
+    for my $key (keys %{$args->{entry}->meta}){
+        $entry->set($otolog, 'otolog:' . $key, $args->{entry}->meta->{$key});
     }
+    $context->log( info => $args->{entry}->meta->{artist} . ' ' . $args->{entry}->meta->{track});
+    $api->createEntry('http://mss.playlog.jp/playlog', $entry);
 }
 
 1;
@@ -46,6 +42,11 @@ Plagger::Plugin::Publish::Playlog - Publish music data to playlog.jp
     config:
       username: your-playlog-id
       password: xxxxxxxx
+    rule:
+      module: Fresh
+      mtime:
+        path: /tmp/iTunesRecentPlay.tmp
+        autoupdate: 1
 
 =head1 DESCRIPTION
 
