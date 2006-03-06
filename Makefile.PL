@@ -41,7 +41,7 @@ features(
         -default => 1,
         recommends('XML::Feed', 0.08),
         recommends('XML::Atom'),
-        recommends('XML::RSS::LibXML', 0.17),
+        recommends('XML::RSS::LibXML', 0.18),
     ],
     'Publish::Gmail' => [
         -default => 1,
@@ -96,7 +96,7 @@ features(
     'Publish::Feed' => [
         -default => 1,
         recommends('XML::Feed', 0.08),
-        recommends('XML::RSS::LibXML', 0.17),
+        recommends('XML::RSS::LibXML', 0.18),
     ],
     'Filter::ResolveRelativeLink' => [
         -default => 0,
