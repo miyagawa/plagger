@@ -6,7 +6,6 @@ use File::Spec;
 use Encode;
 use DateTime::Format::W3CDTF;
 use HTML::Entities;
-use LWP::Simple;
 
 sub register {
     my($self, $context) = @_;
