@@ -59,7 +59,7 @@ sub handle_feed {
     $feed->title($remote->title);
     $feed->url($url);
     $feed->link($remote->link);
-    $feed->description($remote->tagline);
+    $feed->description($remote->tagline); # xxx should support Atom 1.0
     $feed->language($remote->language);
     $feed->author($remote->author);
     $feed->updated($remote->modified);
@@ -88,6 +88,16 @@ sub handle_feed {
 
         $entry->date( Plagger::Date->rebless($e->issued) )
             if eval { $e->issued };
+
+        # xxx nasty hack. We should remove this once XML::Atom or XML::Feed is fixed
+        if (!$entry->date && $remote->format eq 'Atom' && $e->{entry}->version eq '1.0') {
+            my $published = $e->{entry}->published;
+            if ($published) {
+                my $dt = XML::Atom::Util::iso2dt($published);
+                $entry->date( Plagger::Date->rebless($dt) );
+            }
+        }
+
         $entry->link($e->link);
         $entry->id($e->id);
         $entry->body($e->content->body);
