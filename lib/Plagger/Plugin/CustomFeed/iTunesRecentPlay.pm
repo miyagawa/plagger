@@ -6,6 +6,7 @@ use File::Spec;
 use Encode;
 use DateTime::Format::W3CDTF;
 use HTML::Entities;
+use LWP::Simple;
 
 sub register {
     my($self, $context) = @_;
@@ -70,12 +71,14 @@ sub aggregate {
                         $context->log( warn => "Can't parse $data->{date}");
                         next;
                     }
-                    for my $key (keys %$data){
-                        $entry->meta->{$key} = $data->{$key};
+                    if( !defined $self->conf->{duration} or $dt->epoch > time - $self->conf->{duration} * 60 ){
+                        for my $key (keys %$data){
+                            $entry->meta->{$key} = $data->{$key};
+                        }
+                        $entry->date(Plagger::Date->from_epoch($dt->epoch));
+                        $context->log( debug => $data->{artist} . ' ' . $data->{track});
+                        $feed->add_entry($entry);
                     }
-                    $entry->date(Plagger::Date->from_epoch($dt->epoch));
-                    $context->log( debug => $data->{artist} . ' ' . $data->{track});
-                    $feed->add_entry($entry);
                 }
                 $data = {};
             };
@@ -93,10 +96,11 @@ Plagger::Plugin::CustomFeed::iTunesRecentPlay - iTunes Recent Play custom feed
 
 =head1 SYNOPSIS
 
+  # entries updated within 120 minutes
   - module: CustomFeed::iTunesRecentPlay
     config:
       library_path: /path/to/iTunes Music Library.xml
-      reload_period: 3600
+      duration: 120
 
 =head1 DESCRIPTION
 
@@ -111,11 +115,11 @@ This plugin fetches the data of musics you played with iTunes or iPod recently.
 A path name of iTunes Music Libary.xml.If you omit this parameter,
 this plugin try to find it automatically.
 
-=item reload_period
+=item duration
 
 This plugin find a music played recently if last played time is within
-this parameter.It's good to define this parameter same as execution 
-period of plagger with cron.
+this parameter.It's good to define this parameter same as execution
+period of plagger with cron to reduce memory usage.
 
 =back
 
