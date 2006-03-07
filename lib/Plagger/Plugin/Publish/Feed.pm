@@ -55,7 +55,7 @@ sub publish_feed {
         $entry->summary($e->body_text);
         $entry->content($e->body);
         $entry->category(join(' ', @{$e->tags}));
-        $entry->issued($e->date);
+        $entry->issued($e->date) if $e->date;
         $entry->author($e->author);
         $feed->add_entry($entry);
     }
