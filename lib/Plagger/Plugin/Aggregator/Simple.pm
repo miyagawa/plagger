@@ -91,10 +91,9 @@ sub handle_feed {
 
         # xxx nasty hack. We should remove this once XML::Atom or XML::Feed is fixed
         if (!$entry->date && $remote->format eq 'Atom' && $e->{entry}->version eq '1.0') {
-            my $published = $e->{entry}->published;
-            if ($published) {
-                my $dt = XML::Atom::Util::iso2dt($published);
-                $entry->date( Plagger::Date->rebless($dt) );
+            if ( $e->{entry}->published ) {
+                my $dt = XML::Atom::Util::iso2dt( $e->{entry}->published );
+                $entry->date( Plagger::Date->rebless($dt) ) if $dt;
             }
         }
 
