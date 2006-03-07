@@ -19,7 +19,10 @@ sub add {
 sub html {
     my($self, $entry) = @_;
 
-    my $uri = URI->new('http://b.hatena.ne.jp/entry/' . $entry->permalink);
+    my $permalink = $entry->permalink;
+       $permalink =~ s/\#/%23/;
+    my $uri = URI->new('http://b.hatena.ne.jp/entry/' . $permalink);
+
     my $url = HTML::Entities::encode($uri->as_string);
 
     my $user = $entry->meta->{hatenabookmark_users};
