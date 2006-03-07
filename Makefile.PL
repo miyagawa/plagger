@@ -146,6 +146,10 @@ features(
         -default => 0,
         recommends('IPC::Run'),
     ],
+    'Filter::RSSLiberalDateTime' => [
+        -default => 0,
+        recommends('Date::Parse'),
+    ],
 );
 
 if ($^O eq 'Darwin') {
