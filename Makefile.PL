@@ -142,6 +142,10 @@ features(
         -default => 0,
         recommends('Image::Info'),
     ],
+    'Filter::Pipe' => [
+        -default => 0,
+        recommends('IPC::Run'),
+    ],
 );
 
 if ($^O eq 'Darwin') {
