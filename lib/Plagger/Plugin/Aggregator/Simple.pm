@@ -92,8 +92,6 @@ sub handle_feed {
         $entry->id($e->id);
         $entry->body($e->content->body);
 
-        $entry->{feed_entry} = $e; # xxx for now
-
         $feed->add_entry($entry);
     }
 
