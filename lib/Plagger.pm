@@ -194,6 +194,7 @@ sub run_hook {
 sub run {
     my $self = shift;
 
+    $self->run_hook('plugin.init');
     $self->run_hook('subscription.load');
 
     for my $type ($self->subscription->types) {
