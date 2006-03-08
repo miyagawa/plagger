@@ -41,6 +41,20 @@ sub aggregate {
         }
     }
 
+    my $uri = URI->new($file);
+    if ($uri->scheme) {
+        $file = $self->cache->path_to('iTunes Music Library.xml');
+
+        my $ua = Plagger::UserAgent->new;
+        my $response = $ua->mirror($uri => $file);
+        if ($response->is_error) {
+            $context->log(error => "GET $uri failed: " . $response->status_line);
+            return;
+        }
+
+        $context->log(info => "Downloaded $uri to $file");
+    }
+
     open my $fh, "<:encoding(utf-8)", $file
         or return $context->log(error => "$file: $!");
 

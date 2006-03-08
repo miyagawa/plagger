@@ -19,6 +19,11 @@ for my $meth (qw(get get_callback set remove)) {
     };
 }
 
+sub path_to {
+    my($self, @path) = @_;
+    $self->{cache}->path_to($self->{namespace}, @path);
+}
+
 sub cookie_jar {
     my $self = shift;
     $self->{cache}->cookie_jar($self->{namespace});

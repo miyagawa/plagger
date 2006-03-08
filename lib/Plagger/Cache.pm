@@ -30,6 +30,11 @@ sub new {
     }, $class;
 }
 
+sub path_to {
+    my($self, @path) = @_;
+    File::Spec->catfile($self->{base}, @path);
+}
+
 sub get {
     my $self = shift;
 
