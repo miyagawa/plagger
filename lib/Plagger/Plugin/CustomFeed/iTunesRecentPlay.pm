@@ -6,6 +6,7 @@ use File::Spec;
 use Encode;
 use DateTime::Format::W3CDTF;
 use HTML::Entities;
+use Plagger::UserAgent;
 
 sub register {
     my($self, $context) = @_;
