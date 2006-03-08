@@ -105,7 +105,7 @@ features(
     ],
     'Filter::BulkfeedsTerms' => [
         -default => 0,
-        recommends('XML::Simple'),
+        recommends('XML::LibXML'),
     ],
     'Publish::HatenaBookmark' => [
         -default => 0,

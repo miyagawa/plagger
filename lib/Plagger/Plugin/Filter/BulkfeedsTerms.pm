@@ -4,7 +4,7 @@ use base qw( Plagger::Plugin );
 
 use Encode;
 use Plagger::UserAgent;
-use XML::Simple;
+use XML::LibXML;
 use URI;
 
 sub register {
@@ -34,12 +34,25 @@ sub update {
         return;
     }
 
-    my @terms = grep !ref, @{ XMLin($res->content)->{term} };
+    my @terms = eval { $self->parse_terms($res->content) };
     $context->log(info => "Terms for " . $args->{entry}->link . ": " . join(", ", @terms));
 
     for my $term (@terms) {
         $args->{entry}->add_tag($term);
     }
+}
+
+sub parse_terms {
+    my($self, $xml) = @_;
+    my $doc = XML::LibXML->new->parse_string($xml);
+
+    my @terms;
+    for my $node ( $doc->findnodes('/terms/term')->get_nodelist ) {
+        my $term = $node->textContent;
+        push @terms, $term if defined $term && $term ne '';
+    }
+
+    return @terms;
 }
 
 1;
