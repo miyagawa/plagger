@@ -79,7 +79,7 @@ sub dedupe_entries {
     my $self = shift;
     my %seen;
     my @entries;
-    for my $entry ($self->entires) {
+    for my $entry ($self->entries) {
         push @entries, $entry if !$seen{$entry->id}++;
     }
     $self->{entries} = \@entries;
