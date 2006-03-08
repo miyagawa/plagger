@@ -75,4 +75,14 @@ sub clear_entries {
     $self->{entries} = [];
 }
 
+sub dedupe_entries {
+    my $self = shift;
+    my %seen;
+    my @entries;
+    for my $entry ($self->entires) {
+        push @entries, $entry if !$seen{$entry->id}++;
+    }
+    $self->{entries} = \@entries;
+}
+
 1;

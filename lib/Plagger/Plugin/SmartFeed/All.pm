@@ -17,13 +17,7 @@ sub feed_finalize {
     my($self, $context, $args) = @_;
 
     # because it's "All" you have to dedupe the entries
-    my(%seen, @delete);
-    for my $entry ($self->{feed}->entries) {
-        if ($seen{$entry->permalink}++) {
-            push @delete, $entry;
-        }
-    }
-    $self->{feed}->delete_entry($_) for @delete;
+    $self->{feed}->dedupe_entries;
     $self->{feed}->sort_entries;
 
     $context->update->add($self->{feed}) if $self->{feed}->count;
