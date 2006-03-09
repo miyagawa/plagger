@@ -42,3 +42,39 @@ sub aggregate {
 
 1;
 
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::CustomFeed::Deubg - Feed in config.yaml
+
+=head1 SYNOPSIS
+
+  - module: CustomFeed::Deubg
+    config:
+      title: 'My Feed'
+      link: 'http://localhost/'
+      entry:
+        - title: 'First Entry'
+          link: 'http://localhost/1'
+          body: 'Hello World! :)'
+        - title: 'Second Entry'
+          link: 'http://localhost/2'
+          body: 'Good Bye! :P'
+
+=head1 DESCRIPTION
+
+This plugin allows you to define your feed in C<config.yaml>, which
+makes it easier creating a testing environment for your Plugin
+development.
+
+=head1 AUTHOR
+
+Naoya Ito E<lt>naoya@bloghackers.netE<gt>
+
+=head1 SEE ALSO
+
+L<Plagger>
+
+=cut
+
