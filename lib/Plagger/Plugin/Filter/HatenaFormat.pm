@@ -29,11 +29,11 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::Hatena - Text formatting filter with Hatena Style
+Plagger::Plugin::Filter::HatenaFormat- Text formatting filter with Hatena Style
 
 =head1 SYNOPSIS
 
-  - module: Filter::Hatena
+  - module: Filter::HatenaFormat
     config:
       ilevel: 1
       sectionanchor: '@'
