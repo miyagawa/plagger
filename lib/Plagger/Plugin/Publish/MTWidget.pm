@@ -81,10 +81,10 @@ sub finalize {
 	$context->log(info => "Rebuilding Template $tmpl");
 
 	my $template = MT::Template->load({
-	    name => $rebuild, blog_id => $blog_id,
+	    name => $tmpl, blog_id => $blog_id,
 	});
 	unless ($template) {
-	    $context->log(error => "Can't load template $rebuild");
+	    $context->log(error => "Can't load template $tmpl");
 	    next;
 	}
 
