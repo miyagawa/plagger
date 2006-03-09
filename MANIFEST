@@ -2,6 +2,9 @@ AUTHORS
 bin/plagger-ircbot
 bin/spotlight_comment.scpt
 Changes
+examples/bloglines2gmail.yaml
+examples/irc.yaml
+examples/planet.yaml
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
@@ -26,6 +29,8 @@ lib/Plagger/Operator.pm
 lib/Plagger/Plugin.pm
 lib/Plagger/Plugin/Aggregator/Simple.pm
 lib/Plagger/Plugin/Aggregator/Xango.pm
+lib/Plagger/Plugin/CustomFeed/AmazonAssociateReportJP.pm
+lib/Plagger/Plugin/CustomFeed/FlickrSearch.pm
 lib/Plagger/Plugin/CustomFeed/Frepa.pm
 lib/Plagger/Plugin/CustomFeed/iTunesRecentPlay.pm
 lib/Plagger/Plugin/CustomFeed/Mailman.pm
@@ -33,6 +38,7 @@ lib/Plagger/Plugin/CustomFeed/Mixi.pm
 lib/Plagger/Plugin/CustomFeed/POP3.pm
 lib/Plagger/Plugin/CustomFeed/Yahoo360JP.pm
 lib/Plagger/Plugin/Filter/2chNewsokuTitle.pm
+lib/Plagger/Plugin/Filter/BlogPet.pm
 lib/Plagger/Plugin/Filter/BulkfeedsTerms.pm
 lib/Plagger/Plugin/Filter/Delicious.pm
 lib/Plagger/Plugin/Filter/DeliciousFeedTags.pm
@@ -41,9 +47,14 @@ lib/Plagger/Plugin/Filter/FloatingDateTime.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkUsersCount.pm
 lib/Plagger/Plugin/Filter/HatenaDiaryKeywordLink.pm
+lib/Plagger/Plugin/Filter/HatenaFormat.pm
+lib/Plagger/Plugin/Filter/ImageInfo.pm
+lib/Plagger/Plugin/Filter/Pipe.pm
 lib/Plagger/Plugin/Filter/Regexp.pm
 lib/Plagger/Plugin/Filter/ResolveRelativeLink.pm
+lib/Plagger/Plugin/Filter/RSSLiberalDateTime.pm
 lib/Plagger/Plugin/Filter/RSSTimeZoneString.pm
+lib/Plagger/Plugin/Filter/SpamAssassin.pm
 lib/Plagger/Plugin/Filter/StripRSSAd.pm
 lib/Plagger/Plugin/Filter/tDiaryComment.pm
 lib/Plagger/Plugin/Filter/TTP.pm
@@ -59,15 +70,19 @@ lib/Plagger/Plugin/Notify/IRC.pm
 lib/Plagger/Plugin/Notify/MSAgent.pm
 lib/Plagger/Plugin/Notify/SSTP.pm
 lib/Plagger/Plugin/Publish/CHTML.pm
+lib/Plagger/Plugin/Publish/CSV.pm
 lib/Plagger/Plugin/Publish/Debug.pm
 lib/Plagger/Plugin/Publish/Delicious.pm
 lib/Plagger/Plugin/Publish/Feed.pm
 lib/Plagger/Plugin/Publish/Gmail.pm
 lib/Plagger/Plugin/Publish/HatenaBookmark.pm
 lib/Plagger/Plugin/Publish/JavaScript.pm
+lib/Plagger/Plugin/Publish/MT.pm
 lib/Plagger/Plugin/Publish/MTWidget.pm
+lib/Plagger/Plugin/Publish/OPML.pm
 lib/Plagger/Plugin/Publish/PDF.pm
 lib/Plagger/Plugin/Publish/Pipe.pm
+lib/Plagger/Plugin/Publish/Planet.pm
 lib/Plagger/Plugin/Publish/Playlog.pm
 lib/Plagger/Plugin/Publish/PSP.pm
 lib/Plagger/Plugin/Publish/Speech.pm
@@ -79,6 +94,7 @@ lib/Plagger/Plugin/SmartFeed.pm
 lib/Plagger/Plugin/SmartFeed/All.pm
 lib/Plagger/Plugin/Subscription/Bloglines.pm
 lib/Plagger/Plugin/Subscription/Config.pm
+lib/Plagger/Plugin/Subscription/HatenaGroup.pm
 lib/Plagger/Plugin/Subscription/HatenaRSS.pm
 lib/Plagger/Plugin/Subscription/Odeo.pm
 lib/Plagger/Plugin/Subscription/OPML.pm
@@ -99,6 +115,7 @@ lib/Plagger/Subscription.pm
 lib/Plagger/Tag.pm
 lib/Plagger/Template.pm
 lib/Plagger/Thing.pm
+lib/Plagger/TT/Plagger/Util.pm
 lib/Plagger/Update.pm
 lib/Plagger/UserAgent.pm
 lib/Plagger/Util.pm
@@ -107,5 +124,3 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
-t/98-pod.t
-t/99-pod-coverage.t
