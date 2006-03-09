@@ -158,6 +158,7 @@ sub sync {
                 if $item->{dc}->{subject};
             $entry->date( Plagger::Date->parse('Mail', $item->{pubDate}) );
             $entry->link($item->{link});
+            $entry->feed_link($feed->link);
             $entry->id($item->{guid});
 
             $entry->body($item->{description});

@@ -98,6 +98,7 @@ sub handle_feed {
         }
 
         $entry->link($e->link);
+        $entry->feed_link($feed->link);
         $entry->id($e->id);
         $entry->body($e->content->body);
 

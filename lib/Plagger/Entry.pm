@@ -2,7 +2,7 @@ package Plagger::Entry;
 use strict;
 
 use base qw( Plagger::Thing );
-__PACKAGE__->mk_accessors(qw( title author tags date link id summary body rate  icon meta source ));
+__PACKAGE__->mk_accessors(qw( title author tags date link feed_link id summary body rate icon meta source ));
 
 use Digest::MD5;
 use DateTime::Format::Mail;
@@ -47,7 +47,14 @@ sub permalink {
 
 sub id_safe {
     my $self = shift;
-    my $id   = $self->id || $self->link;
+    my $id   = $self->id || $self->permalink;
+
+    # entry without id or permalink. Try entry's date or title
+    unless ($id) {
+        $id  = $self->feed_link;
+        $id .= $self->date ? $self->date->epoch : $self->title;
+    }
+
     $id =~ m!^https?://! ? Digest::MD5::md5_hex($id) : $id;
 }
 
