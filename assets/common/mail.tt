@@ -1,0 +1,39 @@
+[% USE util = Plagger.Util -%]
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<style TYPE=text/css>
+  body { padding:0; margin:20px }
+  strong { font-weight:bold; font-size:1.2em }
+  div#msgheader { background:#65869E; color:#F5F5F5; padding:10px; margin:-20px -20px 0 -20px }
+  div#msgbody { margin: 1em }
+  div#msgfooter { text-align:right; font-size:0.8em }
+  #msgheader a:link { color:#F5F5F5 }
+  #msgheader a { font-size: 90% }
+  #msgbody a:link { color:#000000 }
+  #msgbody img { border:1px solid; background:#F5F5F5 }
+  #msgbody hr { border:1px solid }
+  #msgbody pre { font-size: 90% }
+</style>
+</head>
+<body>
+<div>
+<div id="msgheader">
+[% IF entry.icon %]<a href="[% entry.link | html %]"><img [% util.dumbnail(entry.icon,width=150,height=60) %]style="border:0" align="right" src="[% entry.icon.url | html %]" alt="[% (entry.icon.title || entry.title) | html %]" /></a>
+[% ELSIF feed.image %]<a href="[% feed.link | html %]"><img [% util.dumbnail(feed.image,width=150,height=60) %]style="border:0" align="right" src="[% feed.image.url | html %]" alt="[% feed.title | html %]" /></a>
+[% END -%]
+[% SET link = entry.link || entry.id -%]
+<a href="[% link | html %]"><strong>[% entry.title %]</strong></a><br />
+[% feed.title %]<br />
+[% IF entry.author %]by [% entry.author | html %][% END %][% IF entry.tags.size %] on [% entry.tags.join(',') %][% END %]</div>
+<div id="msgbody">
+[% IF entry.body -%]
+[% IF entry.body.match('(?i)^<p[ >]') %][% entry.body %][% ELSE %]<div id="msgbody">[% entry.body %]</div>[% END %]
+[% ELSE %]<br />[% END %]
+<div id="msgfooter">[% IF entry.date %]Posted on [% entry.date.format('Mail') %][% END %] | <a href="[% entry.permalink | html %]">permalink</a> | <a href="[% feed.link | html %]">[% feed.title | html %]</a>[% FOREACH widget = entry.widgets %] | [% widget.html(entry) %][% END %]<br clear="all" /></div>
+</div>
+</div>
+</body>
+</html>
