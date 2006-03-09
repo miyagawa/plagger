@@ -136,6 +136,10 @@ This plugin fetches your report for Amazon affiliate.
 
 Credential you need to login to Amazon.co.jp associate central.
 
+=back
+
+=head1 AUTHOR
+
 Naoya Ito E<lt>naoya@bloghackers.netE<gt>
 
 =head1 SEE ALSO
