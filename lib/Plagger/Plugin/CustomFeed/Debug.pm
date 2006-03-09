@@ -1,4 +1,4 @@
-package Plagger::Plugin::CustomFeed::Config;
+package Plagger::Plugin::CustomFeed::Debug;
 use strict;
 use warnings;
 use base qw (Plagger::Plugin);
@@ -10,14 +10,14 @@ sub register {
     $context->register_hook(
         $self,
         'subscription.load' => \&load,
-        'aggregator.aggregate.config' => \&aggregate,
+        'aggregator.aggregate.debug' => \&aggregate,
     );
 }
 
 sub load {
     my ($self, $context) = @_;
     my $feed = Plagger::Feed->new;
-    $feed->type('config');
+    $feed->type('debug');
     $context->subscription->add($feed);
 }
 
@@ -25,7 +25,7 @@ sub aggregate {
     my ($self, $context, $args) = @_;
 
     my $feed = Plagger::Feed->new;
-    $feed->type('config');
+    $feed->type('debug');
     for (keys %{$self->conf}) {
         next if $_ eq 'entry';
         $feed->$_($self->conf->{$_});
