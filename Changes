@@ -1,5 +1,59 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.5.6 (2006/03/08) ==
+
+=== Core ===
+
+ * New AUTHORS: Yuichi Tateno, Gosuke Miyashita, Casey West, Jesse Vincent, Naoya Ito and Kenichi Ishigaki
+ * Make ~/.plagger directory not readable by other users. (Thanks to typester)
+ * Better package management and pod tests (obra)
+ * config examples/ directory (cwest)
+ * Templates and other plugins resource rename (cwest)
+ * SmartFeed now has $entry->source to point to source feed (miyagawa)
+ * $context->templatize($plugin, $file, $var) conveniene method (miyagawa)
+ * Plagger::Date now uses local timezone as a default, when there's no config
+ * Added aggregator.aggregate.filter experimental hook for Aggregator::Simple (miyagawa)
+ * Implement define_recipes, recipes and includes directive in config for DRY (Yappo, secondlife)
+ * $plugin->cache->path_to() to point plugin specifc temp file (miyagawa)
+ * Added 'plugin.init' hook (miyagawa)
+
+=== New Plugins ===
+
+ * Notify::SSTP: Notify updates to Sakura Script Transfer Protocol (secondlife)
+ * Publish::Playlog: Use Atom Publishing Protocol to post iTunes playlog (mizzy)
+ * CustomFeed::iTunesRecentPlay: iTunes' recent playlist as a custom feed (mizzy)
+ * SmartFeed::All: All updates as one feed (miyagawa, cwest)
+ * Publish::CSV: publish updates as Comma Separated Value format (naoya)
+ * Filter::HatenaFormat: filter hatena format (naoya)
+ * Publish::MT: publish updates using MT XML-RPC API (naoya)
+ * Publish::Planet: Planet-Planet clone in Plagger (cwest)
+ * Publish::OPML: publish OPML files based on subscription (miyagawa)
+ * CustomFeed::FlickrSearch: Use Flickr API to create custom feeds (cwest)
+ * CustomFeed::AmazonAssociateReportJP: Fetch Amazon's associate report (naoya)
+ * Filter::ImageInfo: fetch information of $feed->image and $entry->icon (miyagawa)
+ * Subscription::HatenaGroup: fetch Hatena Group blogs as subscription (tokuhirom)
+ * Filter::BlogPet: Strip BlogPet's post (naoya)
+ * Filter::SpamAssassin: Use SpamAssassin to strip spam posts (charsbar)
+
+=== Plugins Updates ===
+
+ * Aggregator::Xango: Added conditional GET support #93 (Daisuke)
+ * CustomFeed::Mixi: Support links to deleted entry #96 (miyagawa)
+ * Aggregator::Simple: Fixed error handling bug when URL is 404 #97 (miyagawa)
+ * CustomFeed::POP3: Create one feed per one mail (tokuhirom)
+ * Publish::Gmail: Fixed bad MAIL FROM: when used with Sendmail (Thanks to maru.gs)
+ * Subscription::Config: Support array of just URLs (miyagawa)
+ * Publish::PSP: template typo fix in permalink (miyagawa)
+ * Rule::Fresh: no datetime field means it's fresh (miyagawa)
+ * Subscription::Bloglines: Liberal parser support. Fallbacks to loop mode when it still finds error (miyagawa)
+ * Aggregator::Simple: uses XML::RSS::Liberal if it's installed (miyagawa)
+ * Publish::Gmail: resizes feed and entry images when it's too big (miyagawa)
+ * Filter::StripRssAd: Support Pheedo ads pattern (miyagawa)
+ * Rule::Fresh: Handle empty dates better (cwest)
+ * Aggregator::Simple: handle Atom 1.0 date fields (miyagawa, cwest)
+ * Widget::HatenaBookmarkUsersCount: Support '#' in the URL (otsune)
+ * CustomFeed::Frepa: Fixed to support Frepa's new HTML (miyagawa)
+
 == 0.5.5 (2006/03/03) ==
 
 === Core ===
@@ -21,12 +75,12 @@ The latest, HTML version of this document is always available at http://plagger.
  * Filter::2chNewsokuTitle: Add prefix and postfix to entry title ala 2ch.net Newsoku style (miyagawa)
  * Notify::Eject: eject your CD drive to notify feed updates! :-) (Yappo, fumiakiy, otsune)
  * Publish::Pipe: use UNIX pipe to notify the updates to commands (e.g: lpr, /usr/bin/say) (youpy)
- * Notidy::Campfire: Notify feed updates to 37 signals' Campfire chat service (nagayama)
+ * Notify::Campfire: Notify feed updates to 37 signals' Campfire chat service (nagayama)
  * Filter::Regexp: Update entry body by a regular expression in config (miyagawa)
  * Publish::HatenaBookmark: post updates to Hatena Bookmark using Atom Protocol (fuba)
  * CustomFeed::POP3: Fetch email using POP3 protocl and creates feed off of it (tokuhirom)
- * Filter::RSSTimeZone: Fix RSS 2.0 bad timezone string in RFC 822 date format (miyagawa)
- * Filter::FloatingDate: Fix floating datetime (dc:date and such) to your local timezone (kazeburo)
+ * Filter::RSSTimeZoneString: Fix RSS 2.0 bad timezone string in RFC 822 date format (miyagawa)
+ * Filter::FloatingDateTime: Fix floating datetime (dc:date and such) to your local timezone (kazeburo)
 
 === Plugins Updates ===
  
