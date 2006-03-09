@@ -46,11 +46,11 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::CustomFeed::Deubg - Feed in config.yaml
+Plagger::Plugin::CustomFeed::Debug - Feed in config.yaml
 
 =head1 SYNOPSIS
 
-  - module: CustomFeed::Deubg
+  - module: CustomFeed::Debug
     config:
       title: 'My Feed'
       link: 'http://localhost/'
