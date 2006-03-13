@@ -2,7 +2,6 @@ package Plagger::Plugin::Publish::IMAP;
 use strict;
 use base qw( Plagger::Plugin );
 
-use Data::Dump qw(dump);
 use DateTime;
 use DateTime::Format::Mail;
 use Encode qw/ from_to encode/;

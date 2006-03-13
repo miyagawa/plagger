@@ -150,6 +150,18 @@ features(
         -default => 0,
         recommends('Date::Parse'),
     ],
+    'Filter::Emoticon' => [
+        -default => 0,
+        recommends('Text::Emoticon'),
+    ],
+    'Publish::Maildir' => [
+        -default => 0,
+        recommends('MIME::Lite'),
+    ],
+    'Publish::IMAP' => [
+        -default => 0,
+        recommends('Mail::IMAPClient'),
+    ],
 );
 
 if ($^O eq 'Darwin') {

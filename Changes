@@ -1,5 +1,24 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.5.7 (2006/03/13) ==
+
+=== Core ===
+
+ * $entry->id tries hard to get unique ID
+ * $entry->feed_link to point feed's link
+ * Rename define_recipes and recipes
+
+=== New Plugins ===
+
+ * Publish::Maildir: Store updates to local mailbox (s_nobu)
+ * Publish::IMAP: Store updates to IMAP mailbox (s_nobu)
+ * CustomFeed::Debug: Create feed using config.yaml for debugging (naoya)
+ * Filter::Emoticon: filter emoticons of MSN, Yahoo! or Google Talk (naoya)
+ 
+=== Plugin Updates ===
+
+ * Publish::MTWidget: fixed template rebuild bug (Thanks to charsbar)
+
 == 0.5.6 (2006/03/08) ==
 
 === Core ===
@@ -34,6 +53,7 @@ The latest, HTML version of this document is always available at http://plagger.
  * Subscription::HatenaGroup: fetch Hatena Group blogs as subscription (tokuhirom)
  * Filter::BlogPet: Strip BlogPet's post (naoya)
  * Filter::SpamAssassin: Use SpamAssassin to strip spam posts (charsbar)
+ * Filter::RSSLiberalDateTime: parses pubDate sring liberally (miyagawa)
 
 === Plugins Updates ===
 
