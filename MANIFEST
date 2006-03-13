@@ -1,3 +1,4 @@
+assets/common/mail.tt
 AUTHORS
 bin/plagger-ircbot
 bin/spotlight_comment.scpt
@@ -30,6 +31,7 @@ lib/Plagger/Plugin.pm
 lib/Plagger/Plugin/Aggregator/Simple.pm
 lib/Plagger/Plugin/Aggregator/Xango.pm
 lib/Plagger/Plugin/CustomFeed/AmazonAssociateReportJP.pm
+lib/Plagger/Plugin/CustomFeed/Debug.pm
 lib/Plagger/Plugin/CustomFeed/FlickrSearch.pm
 lib/Plagger/Plugin/CustomFeed/Frepa.pm
 lib/Plagger/Plugin/CustomFeed/iTunesRecentPlay.pm
@@ -42,6 +44,7 @@ lib/Plagger/Plugin/Filter/BlogPet.pm
 lib/Plagger/Plugin/Filter/BulkfeedsTerms.pm
 lib/Plagger/Plugin/Filter/Delicious.pm
 lib/Plagger/Plugin/Filter/DeliciousFeedTags.pm
+lib/Plagger/Plugin/Filter/Emoticon.pm
 lib/Plagger/Plugin/Filter/FeedBurnerPermalink.pm
 lib/Plagger/Plugin/Filter/FloatingDateTime.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
@@ -76,7 +79,9 @@ lib/Plagger/Plugin/Publish/Delicious.pm
 lib/Plagger/Plugin/Publish/Feed.pm
 lib/Plagger/Plugin/Publish/Gmail.pm
 lib/Plagger/Plugin/Publish/HatenaBookmark.pm
+lib/Plagger/Plugin/Publish/IMAP.pm
 lib/Plagger/Plugin/Publish/JavaScript.pm
+lib/Plagger/Plugin/Publish/Maildir.pm
 lib/Plagger/Plugin/Publish/MT.pm
 lib/Plagger/Plugin/Publish/MTWidget.pm
 lib/Plagger/Plugin/Publish/OPML.pm

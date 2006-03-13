@@ -13,3 +13,4 @@
 plugins
 9.*-pod.*.t
 \.tar$
+\.tmp$
