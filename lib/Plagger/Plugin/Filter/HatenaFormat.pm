@@ -29,7 +29,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::HatenaFormat- Text formatting filter with Hatena Style
+Plagger::Plugin::Filter::HatenaFormat - Text formatting filter with Hatena Style
 
 =head1 SYNOPSIS
 
