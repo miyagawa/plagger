@@ -44,10 +44,11 @@ sub aggregate {
 sub handle_feed {
     my($self, $url, $xml_ref) = @_;
 
-    my $args = { content => $$xml_ref };
-    Plagger->context->run_hook('aggregator.filter.feed', $args);
-
     my $context = Plagger->context;
+
+    my $args = { content => $$xml_ref };
+    $context->run_hook('aggregator.filter.feed', $args);
+
     my $remote = eval { XML::Feed->parse(\$args->{content}) };
 
     unless ($remote) {
@@ -101,6 +102,14 @@ sub handle_feed {
         $entry->feed_link($feed->link);
         $entry->id($e->id);
         $entry->body($e->content->body);
+
+        my $args = {
+            entry      => $entry,
+            feed       => $feed,
+            orig_entry => $e,
+            orig_feed  => $remote,
+        };
+        $context->run_hook('aggregator.entry.fixup', $args);
 
         $feed->add_entry($entry);
     }
