@@ -12,10 +12,13 @@ plugins:
       username: miyagawa@example.com
       password: foobar
       mark_read: 1
+      fetch_meta: 1
 
   - module: Widget::Delicious
     config:
       username: miyagawa
+
+  - module: Widget::BloglinesSubscription
 
   - module: Publish::Gmail
     config:
