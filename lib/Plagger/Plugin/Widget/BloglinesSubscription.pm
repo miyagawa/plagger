@@ -62,11 +62,20 @@ Plagger::Plugin::Widget::BloglinesSubscription - Bloglines Subscription Widget
 
 =head1 DESCRIPTION
 
-This plugins puts a widget to edit subscription on Bloglines.
+This plugins puts a widget to edit subscription on Bloglines. This
+makes it easy for you to quickly unsubscribe to massively updated
+feeds, or update feed configuration to ignore content updates.
 
 You should use this plugin combined with
 L<Plagger::Plugin::Subscription::Bloglines> and set I<fetch_meta>
 config on.
+
+=head1 TIPS
+
+Due to how Bloglines works, the I<Unsubscribe> button on opened page
+doesn't work (it requires window.opener to be a valid Bloglines
+subscription page). Just append C<&remove=1> to the URL and you can
+unsubscribe from the feed.
 
 =head1 AUTHOR
 
