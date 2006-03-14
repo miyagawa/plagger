@@ -91,10 +91,10 @@ sub fetch_meta {
         my $subid = ref $folder ? $folder->{BloglinesSubId} : 0;
         my @feeds = $subscription->feeds_in_folder($subid);
         for my $feed (@feeds) {
-            # BloglinesSubId is different from bloglines:siteid. Don't use it
             $meta->{$feed->{htmlUrl}} = {
                 folder => $folder ? $folder->{title} : undef,
                 xmlUrl => $feed->{xmlUrl},
+                subid  => $feed->{BloglinesSubId},
             };
         }
     }
@@ -145,6 +145,7 @@ sub sync {
         if (my $meta = $self->{bloglines_meta}->{$feed->link}) {
             $feed->tags([ $meta->{folder} ]) if $meta->{folder};
             $feed->url($meta->{xmlUrl});
+            $feed->meta->{bloglines_subid} = $meta->{subid};
         }
 
         $feed->source_xml($update->{_xml});
