@@ -12,20 +12,20 @@ sub register {
 
 sub update {
     my($self, $context, $args) = @_;
-    my $body = $self->filter($args->{entry}->body);
+    my $body = $self->filter($args->{entry}->body, $args->{entry}->link);
     $args->{entry}->body($body);
 }
 
 sub filter {
-    my($self, $body) = @_;
+    my($self, $body, $link) = @_;
 
     # rssad.jp
     my $count = $body =~ s!<br clear="all" /><a href="http://rss\.rssad\.jp/rss/ad/.*?" target="_blank".*?><img .*? src="http://rss\.rssad\.jp/rss/img/.*?" border="0"/></a><br.*?>!!;
-    Plagger->context->log(debug => "Stripped rssad.jp ad") if $count;
+    Plagger->context->log(debug => "Stripped rssad.jp ad on $link") if $count;
 
     # plaza.rakuten.co.jp
     $count = $body =~ s!<br clear?=all /><br><SMALL>\n(?:<SCRIPT LANGUAGE="Javascript">\n<\!--\nfunction random\(\).*?infoseek.*?RssPlaza.*</SCRIPT>)?\n<NOSCRIPT>.*?infoseek.*?RssPlaza.*?</NOSCRIPT>\n</SMALL>!!s;
-    Plagger->context->log(debug => "Stripped plaza.rakuten ad") if $count;
+    Plagger->context->log(debug => "Stripped plaza.rakuten ad on $link") if $count;
 
     # Google AdSense for Feeds
     $count = $body =~ s!<p><map name="google_ad_map_\d+\-\d+"><area.*?></map><img usemap="#google_ad_map_\d+-\d+" border="0" src="http://imageads\.googleadservices\.com/pagead/ads\?.*?" /></p>!!;
@@ -33,11 +33,15 @@ sub filter {
     # Google AdSense for Feeds, part 2.
     $count += $body =~ s!<table [^>]*>\n\s*(?:<tr>\n\s*<td><(?:defanged-)?span[^>]*> <br[^>]*></(?:defanged-)?span></td>\n\s*</tr>\s*\n\s*)?<tr>\n\s*<td><a href="http://imageads\.googleadservices\.com/pagead/imgclick/[^"]*"[^>]*>\n<img [^>]* src="http://imageads\.googleadservices\.com/pagead/ads\?[^"]*" / ?></a></td>\n\s*</tr>\n\s*<tr>\n\s*<td><div align="right">(?:<font [^>]*>)?<a href="http://www\.google\.com/ads_by_google\.html" [^>]*>Ads by Google</a>(?:</font>)?</div></td>\n\s*</tr>\n\s*</table>!!s;
 
-    Plagger->context->log(debug => "Stripped Google AdSense for feeds") if $count;
+    Plagger->context->log(debug => "Stripped Google AdSense for feeds on $link") if $count;
 
     # Pheedo ads
     $count = $body =~ s!<br /><br />\n<a href="http://www\.pheedo\.com/click\.phdo\?feedUrl=.*?"*?><img border="0" src="http://www\.pheedo\.com/img\.phdo\?feedUrl=.*?" /></a>!!;
-    Plagger->context->log(debug => "Stripped Pheedo Ads") if $count;
+    Plagger->context->log(debug => "Stripped Pheedo Ads on $link") if $count;
+
+    # FeedBurner ads
+    $count = $body =~ s!<p><a href="http://feeds\.feedburner\.com/~a/\w+\?a=\w+"[^>]*><img src="http://feeds\.feedburner\.com/~a/\w+\?i=\w+" border="0"></img></a></p>!!;
+    Plagger->context->log(debug => "Stripped FeedBurner Ads on $link") if $count;
 
     $body;
 }
