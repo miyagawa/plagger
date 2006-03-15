@@ -220,7 +220,7 @@ sub unescape {
 sub list_regexp {
     return <<'RE';
 <tr class="bgwhite">
-<td width="1%" style="padding:5px 30px;" nowrap><small>(\d\d\d\d)..(\d\d)..(\d\d).. (\d\d):(\d\d)</small></td>
+<td width="1%" style="padding:5px 30px;" nowrap><small>(\d\d\d\d)\.(\d\d)\.(\d\d) (\d\d):(\d\d)</small></td>
 <td width="99%"><img src="/img/icon/diary_fp.gif" border="0" alt=".*?" title=".*?">
 <small>
 
@@ -233,7 +233,7 @@ RE
 
 sub detail_regexp {
     return <<'RE';
-<td width="105" valign="top" rowspan="3" class="bg2 blogline1" nowrap><small>(\d\d\d\d)..(\d\d)..(\d\d)..<br>(\d\d):(\d\d)</small></td>
+<td width="105" valign="top" rowspan="3" class="bg2 blogline1" nowrap><small>(\d\d\d\d)\.(\d\d)\.(\d\d)<br>(\d\d):(\d\d)</small></td>
 <td width="445" class="bg2 blogline3 blogcell"><small><strong>(.*?)</strong></small></td>
 </tr>
 <tr>
