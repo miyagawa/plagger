@@ -43,6 +43,10 @@ sub filter {
     $count = $body =~ s!<p><a href="http://feeds\.feedburner\.com/~a/\w+\?a=\w+"[^>]*><img src="http://feeds\.feedburner\.com/~a/\w+\?i=\w+" border="0"></img></a></p>!!;
     Plagger->context->log(debug => "Stripped FeedBurner Ads on $link") if $count;
 
+    # seesaa.net affiliate link
+    $count = $body =~ s!<a href="http://www\.seesaa\.jp/afr\.pl\?.*?"[^>]*class="affiliate-link"[^>]*>([^<]+)</a>!$1!g;
+    Plagger->context->log(debug => "Stripped Seesaa Ads on $link") if $count;
+
     $body;
 }
 
