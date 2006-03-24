@@ -57,7 +57,7 @@ features(
         recommends('POE::Component::Client::DNS'),
         recommends('POE::Component::Client::HTTP'),
     ],
-    'SmartFeed::Mixi' => [
+    'CustomFeed::Mixi' => [
         -default => 0,
         recommends('WWW::Mixi'),
     ],
@@ -165,6 +165,15 @@ features(
     'Filter::Profanity' => [
 	-default => 0,
 	recommends('Regexp::Common::profanity_us'),
+    ],
+    'Subscription::DBI' => [
+	-default => 0,
+	recommends('DBIx::Class::Schema'),
+    ],
+    'CustomFeed::SVNLog' => [
+	-default => 0,
+	recommends('SVN::Core'),
+	recommends('SVN::Client'),
     ],
 );
 
