@@ -162,6 +162,10 @@ features(
         -default => 0,
         recommends('Mail::IMAPClient'),
     ],
+    'Filter::Profanity' => [
+	-default => 0,
+	recommends('Regexp::Common::profanity_us'),
+    ],
 );
 
 if ($^O eq 'Darwin') {
