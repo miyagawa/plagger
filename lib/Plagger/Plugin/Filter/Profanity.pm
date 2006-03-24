@@ -24,16 +24,18 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::TTP - Replace ttp:// with http://
+Plagger::Plugin::Filter::Profanity - Profanity filter for entry body
 
 =head1 SYNOPSIS
 
-  - module: Filter::TTP
+  - module: Filter::Profanity
+    config:
+      text_only: 1
 
 =head1 DESCRIPTION
 
-This plugin replaces C<ttp://> with C<http://>. C<ttp://> is a widely
-adopted way of linking an URL without leaking a referer.
+This plugin filters bad English terms into something like I<!@$~>
+using Regexp::Common::profanity_us.
 
 =head1 CONFIG
 
@@ -41,19 +43,17 @@ adopted way of linking an URL without leaking a referer.
 
 =item text_only
 
-When set to 1, uses HTML::Parser to avoid replacing C<ttp://> inside
-HTML attributes. Defaults to 0.
+When set to 1, uses HTML::Parser to avoid replacing bad terms inside
+HTML tags.
 
 =back
 
 =head1 AUTHOR
 
-Matsuno Tokuhiro
-
 Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<HTML::Parser>
+L<Plagger>, L<Regexp::Common::profanity_us>
 
 =cut
