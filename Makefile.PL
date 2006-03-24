@@ -175,6 +175,10 @@ features(
 	recommends('SVN::Core'),
 	recommends('SVN::Client'),
     ],
+    'Filter::TTP' => [
+	-default => 0,
+	recommends('URI::Find'),
+    ],
 );
 
 if ($^O eq 'Darwin') {
@@ -185,7 +189,7 @@ if ($^O eq 'Darwin') {
         ],
     );
 
-install_script('bin/spotlight_comment.scpt');
+    install_script('bin/spotlight_comment.scpt');
 
 } elsif ($^O eq 'MSWin32') {
     features(

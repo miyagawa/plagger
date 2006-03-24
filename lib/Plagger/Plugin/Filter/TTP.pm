@@ -1,36 +1,11 @@
 package Plagger::Plugin::Filter::TTP;
 use strict;
-use base qw( Plagger::Plugin );
+use base qw( Plagger::Plugin::Filter::Base );
 
 use URI::Find;
+use URI::http;
 
-sub register {
-    my($self, $context) = @_;
-    $context->register_hook(
-        $self,
-        'update.entry.fixup' => \&update,
-    );
-}
-
-sub update {
-    my($self, $context, $args) = @_;
-    my $body = $args->{entry}->body;
-
-    my $count;
-    if ($self->conf->{text_only}) {
-        ($count, $body) = $self->paranoia_rewrite($body);
-    } else {
-        ($count, $body) = $self->rewrite_ttp($body);
-    }
-
-    if ($count) {
-        $context->log(info => "Rewrite $count ttp:// link(s) to http://");
-    }
-
-    $args->{entry}->body($body);
-}
-
-sub rewrite_ttp {
+sub filter {
     my($self, $body) = @_;
 
     local @URI::ttp::ISA = qw(URI::http);
@@ -48,26 +23,6 @@ sub rewrite_ttp {
 
     $finder->find(\$body);
     ($count, $body);
-}
-
-sub paranoia_rewrite {
-    my($self, $body) = @_;
-    require HTML::Parser;
-
-    my($count, $output);
-
-    my $p = HTML::Parser->new(api_version => 3);
-    $p->handler( default => sub { $output .= $_[0] }, "text" );
-    $p->handler( text => sub {
-        my($c, $body) = $self->rewrite_ttp($_[0]);
-        $count  += $c;
-        $output .= $body;
-    }, "text");
-
-    $p->parse($body);
-    $p->eof;
-
-    ($count, $output);
 }
 
 1;
