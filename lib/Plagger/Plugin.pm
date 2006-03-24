@@ -62,4 +62,9 @@ sub assets_dir {
 
 }
 
+sub log {
+    my $self = shift;
+    Plagger->context->log(@_, caller => ref($self));
+}
+
 1;

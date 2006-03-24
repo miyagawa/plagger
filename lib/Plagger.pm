@@ -238,16 +238,18 @@ sub run {
 }
 
 sub log {
-    my($self, $level, $msg) = @_;
+    my($self, $level, $msg, %opt) = @_;
 
     # hack to get the original caller as Plugin or Rule
-    my $caller;
-    my $i = 0;
-    while (my $c = caller($i++)) {
-        last if $c !~ /Plugin|Rule/;
-        $caller = $c;
+    my $caller = $opt{caller};
+    unless ($caller) {
+        my $i = 0;
+        while (my $c = caller($i++)) {
+            last if $c !~ /Plugin|Rule/;
+            $caller = $c;
+        }
+        $caller ||= caller(0);
     }
-    $caller ||= caller(0);
 
     chomp($msg);
     if ($self->should_log($level)) {

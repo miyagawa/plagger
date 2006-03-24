@@ -22,7 +22,7 @@ sub update {
     }
 
     if ($count) {
-        $context->log(info => "Rewrite $count");
+        $self->log(info => "Filtered $count occurence(s)");
     }
 
     $args->{entry}->body($body);

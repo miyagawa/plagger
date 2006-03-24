@@ -1,73 +1,29 @@
 package Plagger::Plugin::Filter::Regexp;
 use strict;
-use base qw( Plagger::Plugin );
+use base qw( Plagger::Plugin::Filter::Base );
 
-use HTML::Entities;
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
 
-sub register {
-    my($self, $context) = @_;
-    $context->register_hook(
-        $self,
-        'update.entry.fixup' => \&update,
-    );
-}
-
-sub update {
-    my($self, $context, $args) = @_;
-    my $body = $args->{entry}->body;
-
-    my $regexp = $self->conf->{regexp};
-    unless ($regexp) {
-        $context->log(error => "regexp is missing");
+    unless ($self->conf->{regexp}) {
+        Plagger->context->error("regexp is missing");
         return;
     }
-
-    my $count;
-    if ($self->conf->{text_only}) {
-        ($count, $body) = $self->rewrite_text_only($body, $regexp);
-    } else {
-        ($count, $body) = $self->rewrite($body, $regexp);
-    }
-
-    if ($count) {
-        $context->log(info => "Replaced $count time(s) using $regexp");
-    }
-
-    $args->{entry}->body($body);
 }
 
-sub rewrite {
-    my($self, $body, $regexp) = @_;
+sub filter {
+    my($self, $body) = @_;
 
     local $_ = $body;
-    my $count = eval $regexp;
+    my $count = eval $self->conf->{regexp};
 
     if ($@) {
-        Plagger->context->log(error => "Error: $@ in $regexp");
+        Plagger->context->log(error => "Error: $@ in " . $self->conf->{regexp});
         return (0, $body);
     }
 
     return ($count, $_);
-}
-
-sub rewrite_text_only {
-    my($self, $body, $regexp) = @_;
-    require HTML::Parser;
-
-    my($count, $output);
-
-    my $p = HTML::Parser->new(api_version => 3);
-    $p->handler( default => sub { $output .= $_[0] }, "text" );
-    $p->handler( text => sub {
-        my($c, $body) = $self->rewrite( decode_entities($_[0]), $regexp );
-        $count  += $c;
-        $output .= encode_entities($body, q("<>&));
-    }, "text");
-
-    $p->parse($body);
-    $p->eof;
-
-    ($count, $output);
 }
 
 1;
