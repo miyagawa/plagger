@@ -26,7 +26,7 @@ sub register {
 sub initialize {
     my($self,$context) = @_;
 
-    # authenticatE POP before SMTP
+    # authenticate POP before SMTP
     if (my $conf = $self->conf->{pop3}) {
         require Net::POP3;
         my $pop = Net::POP3->new($conf->{host});
@@ -61,6 +61,7 @@ sub notify {
         Subject => encode('MIME-Header', $subject),
         Type => 'multipart/related',
     );
+    $msg->replace("X-Mailer" => "Plagger/$Plagger::VERSION");
 
     $msg->attach(
         Type => 'text/html; charset=utf-8',
