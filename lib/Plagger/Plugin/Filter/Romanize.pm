@@ -14,19 +14,7 @@ sub filter {
     my $count = 0;
 
     my $chars = [ $self->romanize($text) ];
-
-    foreach my $pair (@$chars) {
-        my ($raw, $romanized) = @$pair;
-        if (defined $romanized) {
-            $romanized =~ s/([^\/]+)\/.+$/\1/;
-            $result .= $romanized;
-            $count ++;
-        } else {
-            $result .= $raw;
-        }
-    }
-
-    return ($count, $result);
+    return (scalar(@$chars), join(' ', @$chars));
 }
 
 sub romanize {
