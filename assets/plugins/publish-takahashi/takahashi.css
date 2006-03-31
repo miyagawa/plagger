@@ -1,0 +1,244 @@
+@charset "UTF-8";
+
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the Takahashi-Method-based Presentation Tool in XUL.
+ *
+ * The Initial Developer of the Original Code is SHIMODA Hiroshi.
+ * Portions created by the Initial Developer are Copyright (C) 2005
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s): SHIMODA Hiroshi <piro@p.club.ne.jp>
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+#canvas {
+	/*
+        color: black !important;
+	background: white !important;
+        */
+	color: #000 !important;
+	background: white !important;
+        /* font-weight: bold; */
+	font-family:
+                "Candara"
+                "Georgia"
+                "DejaVu Serif Condensed"
+                "Arial"
+		"Bitstream Vera Sans"
+		"Verdana"
+		"Apple LiGothic"
+                "Kochi Gothic"
+		"Arial Black"
+                "Bitstream Vera Sans"
+		sans-serif !important;
+}
+#canvas * {
+	cursor: pointer !important;
+}
+#canvas image {
+	width: auto;
+	height: auto;
+}
+.link-text {
+	color: #000066 !important;
+	text-decoration: none !important;
+}
+.link-text:hover {
+	color: #3333FF !important;
+/*        border-bottom: dotted 1px; */
+}
+.link-text:active {
+	color: #9999FF !important;
+}
+.s {
+        text-decoration: line-through;
+}
+.cq {
+        color: #C39;
+        margin: 0px;
+	font-family: "mikachan";
+}
+.q {
+        margin: 0px;
+	font-family: "mikachan";
+}
+.iu {
+        text-decoration: underline;
+        font-style: italic;
+}
+.ui {
+/*      text-decoration: underline; */
+        font-style: italic;
+}
+.u {
+        text-decoration: underline;
+}
+.date {
+        font-style: italic;
+        text-decoration: underline;
+        font-size: 66%;
+}
+.i {
+        font-style: italic;
+        font-family: "Cambria"
+                     "Times New Roman"
+                     "Bitstream Vera Serif"
+                     serif;
+}
+.t {
+        font-style: italic;
+}
+.tag {
+        color: #339933;
+}
+.att {
+        color: #333399;
+}
+.attq {
+        color: #333399;
+	font-family: "mikachan";
+}
+.key {
+        color: #009999;
+}
+.keyq {
+        color: #009999;
+	font-family: "mikachan";
+}
+.h {
+        color: #000;
+        margin: 0px;
+}
+.c {
+        color: #C39;
+        margin: 0px;
+}
+.m {
+        color: #963;
+        margin: 0px;
+	font-family: "Comic Sans MS";
+}
+.cz {
+        color: #C39;
+        margin: 0px;
+	font-family: "Candara";
+        margin-right: -10px;
+}
+.z {
+        margin: 0px;
+        margin-left: -10px;
+	font-family: "Candara"
+}
+.x {
+        color: #C00;
+        margin: 0px;
+}
+.xs {
+        color: #C00;
+        margin: 0px;
+        text-decoration: line-through;
+}
+.ci {
+        color: #C39;
+        margin: 0px;
+        font-style: italic;
+        font-family: "Constantia"
+                     "Times New Roman"
+                     "Bitstream Vera Serif"
+                     serif;
+}
+.cu {
+        color: #C39;
+        margin: 0px;
+        text-decoration: underline;
+}
+.ct {
+        color: #C39;
+        margin: 0px;
+        font-style: italic;
+}
+.hs {
+        color: #f33;
+        margin: 0px;
+        text-decoration: line-through;
+}
+.ht {
+        color: #aaa;
+        font-style: italic;
+}
+.pre {
+        font-family: "Consolas"
+                     "Anonymous"
+		     "Andale Mono"
+                     "Bitstream Vera Sans Mono"
+                     monospace;
+        padding-bottom: 8px;
+}
+#canvas[rendering="true"] image {
+	display: none;
+}
+#canvas[rendering="true"] *,
+#canvas[rendering="true"] .text-link {
+	color: white !important;
+}
+
+
+tabbox, tabpanels, tabpanel {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+
+#canvas[eva="true"] {
+	background: white !important;
+	color: black !important;
+	font-family:
+                "Georgia"
+                "DejaVu Serif Condensed"
+		"Apple LiGothic"
+		"Arial Black"
+		serif !important;
+}
+#canvas[eva="true"] .link-text {
+	color: red !important;
+	text-decoration: none !important;
+}
+#canvas[eva="true"] .link-text:hover {
+	color: pink !important;
+}
+#canvas[eva="true"] .link-text:active {
+	color: orange !important;
+}
+#canvas[rendering="true"] *,
+#canvas[rendering="true"] .text-link {
+	color: black !important;
+}
+
+
+
+
+#canvasToolbar {
+	position: relative;
+}
+
+.subtitle {
+    color: #000080;
+    background: white;
+    text-align: center;
+    font-size: 50px;
+    bottom: 0;
+}

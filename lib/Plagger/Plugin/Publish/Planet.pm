@@ -3,6 +3,7 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use File::Copy::Recursive qw[rcopy];
+use File::Spec;
 #use HTML::Tidy;
 use HTML::Scrubber;
 
@@ -87,7 +88,7 @@ sub _apply_skin {
     $context->log(debug => "Assets Directory: " . $self->assets_dir);
     
     rcopy(
-        join('/', $self->assets_dir, $skin_name, 'static'),
+        File::Spec->catfile($self->assets_dir, $skin_name, 'static'),
         $output_dir,
     ) or $context->error("rcopy: $!");
 }

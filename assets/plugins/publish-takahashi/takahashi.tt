@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="chrome://global/skin/" type="text/css"?><?xml-stylesheet href="takahashi.css" type="text/css"?><page xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="presentation" xmlns:html="http:/www.w3.org/1999/xhtml" orient="vertical" onkeypress="Presentation.onKeyPress(event);"><html:textarea id="builtinCode" style="visibility: collapse">
+[% FOREACH entry = feed.entries %]
+[% entry.title | html %]
+[% UNLESS loop.last %]----
+[% END %]
+[%- END -%]
+</html:textarea>
+
+<deck flex="1" id="deck"><vbox flex="1" onmousemove="Presentation.onMouseMoveOnCanvas(event);"><toolbox id="canvasToolbar"><toolbar><toolbarbutton oncommand="Presentation.home()" label="|&lt;&lt;" observes="canBack"/><toolbarbutton oncommand="Presentation.back()" label="&lt;" observes="canBack"/><toolbarbutton oncommand="Presentation.forward()" label="&gt;" observes="canForward"/><toolbarbutton oncommand="Presentation.end()" label="&gt;&gt;|" observes="canForward"/><toolbarseparator/><hbox align="center"><textbox id="current_page" size="4" oninput="if (this.value) Presentation.showPage(parseInt(this.value)-1);"/><description value="/"/><description id="max_page"/></hbox><toolbarseparator/><vbox flex="2"><spacer flex="1"/><scrollbar id="scroller" align="center" orient="horizontal" oncommand="Presentation.showPage(parseInt(event.target.getAttribute('curpos')));" onclick="Presentation.showPage(parseInt(event.target.getAttribute('curpos')));" onmousedown="Presentation.onScrollerDragStart();" onmousemove="Presentation.onScrollerDragMove();" onmouseup="Presentation.onScrollerDragDrop();"/><spacer flex="1"/></vbox><toolbarseparator/><spacer flex="1"/><toolbarseparator/><toolbarbutton id="toggleEva" label="Eva" type="checkbox" autoCheck="false" oncommand="Presentation.toggleEvaMode();"/><toolbarseparator/><toolbarbutton label="Edit" oncommand="Presentation.toggleEditMode();"/><toolbarbutton oncommand="Presentation.reload();" label="Reload"/></toolbar></toolbox><vbox flex="1" id="canvas" onclick="Presentation.onPresentationClick(event);"><spacer flex="1"/><hbox flex="1"><spacer flex="1"/><vbox id="content"/><spacer flex="1"/></hbox><spacer flex="1"/></vbox></vbox><vbox flex="1" id="edit"><toolbox><toolbar><toolbarbutton label="New Page" oncommand="Presentation.addPage()"/><spacer flex="1"/><toolbarseparator/><toolbarbutton label="View" oncommand="Presentation.toggleEditMode();"/><toolbarbutton oncommand="Presentation.reload();" label="Reload"/></toolbar></toolbox><textbox id="textField" flex="1" multiline="true" oninput="Presentation.onEdit()"/><hbox collapsed="true"><iframe id="dataLoader" onload="if (window.Presentation) Presentation.onDataLoad();"/></hbox></vbox></deck><broadcasterset><broadcaster id="canBack"/><broadcaster id="canForward"/></broadcasterset><commandset><command id="cmd_forward" oncommand="if (Presentation.isPresentationMode) Presentation.forward();"/><command id="cmd_back" oncommand="if (Presentation.isPresentationMode) Presentation.back();"/><command id="cmd_home" oncommand="if (Presentation.isPresentationMode) Presentation.home();"/><command id="cmd_end" oncommand="if (Presentation.isPresentationMode) Presentation.end();"/></commandset><keyset><key keycode="VK_ENTER"      command="cmd_forward"/><key keycode="VK_RETURN"     command="cmd_forward"/><key key=" " command="cmd_forward"/><key keycode="VK_PAGE_DOWN"  command="cmd_forward"/><key keycode="VK_RIGHT"      command="cmd_forward"/><key keycode="VK_DOWN"       command="cmd_forward"/><!--key keycode="VK_BACK_SPACE" command="cmd_back"/--><key keycode="VK_UP"    command="cmd_back"/><key keycode="VK_PAGE_UP"    command="cmd_back"/><!--<key keycode="VK_BACK_UP"    command="cmd_back"/>--><!--<key keycode="VK_BACK_LEFT"  command="cmd_back"/>--><key keycode="VK_HOME"       command="cmd_home"/><!--<key keycode="VK_END"        command="cmd_end"/>--><key key="n" modifiers="accel" oncommand="Presentation.addPage();"/><key key="r" modifiers="accel" oncommand="window.location.reload();"/><key key="e" modifiers="accel" oncommand="Presentation.toggleEditMode();"/><key key="a" modifiers="accel" oncommand="Presentation.toggleEvaMode();"/></keyset><script src="takahashi.js" type="application/x-javascript" /></page>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is the Takahashi-Method-based Presentation Tool in XUL.
+   -
+   - The Initial Developer of the Original Code is SHIMODA Hiroshi.
+   - Portions created by the Initial Developer are Copyright (C) 2005
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s): SHIMODA Hiroshi <piro@p.club.ne.jp>
+   -
+   - ***** END LICENSE BLOCK ***** -->
