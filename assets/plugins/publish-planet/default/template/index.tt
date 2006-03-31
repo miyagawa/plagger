@@ -3,6 +3,7 @@
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title %]" href="smartfeed_all.atom" />
     <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title %]" href="smartfeed_all.rss" />
     <link rel="stylesheet" type="text/css" href="css/screen.css" />
@@ -33,7 +34,7 @@
             [% IF entry.source.title %]
               <a class="entry-source-link" href="[% entry.source.link | html %]">[% entry.source.title | html %]</a>: 
             [% END %]
-            <a class="entry-link" href="[% (entry.link || entry.id) | html %]">[% entry.title | html %]</a>
+            <a class="entry-link" href="[% (entry.permalink || entry.id) | html %]">[% entry.title | html %]</a>
           </div>
           [% IF entry.author %]
             <span class="entry-by-line">
