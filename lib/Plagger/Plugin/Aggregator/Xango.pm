@@ -4,6 +4,7 @@
 # All rights reserved.
 
 package Plagger::Plugin::Aggregator::Xango;
+#sub Xango::DEBUG { 1 };
 use strict;
 use base qw( Plagger::Plugin::Aggregator::Simple );
 use POE;
@@ -25,6 +26,7 @@ sub register {
         UseCache => exists $self->conf->{use_cache} ?
             $self->conf->{use_cache} : 1,
         BrokerAlias => $xango_args{Alias},
+        MaxRedirect => $self->conf->{max_redirect} || 3,
     );
     Xango::Broker::Push->spawn(%xango_args);
     $context->register_hook(
@@ -39,7 +41,7 @@ sub aggregate {
 
     my $url = $args->{feed}->url;
     $context->log(info => "Fetch $url");
-    POE::Kernel->post($self->{xango_alias}, 'enqueue_job', Xango::Job->new(uri => URI->new($url)));
+    POE::Kernel->post($self->{xango_alias}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => 0));
 }
 
 sub finalize {
@@ -63,6 +65,7 @@ sub spawn  {
         heap => {
             PLUGIN => $args{Plugin}, USE_CACHE => $args{UseCache},
             BROKER_ALIAS => $args{BrokerAlias},
+            MaxRedirect => $args{MaxRedirect},
         },
         package_states => [
             $class => [ qw(_start _stop apply_policy prep_request handle_response) ]
@@ -92,22 +95,27 @@ sub handle_response {
     my $job = $_[ARG0];
     my $plugin = $_[HEAP]->{PLUGIN};
 
+    my $redirect = $job->notes('redirect') + 1;
+    return if $redirect > $_[HEAP]->{MaxRedirect};
+
     my $r = $job->notes('http_response');
     my $url    = $job->uri;
-
-    return unless $r->is_success;
-
-    my $ct = $r->content_type;
-    if ( $Feed::Find::IsFeed{$ct} ) {
-        $plugin->handle_feed($url, $r->content_ref);
+    if ($r->code =~ /^30[12]$/) {
+        $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($r->header('location')), redirect => $redirect));
     } else {
-        my @feeds = Feed::Find->find_in_html($r->content_ref, $url);
-        if (@feeds) {
-            $url = $feeds[0];
-            # xxx infinite loop
-            $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url)));
+        return unless $r->is_success;
+
+        my $ct = $r->content_type;
+        if ( $Feed::Find::IsFeed{$ct} ) {
+            $plugin->handle_feed($url, $r->content_ref);
         } else {
-            return;
+            my @feeds = Feed::Find->find_in_html($r->content_ref, $url);
+            if (@feeds) {
+                $url = $feeds[0];
+                $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => $redirect));
+            } else {
+                return;
+            }
         }
     }
 
