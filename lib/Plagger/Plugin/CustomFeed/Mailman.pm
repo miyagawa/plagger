@@ -11,21 +11,19 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'subscription.load' => \&load,
-        'aggregator.aggregate.mailman' => \&aggregate,
+        'customfeed.handle' => \&handle,
     );
 }
 
-sub load {
-    my($self, $context) = @_;
+sub handle {
+    my($self, $context, $args) = @_;
 
-    my $url = $self->conf->{url}
-        or $context->error("pipermail url not set");
+    if ($args->{feed}->url =~ m!/pipermail/[^/]+/$!) {
+        $self->aggregate($context, $args);
+        return 1;
+    }
 
-    my $feed = Plagger::Feed->new;
-       $feed->type('mailman');
-       $feed->url($url);
-    $context->subscription->add($feed);
+    return;
 }
 
 sub aggregate {
@@ -35,7 +33,7 @@ sub aggregate {
     $url .= '/' unless $url =~ m!/$!;
 
     my $now = Plagger::Date->now;
-    $now->set_locale('en_us');
+       $now->set_locale('en_us');
 
     my $base_url = $url . $now->year . '-' . $now->month_name . '/';
 
@@ -108,9 +106,10 @@ Plagger::Plugin::CustomFeed::Mailman - Custom feed for Mailman pipermail
 
 =head1 SYNOPSIS
 
-  - module: CustomFeed::Mailman
+  - module: Subscription::Config
     config:
-      url: http://lists.rawmode.org/pipermail/catalyst/
+      feed:
+        - http://lists.rawmode.org/pipermail/catalyst/
 
 =head1 DESCRIPTION
 

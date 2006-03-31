@@ -9,7 +9,7 @@ sub register {
 
     $context->register_hook(
         $self,
-        'subscription.load' => \&load,
+        'subscription.load' => $self->can('load'),
     );
 }
 

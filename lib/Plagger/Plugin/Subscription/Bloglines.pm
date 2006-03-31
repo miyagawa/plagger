@@ -19,7 +19,6 @@ sub register {
         $context->register_hook(
             $self,
             'subscription.load' => \&notifier,
-            'aggregator.aggregate.bloglines' => \&sync,
         );
     }
 }
@@ -65,7 +64,7 @@ sub notifier {
     $context->log(info => "You have $count unread item(s) on Bloglines.");
     if ($count) {
         my $feed = Plagger::Feed->new;
-        $feed->type('bloglines');
+        $feed->aggregator(sub { $self->sync(@_) });
         $context->subscription->add($feed);
 
         if ($self->conf->{fetch_meta}) {

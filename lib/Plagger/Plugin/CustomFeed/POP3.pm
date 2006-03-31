@@ -12,7 +12,6 @@ sub register {
     $context->register_hook(
         $self,
         'subscription.load' => \&load,
-        'aggregator.aggregate.pop3' => \&aggregate,
     );
 }
 
@@ -20,7 +19,7 @@ sub load {
     my($self, $context) = @_;
 
     my $feed = Plagger::Feed->new;
-       $feed->type('pop3');
+       $feed->aggregator(sub { $self->aggregate(@_) });
     $context->subscription->add($feed);
 }
 

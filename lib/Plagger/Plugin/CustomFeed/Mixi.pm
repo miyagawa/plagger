@@ -12,7 +12,6 @@ sub register {
     $context->register_hook(
         $self,
         'subscription.load' => \&load,
-        'aggregator.aggregate.mixi' => \&aggregate,
     );
 }
 
@@ -22,7 +21,7 @@ sub load {
     $self->{mixi}->cookie_jar($self->cache->cookie_jar);
 
     my $feed = Plagger::Feed->new;
-       $feed->type('mixi');
+       $feed->aggregator( sub { $self->aggregate(@_) };
     $context->subscription->add($feed);
 }
 

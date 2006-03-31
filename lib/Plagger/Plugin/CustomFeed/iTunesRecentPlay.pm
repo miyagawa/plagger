@@ -13,7 +13,6 @@ sub register {
     $context->register_hook(
         $self,
         'subscription.load' => \&load,
-        'aggregator.aggregate.itunesrecentplay' => \&aggregate,
     );
 }
 
@@ -21,7 +20,7 @@ sub load {
     my($self, $context) = @_;
 
     my $feed = Plagger::Feed->new;
-    $feed->type('itunesrecentplay');
+    $feed->aggregator(sub { $self->aggregate(@_) });
     $context->subscription->add($feed);
 }
 

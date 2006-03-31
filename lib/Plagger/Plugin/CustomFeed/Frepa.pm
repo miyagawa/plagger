@@ -11,7 +11,6 @@ sub register {
     $context->register_hook(
         $self,
         'subscription.load' => \&load,
-        'aggregator.aggregate.frepa' => \&aggregate,
     );
 }
 
@@ -20,7 +19,7 @@ sub load {
     $self->{frepa} = Plagger::Plugin::CustomFeed::Frepa::Mechanize->new($self);
 
     my $feed = Plagger::Feed->new;
-    $feed->type('frepa');
+    $feed->aggregator(sub { $self->aggregate(@_) });
     $context->subscription->add($feed);
 }
 

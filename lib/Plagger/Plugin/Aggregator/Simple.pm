@@ -2,6 +2,7 @@ package Plagger::Plugin::Aggregator::Simple;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Feed::Find;
 use Plagger::UserAgent;
 use List::Util qw(first);
 use UNIVERSAL::require;
@@ -15,7 +16,7 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'aggregator.aggregate.feed'  => \&aggregate,
+        'customfeed.handle'  => \&aggregate,
     );
 }
 
@@ -23,6 +24,28 @@ sub aggregate {
     my($self, $context, $args) = @_;
 
     my $url = $args->{feed}->url;
+    my $res = $self->fetch_content($url);
+
+    if ( $Feed::Find::IsFeed{$res->http_response->content_type} ) {
+        $self->handle_feed($url, \$res->content);
+    } else {
+        my @feeds = Feed::Find->find_in_html(\$res->content, $url);
+        if (@feeds) {
+            $url = $feeds[0];
+            $res = $self->fetch_content($url);
+            $self->handle_feed($url, \$res->content);
+        } else {
+            return;
+        }
+    }
+
+    return 1;
+}
+
+sub fetch_content {
+    my($self, $url) = @_;
+
+    my $context = Plagger->context;
     $context->log(info => "Fetch $url");
 
     my $agent    = Plagger::UserAgent->new;
@@ -38,7 +61,7 @@ sub aggregate {
     # TODO: handle 301 Moved Permenently and 410 Gone
     $context->log(debug => $response->status . ": $url");
 
-    $self->handle_feed($url, \$response->content);
+    $response;
 }
 
 sub handle_feed {

@@ -12,7 +12,6 @@ sub register {
     $context->register_hook(
         $self,
         'subscription.load' => \&load,
-        'aggregator.aggregate.flickr.search' => \&aggregate,
     );
 }
 
@@ -20,7 +19,7 @@ sub load {
     my($self, $context) = @_;
 
     my $feed = Plagger::Feed->new;
-    $feed->type('flickr.search');
+    $feed->aggregator(sub { $self->aggregate(@_) });
     $feed->id('flickr:search');
     $context->subscription->add($feed);
 }

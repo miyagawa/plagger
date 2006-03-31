@@ -28,8 +28,8 @@ sub register {
     Xango::Broker::Push->spawn(%xango_args);
     $context->register_hook(
         $self,
-        'aggregator.aggregate.feed' => \&aggregate,
-        'aggregator.finalize'       => \&finalize,
+        'customfeed.handle'   => \&aggregate,
+        'aggregator.finalize' => \&finalize,
     );
 }
 
