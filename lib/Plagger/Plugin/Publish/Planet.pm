@@ -3,7 +3,7 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use File::Copy::Recursive qw[rcopy];
-use HTML::Tidy;
+#use HTML::Tidy;
 use HTML::Scrubber;
 
 our $VERSION = '0.01';
@@ -26,7 +26,8 @@ sub add_feed {
     $self->_sanitize_entries(
         $context,
         $feed,
-        HTML::Tidy->new,
+#        HTML::Tidy->new,
+        undef,
         HTML::Scrubber->new(
             rules => [
                 style => 0,
@@ -67,7 +68,7 @@ sub _sanitize_entries {
     my ($self, $context, $feed, $tidy, $scrubber) = @_;
     
     foreach my $entry ($feed->entries) {
-        $entry->{body} = $tidy->clean($entry->{body});
+#        $entry->{body} = $tidy->clean($entry->{body});
         $entry->{body} = $scrubber->scrub($entry->{body});
     }
 }
