@@ -9,8 +9,9 @@ sub init {
     if ($^O eq 'MSWin32') {
         require Plagger::Plugin::Publish::Speech::Win32;
         bless $self, 'Plagger::Plugin::Publish::Speech::Win32';
-#    } elsif ($^O eq 'Darwin') {
-# xxx somebody will write MacOSX.pm
+    } elsif ($^O eq 'Darwin') {
+        require Plagger::Plugin::Publish::Speech::MacOSX;
+        bless $self, 'Plagger::Plugin::Publish::Speech::MacOSX';
     } else {
         Plagger->context->error("Speech plugin doesn't run on your platform $^O");
     }
