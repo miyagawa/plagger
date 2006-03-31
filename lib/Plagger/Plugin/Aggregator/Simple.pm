@@ -32,7 +32,7 @@ sub aggregate {
         my @feeds = Feed::Find->find_in_html(\$res->content, $url);
         if (@feeds) {
             $url = $feeds[0];
-            $res = $self->fetch_content($url);
+            $res = $self->fetch_content($url) or return;
             $self->handle_feed($url, \$res->content);
         } else {
             return;
