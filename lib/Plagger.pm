@@ -256,6 +256,7 @@ sub run {
         for my $entry ($feed->entries) {
             $self->run_hook('smartfeed.entry', { feed => $feed, entry => $entry });
         }
+        $self->run_hook('smartfeed.feed', { feed => $feed });
     }
     $self->run_hook('smartfeed.finalize');
 

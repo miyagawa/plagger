@@ -14,6 +14,17 @@ sub add {
     }
 }
 
+sub delete_feed {
+    my($self, $feed) = @_;
+    my @feeds = grep { $_ ne $feed } $self->feeds;
+    $self->{feeds} = \@feeds;
+
+    for my $tag ( @{$feed->tags} ) {
+        my @feeds = grep { $_ ne $feed } @{ $self->{by_tags}->{$tag} };
+        $self->{by_tags}->{$tag} = \@feeds;
+    }
+}
+
 sub feeds {
     my $self = shift;
     wantarray ? @{ $self->{feeds} } : $self->{feeds};

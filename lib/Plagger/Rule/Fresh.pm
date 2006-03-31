@@ -21,7 +21,7 @@ sub init {
         } else {
             $mtime or Plagger->context->error("$path: $!")
         }
-        $self->{timestamp} = $mtime || $now;
+        $self->{timestamp} = $mtime || 0;
     } else {
         $self->{duration} ||= 120;
         $self->{timestamp}  = time - ($self->{duration}) * 60;
@@ -86,8 +86,8 @@ Plagger::Rule::Fresh - Rule to find 'fresh' entries or feeds
       module: Fresh
       duration: 120
 
-  # entries fresher than mtime of /tmp/foo.tmp
-  - module: Publish::Gmail
+  # remove entries older than mtime of /tmp/foo.tmp
+  - module: Filter::Rule
     rule:
       module: Fresh
       mtime:
