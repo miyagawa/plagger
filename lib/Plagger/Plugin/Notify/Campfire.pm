@@ -6,6 +6,11 @@ use Time::HiRes;
 
 our $VERSION = 0.01;
 
+sub plugin_id {
+    my $self = shift;
+    $self->class_id . '-' . $self->conf->{email};
+}
+
 sub register {
     my ( $self, $context ) = @_;
     $context->register_hook(

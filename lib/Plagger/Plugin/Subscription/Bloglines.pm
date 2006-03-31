@@ -5,6 +5,11 @@ use base qw( Plagger::Plugin );
 our $VERSION = '0.10';
 use WebService::Bloglines;
 
+sub plugin_id {
+    my $self = shift;
+    $self->class_id . '-' . $self->conf->{username};
+}
+
 sub register {
     my($self, $context) = @_;
 

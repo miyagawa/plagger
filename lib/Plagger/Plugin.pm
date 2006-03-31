@@ -52,6 +52,12 @@ sub class_id {
     return join '-', map lc, @pkg;
 }
 
+# subclasses may overload to avoid cache sharing
+sub plugin_id {
+    my $self = shift;
+    $self->class_id;
+}
+
 sub assets_dir {
     my $self = shift;
 

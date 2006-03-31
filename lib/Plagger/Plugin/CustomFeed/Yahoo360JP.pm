@@ -7,6 +7,11 @@ use Encode;
 use Time::HiRes;
 use WWW::Mechanize;
 
+sub plugin_id {
+    my $self = shift;
+    $self->class_id . '-' . $self->conf->{username};
+}
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(

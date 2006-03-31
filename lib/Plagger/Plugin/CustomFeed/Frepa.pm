@@ -6,6 +6,11 @@ use DateTime::Format::Strptime;
 use Encode;
 use Time::HiRes;
 
+sub plugin_id {
+    my $self = shift;
+    $self->class_id . '-' . $self->conf->{livedoor_id};
+}
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(

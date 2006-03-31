@@ -4,7 +4,7 @@ use strict;
 sub new {
     my($class, $plugin, $cache) = @_;
     bless {
-        namespace => $plugin->class_id,
+        namespace => $plugin->plugin_id,
         cache     => $cache,
     }, $class;
 }
