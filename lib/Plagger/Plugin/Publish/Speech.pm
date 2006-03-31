@@ -9,7 +9,7 @@ sub init {
     if ($^O eq 'MSWin32') {
         require Plagger::Plugin::Publish::Speech::Win32;
         bless $self, 'Plagger::Plugin::Publish::Speech::Win32';
-    } elsif ($^O eq 'Darwin') {
+    } elsif ($^O eq 'darwin') {
         require Plagger::Plugin::Publish::Speech::MacOSX;
         bless $self, 'Plagger::Plugin::Publish::Speech::MacOSX';
     } else {

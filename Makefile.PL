@@ -181,7 +181,7 @@ features(
     ],
 );
 
-if ($^O eq 'Darwin') {
+if ($^O eq 'darwin') {
     features(
         'Publish::Spotlight' => [
             -default => 1,
