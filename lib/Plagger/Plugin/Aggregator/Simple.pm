@@ -24,7 +24,7 @@ sub aggregate {
     my($self, $context, $args) = @_;
 
     my $url = $args->{feed}->url;
-    my $res = $self->fetch_content($url);
+    my $res = $self->fetch_content($url) or return;
 
     if ( $Feed::Find::IsFeed{$res->http_response->content_type} ) {
         $self->handle_feed($url, \$res->content);
