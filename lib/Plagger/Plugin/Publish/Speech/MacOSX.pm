@@ -49,7 +49,7 @@ sub feed {
 #        unless( $self->is_ascii( $stuff ) ){
 #            Plagger->context->log(info => "Can't speak 2byte-included entry, sorry.");
 #            next;
-        }
+#        }
 
         $self->speak( $voice, $speed, $pitch, $stuff );
     }
