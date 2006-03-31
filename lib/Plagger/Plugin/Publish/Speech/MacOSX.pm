@@ -9,10 +9,10 @@ use Mac::Speech;
 sub feed {
     my ($self, $context, $args) = @_;
 
-    unless( $self->is_ascii( $args->{feed}->title_text ) ){
-        Plagger->context->log(info => "Skip 2byte-included feed: " . $args->{feed}->title_text);
-        return;
-    }
+#    unless( $self->is_ascii( $args->{feed}->title_text ) ){
+#        Plagger->context->log(info => "Skip 2byte-included feed: " . $args->{feed}->title_text);
+#        return;
+#    }
 
     my $voice = $self->conf->{voice} || 'Vicki';
     if( $self->voice_validate( $voice ) ){
