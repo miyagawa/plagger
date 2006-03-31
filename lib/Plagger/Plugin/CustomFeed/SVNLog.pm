@@ -46,7 +46,7 @@ sub aggregate {
     my $feed = Plagger::Feed->new;
     $feed->type('svnlog');
     $feed->title($self->conf->{title} or 'SVN Log');
-    $feed->link($self->conf->{target}->[0]);
+    $feed->link($self->conf->{link} or $self->conf->{target}->[0]);
 
     my $revision_from = $self->conf->{revision_from} || 1;
     my $revision_to   = $self->conf->{revision_to}   || 'HEAD';
@@ -128,6 +128,7 @@ Plagger::Plugin::CustomFeed::SVNLog -  Custom feed for SVN Log
       config:
         target: scheme://url/to/repository
         title: SVN Log of blah blah blah
+        link: http://url/to/repository/viewer
         revision_from: 5
         revision_to: 123
         reverse: 1
@@ -148,6 +149,30 @@ Specifies the repository url.
 =item title
 
 Specifies the feed title you want. If not spacified, default is 'SVN Log'.
+
+=item link
+
+Specifies the repository viewer url.
+
+=item revision_from
+
+Specifies a revision number you wish to start publish from.
+default is 1.
+
+=item revesion_to
+
+Specifies a revision number you wish to end publish to.
+default is 'HEAD'.
+
+=item reverse
+
+If set to 1, this option makes feed to reverse order.
+default is 0.
+
+=item fetch_items
+
+Specifies a numeric value of limit to publish.
+This functions well with reverse, revision_from, and the revision_to option.
 
 =back
 
