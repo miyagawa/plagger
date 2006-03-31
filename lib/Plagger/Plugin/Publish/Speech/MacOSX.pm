@@ -46,9 +46,9 @@ sub feed {
     for my $entry ($args->{feed}->entries) {
         my $stuff = $entry->title_text . ' ' . $entry->body_text;
 
-        unless( $self->is_ascii( $stuff ) ){
-            Plagger->context->log(info => "Can't speak 2byte-included entry, sorry.");
-            next;
+#        unless( $self->is_ascii( $stuff ) ){
+#            Plagger->context->log(info => "Can't speak 2byte-included entry, sorry.");
+#            next;
         }
 
         $self->speak( $voice, $speed, $pitch, $stuff );
