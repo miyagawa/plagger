@@ -188,6 +188,12 @@ if ($^O eq 'Darwin') {
             recommends('Mac::Glue'),
         ],
     );
+    features(
+        'Publish::Speech' => [
+            -default => 0,
+            recommends('Mac::Speech'),
+        ],
+    );
 
     install_script('bin/spotlight_comment.scpt');
 
