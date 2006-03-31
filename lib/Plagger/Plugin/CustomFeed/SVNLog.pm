@@ -159,7 +159,7 @@ Specifies the repository viewer url.
 Specifies a revision number you wish to start publish from.
 default is 1.
 
-=item revesion_to
+=item revision_to
 
 Specifies a revision number you wish to end publish to.
 default is 'HEAD'.
