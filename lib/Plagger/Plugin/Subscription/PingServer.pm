@@ -37,7 +37,7 @@ sub load {
         my $items = $self->conf->{fetch_items} || 20;
         for my $node ( $doc->findnodes('/weblogUpdates/weblog')) {
             my $url = first { $_ } $node->findvalue('@url');
-            next unless $feed->url;
+            next unless $url;
             $context->log(debug => "get url: $url");
 
             my $feed = Plagger::Feed->new;
