@@ -13,8 +13,8 @@ sub filter {
     my $result = '';
     my $count = 0;
 
-    my $chars = [ $self->romanize($text) ];
-    return (scalar(@$chars), join(' ', @$chars));
+    my @chars = $self->romanize($text);
+    return (scalar(@chars), join(' ', @chars));
 }
 
 sub romanize {
