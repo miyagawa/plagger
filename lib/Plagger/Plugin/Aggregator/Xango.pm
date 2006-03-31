@@ -24,6 +24,7 @@ sub register {
         Plugin => $self,
         UseCache => exists $self->conf->{use_cache} ?
             $self->conf->{use_cache} : 1,
+        BrokerAlias => $xango_args{Alias},
     );
     Xango::Broker::Push->spawn(%xango_args);
     $context->register_hook(
@@ -48,6 +49,7 @@ sub finalize {
 
 package Plagger::Plugin::Aggregator::Xango::Crawler;
 use strict;
+use Feed::Find;
 use POE;
 use Storable qw(freeze thaw);
 use XML::Feed;
@@ -58,7 +60,10 @@ sub spawn  {
     my %args  = @_;
 
     POE::Session->create(
-        heap => { PLUGIN => $args{Plugin}, USE_CACHE => $args{UseCache} },
+        heap => {
+            PLUGIN => $args{Plugin}, USE_CACHE => $args{UseCache},
+            BROKER_ALIAS => $args{BrokerAlias},
+        },
         package_states => [
             $class => [ qw(_start _stop apply_policy prep_request handle_response) ]
         ]
@@ -91,7 +96,21 @@ sub handle_response {
     my $url    = $job->uri;
 
     return unless $r->is_success;
-    $plugin->handle_feed($url, $r->content_ref);
+
+    my $ct = $r->content_type;
+    if ( $Feed::Find::IsFeed{$ct} ) {
+        $plugin->handle_feed($url, $r->content_ref);
+    } else {
+        my @feeds = Feed::Find->find_in_html($r->content_ref, $url);
+        if (@feeds) {
+            $url = $feeds[0];
+            # xxx infinite loop
+            $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url)));
+        } else {
+            return;
+        }
+    }
+
     if ($_[HEAP]->{USE_CACHE}) {
         $plugin->cache->set(
             $job->uri,
