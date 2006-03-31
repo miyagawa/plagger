@@ -51,4 +51,6 @@ sub speak {
     sleep 1 while $voice->IsSpeaking;
 }
 
+sub finalize { }
+
 1;

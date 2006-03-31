@@ -96,6 +96,8 @@ sub speak {
     }
 }
 
+sub finalize { }
+
 1;
 
 __END__
