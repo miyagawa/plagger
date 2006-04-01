@@ -113,10 +113,6 @@ Plagger::Plugin::CustomFeed::Mailman - Custom feed for Mailman pipermail
 
 =head1 DESCRIPTION
 
-B<Note: Plagger has a bug that you'll have duplicated entries when you
-have multiple installations of identical CustomFeed. It will be fixed
-and this plugin's config interface may be changed altogether>
-
 This plugin creates a custom feed off of Mailman's pipermail URL.
 
 =head1 AUTHOR
