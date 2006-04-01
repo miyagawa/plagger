@@ -22,6 +22,7 @@ sub load {
     my $servers = $self->conf->{servers};
        $servers = [ $servers ] unless ref $servers;
 
+    my %cache;
     for my $server (@{ $servers }) {
         my $agent    = Plagger::UserAgent->new;
         my $response = $agent->fetch($server->{url});
@@ -38,6 +39,7 @@ sub load {
         for my $node ( $doc->findnodes('/weblogUpdates/weblog')) {
             my $url = first { $_ } $node->findvalue('@url');
             next unless $url;
+            next if $cache{$url}++;
             $context->log(debug => "get url: $url");
 
             my $feed = Plagger::Feed->new;
