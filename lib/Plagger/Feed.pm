@@ -80,7 +80,7 @@ sub dedupe_entries {
     my %seen;
     my @entries;
     for my $entry ($self->entries) {
-        push @entries, $entry if !$seen{$entry->id}++;
+        push @entries, $entry if !$seen{$entry->permalink}++;
     }
     $self->{entries} = \@entries;
 }
