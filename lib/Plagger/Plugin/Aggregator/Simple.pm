@@ -26,7 +26,11 @@ sub aggregate {
     my $url = $args->{feed}->url;
     my $res = $self->fetch_content($url) or return;
 
-    if ( $Feed::Find::IsFeed{$res->http_response->content_type} ) {
+    my $content_type = eval { $res->content_type } ||
+                       $res->http_response->content_type ||
+                       "text/xml"; # xxx!
+
+    if ( $Feed::Find::IsFeed{$content_type} ) {
         $self->handle_feed($url, \$res->content);
     } else {
         my @feeds = Feed::Find->find_in_html(\$res->content, $url);
