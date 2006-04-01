@@ -3,7 +3,7 @@ sub handle_force {
     $args->{entry}->link =~ qr!^http://(?:blog\.livedoor\.jp/|[\w\-]+\.livedoor\.biz/)!;
 }
 
-sub extract_body {
+sub extract {
     my($self, $args) = @_;
 
     (my $content = $args->{content}) =~ s/\r\n/\n/g;

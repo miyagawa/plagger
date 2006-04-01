@@ -27,6 +27,7 @@ sub load {
         $feed->url($config->{url}) or $context->error("Feed URL is missing");
         $feed->link($config->{link})   if $config->{link};
         $feed->title($config->{title}) if $config->{title};
+        $feed->meta($config->{meta})   if $config->{meta};
 
         if (my $tags = $config->{tag}) {
             unless (ref $tags) {

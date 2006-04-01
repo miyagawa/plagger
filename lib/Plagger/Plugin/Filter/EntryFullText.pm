@@ -6,6 +6,8 @@ use DirHandle;
 use Encode;
 use File::Spec;
 use List::Util qw(first);
+use Plagger::Date; # for metadata in plugins
+use Plagger::Util qw( decode_content );
 
 use Plagger::UserAgent;
 
@@ -76,17 +78,20 @@ sub filter {
     my $res = $self->{ua}->fetch( $args->{entry}->permalink, $self );
     return if $res->http_response->is_error;
 
-    $args->{content} = $self->decode_content($res);
+    $args->{content} = decode_content($res);
 
     my @plugins = $handler ? ($handler) : @{ $self->{plugins} };
 
     for my $plugin (@plugins) {
         if ( $handler || $plugin->handle($args) ) {
             $context->log(debug => $args->{entry}->permalink . " handled by " . $plugin->site_name);
-            my $body = $plugin->extract_body($args);
-            if ($body) {
+            my $data = $plugin->extract($args);
+               $data = { body => $data } if $data && !ref $data;
+            if ($data) {
                 $context->log(info => "Extract content succeeded on " . $args->{entry}->permalink);
-                $args->{entry}->body($body);
+                $args->{entry}->body($data->{body});
+                $args->{entry}->title($data->{title}) if $data->{title};
+                $args->{entry}->date($data->{date})   if $data->{date};
                 return 1;
             }
         }
@@ -101,18 +106,6 @@ sub filter {
     $context->log(warn => "Extract content failed on " . $args->{entry}->permalink);
 }
 
-# xxx make it Plagger::Entry's method so that other plugins can use
-sub decode_content {
-    my($self, $res) = @_;
-    my $content = $res->content;
-
-    my $charset = ($res->http_response->content_type =~ /charset=([\w\-]+)/)[0];
-    unless ($charset) {
-        $charset = ( $content =~ m!<meta http-equiv="Content-Type" content=".*charset=([\w\-]+)"! )[0] || "utf-8";
-    }
-
-    return decode($charset, $content);
-}
 
 package Plagger::Plugin::Filter::EntryFullText::Site;
 sub new { bless {}, shift }

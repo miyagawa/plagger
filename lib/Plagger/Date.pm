@@ -2,6 +2,8 @@ package Plagger::Date;
 use strict;
 use base qw( DateTime );
 
+use Encode;
+use DateTime::Format::Strptime;
 use UNIVERSAL::require;
 
 sub rebless { bless $_[1], $_[0] }
@@ -23,6 +25,13 @@ sub parse {
     }
 
     bless $dt, $class;
+}
+
+sub strptime {
+    my($class, $pattern, $date) = @_;
+    Encode::_utf8_on($pattern);
+    my $format = DateTime::Format::Strptime->new(pattern => $pattern);
+    $class->parse($format, $date);
 }
 
 sub now {

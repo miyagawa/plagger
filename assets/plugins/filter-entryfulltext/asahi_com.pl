@@ -3,7 +3,7 @@ sub handle {
     $args->{entry}->link =~ qr!^http://www\.asahi\.com/!;
 }
 
-sub extract_body {
+sub extract {
     my($self, $args) = @_;
     ( $args->{content} =~ /<!-- Start of Kiji -->(.*)<!-- End of Kiji -->/s )[0];
 }

@@ -3,7 +3,7 @@ sub handle {
     $args->{entry}->link =~ qr!^http://d\.hatena\.ne\.jp/!;
 }
 
-sub extract_body {
+sub extract {
     my($self, $args) = @_;
     my $name     = ( $args->{entry}->link =~ /\#([\w\-]+)$/ )[0];
     my $day_only = $args->{entry}->link =~ qr!^http://d\.hatena\.ne\.jp/[\w\-]+/\d+/?$!;
