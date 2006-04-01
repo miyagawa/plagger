@@ -71,12 +71,13 @@ sub filter {
     }
 
     my $res = $self->{ua}->fetch( $args->{entry}->permalink, $self );
-    return unless $res->http_response->is_success;
+    return if $res->http_response->is_error;
 
     $args->{content} = $self->decode_content($res);
 
     for my $plugin (@{ $self->{plugins} }) {
         if ( $plugin->handle($args) ) {
+            $context->log(debug => $args->{entry}->permalink . " handled by " . $plugin->site_name);
             my $body = $plugin->extract_body($args->{content});
             if ($body) {
                 $context->log(info => "Extract content succeeded on " . $args->{entry}->permalink);
