@@ -101,7 +101,7 @@ sub aggregate_feed {
     my $i = 0;
     my $blocked = 0;
     for my $msg (@msgs) {
-        next if $type eq 'friend_diary' and not $msg->{image}; # external blog
+        next if $type eq 'FriendDiary' and not $msg->{image}; # external blog
         last if $i++ >= $items;
 
         my $entry = Plagger::Entry->new;
