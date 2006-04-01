@@ -5,13 +5,14 @@ our $VERSION = '0.6.0';
 use 5.8.1;
 use Carp;
 use Data::Dumper;
+use File::Copy;
 use File::Basename;
 use File::Find::Rule;
 use YAML;
 use UNIVERSAL::require;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors( qw(conf update subscription plugins_path cache) );
+__PACKAGE__->mk_accessors( qw(conf update subscription plugins_path cache ) );
 
 use Plagger::Cache;
 use Plagger::CacheProxy;
@@ -39,6 +40,7 @@ sub bootstrap {
         subscription => Plagger::Subscription->new,
         plugins_path => {},
         plugins => [],
+        rewrite_tasks => []
     }, $class;
 
     my $config;
@@ -47,6 +49,7 @@ sub bootstrap {
         $self->load_include($config);
         $self->{conf} = $config->{global};
         $self->{conf}->{log}   ||= { level => 'debug' };
+        $self->{config_path} = $opt{config};
     } else {
         croak "Plagger->bootstrap: $opt{config}: $!";
     }
@@ -56,7 +59,43 @@ sub bootstrap {
     $self->load_recipes($config);
     $self->load_cache($opt{config});
     $self->load_plugins(@{ $config->{plugins} || [] });
+    $self->rewrite_config if @{ $self->{rewrite_tasks} };
     $self->run();
+}
+
+sub add_rewrite_task {
+    my($self, @stuff) = @_;
+    push @{ $self->{rewrite_tasks} }, \@stuff;
+}
+
+sub rewrite_config {
+    my $self = shift;
+
+    open my $fh, $self->{config_path} or $self->error("$self->{config_path}: $!");
+    my $data = join '', <$fh>;
+    close $fh;
+
+    my $old = $data;
+    my $count;
+
+    # xxx this is a quick hack: It should be a YAML roundtrip maybe
+    for my $task (@{ $self->{rewrite_tasks} }) {
+        my($key, $old_value, $new_value ) = @$task;
+        if ($data =~ s/^(\s+$key:\s+)$old_value\s*$/$1$new_value/m) {
+            $count++;
+        } else {
+            $self->log(error => "$key: $old_value not found in $self->{config_path}");
+        }
+    }
+
+    if ($count) {
+        File::Copy::copy( $self->{config_path}, $self->{config_path} . ".bak" );
+        open my $fh, ">", $self->{config_path} or $self->error("$self->{config_path}: $!");
+        print $fh $data;
+        close $fh;
+
+        $self->log(info => "rewrote $self->{config_path} with encrypting $count config values");
+    }
 }
 
 sub load_include {

@@ -4,6 +4,7 @@ use base qw( Class::Accessor::Fast );
 
 __PACKAGE__->mk_accessors( qw(conf rule rule_hook cache) );
 
+use Plagger::Crypt;
 use Plagger::Rule;
 use Plagger::Rules;
 
@@ -25,6 +26,7 @@ sub new {
 
 sub init {
     my $self = shift;
+
     if (my $rule = $self->{rule}) {
         $rule = [ $rule ] if ref($rule) eq 'HASH';
         my $op = $self->{rule_op};
@@ -32,7 +34,27 @@ sub init {
     } else {
         $self->{rule} = Plagger::Rule->new({ module => 'Always' });
     }
+
+    if (my $params = $self->encrypt_config) {
+        $params = [ $params ] unless ref $params;
+
+        for my $key (@$params) {
+            my $config = $self->conf;
+            # support foo/bar/baz
+            while ($key =~ s!^(\w+)/!!) {
+                $config = $config->{$1};
+            }
+            my $decrypted = Plagger::Crypt->decrypt($config->{$key});
+            if ($decrypted eq $config->{$key}) {
+                Plagger->context->add_rewrite_task($key, $decrypted, Plagger::Crypt->encrypt($decrypted, 'base64'));
+            } else {
+                $config->{$key} = $decrypted;
+            }
+        }
+    }
 }
+
+sub encrypt_config { }
 
 sub conf { $_[0]->{conf} }
 sub rule { $_[0]->{rule} }
