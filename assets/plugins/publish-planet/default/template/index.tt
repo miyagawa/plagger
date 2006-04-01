@@ -63,7 +63,7 @@
           [% END %]
           <a class="entry-permalink" href="[% entry.permalink | html %]">permalink</a>
           [% FOREACH widget = entry.widgets %]
-            <span class="entry-widget">[% widget.html(item) %]</span>
+            <span class="entry-widget">[% widget.html(entry) %]</span>
           [% END %]
         </div>
       </div>
