@@ -1,5 +1,51 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.6.0 (2006/04/02) ==
+
+=== Core ===
+
+ * revamped CustomFeed API 
+ * Aggregator::Simple supports RSS/Atom auto-discovery. #20
+ * Fixed CustomFeed multiple instances bug. #110 
+ * Autoload Aggregator::Simple when no Aggregator is used. #125
+ * Added $context->is_loaded($plugin). #125
+ * $plugin->log is now supported
+ * Uses newly added $plugin->plugin_id method to avoid cache gotcha. #95
+ * $plugin->cache->path_to automatically creates sub directories. #118
+ * SmartFeed now uses permalink to dedupe entries
+ 
+=== New Plugins ===
+
+ * Filter::FeedFlareStripper: Strip FeedFlare from FeedBurner feeds (miyagawa)
+ * Widget::BloglinesSubscription: Link to edit subscription of Bloglines #123 (miyagawa)
+ * Subscription::DBI: manage subscriptions using database (Franck Cuny)
+ * CustomFeed::SVNLog: Create feeds from subversion log (Michiya Honda)
+ * Filter::Profanity: replace profane terms to !%$@# (miyagawa)
+ * Filter::Thumbnail: create thumbnail screenshot to use as feed icon (miyagawa)
+ * Widget::BulkfeedsSpamReport: Report feed as Splog to Bulkfeeds. #135 (miyagawa) 
+ * Filter::NamaanPermalink: extract permalink from redirector URL (miyagawa)
+ * Filter::Romanize: uses kakasi to filter content into Roman (miyagawa)
+ * Subscription::Planet: Aggregates entries from various RSS search engines (youpy)
+ * Subscription::PingServer: Load pinged feeds to ping servers as subscription (ko)
+ * Filter::Rule: generic rule based feed trimming (miyagawa)
+ * Publish::Takahashi: Published feed entry titles as takahashi.xul file (miyagawa)
+ * Filter::EntryFullText: Fetch Full-Text using site handler files (miyagawa)
+ * Rule::URLBL: rule used with Aggregator to skip URLBL'ed feeds (ko)
+  
+=== Plugins Updates ===
+
+ * Filter::StripRSSAd: More Google AdSense patterns, FeedBurner ads, seesaa.jp
+ * Filter::FeedBurnerPermalink: Now work with RSS 1.0 feeds. #122
+ * CustomFeed::Frepa: Update HTML pattern.
+ * Filter::Base: new base class to handle HTML-only filter. #88
+ * Publish::Speech: MacOSX impementation supported (Ryo Okamoto)
+ * Publish::Planet: don't use HTML::Tidy for now. Fixed templates
+ * Aggregator::Xango: Now requires Xango 1.04. Support RSS/Atom auto-discovery
+ * Publish::Gmail: overwrite X-Mailer header
+ * CustomFeed::Frepa: support FriendStatus and RecentComment (tokuhirom)
+ * CustomFeed::Mixi: support Message and RecentComment (tokuhirom)
+ * Subscription::Bloglines: Set RSS 2.0 guid as permalink (typester)
+
 == 0.5.7 (2006/03/13) ==
 
 === Core ===

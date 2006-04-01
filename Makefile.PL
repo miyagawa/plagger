@@ -179,6 +179,14 @@ features(
 	-default => 0,
 	recommends('URI::Find'),
     ],
+    'Filter::Romanize' => [
+        -default => 0,
+        recommends('Text::Kakasi'),
+    ],
+    'Rule::URLBL' => [
+        -default => 0,
+        recommends('Net::DNS'),
+    ],
 );
 
 if ($^O eq 'darwin') {
