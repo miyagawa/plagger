@@ -4,7 +4,6 @@
 # All rights reserved.
 
 package Plagger::Plugin::Aggregator::Xango;
-#sub Xango::DEBUG { 1 };
 use strict;
 use base qw( Plagger::Plugin::Aggregator::Simple );
 use POE;
@@ -17,7 +16,7 @@ sub register {
     my %xango_args = (
         Alias => 'xgbroker',
         HandlerAlias => 'xghandler',
-        HttpCompArgs => [ Agent => "Plagger/$Plagger::VERSION (http://plagger.org/)" ],
+        HttpCompArgs => [ Agent => "Plagger/$Plagger::VERSION (http://plagger.org/)", Timeout => $self->conf->{timeout} || 10 ],
         %{$self->conf->{xango_args} || {}},
     );
     $self->{xango_alias} = $xango_args{Alias};
@@ -101,7 +100,10 @@ sub handle_response {
     my $r = $job->notes('http_response');
     my $url    = $job->uri;
     if ($r->code =~ /^30[12]$/) {
-        $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($r->header('location')), redirect => $redirect));
+        $url = $r->header('location');
+        return unless $url =~ m!^https?://!i;
+        $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => $redirect));
+	return;
     } else {
         return unless $r->is_success;
 
@@ -112,10 +114,10 @@ sub handle_response {
             my @feeds = Feed::Find->find_in_html($r->content_ref, $url);
             if (@feeds) {
                 $url = $feeds[0];
+                return unless $url =~ m!^https?://!i;
                 $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => $redirect));
-            } else {
-                return;
             }
+            return;
         }
     }
 
