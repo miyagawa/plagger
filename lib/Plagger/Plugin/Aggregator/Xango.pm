@@ -10,6 +10,8 @@ use POE;
 use Xango::Broker::Push;
 # BEGIN { sub Xango::DEBUG { 1 } } # uncomment to get Xango debug messages
 
+our $VERSION = '0.1';
+
 sub register {
     my($self, $context) = @_;
 
