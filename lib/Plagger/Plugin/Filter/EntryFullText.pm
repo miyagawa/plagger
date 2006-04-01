@@ -5,6 +5,7 @@ use base qw( Plagger::Plugin );
 use DirHandle;
 use Encode;
 use File::Spec;
+use Plagger::UserAgent;
 
 sub register {
     my($self, $context) = @_;
@@ -65,7 +66,7 @@ sub filter {
     my($self, $context, $args) = @_;
 
     if ( $args->{entry}->body && $args->{entry}->body =~ /<\w+>/ ) {
-        $self->log(debug => $args->{entry}->link . " already contains body. Sipped");
+        $self->log(debug => $args->{entry}->link . " already contains body. Skipped");
         return;
     }
 
