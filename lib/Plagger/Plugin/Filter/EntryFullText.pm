@@ -87,6 +87,12 @@ sub filter {
         }
     }
 
+    # failed to extract: store whole HTML if the config is on
+    if ($self->conf->{store_html_on_failure}) {
+        $args->{entry}->body($args->{content});
+        return 1;
+    }
+
     $context->log(warn => "Extract content failed on " . $args->{entry}->permalink);
 }
 
@@ -134,6 +140,19 @@ Plagger::Plugin::Filter::EntryFullText - Framework to fetch entry full text
 This plugin allows you to fetch entry full text by doing HTTP GET and
 apply regexp to HTML. You can write custom fulltext handler by putting
 C<.pl> files under assets plugin directory.
+
+=head1 CONFIG
+
+=over 4
+
+=item store_html_on_failure
+
+Even if fulltext handlers fail to extract content body from HTML, this
+option enables to store the whole document HTML as entry body. It will
+be useful to use with search engines like Gmail and Search:: plugins.
+Defaults to 0.
+
+=back
 
 =head1 WRITING CUSTOM FULLTEXT HANDLER
 
