@@ -94,7 +94,7 @@ sub rewrite_config {
         print $fh $data;
         close $fh;
 
-        $self->log(info => "rewrote $self->{config_path} with encrypting $count config values");
+        $self->log(info => "Rewrote $count password(s) and saved to $self->{config_path}");
     }
 }
 
