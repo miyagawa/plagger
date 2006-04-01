@@ -5,6 +5,8 @@ use base qw( Plagger::Plugin );
 use DirHandle;
 use Encode;
 use File::Spec;
+use List::Util qw(first);
+
 use Plagger::UserAgent;
 
 sub register {
@@ -65,7 +67,8 @@ sub load_plugin {
 sub filter {
     my($self, $context, $args) = @_;
 
-    if ( $args->{entry}->body && $args->{entry}->body =~ /<\w+>/ ) {
+    my $handler = first { $_->handle_force($args) } @{ $self->{plugins} };
+    if ( !$handler && $args->{entry}->body && $args->{entry}->body =~ /<\w+>/ ) {
         $self->log(debug => $args->{entry}->link . " already contains body. Skipped");
         return;
     }
@@ -75,8 +78,10 @@ sub filter {
 
     $args->{content} = $self->decode_content($res);
 
-    for my $plugin (@{ $self->{plugins} }) {
-        if ( $plugin->handle($args) ) {
+    my @plugins = $handler ? ($handler) : @{ $self->{plugins} };
+
+    for my $plugin (@plugins) {
+        if ( $handler || $plugin->handle($args) ) {
             $context->log(debug => $args->{entry}->permalink . " handled by " . $plugin->site_name);
             my $body = $plugin->extract_body($args->{content});
             if ($body) {
@@ -111,6 +116,7 @@ sub decode_content {
 
 package Plagger::Plugin::Filter::EntryFullText::Site;
 sub new { bless {}, shift }
+sub handle_force { 0 }
 
 1;
 
