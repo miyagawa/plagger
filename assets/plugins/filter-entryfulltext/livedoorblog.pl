@@ -4,9 +4,9 @@ sub handle_force {
 }
 
 sub extract_body {
-    my($self, $content) = @_;
+    my($self, $args) = @_;
 
-    $content =~ s/\r\n/\n/g;
+    (my $content = $args->{content}) =~ s/\r\n/\n/g;
     if ( $content =~ m!<div class="main">(.*?)</div>\n\s*<a name="more"></a>\n\s*<div class="main">(.*?)<br clear="all">\n?</div>!s ) {
         return "<div>$1</div><div>$2</div>";
     }

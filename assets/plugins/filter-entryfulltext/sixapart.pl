@@ -4,9 +4,9 @@ sub handle {
 }
 
 sub extract_body {
-    my($self, $content) = @_;
-    my $body = ($content =~ m!<div class="entry-body-text">(.*?)</div>!s)[0];
-    if ($body && ($content =~ m!<div class="entry-more-text">(.*?)</div>!s)[0]) {
+    my($self, $args) = @_;
+    my $body = ($args->{content} =~ m!<div class="entry-body-text">(.*?)</div>!s)[0];
+    if ($body && ($args->{content} =~ m!<div class="entry-more-text">(.*?)</div>!s)[0]) {
         $body .= $1;
     }
     $body;

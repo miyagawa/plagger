@@ -83,7 +83,7 @@ sub filter {
     for my $plugin (@plugins) {
         if ( $handler || $plugin->handle($args) ) {
             $context->log(debug => $args->{entry}->permalink . " handled by " . $plugin->site_name);
-            my $body = $plugin->extract_body($args->{content});
+            my $body = $plugin->extract_body($args);
             if ($body) {
                 $context->log(info => "Extract content succeeded on " . $args->{entry}->permalink);
                 $args->{entry}->body($body);
@@ -117,6 +117,7 @@ sub decode_content {
 package Plagger::Plugin::Filter::EntryFullText::Site;
 sub new { bless {}, shift }
 sub handle_force { 0 }
+sub handle { 0 }
 
 1;
 

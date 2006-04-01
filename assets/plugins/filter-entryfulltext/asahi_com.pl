@@ -4,6 +4,6 @@ sub handle {
 }
 
 sub extract_body {
-    my($self, $content) = @_;
-    ( $content =~ /<!-- Start of Kiji -->(.*)<!-- End of Kiji -->/s )[0];
+    my($self, $args) = @_;
+    ( $args->{content} =~ /<!-- Start of Kiji -->(.*)<!-- End of Kiji -->/s )[0];
 }
