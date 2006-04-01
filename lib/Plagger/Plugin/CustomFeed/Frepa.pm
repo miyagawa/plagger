@@ -42,7 +42,7 @@ sub aggregate {
 
     $context->log(info => 'Login to frepa succeeded.');
 
-    my $feed_type = $self->conf->{feed_type} or $context->error("feed_type is missing");
+    my $feed_type = $self->conf->{feed_type} || ['FriendDiary'];
     for my $plugin (@$feed_type) {
         my $plugin = (ref $self || $self) . "::$plugin";
         $plugin->use or $context->error($@);
