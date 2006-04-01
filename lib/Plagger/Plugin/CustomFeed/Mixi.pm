@@ -7,6 +7,30 @@ use Encode;
 use WWW::Mixi;
 use Time::HiRes;
 
+our $MAP = {
+    FriendDiary => {
+        start_url  => 'http://mixi.jp/new_friend_diary.pl',
+        title      => 'マイミク最新日記',
+        get_list   => 'parse_new_friend_diary',
+        get_detail => 'get_view_diary',
+        icon_re    => qr/owner_id=(\d+)/,
+    },
+    # can't get icon
+    Message => {
+        start_url  => 'http://mixi.jp/list_message.pl',
+        title      => 'ミクシィメッセージ受信箱',
+        get_list   => 'parse_list_message',
+        get_detail => 'get_view_message',
+    },
+    # can't get icon & body
+    RecentComment => {
+        start_url  => 'http://mixi.jp/list_comment.pl',
+        title      => 'ミクシィ最近のコメント一覧',
+        get_list   => 'parse_list_comment',
+        icon_re    => qr/[^_]id=(\d+)/,
+    },
+};
+
 sub plugin_id {
     my $self = shift;
     $self->class_id . '-' . $self->conf->{email};
@@ -32,8 +56,15 @@ sub load {
 
 sub aggregate {
     my($self, $context, $args) = @_;
+    for my $type (@{$self->conf->{feed_type} || ['FriendDiary']}) {
+        $context->error("$type not found") unless $MAP->{$type};
+        $self->aggregate_feed($context, $type, $args);
+    }
+}
+sub aggregate_feed {
+    my($self, $context, $type, $args) = @_;
 
-    my $start_url = 'http://mixi.jp/new_friend_diary.pl';
+    my $start_url = $MAP->{$type}->{start_url};
     my $response  = $self->{mixi}->get($start_url);
 
     if ($response->content =~ /action=login\.pl/) {
@@ -57,18 +88,20 @@ sub aggregate {
 
     my $feed = Plagger::Feed->new;
     $feed->type('mixi');
-    $feed->title('マイミクシィ最新日記');
-    $feed->link('http://mixi.jp/new_friend_diary.pl');
+    $feed->title($MAP->{$type}->{title});
+    $feed->link($MAP->{$type}->{start_url});
 
     my $format = DateTime::Format::Strptime->new(pattern => '%Y/%m/%d %H:%M');
 
-    my @msgs = $self->{mixi}->parse_new_friend_diary($response);
+    my $meth = $MAP->{$type}->{get_list};
+    my @msgs = $self->{mixi}->$meth($response);
     my $items = $self->conf->{fetch_items} || 20;
+    $self->log(info => 'fetch ' . scalar(@msgs) . ' entries');
 
     my $i = 0;
     my $blocked = 0;
     for my $msg (@msgs) {
-        next unless $msg->{image}; # external blog
+        next if $type eq 'friend_diary' and not $msg->{image}; # external blog
         last if $i++ >= $items;
 
         my $entry = Plagger::Entry->new;
@@ -77,8 +110,8 @@ sub aggregate {
         $entry->author( decode('euc-jp', $msg->{name}) );
         $entry->date( Plagger::Date->parse($format, $msg->{time}) );
 
-        if ($self->conf->{show_icon} && !$blocked) {
-            my $owner_id = ($msg->{link} =~ /owner_id=(\d+)/)[0];
+        if ($self->conf->{show_icon} && !$blocked && defined $MAP->{$type}->{icon_re}) {
+            my $owner_id = ($msg->{link} =~ $MAP->{$type}->{icon_re})[0];
             my $link = "http://mixi.jp/show_friend.pl?id=$owner_id";
             $context->log(info => "Fetch icon from $link");
 
@@ -103,13 +136,14 @@ sub aggregate {
             }
         }
 
-        if ($self->conf->{fetch_body} && !$blocked && $msg->{link} =~ /view_diary/) {
+        if ($self->conf->{fetch_body} && !$blocked && $msg->{link} =~ /view_/ && defined $MAP->{$type}->{get_detail}) {
             $context->log(info => "Fetch body from $msg->{link}");
             my $item = $self->cache->get_callback(
                 "item-$msg->{link}",
                 sub {
                     Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
-                    my($item) = $self->{mixi}->get_view_diary($msg->{link});
+                    my $meth = $MAP->{$type}->{get_detail};
+                    my($item) = $self->{mixi}->$meth($msg->{link});
                     $item;
                 },
                 '1 hour',
