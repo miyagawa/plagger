@@ -10,8 +10,6 @@ sub plugin_id {
     $self->class_id . '-' . $self->conf->{username};
 }
 
-sub encrypt_config { 'password' }
-
 sub register {
     my($self, $context) = @_;
 

@@ -35,26 +35,44 @@ sub init {
         $self->{rule} = Plagger::Rule->new({ module => 'Always' });
     }
 
-    if (my $params = $self->encrypt_config) {
-        $params = [ $params ] unless ref $params;
+    $self->walk_config_encryption();
+}
 
-        for my $key (@$params) {
-            my $config = $self->conf;
-            # support foo/bar/baz
-            while ($key =~ s!^(\w+)/!!) {
-                $config = $config->{$1};
+sub walk_config_encryption {
+    my $self = shift;
+    my $conf = $self->conf;
+
+    $self->do_walk($conf);
+}
+
+sub do_walk {
+    my($self, $data) = @_;
+    return unless defined($data) && ref $data;
+
+    if (ref($data) eq 'HASH') {
+        for my $key (keys %$data) {
+            if ($key =~ /password/) {
+                $self->decrypt_config($data, $key);
             }
-            my $decrypted = Plagger::Crypt->decrypt($config->{$key});
-            if ($decrypted eq $config->{$key}) {
-                Plagger->context->add_rewrite_task($key, $decrypted, Plagger::Crypt->encrypt($decrypted, 'base64'));
-            } else {
-                $config->{$key} = $decrypted;
-            }
+            $self->do_walk($data->{$key});
+        }
+    } elsif (ref($data) eq 'ARRAY') {
+        for my $value (@$data) {
+            $self->do_walk($value);
         }
     }
 }
 
-sub encrypt_config { }
+sub decrypt_config {
+    my($self, $data, $key) = @_;
+
+    my $decrypted = Plagger::Crypt->decrypt($data->{$key});
+    if ($decrypted eq $data->{$key}) {
+        Plagger->context->add_rewrite_task($key, $decrypted, Plagger::Crypt->encrypt($decrypted, 'base64'));
+    } else {
+        $data->{$key} = $decrypted;
+    }
+}
 
 sub conf { $_[0]->{conf} }
 sub rule { $_[0]->{rule} }
