@@ -184,6 +184,10 @@ Plagger::Plugin::CustomFeed::Mixi -  Custom feed for mixi.jp
         password: password
         fetch_body: 1
         show_icon: 1
+        feed_type:
+          - RecentComment
+          - FriendDiary
+          - Message
 
 =head1 DESCRIPTION
 
@@ -212,6 +216,14 @@ wait for a little, to avoid mixi.jp throttling. Defaults to 1.5.
 
 With this option set, this plugin fetches users buddy icon from
 mixi.jp site, which makes the output HTML very user-friendly.
+
+=item feed_type
+
+With this option set, you can set the feed types.
+
+Now supports: RecentComment, FriendDiary, and Message.
+
+Default: FriendDiary.
 
 =back
 
