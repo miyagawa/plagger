@@ -8,7 +8,7 @@ use strict;
 use base qw( Plagger::Plugin::Aggregator::Simple );
 use POE;
 use Xango::Broker::Push;
-# sub Xango::DEBUG { 1 } # uncomment to get Xango debug messages
+# BEGIN { sub Xango::DEBUG { 1 } } # uncomment to get Xango debug messages
 
 sub register {
     my($self, $context) = @_;
@@ -39,6 +39,7 @@ sub aggregate {
     my($self, $context, $args) = @_;
 
     my $url = $args->{feed}->url;
+    return unless $url =~ m!^https?://!i;
     $context->log(info => "Fetch $url");
     POE::Kernel->post($self->{xango_alias}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => 0));
 }
