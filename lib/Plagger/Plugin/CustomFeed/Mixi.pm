@@ -37,7 +37,7 @@ sub aggregate {
     my $response  = $self->{mixi}->get($start_url);
 
     if ($response->content =~ /action=login\.pl/) {
-        $context->log(debug => "Cookie not foud. Logging in");
+        $context->log(debug => "Cookie not found. Logging in");
         $response = $self->{mixi}->post("http://mixi.jp/login.pl", {
             next_url => "/new_friend_diary.pl",
             email    => $self->conf->{email},
