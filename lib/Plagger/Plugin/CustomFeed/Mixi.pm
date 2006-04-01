@@ -156,6 +156,8 @@ sub aggregate_feed {
                     $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
                 }
                 $entry->body($body);
+
+                $entry->date( Plagger::Date->parse($format, $item->{time}) );
             } else {
                 $context->log(warn => "Fetch body failed. You might be blocked?");
                 $blocked++;
