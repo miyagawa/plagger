@@ -105,6 +105,13 @@ sub filter {
 
     $args->{content} = decode_content($res);
 
+    # if the request was redirected, set it as permalink
+    my $base = $res->http_response->base;
+    if ( $base ne $args->{entry}->permalink ) {
+        $context->log(info => "rewrite permalink to $base");
+        $args->{entry}->permalink($base);
+    }
+
     my @plugins = $handler ? ($handler) : @{ $self->{plugins} };
 
     for my $plugin (@plugins) {

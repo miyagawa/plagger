@@ -1,5 +1,5 @@
 author: tokuhirom <tokuhirom@cpan.org>
-handle_force: http://feeds.feedburner.jp/cnet/
+handle_force: http://(feeds\.feedburner\.jp/cnet|japan\.cnet\.com/news)
 extract: (<div class="j5 mb15">.+?)(?:<div class="ad_under_b">|<div class="bd1">|<a target="_top" class="ad"|<div class="pl10 pr15 mb10">)
 extract_capture: body
-extract_after_hook: $data->{body} =~ s!(src=")([^h])!$1http://japan.cnet.com$2!g
+#extract_after_hook: $data->{body} =~ s!(src=")([^h])!$1http://japan.cnet.com$2!g
