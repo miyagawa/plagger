@@ -45,7 +45,10 @@ sub decode_content {
     # 3) if there's not still, try Guess
     # xxx it supports Japanese only
     my @guess = qw(utf-8 euc-jp shift_jis);
-    $charset = guess_encoding($content, @guess);
+    $charset ||= eval { guess_encoding($content, @guess)->name };
+
+    # 4) falls back to UTF-8
+    $charset ||= 'utf-8';
 
     return Encode::decode($charset, $content);
 }
