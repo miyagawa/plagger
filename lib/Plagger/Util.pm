@@ -4,9 +4,22 @@ our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title );
 
 use Encode ();
-use Encode::Guess;
 use List::Util qw(min);
 use HTML::Entities;
+
+our $Detector;
+
+BEGIN {
+    if ( eval { require Encode::Detect::Detector; 1 } ) {
+        $Detector = sub { Encode::Detect::Detector::detect($_[0]) };
+    } else {
+        require Encode::Guess;
+        $Detector = sub {
+            my @guess = qw(utf-8 euc-jp shift_jis); # xxx japanese only?
+            eval { guess_encoding($_[0], @guess)->name };
+        };
+    }
+}
 
 sub strip_html {
     my $html = shift;
@@ -42,10 +55,8 @@ sub decode_content {
     # 2) if there's not, try META tag
     $charset ||= ( $content =~ m!<meta http-equiv="Content-Type" content=".*charset=([\w\-]+)"!i )[0];
 
-    # 3) if there's not still, try Guess
-    # xxx it supports Japanese only
-    my @guess = qw(utf-8 euc-jp shift_jis);
-    $charset ||= eval { guess_encoding($content, @guess)->name };
+    # 3) if there's not still, try Detector/Guess
+    $charset ||= $Detector->($content);
 
     # 4) falls back to UTF-8
     $charset ||= 'utf-8';

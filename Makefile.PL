@@ -24,6 +24,10 @@ requires('Module::Pluggable::Fast');
 build_requires(Test::More => 0.42);
 
 features(
+    'Better Encoding detection' => [
+        -default => 1,
+        recommends('Encode::Detect'),
+    ],
     'POD Testing' => [
         -default => 0,
         recommends('Test::Pod'),
