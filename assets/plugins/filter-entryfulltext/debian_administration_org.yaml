@@ -1,3 +1,4 @@
+# best used with http://www.debian-administration.org/headlines.rdf
 author: Daisuke Murase <typester@cpan.org>
 handle: http://www\.debian-administration\.org/articles/
 extract: <div class="article">.*?Posted by.*?on (.*?) </p></div>.*?</div>(.*?)<div class="navigation">
