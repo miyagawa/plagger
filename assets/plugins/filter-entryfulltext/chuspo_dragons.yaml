@@ -1,0 +1,9 @@
+author: Daisuke Murase <typester@cpan.org>
+custom_feed_handle: http://chuspo\.chunichi\.co\.jp/dragons/tp
+custom_feed_follow_link: "^tp"
+handle: http://chuspo\.chunichi\.co\.jp/dragons/tp
+extract: (\d{4}.*?\d{1,2}.*?\d{1,2}).*?<FONT size="6".*?>(.*?)</FONT>.*?<FONT size="5".*?>(.*?)</FONT>.*?<FONT size=3>(.*?<BR>.*?)</FONT>
+extract_capture: date body1 body2 body3
+extract_date_format: %Y年%m月%d日
+extract_after_hook: $data->{body} = "<h2>$data->{body1} - $data->{body2}</h2>\n$data->{body3}"
+

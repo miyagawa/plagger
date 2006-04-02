@@ -178,11 +178,19 @@ sub extract {
 
     if (my @match = $args->{content} =~ /$self->{extract}/s) {
         my @capture = split /\s+/, $self->{extract_capture};
-        my %data; @data{@capture} = @match;
-        if ($data{date} && $self->{extract_date_format}) {
-            @data{date} = Plagger::Date->strptime($self->{extract_date_format}, $data{date});
+        my $data;
+        @{$data}{@capture} = @match;
+
+        if ($data->{date} && $self->{extract_date_format}) {
+            $data->{date} = Plagger::Date->strptime($self->{extract_date_format}, $data->{date});
         }
-        return \%data;
+
+        if ($self->{extract_after_hook}) {
+            eval $self->{extract_after_hook};
+            Plagger->context->error($@) if $@;
+        }
+
+        return $data;
     }
 }
 
