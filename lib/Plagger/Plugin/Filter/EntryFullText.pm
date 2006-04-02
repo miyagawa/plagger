@@ -6,6 +6,7 @@ use DirHandle;
 use Encode;
 use File::Spec;
 use List::Util qw(first);
+use HTML::ResolveLink;
 use Plagger::Date; # for metadata in plugins
 use Plagger::Util qw( decode_content );
 
@@ -89,6 +90,8 @@ sub filter {
                $data = { body => $data } if $data && !ref $data;
             if ($data) {
                 $context->log(info => "Extract content succeeded on " . $args->{entry}->permalink);
+                my $resolver = HTML::ResolveLink->new( base => $args->{entry}->permalink );
+                $data->{body} = $resolver->resolve( $data->{body} );
                 $args->{entry}->body($data->{body});
                 $args->{entry}->title($data->{title}) if $data->{title};
                 $args->{entry}->date($data->{date})   if $data->{date};
