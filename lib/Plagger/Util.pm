@@ -4,6 +4,7 @@ our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title );
 
 use Encode ();
+use Encode::Guess;
 use List::Util qw(min);
 use HTML::Entities;
 
@@ -35,10 +36,16 @@ sub decode_content {
     my $res = shift;
     my $content = $res->content;
 
+    # 1) get charset from HTTP Content-Type header
     my $charset = ($res->http_response->content_type =~ /charset=([\w\-]+)/)[0];
-    unless ($charset) {
-        $charset = ( $content =~ m!<meta http-equiv="Content-Type" content=".*charset=([\w\-]+)"! )[0] || "utf-8";
-    }
+
+    # 2) if there's not, try META tag
+    $charset ||= ( $content =~ m!<meta http-equiv="Content-Type" content=".*charset=([\w\-]+)"!i )[0];
+
+    # 3) if there's not still, try Guess
+    # xxx it supports Japanese only
+    my @guess = qw(utf-8 euc-jp shift_jis);
+    $charset = guess_encoding($content, @guess);
 
     return Encode::decode($charset, $content);
 }
