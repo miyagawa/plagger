@@ -16,7 +16,7 @@ BEGIN {
         require Encode::Guess;
         $Detector = sub {
             my @guess = qw(utf-8 euc-jp shift_jis); # xxx japanese only?
-            eval { guess_encoding($_[0], @guess)->name };
+            eval { Encode::Guess::guess_encoding($_[0], @guess)->name };
         };
     }
 }
