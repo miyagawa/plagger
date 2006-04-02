@@ -1,5 +1,3 @@
-use HTML::ResolveLink;
-
 sub handle {
     my ( $self, $args ) = @_;
     $args->{entry}->link =~ qr!^http://chuspo\.chunichi\.co\.jp/dragons/tp!;
@@ -13,9 +11,7 @@ sub extract {
         )
     {
         return {
-            body =>
-                HTML::ResolveLink->new( base => $args->{entry}->permalink )
-                ->resolve("<h2>$2 - $3</h2>\n$4"),
+            body => "<h2>$2 - $3</h2>\n$4",
             date => Plagger::Date->strptime( "%Y年%m月%d日", $1 ),
         };
     }
@@ -34,7 +30,6 @@ chuspo_dragons
         - url: http://chuspo.chunichi.co.jp/dragons/tp2006/tlist.htm
           meta:
             follow_link: "^tp"
-
 
 =head1 AUTHOR
 
