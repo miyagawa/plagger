@@ -21,3 +21,33 @@ sub extract {
     }
     return;
 }
+
+=head1 NAME
+
+chuspo_dragons
+
+=head1 SYNOPSIS
+
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: http://chuspo.chunichi.co.jp/dragons/tp2006/tlist.htm
+          meta:
+            follow_link: "^tp"
+
+
+=head1 AUTHOR
+
+Daisuke Murase <typester@cpan.org>
+
+==head1 LICENSE
+
+Except where otherwise noted, Plagger is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<http://plagger.org/>
+
+=cut
+
