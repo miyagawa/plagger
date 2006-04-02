@@ -1,3 +1,4 @@
+# best used with http://bulknews.net/rss/rdf.cgi?ZakZak
 author: youpy
 handle: http://www\.zakzak\.co\.jp/
 extract: <span class=kiji>(.*?)</span>
