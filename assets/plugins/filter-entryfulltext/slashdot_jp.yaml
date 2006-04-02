@@ -1,0 +1,6 @@
+# upgrade http://slashdot.jp/slashdotjp.rss
+author: Tatsuhiko Miyagawa
+handle: http://slashdot.jp/.*?article\.pl\?
+extract: (<div class="introtext">.*?</div>).*?(<div class="bodytext">.*?</div>)?
+extract_capture: body more
+extract_after_hook: $data->{body} .= $data->{more} if $data->{more}
