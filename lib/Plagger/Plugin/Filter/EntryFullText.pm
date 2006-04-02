@@ -184,7 +184,8 @@ sub handle_force {
 
 sub handle {
     my($self, $args) = @_;
-    $args->{entry}->link =~ /$self->{handle}/;
+    $self->{handle}
+        ? $args->{entry}->link =~ /$self->{handle}/ : 0;
 }
 
 sub extract {
