@@ -1,0 +1,2 @@
+handle: http://www\.asahi\.com/
+extract: <!-- Start of Kiji -->(.*?)<!-- End of Kiji -->
