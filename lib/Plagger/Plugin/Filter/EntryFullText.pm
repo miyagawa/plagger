@@ -200,7 +200,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::EntryFullText - Framework to fetch entry full text
+Plagger::Plugin::Filter::EntryFullText - Upgrader your feeds to fulltext class
 
 =head1 SYNOPSIS
 
@@ -220,8 +220,11 @@ Plagger::Plugin::Filter::EntryFullText - Framework to fetch entry full text
 =head1 DESCRIPTION
 
 This plugin allows you to fetch entry full text by doing HTTP GET and
-apply regexp to HTML. You can write custom fulltext handler by putting
-C<.pl> files under assets plugin directory.
+apply regexp to HTML. It's just like upgrading your flight ticket from
+economy class to business class!
+
+You can write custom fulltext handler by putting C<.pl> or C<.yaml>
+files under assets plugin directory.
 
 =head1 CONFIG
 
