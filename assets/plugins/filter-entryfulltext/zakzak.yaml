@@ -1,5 +1,7 @@
-# best used with http://bulknews.net/rss/rdf.cgi?ZakZak
+# used with http://www.zakzak.co.jp/ or http://bulknews.net/rss/rdf.cgi?ZakZak
 author: youpy
-handle: http://www\.zakzak\.co\.jp/
-extract: <span class=kiji>(.*?)</span>
-extract_capture: body
+custom_feed_handle: http://www\.zakzak\.co\.jp/$
+custom_feed_follow_link: (?:top|spo|gei)/\d+.*?\.html
+handle: http://www\.zakzak\.co\.jp/(?:top|spo|gei)/\d+
+extract: <!--midashi-->(.*?)\r?\n</font>.*?<span class=kiji>(.*?)</span>
+extract_capture: title body
