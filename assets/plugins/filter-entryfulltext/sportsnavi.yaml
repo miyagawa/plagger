@@ -1,0 +1,7 @@
+custom_feed_handle: http://sportsnavi\.yahoo\.co\.jp/(?:index\.html)?$
+custom_feed_follow_link: /headlines/\d{8}
+handle: http://sportsnavi\.yahoo\.co\.jp/.*/headlines/
+extract: <span class="user1"><span class="line15">(.*?)<!-- \d+.*? -->.*?\[ .*? (\d+.*?) \]
+extract_capture: body date
+extract_date_format: %Y年%m月%d日 %H:%M
+

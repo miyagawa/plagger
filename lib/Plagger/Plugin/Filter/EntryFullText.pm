@@ -9,13 +9,14 @@ use List::Util qw(first);
 use HTML::ResolveLink;
 use Plagger::Date; # for metadata in plugins
 use Plagger::Util qw( decode_content );
-
+use Plagger::Plugin::CustomFeed::Simple;
 use Plagger::UserAgent;
 
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
+        'customfeed.handle'  => \&handle,
         'update.entry.fixup' => \&filter,
     );
 }
@@ -34,7 +35,7 @@ sub load_plugins {
 
     my $dir = $self->assets_dir;
     my $dh = DirHandle->new($dir) or $context->error("$dir: $!");
-    for my $file (grep -f $_->[0] && $_->[0] =~ /\.pl$/,
+    for my $file (grep -f $_->[0] && $_->[0] =~ /\.(?:yaml)$/,
                   map [ File::Spec->catfile($dir, $_), $_ ], $dh->read) {
         $self->load_plugin(@$file);
     }
@@ -44,6 +45,13 @@ sub load_plugin {
     my($self, $file, $base) = @_;
 
     Plagger->context->log(debug => "loading $file");
+
+    my $load_method = $file =~ /\.pl$/ ? 'load_plugin_perl' : 'load_plugin_yaml';
+    push @{ $self->{plugins} }, $self->$load_method($file, $base);
+}
+
+sub load_plugin_perl {
+    my($self, $file, $base) = @_;
 
     open my $fh, $file or Plagger->context->error("$file: $!");
     (my $pkg = $base) =~ s/\.pl$//;
@@ -65,6 +73,23 @@ sub load_plugin {
 
     my $plugin = $plugin_class->new;
     push @{ $self->{plugins} }, $plugin;
+}
+
+sub load_plugin_yaml {
+    my($self, $file, $base) = @_;
+    my $data = YAML::LoadFile($file);
+
+    return Plagger::Plugin::Filter::EntryFullText::YAML->new($data, $base);
+}
+
+sub handle {
+    my($self, $context, $args) = @_;
+
+    my $handler = first { $_->custom_feed_handle($args) } @{ $self->{plugins} };
+    if ($handler) {
+        $args->{match} = $handler->custom_feed_follow_link;
+        return $self->Plagger::Plugin::CustomFeed::Simple::aggregate($context, $args);
+    }
 }
 
 sub filter {
@@ -112,8 +137,54 @@ sub filter {
 
 package Plagger::Plugin::Filter::EntryFullText::Site;
 sub new { bless {}, shift }
+sub custom_feed_handle { 0 }
+sub custom_feed_follow_link { }
 sub handle_force { 0 }
 sub handle { 0 }
+
+package Plagger::Plugin::Filter::EntryFullText::YAML;
+sub new {
+    my($class, $data, $base) = @_;
+    bless {%$data, base => $base }, $class;
+}
+
+sub site_name {
+    my $self = shift;
+    $self->{base};
+}
+
+sub custom_feed_handle {
+    my($self, $args) = @_;
+    $args->{feed}->url =~ /$self->{custom_feed_handle}/;
+}
+
+sub custom_feed_follow_link {
+    $_[0]->{custom_feed_follow_link};
+}
+
+sub handle_force {
+    my($self, $args) = @_;
+    $self->{handle_force}
+        ? $args->{entry}->link =~ /$self->{handle_force}/ : 0;
+}
+
+sub handle {
+    my($self, $args) = @_;
+    $args->{entry}->link =~ /$self->{handle}/;
+}
+
+sub extract {
+    my($self, $args) = @_;
+
+    if (my @match = $args->{content} =~ /$self->{extract}/s) {
+        my @capture = split /\s+/, $self->{extract_capture};
+        my %data; @data{@capture} = @match;
+        if ($data{date} && $self->{extract_date_format}) {
+            @data{date} = Plagger::Date->strptime($self->{extract_date_format}, $data{date});
+        }
+        return \%data;
+    }
+}
 
 1;
 

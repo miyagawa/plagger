@@ -18,7 +18,8 @@ sub register {
 sub handle {
     my($self, $context, $args) = @_;
 
-    if ($args->{feed}->meta->{follow_link}) {
+    if (my $match = $args->{feed}->meta->{follow_link}) {
+        $args->{match} = $match;
         return $self->aggregate($context, $args);
     }
 
@@ -46,7 +47,7 @@ sub aggregate {
     $feed->title($title);
     $feed->link($url);
 
-    my $re = $args->{feed}->meta->{follow_link};
+    my $re = $args->{match};
 
     my $parser = HTML::TokeParser->new(\$content);
     while (my $token = $parser->get_tag('a')) {
