@@ -118,7 +118,14 @@ sub filter {
                 $data->{body} = $resolver->resolve( $data->{body} );
                 $args->{entry}->body($data->{body});
                 $args->{entry}->title($data->{title}) if $data->{title};
-                $args->{entry}->date($data->{date})   if $data->{date};
+
+                # extract date using found one, falls back to Last-Modified
+                if ($data->{date}) {
+                    $args->{entry}->date($data->{date});
+                } elsif ($res->last_modified) {
+                    $args->{entry}->date( Plagger::Date->from_epoch($res->last_modified) );
+                }
+
                 return 1;
             }
         }
