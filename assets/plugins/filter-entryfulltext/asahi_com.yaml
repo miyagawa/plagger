@@ -1,4 +1,4 @@
-# best used with http://www3.asahi.com/rss/index.rdf
+# upgrade http://www3.asahi.com/rss/index.rdf
 author: Tatsuhiko Miyagawa
 handle: http://www\.asahi\.com/
-extract: <!-- Start of Kiji -->(.*?)<!-- End of Kiji -->
+extract: <!-- Start of Kiji -->(.*?)</div>\r?\n<br><!-- End of Kiji -->
