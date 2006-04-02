@@ -1,0 +1,4 @@
+author: youpy
+handle: http://www\.zakzak\.co\.jp/
+extract: <span class=kiji>(.*?)</span>
+extract_capture: body
