@@ -7,6 +7,8 @@ use Encode;
 use DateTime::Format::W3CDTF;
 use HTML::Entities;
 use Plagger::UserAgent;
+use Net::Amazon;
+use Net::Amazon::Request::Keyword;
 
 sub register {
     my($self, $context) = @_;
@@ -76,8 +78,6 @@ sub aggregate {
             and $data->{date} = HTML::Entities::decode($1);
         m!</dict>!
             and do {
-                my $entry = Plagger::Entry->new;
-
                 if( $data->{date} and $data->{artist} ){
                     my $dt = DateTime::Format::W3CDTF->parse_datetime($data->{date});
                     unless ($dt) {
@@ -85,11 +85,37 @@ sub aggregate {
                         next;
                     }
                     if( !defined $self->conf->{duration} or $dt->epoch > time - $self->conf->{duration} * 60 ){
+                        my $entry = Plagger::Entry->new;
+                        $entry->date(Plagger::Date->from_epoch($dt->epoch));
+
+                        # author
+                        $entry->author($data->{artist});
+
+                        # title
+                        my $title = $self->conf->{title_format};
+                        $title = '%track - %artist' unless $title;
+                        $title =~ s/%artist/$data->{artist}/;
+                        $title =~ s/%album/$data->{album}/;
+                        $title =~ s/%track/$data->{track}/;
+                        $entry->title($title);
+
+                        # search aws
+                        if($self->conf->{aws_developer_token}){
+                            my $item = $self->search_aws($context, $data->{artist}, $data->{album});
+                            if($item){
+                                $entry->link($item->url);
+                                $entry->icon({ url => $item->ImageUrlSmall });
+                                $entry->body($item->ProductDescription);
+                                $entry->summary($item->ProductDescription);
+                            }
+                        }
+
                         for my $key (keys %$data){
                             $entry->meta->{$key} = $data->{$key};
                         }
-                        $entry->date(Plagger::Date->from_epoch($dt->epoch));
+
                         $context->log( debug => $data->{artist} . ' ' . $data->{track});
+
                         $feed->add_entry($entry);
                     }
                 }
@@ -98,6 +124,27 @@ sub aggregate {
     }
 
     $context->update->add($feed);
+}
+
+sub search_aws {
+    my($self, $context, $artist, $album) = @_;
+    $context->log( info => "Searching $artist - $album on Amazon...");
+    my $attr;
+    $attr->{token}  = $self->conf->{aws_developer_token};
+    $attr->{locale} = $self->conf->{aws_locale};
+    $attr->{affiliate_id} = $self->conf->{aws_associate_id};
+
+    my $ua = Net::Amazon->new(%$attr);
+
+    my $keyword = encode("UTF-8", "$artist $album");
+    my $req = Net::Amazon::Request::Keyword->new(
+        keyword => $keyword,
+        mode    => 'music'. $self->conf->{aws_locale},
+    );
+
+    my $response = $ua->request($req);
+    my $item = ($response->properties())[0];
+    return $item;
 }
 
 1;
@@ -114,6 +161,10 @@ Plagger::Plugin::CustomFeed::iTunesRecentPlay - iTunes Recent Play custom feed
     config:
       library_path: /path/to/iTunes Music Library.xml
       duration: 120
+      title_format: %track - %artist
+      aws_developer_token: XXXXXXXXXXXXXXXXXXXX
+      aws_associate_id: xxxxxxxxxx-22
+      aws_locale: jp
 
 =head1 DESCRIPTION
 
@@ -133,6 +184,22 @@ this plugin try to find it automatically.
 This plugin find a music played recently if last played time is within
 this parameter.It's good to define this parameter same as execution
 period of plagger with cron to reduce memory usage.
+
+=item title_format
+
+Set a title format of an entry.You can use %track, %artist and %album.
+
+=item aws_developer_token
+
+If you set this parameter, this plugin get information about a track from the Amazon web service.
+
+=item aws_associate_id
+
+Your Amazon associate ID.
+
+=item aws_locale
+
+Set a web service locale.
 
 =back
 
