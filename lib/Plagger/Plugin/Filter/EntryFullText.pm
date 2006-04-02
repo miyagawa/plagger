@@ -35,7 +35,7 @@ sub load_plugins {
 
     my $dir = $self->assets_dir;
     my $dh = DirHandle->new($dir) or $context->error("$dir: $!");
-    for my $file (grep -f $_->[0] && $_->[0] =~ /\.(?:yaml)$/,
+    for my $file (grep -f $_->[0] && $_->[0] =~ /\.(?:pl|yaml)$/,
                   map [ File::Spec->catfile($dir, $_), $_ ], $dh->read) {
         $self->load_plugin(@$file);
     }
@@ -71,8 +71,7 @@ sub load_plugin_perl {
     eval $code;
     Plagger->context->error($@) if $@;
 
-    my $plugin = $plugin_class->new;
-    push @{ $self->{plugins} }, $plugin;
+    return $plugin_class->new;
 }
 
 sub load_plugin_yaml {
