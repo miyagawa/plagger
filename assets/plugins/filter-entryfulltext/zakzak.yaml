@@ -5,3 +5,4 @@ custom_feed_follow_link: (?:top|spo|gei)/\d+.*?\.html
 handle: http://www\.zakzak\.co\.jp/(?:top|spo|gei)/\d+
 extract: <!--midashi-->(.*?)\r?\n</font>.*?<span class=kiji>(.*?)</span>
 extract_capture: title body
+extract_after_hook: $data->{body} =~ s/<table width="60%".*?<\/table>//
