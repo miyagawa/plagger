@@ -155,7 +155,8 @@ sub site_name {
 
 sub custom_feed_handle {
     my($self, $args) = @_;
-    $args->{feed}->url =~ /$self->{custom_feed_handle}/;
+    $self->{custom_feed_handle} ?
+        $args->{feed}->url =~ /$self->{custom_feed_handle}/ : 0;
 }
 
 sub custom_feed_follow_link {
