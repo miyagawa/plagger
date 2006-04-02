@@ -1,0 +1,5 @@
+author: Daisuke Murase <typester@cpan.org>
+handle: http://www\.debian-administration\.org/articles/
+extract: <div class="article">.*?Posted by.*?on (.*?) </p></div>.*?</div>(.*?)<div class="navigation">
+extract_capture: date body
+extract_date_format: %a %d %b %Y  at %H:%M
