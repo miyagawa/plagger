@@ -200,7 +200,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::EntryFullText - Upgrader your feeds to fulltext class
+Plagger::Plugin::Filter::EntryFullText - Upgrade your feeds to fulltext class
 
 =head1 SYNOPSIS
 
