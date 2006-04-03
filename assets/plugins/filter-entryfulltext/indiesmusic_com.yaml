@@ -1,0 +1,11 @@
+# used with http://www.indiesmusic.com/
+author: Daisuke Murase <typester@cpan.org>
+custom_feed_handle: http://www\.indiesmusic\.com/
+custom_feed_follow_link: /itemview\.asp\?id=\d+
+handle: http://www\.indiesmusic\.com/itemview\.asp\?id=\d+
+extract: <img src="(/images/item/\d+/.*?\.jpg)" hspace="8" vspace="0" align="left">.*?src="/images/itemview_title\.gif".*?<div class="format2">(.*?)</div>.*?<a href="/artistview\.asp\?id=\d+">(.*?)</a>.*?<font SIZE="2"><div class="format1">(.*?)</div>.*?<table.*?>(.*?</table>)
+extract_capture: image title1 title2 body1 body2
+extract_after_hook: |
+  $data->{title} = "$data->{title2} - $data->{title1}";
+  $data->{body} = qq!<p><img src="$data->{image}" /></p><p>$data->{body1}</p><table style="font-size: 86%">$data->{body2}!;
+
