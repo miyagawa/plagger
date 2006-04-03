@@ -100,6 +100,11 @@ sub filter {
         return;
     }
 
+    if (! $args->{entry}->permalink) {
+        $self->log(debug => "Entry " . $args->{entry}->title . " doesn't have permalink. Skipped");
+        return;
+    }
+
     my $res = $self->{ua}->fetch( $args->{entry}->permalink, $self );
     return if $res->http_response->is_error;
 
