@@ -104,7 +104,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Speech::MacOSX - speak your subscription on MacOSX
+Plagger::Plugin::Publish::Speech::MacOSX - speak your subscription on MacOSX
 
 =head1 SYNOPSIS
 
