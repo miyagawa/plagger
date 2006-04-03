@@ -161,8 +161,21 @@ sub handle_force { 0 }
 sub handle { 0 }
 
 package Plagger::Plugin::Filter::EntryFullText::YAML;
+use Encode;
+
 sub new {
     my($class, $data, $base) = @_;
+
+    # add ^ if handle method starts with http://
+    for my $key ( qw(custom_feed_handle handle handle_force) ) {
+        $data->{$key} = "^$data->{$key}" if $data->{$key} =~ m!^https?://!;
+    }
+
+    # decode as UTF-8
+    for my $key ( qw(extract extract_date_format) ) {
+        $data->{$key} = decode("UTF-8", $data->{$key});
+    }
+
     bless {%$data, base => $base }, $class;
 }
 
