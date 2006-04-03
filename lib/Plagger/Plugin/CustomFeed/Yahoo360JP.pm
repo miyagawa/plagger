@@ -140,7 +140,7 @@ RE
                 month    => $10,
             }, $now, $format);
         }
-    } else {
+    } elsif ($self->conf->{fetch_blast}) {
         $context->log(error => "Can't find link to blast page.");
     }
 
