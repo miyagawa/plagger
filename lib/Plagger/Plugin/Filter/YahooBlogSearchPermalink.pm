@@ -17,7 +17,7 @@ sub filter {
 
     my $entry = $args->{entry};
     my $permalink = $entry->permalink;
-    if ($permalink =~ s!^http://rd\.yahoo\.co\.jp/rss/l/blogsearch/search/\*!) {
+    if ($permalink =~ s!^http://rd\.yahoo\.co\.jp/rss/l/blogsearch/search/\*!!) {
         $entry->permalink($permalink);
         $context->log(info => "Permalink rewritten to $permalink");
     }
