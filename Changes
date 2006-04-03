@@ -1,5 +1,32 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.6.1 (2006/04/03) ==
+
+=== Core ===
+
+ * New Feed Upgrade framework: CustomFeed::Simple and Filter::EntryFullText
+ * Supports .pl and .yaml file based site upgrader scripts
+ * Plagger::Util has decode_content and extract_title
+ * Support metadata in config.yaml
+ * Support automatic config rewriting for password fields using Base64 for now
+ * New dependencies: Module::Pluggable::Fast and HTML::ResolveLink
+ * Uses Encode::Detect and falls back to Encode::Guess to guess charset of HTML
+ * New author: typester (Daisuke Murase)
+ * Added lots of site upgrade scripts
+
+=== New Plugins ===
+
+ * Filter::YahooBlogSearchPermalink: Fixes permalink redirector of Y! Blog Search (.jp) (miyagawa)
+
+=== Plugins Updates ===
+
+ * WebService::Bloglines: Fix guid stringification bug (typester)
+ * CustomFeed::iTunesRecentPlay: Amazon Web Services Integration (mizzy)
+ * CustomFeed::Frepa: Fixed blast error logic (secondlife)
+ * Subscription::Planet: Added Yahoo! Blog Search, Feedster and BlogPulse
+
+
+
 == 0.6.0 (2006/04/02) ==
 
 === Core ===
