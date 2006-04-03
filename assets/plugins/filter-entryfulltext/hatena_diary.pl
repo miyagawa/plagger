@@ -14,7 +14,9 @@ sub extract {
                      qq!</h3>(.*?)</div>!;
 
     if ( $args->{content} =~ /$match/s ){
-        return "<div>$1</div>";
+        my $body = $1;
+        $body =~ s!<p class="sectionfooter">.*?</p>!!;
+        return "<div>$body</div>";
     }
     return;
 }
