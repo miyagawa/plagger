@@ -62,6 +62,7 @@ sub aggregate {
 
     my $blast_feed;
     if ($self->conf->{fetch_blast}) {
+        $blast_feed = Plagger::Feed->new;
         $blast_feed->type('yahoo360jp-blast');
         $blast_feed->title('Yahoo! 360 ひとこと');
         $blast_feed->link('http://360.yahoo.co.jp/');
