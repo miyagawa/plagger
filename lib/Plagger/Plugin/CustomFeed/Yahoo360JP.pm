@@ -26,6 +26,7 @@ sub load {
     my $feed = Plagger::Feed->new;
        $feed->aggregator(sub { $self->aggregate(@_) });
     $context->subscription->add($feed);
+
 }
 
 sub aggregate {
@@ -58,6 +59,13 @@ sub aggregate {
     $feed->type('yahoo360jp');
     $feed->title('Yahoo! 360');
     $feed->link('http://360.yahoo.co.jp/friends/content.html');
+
+    my $blast_feed;
+    if ($self->conf->{fetch_blast}) {
+        $blast_feed->type('yahoo360jp-blast');
+        $blast_feed->title('Yahoo! 360 ひとこと');
+        $blast_feed->link('http://360.yahoo.co.jp/');
+    }
 
     # get friends blogs
     $mech->get("http://360.yahoo.co.jp/friends/content.html");
@@ -128,7 +136,7 @@ RE
         $mech->get($link->url);
         my $content = decode('utf-8', $mech->content);
         while ($content =~ /$re/g) {
-            $self->add_entry($feed, {
+            $self->add_entry($blast_feed, {
                 profile  => $1,
                 nickname => $2,
                 icon     => $3,
@@ -146,6 +154,7 @@ RE
 
     $feed->sort_entries;
     $context->update->add($feed);
+    $context->update->add($blast_feed) if $blast_feed;
 }
 
 sub login {
