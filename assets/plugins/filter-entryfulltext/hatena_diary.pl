@@ -15,8 +15,6 @@ sub extract {
          $day_only ? qq!<div class="section">(.*?)</div>! :
                      qq!</h3>(.*?)</div>!;
 
-    warn $match;
-
     if ( $args->{content} =~ /$match/s ){
         my $body = $1;
         $body =~ s!<p class="sectionfooter">.*?</p>!!;
