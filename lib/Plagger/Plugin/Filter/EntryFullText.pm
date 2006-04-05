@@ -239,17 +239,6 @@ Plagger::Plugin::Filter::EntryFullText - Upgrade your feeds to fulltext class
 
   - module: Filter::EntryFullText
 
-  # assets/plugins/filter-entryfulltext/asahi_com.pl
-  sub handle {
-      my($self, $args) = @_;
-      $args->{entry}->link =~ qr!^http://www\.asahi\.com/!;
-  }
-
-  sub extract_body {
-      my($self, $content) = @_;
-      ( $content =~ /<!-- Start of Kiji -->(.*)<!-- End of Kiji -->/s )[0];
-  }
-
 =head1 DESCRIPTION
 
 This plugin allows you to fetch entry full text by doing HTTP GET and
