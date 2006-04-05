@@ -16,7 +16,7 @@ sub register {
 sub load {
     my($self, $context) = @_;
 
-    my $feeds = $self->conf->{feed};
+    my $feeds = $self->conf->{feed} or return;
        $feeds = [ $feeds ] unless ref $feeds;
 
     for my $config (@$feeds) {
