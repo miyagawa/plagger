@@ -101,11 +101,11 @@ sub plugin_id {
 sub assets_dir {
     my $self = shift;
 
-    my $assets_dir = File::Spec->catfile(
-                            $self->conf->{assets_path}
-                         || ($FindBin::Bin, "assets/plugins", $self->class_id)
-                     );
-
+    my $context = Plagger->context;
+    my $assets_base = $context->conf->{assets_path} || File::Spec->catfile($FindBin::Bin, "assets");
+    return File::Spec->catfile(
+        $assets_base, "plugins", $self->class_id,
+    );
 }
 
 sub log {
