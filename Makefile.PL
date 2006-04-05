@@ -125,6 +125,7 @@ features(
         -default => 0,
         recommends('HTML::Tidy'),
         recommends('HTML::Scrubber'),
+        recommends('File::Copy::Recursive'),
     ],
     'Publish::CSV' => [
         -default => 0,
