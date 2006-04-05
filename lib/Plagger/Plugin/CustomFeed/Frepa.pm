@@ -53,7 +53,6 @@ sub aggregate {
 sub aggregate_by_plugin {
     my ($self, $context, $plugin, $args) = @_;
 
-
     my $feed = Plagger::Feed->new;
     $feed->type('frepa');
     $feed->title($plugin->title);
@@ -61,7 +60,7 @@ sub aggregate_by_plugin {
 
     my $format = DateTime::Format::Strptime->new(pattern => '%Y/%m/%d %H:%M');
 
-    my @msgs = $plugin->get_list($self->{mech});
+    my @msgs = $plugin->get_list($self->{mech}, $self);
     my $items = $self->conf->{fetch_items} || 20;
 
     my $i = 0;
@@ -170,7 +169,7 @@ sub get_top {
 
 sub top_re {
     return <<'RE';
-<a href="http://frepa\.livedoor\.com/.*?/"(?: rel="popup")?><img src="(http://img\d+\.(?:ico\.frepa\.livedoor\.com/member_photo/|bbs\.frepa\.livedoor\.com/community_board/).*?\.(?:jpe?g|JPE?G|gif|GIF|png|PNG))" border="0"></a>
+<a href="http://(?:frepa\.livedoor\.com/.*?/|www\.frepa\.livedoor\.com/)"(?: rel="popup")?><img src="(http://img\d+\.(?:ico\.frepa\.livedoor\.com/member_photo/|bbs\.frepa\.livedoor\.com/community_board/).*?\.(?:jpe?g|JPE?G|gif|GIF|png|PNG))" border="0"></a>
 </small>
 .*?
 <div id="namebody"><small><strong>(.*?)....</strong>
