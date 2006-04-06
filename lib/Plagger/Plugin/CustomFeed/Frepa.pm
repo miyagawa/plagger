@@ -45,7 +45,7 @@ sub aggregate {
     my $feed_type = $self->conf->{feed_type} || ['FriendDiary'];
     for my $plugin (@$feed_type) {
         my $plugin = (ref $self || $self) . "::$plugin";
-        $plugin->use or $context->error($@);
+        $plugin->require or $context->error($@);
         $self->aggregate_by_plugin($context, $plugin, $args);
     }
 }

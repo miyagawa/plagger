@@ -5,7 +5,7 @@ all_from('lib/Plagger.pm');
 
 requires('Class::Accessor::Fast');
 requires('File::Find::Rule');
-requires('UNIVERSAL::require');
+requires('UNIVERSAL::require' => 0.10);
 requires('Template');
 requires('Template::Provider::Encoding' => 0.04);
 requires('YAML' => 0.39);
