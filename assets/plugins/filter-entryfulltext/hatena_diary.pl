@@ -5,7 +5,10 @@ sub handle {
 
 sub extract {
     my($self, $args) = @_;
-    my $path = URI->new($args->{entry}->link)->path;
+
+    my $link = URI->new($args->{entry}->link);
+    my $path = $link->path;
+       $path .= '#' . $link->fragment if $link->fragment;
 
     my $name     = ( $path =~ /\#([\w\-]+)$/ )[0];
     my $day_only = $path =~ m!^/[\w\-]+/\d+/?$!;
