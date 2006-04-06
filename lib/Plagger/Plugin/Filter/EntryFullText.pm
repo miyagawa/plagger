@@ -76,10 +76,10 @@ sub load_plugin_perl {
 
 sub load_plugin_yaml {
     my($self, $file, $base) = @_;
-    my $data = [ YAML::LoadFile($file) ];
+    my @data = YAML::LoadFile($file);
 
-    return Plagger::Plugin::Filter::EntryFullText::YAML->new($_, $base) 
-        for @$data;
+    return map { Plagger::Plugin::Filter::EntryFullText::YAML->new($_, $base) }
+        @data;
 }
 
 sub handle {
