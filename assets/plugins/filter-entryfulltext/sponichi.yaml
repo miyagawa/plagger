@@ -1,0 +1,8 @@
+# Upgrade Google News feeds
+author: Tatsuhiko Miyagawa
+handle: http://www\.sponichi\.co\.jp/
+extract: <!-- google_ad_section_start\(name=s1\) -->\s*<!-- 記事前文ここから -->(.*?)<!-- 記事本文ここまで -->\s*<!-- google_ad_section_end\(name=s1\) -->.*?<td align="right" class="text_m">\s*\[ (\d{4}年\d\d月\d\d日付|\d{4}年\d\d月\d\d日 \d\d:\d\d)
+extract_capture: body date
+extract_date_format:
+  - %Y年%m月%d日 %H:%M
+  - %Y年%m月%d日

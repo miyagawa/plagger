@@ -1,0 +1,7 @@
+# upgrade Google News Sports feeds
+author: Tatsuhiko Miyagawa
+handle: http://www.yomiuri.co.jp/
+extract: <!-- google_ad_region_start=region1 -->(.*?)<div class="date-def">（<!--// date_start //-->(.*?)<!--// date_end //-->
+extract_capture: body date
+extract_date_format: %Y年%m月%d日%H時%M分
+extract_after_hook: $data->{body} =~ s|<!--// rectangle_start .*?<!--// rectangle_end //-->||s;

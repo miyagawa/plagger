@@ -1,0 +1,8 @@
+# Upgrade Google News feeds or http://bulknews.net/rss/rdf.cgi?NetKeiba
+author: Tatsuhiko Miyagawa
+handle: http://news\.netkeiba\.com/
+extract: <h2 class="title".*?>\s*(.*?)\s*</h2>.*?</table>\s*<img .*?><br />\s*(.*?)<br /><br />\s*<div align="right">(\d{4}年\d{2}月\d{2}日)</div>
+extract_capture: title body date
+extract_date_format: %Y年%m月%d日
+extract_after_hook: |
+  $data->{body} =~ s!<br /><br />\s*<div align="right">.*?ad_flash.*?</div>!!;

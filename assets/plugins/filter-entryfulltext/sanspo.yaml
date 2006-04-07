@@ -1,0 +1,6 @@
+# upgrade Google News Sports feeds
+# The site has Last-Modified header and thus no need to capture date
+author: Tatsuhiko Miyagawa
+handle: http://www.sanspo.com/.*?\.html
+extract: <!-- 記事本文　ここから -->(.*?)<!-- 記事本文　ここまで -->
+extract_capture: body

@@ -36,7 +36,7 @@ sub load_plugins {
     my $dir = $self->assets_dir;
     my $dh = DirHandle->new($dir) or $context->error("$dir: $!");
     for my $file (grep -f $_->[0] && $_->[0] =~ /\.(?:pl|yaml)$/,
-                  map [ File::Spec->catfile($dir, $_), $_ ], $dh->read) {
+                  map [ File::Spec->catfile($dir, $_), $_ ], sort $dh->read) {
         $self->load_plugin(@$file);
     }
 }
@@ -163,6 +163,7 @@ sub handle { 0 }
 
 package Plagger::Plugin::Filter::EntryFullText::YAML;
 use Encode;
+use List::Util qw(first);
 
 sub new {
     my($class, $data, $base) = @_;
@@ -216,8 +217,9 @@ sub extract {
         @{$data}{@capture} = @match;
 
         if ($data->{date}) {
-            if ($self->{extract_date_format}) {
-                $data->{date} = Plagger::Date->strptime($self->{extract_date_format}, $data->{date});
+            if (my $format = $self->{extract_date_format}) {
+                $format = [ $format ] unless ref $format;
+                $data->{date} = (map { Plagger::Date->strptime($_, $data->{date}) } @$format)[0];
             } else {
                 $data->{date} = Plagger::Date->parse_dwim($data->{date});
             }

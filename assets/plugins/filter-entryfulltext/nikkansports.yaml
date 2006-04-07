@@ -3,6 +3,9 @@ author: Tatsuhiko Miyagawa
 custom_feed_handle: http://www.nikkansports.com/
 custom_feed_follow_link: /\w+/[fp]-\w\w-tp\d+-\d{8}-\d+\.html$
 handle: http://[\w\-]+.nikkansports.com/\w+/
-extract: <h2>.*?</h2>\s*((?:<p>|<!-- \+\+\+\+\+).*?)<p>［(\d{4}年\d\d?月\d\d?日\d\d?時\d\d?分)(?:　紙面から)?］</p>
-extract_capture: body date
-extract_date_format: %Y年%m月%d日%H時%M分
+extract: <div id="news">.*?<h2>(.*?)</h2>\s*((?:<p>|<!-- \+\+\+\+\+).*?)<p>［(\d{4}年\d\d?月\d\d?日\d\d?時\d\d?分|\d{4}/\d\d?/\d\d?/\d\d:\d\d)(?:　紙面から)?］</p>
+extract_capture: title body date
+extract_date_format:
+  - %Y年%m月%d日%H時%M分
+  - %Y/%m/%d %H:%M
+
