@@ -21,6 +21,7 @@ requires('URI::Fetch' => 0.05);
 requires('Cache::Cache' => 1.04);
 requires('Module::Pluggable::Fast');
 requires('HTML::ResolveLink');
+requires('Date::Parse');
 
 build_requires(Test::More => 0.42);
 

@@ -1,0 +1,13 @@
+# upgrades: http://news.com.com/2547-1_3-0-5.xml
+author: Tatsuhiko Miyagawa
+handle: http://news\.com\.com/
+extract: <!-- Search Engine Component  -->\s*(<p>.*?</p>)\s*<div id="storyFoot">
+extract_capture: body
+extract_after_hook: $data->{body} =~ s/<!-- STORY TEASE -->.*?<!-- END STORY TEASE -->//s;
+---
+author: Tatsuhiko Miyagawa
+handle: http://news\.com\.com/
+extract: <div class="datestamp">.*?</div>\s*(<p>.*?</p>)\s*<div class="blogAuthor">
+extract_capture: body
+
+

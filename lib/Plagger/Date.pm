@@ -27,6 +27,15 @@ sub parse {
     bless $dt, $class;
 }
 
+sub parse_dwim {
+    my($class, $str) = @_;
+
+    require Date::Parse;
+    my $time = Date::Parse::str2time($str) or return;
+
+    $class->from_epoch($time);
+}
+
 sub strptime {
     my($class, $pattern, $date) = @_;
     Encode::_utf8_on($pattern);

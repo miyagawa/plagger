@@ -215,8 +215,12 @@ sub extract {
         my $data;
         @{$data}{@capture} = @match;
 
-        if ($data->{date} && $self->{extract_date_format}) {
-            $data->{date} = Plagger::Date->strptime($self->{extract_date_format}, $data->{date});
+        if ($data->{date}) {
+            if ($self->{extract_date_format}) {
+                $data->{date} = Plagger::Date->strptime($self->{extract_date_format}, $data->{date});
+            } else {
+                $data->{date} = Plagger::Date->parse_dwim($data->{date});
+            }
         }
 
         if ($self->{extract_after_hook}) {
