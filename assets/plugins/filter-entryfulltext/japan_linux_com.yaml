@@ -1,0 +1,11 @@
+# upgrade http://japan.linux.com/
+#    japanlinuxcom.rdf
+#    enterprise.rdf
+#    kernel.rdf
+#    opensource.rdf
+#    security.rdf
+#    news.rdf
+author: Nobuhito Sato
+handle: http://japan\.linux\.com/(?:japanlinuxcom|desktop|enterprise|kernel|opensource|security|news)/.*
+extract: <!-- google_ad_region_start=region1 -->(.*?)<!-- google_ad_region_end=region1 -->
+extract_capture: body
