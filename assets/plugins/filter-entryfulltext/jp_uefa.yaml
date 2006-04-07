@@ -1,6 +1,0 @@
-# upgrades: http://jp.uefa.com/rssfeed/index.xml
-author: Tatsuhiko Miyagawa
-handle: http://news\.com\.com/
-extract: <!-- Search Engine Component  -->\s*(<p>.*?</p>)\s*<div id="storyFoot">
-extract_capture: body
-extract_after_hook: $data->{body} =~ s/<!-- STORY TEASE -->.*?<!-- END STORY TEASE -->//s;
