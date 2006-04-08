@@ -117,3 +117,28 @@ sub store_maildir {
 }
 
 1;
+
+=head1 NAME
+
+Plagger::Plugin::Publish::Maildir - Store Maildir
+
+=head1 SYNOPSIS
+
+  - module: Publish::Maildir 
+    config:
+      maildir: /home/foo/Maildir
+      folder: plagger
+
+=head1 DESCRIPTION
+
+This plugin changes an entry into e-mail, and saves it to Maildir.
+
+=head1 AUTHOR
+
+Nobuhito Sato
+
+=head1 SEE ALSO
+
+L<Plagger>
+
+=cut

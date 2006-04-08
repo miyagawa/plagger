@@ -100,3 +100,30 @@ sub store_maildir {
 }
 
 1;
+
+=head1 NAME
+
+Plagger::Plugin::Publish::IMAP - Transmits IMAP server
+
+=head1 SYNOPSIS
+
+  - module: Publish::IMAP
+    config:
+      username: user
+      password: passwd
+      folder: plagger
+      mailfrom: plagger@localhost
+
+=head1 DESCRIPTION
+
+This plug-in changes an entry into e-mail, and transmits it to an IMAP server.
+
+=head1 AUTHOR
+
+Nobuhito Sato
+
+=head1 SEE ALSO
+
+L<Plagger>
+
+=cut
