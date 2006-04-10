@@ -3,5 +3,5 @@ author: Nobuhito Sato
 custom_feed_handle: http://osaka\.nikkansports\.com/
 custom_feed_follow_link: /baseball/professional/tigers/.*-ot-tp0-.*html
 handle: http://osaka\.nikkansports\.com/
-extract: <!-- google_ad_section_start(name=s1) -->(.*)<!-- google_ad_section_end(name=s1) -->
+extract: <!-- google_ad_section_start\(name=s1\) -->(.*)<!-- google_ad_section_end\(name=s1\) -->
 extract_capture: body
