@@ -1,5 +1,29 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.6.2 (2006/04/10) ==
+
+=== Core ===
+
+ * When character set declared is invalid, falls back to auto detection (Reported by typester)
+ * Fix Atom feeds handling when there's no content
+ * requires URI::Fetch 0.06 which has better redirection support
+ * Fixed $plugin->assets_dir bug that it doesn't respect global config (Reported by s_nobu)
+ 
+
+=== New Plugins ===
+
+ * Filter::HatenaDiaryKeywordUnlink: strip links to Hatena Diary Keywords (miyagawa)
+ * CustomFeed::GoogleNews: Create custom feeds off of Google News (miyagawa)
+ 
+=== Plugins Updates ===
+
+ * CustomFeed::Yahoo360JP: Separate blast feed as a different feed (miyagawa)
+ * Filter::EntryFullText: Added lots of site upgrade files (miyagawa, typester, s_nobu)
+ * CustomFeed::Frepa: Fix buddy icon link to your own comment (miyagawa)
+ * Subscription::Bloglines: Fix $entry->permalink bug when atom:id is tag (miyagawa)
+ * Subscription::Config: now allows empty list of feeds (miyagawa)
+
+
 == 0.6.1 (2006/04/03) ==
 
 === Core ===
