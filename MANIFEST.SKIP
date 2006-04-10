@@ -10,7 +10,7 @@
 \.gz$
 \.cvsignore
 ^[^/]+\.yaml$
-plugins
 9.*-pod.*.t
 \.tar$
 \.tmp$
+\.bak$
