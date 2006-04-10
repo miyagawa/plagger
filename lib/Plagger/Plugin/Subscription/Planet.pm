@@ -27,14 +27,15 @@ sub load {
 
     for my $kw (@$keyword) {
 	for my $site (@sites) {
-	    $site =~ s{%s(?::([\w\-]+))?}{
+	    my $site_url = $site;
+	    $site_url =~ s{%s(?::([\w\-]+))?}{
 		my $query = $kw;
 		if ($1) {
 		    Encode::from_to($query, "utf-8" => $1);
 		}
 		URI::Escape::uri_escape($query);
 	    }eg;
-	    push @{$self->conf->{feed}}, { url => $site }
+	    push @{$self->conf->{feed}}, { url => $site_url }
 	}
     }
 
