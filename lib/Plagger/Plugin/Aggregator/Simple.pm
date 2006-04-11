@@ -28,7 +28,7 @@ sub aggregate {
 
     my $content_type = eval { $res->content_type } ||
                        $res->http_response->content_type ||
-                       "text/xml"; # xxx!
+                       "text/xml";
 
     if ( $Feed::Find::IsFeed{$content_type} ) {
         $self->handle_feed($url, \$res->content);
