@@ -6,6 +6,7 @@ use DateTime::Format::Strptime;
 use Encode;
 use WWW::Mixi;
 use Time::HiRes;
+use URI;
 
 our $MAP = {
     FriendDiary => {
@@ -67,10 +68,12 @@ sub aggregate_feed {
     my $start_url = $MAP->{$type}->{start_url};
     my $response  = $self->{mixi}->get($start_url);
 
+    my $next_url = URI->new($start_url)->path;
+
     if ($response->content =~ /action=login\.pl/) {
         $context->log(debug => "Cookie not found. Logging in");
         $response = $self->{mixi}->post("http://mixi.jp/login.pl", {
-            next_url => "/new_friend_diary.pl",
+            next_url => $next_url,
             email    => $self->conf->{email},
             password => $self->conf->{password},
             sticky   => 'on',
@@ -150,7 +153,7 @@ sub aggregate_feed {
             );
             if ($item) {
                 my $body = decode('euc-jp', $item->{description});
-                   $body =~ s!\n!<br />!g;
+                   $body =~ s!\r\n?!<br />!g;
                 for my $image (@{ $item->{images} }) {
                     # xxx this should be $entry->enclosures
                     $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
