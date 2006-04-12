@@ -1,0 +1,7 @@
+author: Tatsuhiko Miyagawa
+handle: http://blog\.drecom\.jp/
+extract: <div class="entry_layer"><font style=".*?">\s*(.*?)</font></div>.*?<div class="entry_layer"><a id="BlogEntryExtend"></a>(?:<font .*?>\s*(.*?)</font>)?</div>
+extract_capture: body body_more
+extract_after_hook: |
+  $data->{body} .= $data->{body_more} if $data->{body_more};
+  $data->{body} =~ s!<script.*?</script>!!g;
