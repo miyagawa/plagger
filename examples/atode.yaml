@@ -1,0 +1,32 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+        - http://del.icio.us/rss/miyagawa/toread
+
+  - module: Filter::ResolveRelativeLink
+
+  - module: Filter::EntryFullText
+    config:
+      store_html_on_failure: 1
+
+  - module: Filter::Rule
+    rule:
+      module: Fresh
+      mtime:
+        path: /home/miyagawa/tmp/atode.mtime
+        autoupdate: 1
+
+  - module: Filter::BreakEntriesToFeeds
+
+  - module: Publish::Gmail
+    config:
+      mailto: miyagawa@bulknews.net
+      mailfrom: miyagawa@bulknews.net
+      mailroute:
+        via: smtp
+        host: localhost:25
+
