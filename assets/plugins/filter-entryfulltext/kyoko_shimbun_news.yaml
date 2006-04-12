@@ -1,0 +1,7 @@
+# used with http://www.f7.dion.ne.jp/~moorend/news/
+author: Kazuhiro Osawa
+custom_feed_handle: http://www\.f7\.dion\.ne\.jp/~moorend/news/$
+custom_feed_follow_link: \d\d\d\d\d\d\d\d\d\d\.html
+handle: http://www\.f7\.dion\.ne\.jp/~moorend/news/\d\d\d\d\d\d\d\d\d\d\.html$
+extract: <font size="5"><b>(.*?)</b></font><font color="#ffffff">これは嘘ニュースです</font><br>.*?<hr width="95%" align="left" height="1" color="#ededed">(.*?)<table cellpadding="2" cellspacing="5" border="0" width="100%">
+extract_capture: title body
