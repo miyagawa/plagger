@@ -1,0 +1,4 @@
+author: nTeTs <nozzzzz@gmail.com>
+handle_force: http://ameblo\.jp/
+extract: <div class="contents">(.*?)<!--.*?-->
+extract_capture: body
