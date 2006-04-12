@@ -24,7 +24,9 @@ sub entry {
 
 sub fixup {
     my($self, $context, $args) = @_;
-    $context->update->{feeds} = $self->{feeds};
+
+    $context->update->{feeds} = $self->{feeds}
+        if $self->{feeds};
 }
 
 1;
