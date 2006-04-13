@@ -1,0 +1,4 @@
+author: Kazuhiro Osawa
+handle: http://qwik\.jp
+extract: <!--body_enter-->(.+?)<!--body_leave-->
+extract_capture: body
