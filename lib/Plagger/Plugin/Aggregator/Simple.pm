@@ -10,7 +10,8 @@ use URI;
 use XML::Feed;
 use XML::Feed::RSS;
 
-$XML::Feed::RSS::PREFERRED_PARSER = first { $_->require } qw( XML::RSS::Liberal XML::RSS::LibXML XML::RSS );
+#$XML::Feed::RSS::PREFERRED_PARSER = first { $_->require } qw( XML::RSS::Liberal XML::RSS::LibXML XML::RSS );
+$XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
 
 sub register {
     my($self, $context) = @_;
