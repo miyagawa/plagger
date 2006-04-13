@@ -163,8 +163,8 @@ sub sync {
                 if $item->{dc}->{subject};
             $entry->date( Plagger::Date->parse('Mail', $item->{pubDate}) );
             $entry->link($item->{link});
-            $entry->permalink("$item->{guid}")
-                if $item->{guid} && $item->{guid} =~ m!^https?://!; # stringify MagicElement
+            $entry->permalink("$item->{guid}") # stringify MagicElement
+                if $item->{guid} && $item->{guid} =~ m!^https?://! && $item->{isPermaLink} eq 'true';
             $entry->feed_link($feed->link);
             $entry->id($item->{guid});
 
