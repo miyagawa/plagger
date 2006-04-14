@@ -1,0 +1,4 @@
+author: manabou
+handle: http://www\.itmedia\.co\.jp/news/articles
+extract: <div class="newart">.*?<h1>(.*?)</h1>.*?<!--BODY-->(.*?)<!--BODYEND-->
+extract_capture: title body

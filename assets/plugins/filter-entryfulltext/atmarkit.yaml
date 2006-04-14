@@ -1,0 +1,4 @@
+author: manabou
+handle: http://www\.atmarkit\.co\.jp/news/
+extract: <!-- #BeginEditable "%93%E0%97e" -->(.*?)<!-- #EndEditable --></H1>.*?<!-- #BeginEditable "%96%7B%95%B6" -->(.*?)<!-- #EndEditable -->
+extract_capture: title body
