@@ -153,7 +153,7 @@ sub aggregate_feed {
             );
             if ($item) {
                 my $body = decode('euc-jp', $item->{description});
-                   $body =~ s!\r\n?!<br />!g;
+                   $body =~ s!(\r\n?|\n)!<br />!g;
                 for my $image (@{ $item->{images} }) {
                     # xxx this should be $entry->enclosures
                     $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
