@@ -1,5 +1,26 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.6.3 (2006/04/15) ==
+
+=== Core ===
+
+ * EntryFullText: Fixed bug that date format is not properly decoded as UTF-8
+ * requires URI::Fetch 0.06. #168
+ * Added various sites upgrader files (miyagawa, s_nobu, ko, mamorou, nTeTs, youpy)
+ * Added atode.cc sample in examples directory
+
+=== New Plugins ===
+
+ * Filter::BreakEntriesToFeeds: Break entries in each entry as a feed containing single entry (miyagawa)
+ * Filter::2chRSSPermalink: Fix rss.s2ch.net feeds permalink (youpy)
+ * Subscription::2chThreadList: Add 2ch threads to Subscription using rss.s2ch.net feeds (youpy)
+
+=== Plugins Updates ===
+
+ * Subscription::Planet: Allow multiple keywords set in config files. Allow non utf-8 URI escape (Suggested by secondlife)
+ * CustomFeed::Mixi: Fix newline are not correctly extracted in Messages feed. Fixed first-time access bug without cookies
+ * Subscription::Bloglines: Fix atom:id bug when permaLink="false"
+
 == 0.6.2 (2006/04/10) ==
 
 === Core ===

@@ -13,7 +13,7 @@ sub new {
     # Cache default configuration
     $conf->{class}  ||= 'Cache::FileCache';
     $conf->{params} ||= {
-        cache_root         => File::Spec->catfile($conf->{base}, 'cache'),
+        cache_root => File::Spec->catfile($conf->{base}, 'cache'),
     };
 
     $conf->{class}->require;

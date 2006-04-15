@@ -1,6 +1,6 @@
 package Plagger;
 use strict;
-our $VERSION = '0.6.2';
+our $VERSION = '0.6.3';
 
 use 5.8.1;
 use Carp;
@@ -12,7 +12,7 @@ use YAML;
 use UNIVERSAL::require;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors( qw(conf update subscription plugins_path cache ) );
+__PACKAGE__->mk_accessors( qw(conf update subscription plugins_path cache) );
 
 use Plagger::Cache;
 use Plagger::CacheProxy;
@@ -48,7 +48,7 @@ sub bootstrap {
         $config = YAML::LoadFile($opt{config});
         $self->load_include($config);
         $self->{conf} = $config->{global};
-        $self->{conf}->{log}   ||= { level => 'debug' };
+        $self->{conf}->{log} ||= { level => 'debug' };
         $self->{config_path} = $opt{config};
     } else {
         croak "Plagger->bootstrap: $opt{config}: $!";
