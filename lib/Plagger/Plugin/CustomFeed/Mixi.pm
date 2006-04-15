@@ -149,7 +149,7 @@ sub aggregate_feed {
                     my($item) = $self->{mixi}->$meth($msg->{link});
                     $item;
                 },
-                '1 hour',
+                '12 hours',
             );
             if ($item) {
                 my $body = decode('euc-jp', $item->{description});
