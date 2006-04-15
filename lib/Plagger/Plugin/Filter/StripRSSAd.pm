@@ -2,6 +2,12 @@ package Plagger::Plugin::Filter::StripRSSAd;
 use strict;
 use base qw( Plagger::Plugin );
 
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
+    Plagger->context->autoload_plugin('Filter::BloglinesLinkAttrStripper');
+}
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
@@ -46,6 +52,10 @@ sub filter {
     # seesaa.net affiliate link
     $count = $body =~ s!<a href="http://www\.seesaa\.jp/afr\.pl\?.*?"[^>]*class="affiliate-link"[^>]*>([^<]+)</a>!$1!g;
     Plagger->context->log(debug => "Stripped Seesaa Ads on $link") if $count;
+
+    # NPR valueclick ads
+    $count = $body =~ s!<p>\s*<a href="http://ads\.npr\.valueclick\.net/redirect\?host=hs.*?" target="_top">\s*<img border="0" .*? src="http://ads\.npr\.valueclick\.net/cycle\?host=hs.*?" />\s*</a>!!g;
+    Plagger->context->log(debug => "Stripped valueclick ads on $link") if $count;
 
     $body;
 }

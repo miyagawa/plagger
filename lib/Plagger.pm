@@ -188,6 +188,13 @@ sub extract_package {
     return;
 }
 
+sub autoload_plugin {
+    my($self, $plugin) = @_;
+    unless ($self->is_loaded($plugin)) {
+        $self->load_plugin({ module => $plugin });
+    }
+}
+
 sub is_loaded {
     my($self, $stuff) = @_;
 
