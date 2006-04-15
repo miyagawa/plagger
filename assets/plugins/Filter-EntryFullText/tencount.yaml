@@ -1,0 +1,5 @@
+# tencount
+author: Manabu Ishii
+handle: http://tencount.blogdb.jp/?
+extract: <strong><font size="4">(.*?)</font>(.*?)<table width="100%" border="0" cellpadding="30" cellspacing="0">
+extract_capture: title body

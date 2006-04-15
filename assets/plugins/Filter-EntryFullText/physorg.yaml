@@ -1,0 +1,5 @@
+# http://www.physorg.com/physorg.xml
+author: Manabu Ishii
+handle: http://www\.physorg\.com/news
+extract: <span (?:name="NoAdsTag"|id="nointelliTXT")>(.*?)</span>.*?(<span id="pr1">.*?)<div align="center">
+extract_capture: title body

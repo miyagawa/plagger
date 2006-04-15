@@ -1,0 +1,5 @@
+# http://japan.zdnet.com/rss/news/index.rdf
+author: Manabu Ishii
+handle: http://japan\.zdnet\.com/news
+extract: <div class="article_header">.*?<h1>(.*?)</h1>(.*?)<!--/article_body-->
+extract_capture: title body
