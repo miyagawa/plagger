@@ -1,0 +1,8 @@
+# extremetech
+#  http://rssnewsapps.ziffdavis.com/extreme.xml
+# slideshow NOT support
+#
+author: Manabu Ishii
+handle: http://www\.extremetech\.com/article
+extract: <span class="headline">(.*?)</span>.*?(<span class="byline">.*?)<!-- END TABLE OF CONTENTS -->
+extract_capture: title body

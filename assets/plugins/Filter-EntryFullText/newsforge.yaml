@@ -1,0 +1,5 @@
+#
+author: Manabu Ishii
+handle: http://.*?\.newsforge\.com/article.pl
+extract: <h3><B>(.*?)</B></h3>(.*?)<div class="prev_next">
+extract_capture: title body

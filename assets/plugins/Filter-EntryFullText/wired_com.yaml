@@ -1,0 +1,5 @@
+#
+author: Manabu Ishii
+handle: http://www\.wired\.com/news
+extract: <div class="pgTitle">.*?<h1 class="lg">(.*?)</h1>.*?(<p class="byline">.*?)<div class="clear">
+extract_capture: title body

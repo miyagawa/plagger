@@ -1,0 +1,8 @@
+# http://www.linuxjournal.com/node/feed
+#
+#  <a id="comment"> is good end point
+#
+author: Manabu Ishii
+handle: http://www\.linuxjournal\.com/article
+extract: <h1 class="title">(.*?)</h1>(.*?)<div class="subsbutton">
+extract_capture: title body
