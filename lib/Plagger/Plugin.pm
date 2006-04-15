@@ -89,7 +89,7 @@ sub class_id {
        $pkg =~ s/Plagger::Plugin:://;
     my @pkg = split /::/, $pkg;
 
-    return join '-', map lc, @pkg;
+    return join '-', @pkg;
 }
 
 # subclasses may overload to avoid cache sharing
