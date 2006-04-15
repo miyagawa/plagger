@@ -11,15 +11,13 @@ plugins:
     config:
       feed:
         - url: http://plagger.org/trac.cgi/timeline?milestone=on&ticket=on&changeset=on&wiki=on&max=50&daysback=90&format=rss
+        - url: http://unknownplace.org/cpanrecent/rss/Plagger
 
   - module: Aggregator::Simple
 
 #  - module: Filter::TracTicketTitle
 
-  - module: SmartFeed
-    config:
-      id: updates
-      title: Plagger
+  - module: Filter::Rule
     rule:
       - module: Fresh
         mtime:
@@ -37,5 +35,3 @@ plugins:
         - #plagger 
       charset: iso-2022-jp
       announce: action
-    rule:
-      expression: $args->{feed}->id eq 'updates'
