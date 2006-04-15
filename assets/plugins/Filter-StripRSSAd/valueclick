@@ -1,0 +1,1 @@
+<p>\s*<a href="http://ads\.npr\.valueclick\.net/redirect\?host=hs.*?" target="_top">\s*<img border="0" .*? src="http://ads\.npr\.valueclick\.net/cycle\?host=hs.*?" />\s*</a>

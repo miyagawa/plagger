@@ -1,0 +1,1 @@
+<br /><br />\n<a href="http://www\.pheedo\.com/click\.phdo\?feedUrl=.*?"*?><img border="0" src="http://www\.pheedo\.com/img\.phdo\?feedUrl=.*?" /></a>
