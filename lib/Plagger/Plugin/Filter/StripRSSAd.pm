@@ -53,7 +53,7 @@ sub filter {
 
     for my $pattern (@{ $self->{pattern} }) {
         my $re = $pattern->{re};
-        if (my $count = $body =~ s!$re!!g) {
+        if (my $count = $body =~ s!$re!!sg) {
             Plagger->context->log(debug => "Stripped $pattern->{site} Ad on $link");
         }
     }
