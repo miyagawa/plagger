@@ -1,0 +1,5 @@
+# NYTimes
+author: Manabu Ishii
+handle: http://www\.nytimes\.com/
+extract: <h1>.*?<NYT_HEADLINE.*?>(.*?)</NYT_HEADLINE>.*?</h1>.*?(<NYT_BYLINE.*?)<!--related blogs promo end -->
+extract_capture: title body

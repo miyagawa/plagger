@@ -1,0 +1,5 @@
+# BBC news
+author: Manabu Ishii
+handle: http://news\.bbc\.co\.uk/
+extract: <div class="sh">(.*?)</div>.*?<!-- S SF -->(.*?)<!-- E BO -->
+extract_capture: title body
