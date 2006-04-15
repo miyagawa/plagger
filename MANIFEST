@@ -1,13 +1,20 @@
 assets/common/mail.tt
+assets/plugins/filter-entryfulltext/2ch.pl
+assets/plugins/filter-entryfulltext/ameblo_jp.yaml
 assets/plugins/filter-entryfulltext/asahi_com.yaml
+assets/plugins/filter-entryfulltext/atmarkit.yaml
 assets/plugins/filter-entryfulltext/chugoku-np.yaml
 assets/plugins/filter-entryfulltext/chuspo_dragons.yaml
 assets/plugins/filter-entryfulltext/cnet_japan.yaml
 assets/plugins/filter-entryfulltext/daily_sports.yaml
 assets/plugins/filter-entryfulltext/debian_administration_org.yaml
+assets/plugins/filter-entryfulltext/drecom.yaml
+assets/plugins/filter-entryfulltext/eweek.yaml
 assets/plugins/filter-entryfulltext/hatena_diary.pl
 assets/plugins/filter-entryfulltext/indiesmusic_com.yaml
+assets/plugins/filter-entryfulltext/itmedia.yaml
 assets/plugins/filter-entryfulltext/japan_linux_com.yaml
+assets/plugins/filter-entryfulltext/kyoko_shimbun_news.yaml
 assets/plugins/filter-entryfulltext/livedoorblog.pl
 assets/plugins/filter-entryfulltext/netkeiba.yaml
 assets/plugins/filter-entryfulltext/news_com.yaml
@@ -15,6 +22,7 @@ assets/plugins/filter-entryfulltext/nikkansports.yaml
 assets/plugins/filter-entryfulltext/osaka_nikkansports.yaml
 assets/plugins/filter-entryfulltext/pcweb_mycom.yaml
 assets/plugins/filter-entryfulltext/plaza_rakuten.yaml
+assets/plugins/filter-entryfulltext/qwik.yaml
 assets/plugins/filter-entryfulltext/sanspo.yaml
 assets/plugins/filter-entryfulltext/sixapart.pl
 assets/plugins/filter-entryfulltext/slashdot_jp.yaml
@@ -47,6 +55,7 @@ AUTHORS
 bin/plagger-ircbot
 bin/spotlight_comment.scpt
 Changes
+examples/atode.yaml
 examples/bloglines2gmail.yaml
 examples/irc.yaml
 examples/planet.yaml
@@ -93,8 +102,10 @@ lib/Plagger/Plugin/CustomFeed/Simple.pm
 lib/Plagger/Plugin/CustomFeed/SVNLog.pm
 lib/Plagger/Plugin/CustomFeed/Yahoo360JP.pm
 lib/Plagger/Plugin/Filter/2chNewsokuTitle.pm
+lib/Plagger/Plugin/Filter/2chRSSPermalink.pm
 lib/Plagger/Plugin/Filter/Base.pm
 lib/Plagger/Plugin/Filter/BlogPet.pm
+lib/Plagger/Plugin/Filter/BreakEntriesToFeeds.pm
 lib/Plagger/Plugin/Filter/BulkfeedsTerms.pm
 lib/Plagger/Plugin/Filter/Delicious.pm
 lib/Plagger/Plugin/Filter/DeliciousFeedTags.pm
@@ -163,6 +174,7 @@ lib/Plagger/Plugin/Search/Namazu.pm
 lib/Plagger/Plugin/Search/Rast.pm
 lib/Plagger/Plugin/SmartFeed.pm
 lib/Plagger/Plugin/SmartFeed/All.pm
+lib/Plagger/Plugin/Subscription/2chThreadList.pm
 lib/Plagger/Plugin/Subscription/Bloglines.pm
 lib/Plagger/Plugin/Subscription/Config.pm
 lib/Plagger/Plugin/Subscription/DBI.pm
