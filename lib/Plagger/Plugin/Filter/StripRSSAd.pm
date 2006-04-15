@@ -7,7 +7,7 @@ use DirHandle;
 sub init {
     my $self = shift;
     $self->SUPER::init(@_);
-    Plagger->context->autoload_plugin('Filter::BloglinesLinkAttrStripper');
+    Plagger->context->autoload_plugin('Filter::BloglinesContentNormalize');
     $self->load_patterns();
 }
 

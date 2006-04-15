@@ -1,4 +1,4 @@
-package Plagger::Plugin::Filter::BloglinesLinkAttrStripper;
+package Plagger::Plugin::Filter::BloglinesContentNormalize;
 use strict;
 use base qw( Plagger::Plugin );
 
@@ -28,11 +28,11 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::BloglinesLinkAttrStripper - Strip extra attributes in Bloglines body
+Plagger::Plugin::Filter::BloglinesContentNormalize - Strip extra attributes in Bloglines body
 
 =head1 SYNOPSIS
 
-  - module: Filter::BloglinesLinkAttrStripper
+  - module: Filter::BloglinesContentNormalize
 
 =head1 DESCRIPTION
 
