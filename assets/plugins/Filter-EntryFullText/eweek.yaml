@@ -1,4 +1,4 @@
 author: manabou
-handle: http://www\.eweek\.com/article
-extract: <span class="Article_Title">(.*?)</span>.*?class="Article_Content".*?><p><br>(.*)<!-- start ziffimage //-->.*?Check out eWEEK.com
+handle_force: http://www\.eweek\.com/article
+extract: <span class="Article_Title">(.*?)</span>.*?class="Article_Content"[^>]*?><p><br>(.*?)</td>
 extract_capture: title body
