@@ -1,4 +1,4 @@
-package Plagger::Plugin::Filter::PermalinkNormalize;
+package Plagger::Plugin::Filter::TruePermalink;
 use strict;
 use base qw( Plagger::Plugin );
 
@@ -75,11 +75,11 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::PermalinkNormalize - Normalize permalink using its own plugin files
+Plagger::Plugin::Filter::TruePermalink - Normalize permalink using its own plugin files
 
 =head1 SYNOPSIS
 
-  - module: Filter::PermalinkNormalize
+  - module: Filter::TruePermalink
 
 =head1 DESCRIPTION
 
@@ -120,7 +120,7 @@ URL query parameter to extract normalized permalink.
 
 =back
 
-See C<assets/plugins/Filter-PermalinkNormalize> for more examples.
+See C<assets/plugins/Filter-TruePermalink> for more examples.
 
 =head1 AUTHOR
 

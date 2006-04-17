@@ -5,8 +5,8 @@ use base qw( Plagger::Plugin );
 sub init {
     my $self = shift;
     $self->SUPER::init(@_);
-    Plagger->context->log(warn => $self->class_id . " is now deprecated. Use Filter::PermalinkNormalize");
-    Plagger->context->autoload_plugin('Filter::PermalinkNormalize');
+    Plagger->context->log(warn => $self->class_id . " is now deprecated. Use Filter::TruePermalink");
+    Plagger->context->autoload_plugin('Filter::TruePermalink');
 }
 
 sub register { }
@@ -21,7 +21,7 @@ Plagger::Plugin::Filter::2chRSSPermalink - Fix 2ch rss permalink to HTML version
 
 =head1 SYNOPSIS
 
-B<THIS MODULE IS DEPRECATED. USE Filter::PermalinkNormalize INSTEAD>
+B<THIS MODULE IS DEPRECATED. USE Filter::TruePermalink INSTEAD>
 
   - module: Filter::2chRSSPermalink
 
