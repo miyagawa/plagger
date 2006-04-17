@@ -1,0 +1,5 @@
+# Tech-souken blog
+author: youpy
+handle: http://blog\-tech\.rikunabi\-next\.yahoo\.co\.jp/blog/\w+/\d+
+extract: (<div class="category">.*?)<br clear="all" />
+extract_capture: body
