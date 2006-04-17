@@ -1,0 +1,4 @@
+author: Tatsuhiko Miyagawa
+match: http://rss\.s2ch\.net/
+rewrite: |
+  s!rss\.s2ch\.net/test/\-/(.*?\.2ch\.net/)!$1test/read.cgi/!;
