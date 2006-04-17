@@ -2,25 +2,14 @@ package Plagger::Plugin::Filter::2chRSSPermalink;
 use strict;
 use base qw( Plagger::Plugin );
 
-sub register {
-    my($self, $context) = @_;
-    $context->register_hook(
-        $self,
-        'update.entry.fixup' => \&filter,
-    );
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
+    Plagger->context->log(warn => $self->class_id . " is now deprecated. Use Filter::PermalinkNormalize");
+    Plagger->context->autoload_plugin('Filter::PermalinkNormalize');
 }
 
-sub filter {
-    my($self, $context, $args) = @_;
-
-    if($args->{entry}->permalink =~ m|^http://rss\.s2ch\.net/|) {
-        my $permalink = $args->{entry}->permalink;
-        $permalink =~ s!rss\.s2ch\.net/test/\-/!!;
-        $permalink =~ s!(2ch\.net/)!\1test/read.cgi/!;
-        $args->{entry}->link($permalink);
-        $context->log(info => "Permalink rewritten to $permalink");
-    }
-}
+sub register { }
 
 1;
 
@@ -31,6 +20,8 @@ __END__
 Plagger::Plugin::Filter::2chRSSPermalink - Fix 2ch rss permalink to HTML version
 
 =head1 SYNOPSIS
+
+B<THIS MODULE IS DEPRECATED. USE Filter::PermalinkNormalize INSTEAD>
 
   - module: Filter::2chRSSPermalink
 

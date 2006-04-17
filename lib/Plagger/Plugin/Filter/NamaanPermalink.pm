@@ -2,28 +2,14 @@ package Plagger::Plugin::Filter::NamaanPermalink;
 use strict;
 use base qw( Plagger::Plugin );
 
-use URI;
-
-sub register {
-    my($self, $context) = @_;
-    $context->register_hook(
-        $self,
-        'update.entry.fixup' => \&filter,
-    );
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
+    Plagger->context->log(warn => $self->class_id . " is now deprecated. Use Filter::PermalinkNormalize");
+    Plagger->context->autoload_plugin('Filter::PermalinkNormalize');
 }
 
-sub filter {
-    my($self, $context, $args) = @_;
-
-    my $entry = $args->{entry};
-    if ($entry->permalink =~ m!^http://www\.namaan\.net/rd\?!) {
-        my %param = URI->new( $entry->permalink )->query_form;
-        if ($param{url}) {
-            $entry->permalink($param{url});
-            $context->log(info => "Permalink rewritten to " . $param{url});
-        }
-    }
-}
+sub register { }
 
 1;
 
@@ -34,6 +20,8 @@ __END__
 Plagger::Plugin::Filter::NamaanPermalink - Fix NAMAAN's permalink
 
 =head1 SYNOPSIS
+
+B<THIS MODULE IS DEPRECATED. USE Filter::PermalinkNormalize INSTEAD>
 
   - module: Filter::NamaanPermalink
 
