@@ -1,0 +1,5 @@
+# akibablog
+author: Manabu Ishii
+handle: http://www\.akibablog\.net/archives/
+extract: <h1>(.*?)</h1>.*?<div class="blogbody">(.*?)(?:<a name="trackbacks">|<hr width="360" align="left">)
+extract_capture: title body

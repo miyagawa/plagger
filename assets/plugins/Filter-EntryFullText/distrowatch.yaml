@@ -1,0 +1,5 @@
+# DistroWatch
+author: Manabu Ishii
+handle: http://distrowatch\.com/
+extract: <td class="NewsHeadline">.*?</a>[^>]*?>(.*?)</a></td>.*?<td class="NewsText"[^>]*?>(.*?)</td>
+extract_capture: title body

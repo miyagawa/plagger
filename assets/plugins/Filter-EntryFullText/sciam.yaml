@@ -1,0 +1,6 @@
+# Scientific America
+author: Manabu Ishii
+handle: http://www\.sciam\.com/article
+extract: <td colspan="2" [^<>]*? class="titleArticle"[^>]*?>(.*?)</td>(.*?)<td><img src="/media/struct/trans.gif" border="0" width="1" height="15" alt=""></td>
+extract_capture: title body
+
