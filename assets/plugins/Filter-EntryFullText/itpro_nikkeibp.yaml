@@ -1,0 +1,5 @@
+# nikkeibp ITpro
+author: Manabu Ishii
+handle: http://itpro\.nikkeibp\.co\.jp/
+extract: <H2>(.*?)</H2>.*?<!-- start .*? -->(.*?)<!-- written -->
+extract_capture: title body

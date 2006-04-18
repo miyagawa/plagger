@@ -1,0 +1,5 @@
+# nikkeibp general
+author: Manabu Ishii
+handle: http://www\.nikkeibp\.co\.jp/
+extract: <h1 id="maintitle">(.*?)</h1>.*?<!--end: title and date -->(.*?)<br class="clear">
+extract_capture: title body
