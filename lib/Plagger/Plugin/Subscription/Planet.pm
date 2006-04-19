@@ -12,7 +12,6 @@ my @sites = (
     'http://blog-search.yahoo.co.jp/rss?p=%s:euc-jp',
     'http://blog.goo.ne.jp/search/search.php?status=select&tg=all&st=time&dc=10&dp=all&bu=&ts=all&MT=%s:euc-jp&da=all&rss=1',
     'http://www.namaan.net/rss?namaan=NAMA&ty=5&query=%s',
-    'http://search.msn.co.jp/results.aspx?q=%s&format=rss&FORM=RSRE',
     'http://bulkfeeds.net/app/search2.rdf?q=%s',
     'http://rss.sf.livedoor.com/search?q=%s&sf=update_date&start=0',
     'http://b.hatena.ne.jp/t/%s?mode=rss&sort=eid&threshold=1',
