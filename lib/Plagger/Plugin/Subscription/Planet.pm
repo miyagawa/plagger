@@ -16,6 +16,7 @@ my @sites = (
     'http://rss.sf.livedoor.com/search?q=%s&sf=update_date&start=0',
     'http://b.hatena.ne.jp/t/%s?mode=rss&sort=eid&threshold=1',
     'http://d.hatena.ne.jp/keyworddiary/%s?mode=rss',
+    'http://feeds.technorati.com/feed/posts/tag/%s',
 );
 
 sub load {
