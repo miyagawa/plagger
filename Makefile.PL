@@ -195,6 +195,11 @@ features(
         -default => 0,
         recommends('Net::DNS'),
     ],
+    'Subscription::LivedoorReader' => [
+        -default => 0,
+        recommends('JSON::Syck', 0.10),
+        recommends('WWW::Mechanize'),
+    ],
 );
 
 if ($^O eq 'darwin') {
