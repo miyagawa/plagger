@@ -1,5 +1,28 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.6.4 (2006/04/19) ==
+
+=== Core ===
+
+ * Fixed MANIFEST to include assets
+ * Reorganized assets directory naming. Keep cases of plugin names. #106
+ * More feed upgrader files (manabou, youpy)
+ * Update XML::RSS::LibXML to avoid non-UTF8 feed breakage (Thanks to dmaki, Reported by manabou)
+
+=== New Plugins ===
+ 
+ * Filter::BloglinesContentNormalize: normalize HTML attributes in Bloglines body (miyagawa)
+ * Filter::TruePermalink: Permalink rewriting framework (youpy, miyagawa)
+
+=== Plugins Updates ===
+
+ * Filter::StripRSSAd: now load pattern files from assets directory #179 (miyagawa)
+ * Filter::StripRSSAd: Add npr.org valueclick feed ads. Updated Google AdSense pattern
+ * CustomFeed::Mixi: Make cache TTL of fetch_body longer to avoid Footprint issue (miyagawa)
+ * Subscription::2chThread: Accept multiple thread URLs (youpy)
+ * Deprecate NamaanPermalink, 2chRSSPermalink and YahooBlogSearchPermalink in favor of TruePermalink (miyagawa)
+ * Subscription::Planet: nuked MSN Search, added Technorati Tag search
+
 == 0.6.3 (2006/04/15) ==
 
 === Core ===
