@@ -1,0 +1,5 @@
+# Forbes
+author: Manabu Ishii
+handle: http://www\.forbes\.com/
+extract: <span class="mainarttitle"><b>(.*?)</b></span>(.*?)<br clear="all">
+extract_capture: title body

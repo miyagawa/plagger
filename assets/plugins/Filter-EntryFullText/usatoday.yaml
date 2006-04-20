@@ -1,0 +1,5 @@
+# USATODAY
+author: Manabu Ishii
+handle_force: http://rssfeeds\.usatoday\.com/
+extract: <span class="inside-head">(.*?)</span>.*?<div class="(?:byLine|inside-copy)">(.*?)<td[^>]*?><span class="datestamp">.*?</span>
+extract_capture: title body
