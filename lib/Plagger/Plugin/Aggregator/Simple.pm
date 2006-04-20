@@ -49,7 +49,7 @@ sub aggregate {
 
 sub looks_like_feed {
     my($self, $content_ref) = @_;
-    $$content_ref =~ m!<rss version="|<rdf:RDF xmlns="http://purl\.org/rss|<feed xmlns="!;
+    $$content_ref =~ m!<rss version="|<rdf:RDF.+?xmlns="http://purl\.org/rss|<feed xmlns="!s;
 }
 
 sub fetch_content {
