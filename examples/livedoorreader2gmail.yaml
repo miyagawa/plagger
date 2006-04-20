@@ -1,0 +1,26 @@
+global:
+  plugin_path:
+    - /home/miyagawa/plagger/plugins
+  #assets_path: /home/miyagawa/plagger/assets
+  timezone: Asia/Tokyo
+  log:
+    level: info
+
+plugins:
+  - module: Subscription::LivedoorReader
+    config:
+      username: <your-livedoor-id>
+      password: <password>
+      mark_read: 1
+
+  - module: Widget::Delicious
+    config:
+      username: miyagawa
+
+  - module: Publish::Gmail
+    config:
+      mailto:   example@gmail.com
+      mailfrom: miyagawa@example.com
+      mailroute:
+        via: smtp
+        host: smtp.example.com
