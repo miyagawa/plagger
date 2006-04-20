@@ -18,6 +18,11 @@ sub filter {
     my $entry = $args->{entry};
 
     my $base = $entry->permalink || $args->{feed}->link;
+    unless ($base) {
+        $context->log(warn => "No base link found");
+        return;
+    }
+
     my $resolver = HTML::ResolveLink->new(base => $base);
     my $html = $resolver->resolve($entry->body);
 
