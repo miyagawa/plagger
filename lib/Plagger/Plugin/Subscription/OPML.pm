@@ -6,6 +6,11 @@ use Plagger::UserAgent;
 use URI;
 use XML::OPML;
 
+our $HAS_LIBERAL;
+BEGIN {
+    eval { require XML::Liberal; $HAS_LIBERAL = 1 };
+}
+
 sub register {
     my($self, $context) = @_;
 
@@ -49,6 +54,12 @@ sub load_opml {
     }
     else {
         $context->error("Unsupported URI scheme: " . $uri->scheme);
+    }
+
+    if ($HAS_LIBERAL) {
+        my $parser = XML::Liberal->new('LibXML');
+        my $doc = $parser->parse_string($xml);
+        $xml = $doc->toString;
     }
 
     my $opml = XML::OPML->new;
