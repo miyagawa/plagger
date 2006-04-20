@@ -24,7 +24,7 @@ sub register {
 
 sub init_reader {
     my $self = shift;
-    $self->{mech} = WWW::Mechanize->new;
+    $self->{mech} = WWW::Mechanize->new(cookie_jar => $self->cache->cookie_jar);
 
     unless (defined($self->conf->{username}) && defined($self->conf->{password})) {
         Plagger->context->error("username and/or password is missing");
@@ -114,16 +114,19 @@ sub login_reader {
     local $^W; # input type="search" warning
     $self->{mech}->get("http://reader.livedoor.com/reader/");
 
-    $self->{mech}->submit_form(
-        form_name => 'loginForm',
-        fields => {
-            livedoor_id => $self->conf->{username},
-            password    => $self->conf->{password},
-        },
-    );
+    if ($self->{mech}->content =~ /name="loginForm"/) {
+        Plagger->context->log(debug => "Logging in to Livedoor Reader");
+        $self->{mech}->submit_form(
+            form_name => 'loginForm',
+            fields => {
+                livedoor_id => $self->conf->{username},
+                password    => $self->conf->{password},
+            },
+        );
 
-    if ( $self->{mech}->content =~ /class="headcopy"/ ) {
-        Plagger->context->error("Failed to login using username & password");
+        if ( $self->{mech}->content =~ /class="headcopy"/ ) {
+            Plagger->context->error("Failed to login using username & password");
+        }
     }
 }
 
