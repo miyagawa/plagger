@@ -10,6 +10,9 @@ sub extract {
     (my $content = $args->{content}) =~ s/\r\n/\n/g;
     my $body;
 
+    if ($content =~ m!(<img src="/img/info/\S+/cnt\d+_l.jpg" width="\d+" height="\d+">)!) {
+	$body .= "<div>".$1."</div>";
+    }
     $content =~ s{<td align="left">(.+?)</td>}{
 	$body .= "<div>".$1."</div>" if $1 ne "\r\n";
     }sge;
