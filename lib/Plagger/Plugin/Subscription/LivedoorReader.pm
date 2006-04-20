@@ -70,6 +70,7 @@ sub sync {
     my $subs = $self->_request("/api/subs", { unread => 1 });
 
     for my $sub (@$subs) {
+        $context->log(debug => "get unread items of $sub->{subscribe_id}");
         my $data = $self->_request("/api/unread", { subscribe_id => $sub->{subscribe_id} });
         $self->_request("/api/touch_all", { subscribe_id => $sub->{subscribe_id} })
             if $mark_read;
@@ -81,10 +82,10 @@ sub sync {
         $feed->url($data->{channel}->{feedlink});
         $feed->image({ url => $data->{channel}->{image} || $sub->{icon} });
         $feed->meta->{livedoor_reader_id} = $sub->{subscribe_id};
-        $feed->meta->{rate} = $sub->{rate}; # xxx star?
+        $feed->meta->{rate} = $sub->{rate};
         $feed->add_tag($_) for @{$sub->{tags}};
         $feed->add_tag($sub->{folder}) if $sub->{folder};
-        $feed->updated( Plagger::Date->from_epoch($sub->{modified_on}) );
+        $feed->updated( Plagger::Date->from_epoch($sub->{modified_on}) ) if $sub->{modified_on};
         $feed->description($data->{channel}->{description});
         $feed->meta->{livedoor_reader_subscribers_count} = $data->{channel}->{subscribers_count};
 
