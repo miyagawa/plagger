@@ -47,7 +47,7 @@ sub notifier {
 
     # A is -1 if the user email address is wrong.
     if ($unread == -1) {
-	$context->error("Bad username: $self->{username}");
+	$context->error("Bad username: " . $self->conf->{username});
     }
 
     return unless $unread;
