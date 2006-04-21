@@ -2,11 +2,11 @@ package Plagger::Plugin::Subscription::LivedoorReader;
 use strict;
 use base qw( Plagger::Plugin );
 
-use HTML::Entities;
 use JSON::Syck;
 use URI;
 use URI::QueryParam;
 use WWW::Mechanize;
+use Plagger::Util;
 
 sub plugin_id {
     my $self = shift;
@@ -78,7 +78,7 @@ sub sync {
 
         my $feed = Plagger::Feed->new;
         $feed->type('livedoorReader');
-        $feed->title( HTML::Entities::decode($data->{channel}->{title}) );
+        $feed->title( Plagger::Util::strip_html($data->{channel}->{title}) );
         $feed->link($data->{channel}->{link});
         $feed->url($data->{channel}->{feedlink});
         $feed->image({ url => $data->{channel}->{image} || $sub->{icon} });
