@@ -1,0 +1,6 @@
+# Yakult
+#
+author: Manabu Ishii
+handle: http://sns\.yakult-swallows\.co\.jp/
+extract: <h3>(.*?)</h3>.*?<div class="entry_text">(.*?)<div class="cl">
+extract_capture: title body

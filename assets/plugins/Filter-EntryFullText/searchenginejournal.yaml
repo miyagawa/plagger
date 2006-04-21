@@ -1,0 +1,6 @@
+# Search Engine Journal
+#
+author: Manabu Ishii
+handle: http://www\.searchenginejournal\.com/
+extract: <h1[^>]*?><a [^>]*?><img src="/glass.jpg">(.*?)</a></h1>.*?(<p><(?:b|strong)>.*?)<div class="feedback">
+extract_capture: title body

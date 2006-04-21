@@ -1,5 +1,5 @@
 # the register
 author: Manabu Ishii
-handle_force: .*?(http://www\.theregister\.co|http://www\.regdeveloper\.co|http://www\.reghardware\.co|http://www\.channelregister\.co)
-extract: <div id="Article">.*?</div><h2>(.*?)</h2>(.*?)(?:<div class="(?:IconsBtm|relatedBox)">|<table id="(?:RelatedStuff|ArticleFooterTable)">)
+handle_force: .*?http://www\.(theregister|regdeveloper|reghardware|channelregister)\.co
+extract: <div id="Article"[^>]*?>.*?(?:</div>)?<h2>(.*?)</h2>(.*?)(?:<div class="(?:IconsBtm|relatedBox)">|<table id="(?:RelatedStuff|ArticleFooterTable)">)
 extract_capture: title body
