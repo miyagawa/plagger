@@ -4,6 +4,7 @@ use base qw( Plagger::Plugin Class::Accessor::Fast );
 
 sub register {
     my($self, $context) = @_;
+    $context->autoload_plugin('Filter::HatenaBookmarkUsersCount');
     $context->register_hook(
         $self,
         'publish.entry.fixup' => \&add,
