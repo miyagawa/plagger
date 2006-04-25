@@ -40,7 +40,7 @@ sub add_entry {
 
     $self->{delicious}->add_post($params);
 
-    my $sleeping_time = $context->conf->{interval} || 3;
+    my $sleeping_time = $self->conf->{interval} || 3;
     $context->log(info => "Post entry success. sleep $sleeping_time.");
     sleep( $sleeping_time );
 }
