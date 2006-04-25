@@ -211,6 +211,10 @@ C<fetch_body_interval> and C<show_icon>.
 
 Kazuhiro Osawa
 
+Tokuhiro Matsuno
+
+Tatsuhiko Miyagawa
+
 =head1 SEE ALSO
 
 L<Plagger>, L<Plagger::Plugin::CustomFeed::Mixi>, L<WWW::Mechanize>,
