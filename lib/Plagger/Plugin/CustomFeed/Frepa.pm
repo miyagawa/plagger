@@ -42,7 +42,7 @@ sub aggregate {
 
     $context->log(info => 'Login to frepa succeeded.');
 
-    my $feed_type = $self->conf->{feed_type} || ['FriendDiary'];
+    my $feed_type = $self->conf->{feed_type} || [ qw(FriendDiary FriendStatus RecentComment) ];
     for my $plugin (@$feed_type) {
         my $plugin = (ref $self || $self) . "::$plugin";
         $plugin->require or $context->error($@);
@@ -193,6 +193,7 @@ Plagger::Plugin::CustomFeed::Frepa - Custom feed for livedoor Frepa
       fetch_body: 1
       show_icon: 1
       feed_type:
+        - FriendDiary
         - FriendStatus
         - RecentComment
 
