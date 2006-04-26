@@ -1,0 +1,8 @@
+author: kazeburo
+custom_feed_handle: http://ascii24\.com/news/$
+custom_feed_follow_link: /news/i/\w+/article/\d{4}/\d\d/\d\d/\d{6|-\d{3}\.html
+handle: http://ascii24\.com/news/i/\w+/article/\d{4}/\d\d/\d\d/\d{6|-\d{3}\.html
+extract: <!--%%document_title:begin-->.*?<H1>(.*?)</H1>.*?<!--%%document_date:begin-->.*?<SMALL>.*?(\d{4}年\d+月\d+日).*?</SMALL>.*?<!--%%document_date:end-->(.*?)<!--%%(?:signature|page_navigation):end-->
+extract_capture: title date body
+extract_date_format: %Y年%m月%d日
+

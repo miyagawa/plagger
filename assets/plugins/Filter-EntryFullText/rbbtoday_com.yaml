@@ -1,0 +1,6 @@
+# upgrade http://www.rbbtoday.com/rss/rbb.rdf
+author: kazeburo
+handle: http://www\.rbbtoday\.com/news
+extract: <h1 class="ttl02">(.*?)</h1>.*?<tr><td><img src="/shared/img/spacer.gif" width="1" height="\d\d"></td></tr>.*?<tr>.*?<td class="f14120" valign="top">(.*?)</tr>.*?<tr><td><img src="/shared/img/spacer.gif" width="1" height="10"></td></tr>
+extract_capture: title body
+
