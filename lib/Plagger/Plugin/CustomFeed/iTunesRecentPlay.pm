@@ -72,6 +72,8 @@ sub aggregate {
             and $data->{artist} = HTML::Entities::decode($1);
         m!<key>Album</key><string>(.*?)</string>!
             and $data->{album} = HTML::Entities::decode($1);
+        m!<key>Genre</key><string>(.*?)</string>!
+            and $data->{genre} = HTML::Entities::decode($1);
         m!<key>Total Time</key><integer>(.*?)</integer>!
             and $data->{duration} = HTML::Entities::decode($1);
         m!<key>Play Date UTC</key><date>(.*?)</date>!
@@ -90,6 +92,9 @@ sub aggregate {
 
                         # author
                         $entry->author($data->{artist});
+
+                        # Genre to tags
+                        $entry->add_tag($data->{genre});
 
                         # title
                         my $title = $self->conf->{title_format};
