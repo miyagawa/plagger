@@ -1,0 +1,5 @@
+author: Tatsuhiko Miyagawa
+match: http://rd\.yahoo\.co\.jp/
+rewrite: s!^http://rd\.yahoo\.co\.jp/.*?/\*http%3A!http:!
+
+
