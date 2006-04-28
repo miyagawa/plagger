@@ -1,0 +1,4 @@
+author: Tatsuhiko Miyagawa
+match: http://srd\.yahoo\.co\.jp/BLOG/
+rewrite: s!^http://srd\.yahoo\.co\.jp/BLOG/S=.*?\*-http%3A!http:!
+
