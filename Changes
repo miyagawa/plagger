@@ -1,5 +1,29 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.6.5 (2006/04/28) ==
+
+=== Core ===
+
+ * Aggregator::Simple: Allow bad content-type feeds like text/plain (miyagawa)
+ * Aggregator::Simple: Hack nasty Unicode unflagness in Atom feed with XML::Feed (miyagawa, reported by otsune)
+
+=== New Plugins ===
+
+ * Subscription::LivedoorReader: Fetch subscription via LDR (miyagawa)
+ * Filter::CompositeFeed: pack all the feeds into entries of single feed (miyagawa)
+ * Filter::AtomLinkRelated: Use link rel="related" as a link in Atom feeds (miyagawa)
+ 
+=== Plugins Updates ===
+ 
+ * Filter::TruePermalink: minor updates in refrss (otsune) updated Yahoo! blog redirector (miyagawa)
+ * Filter::ResolveRelativeLink: don't die even if there's no link found
+ * Subscription::OPML: broken OPML feed support with XML::Liberal (miyagawa)
+ * Filter::EntryFullText: Lots of feed upgrade files (manabou, woremacx, kazeburo)
+ * Filter::StripRSSAd: support branded feed domain in FeedBurner (miyagawa)
+ * Widget::HatenaBookmarkUsersCount: Autoload Filter::HBUC (reported by otsune)
+ * CustomFeed::Frepa: defaults to all feed types
+ * Publish::Delicious: Fixed interval bug
+ 
 == 0.6.4 (2006/04/19) ==
 
 === Core ===
