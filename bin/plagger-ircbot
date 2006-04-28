@@ -97,6 +97,7 @@ sub bot_start
             Username => $ENV{USER},
             Server   => $config->{server_host},
             Port     => $config->{server_port} || 6667,
+            Password => $config->{server_password} || undef,
         }
     );
 }
