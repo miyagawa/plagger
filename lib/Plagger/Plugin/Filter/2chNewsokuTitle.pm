@@ -5,7 +5,6 @@ use base qw( Plagger::Plugin );
 use encoding 'utf-8';
 use Encode;
 use Plagger::UserAgent;
-use XML::Simple;
 use URI;
 
 sub register {
