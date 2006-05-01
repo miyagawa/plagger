@@ -1,0 +1,4 @@
+author: woremacx
+handle: http://flash24\.kyodo\.co\.jp/
+extract: (<DIV class="title14" style="padding-left:10px;">.*?</DIV>).*?(<DIV class="text12" style="padding-left:30px;">.*?</DIV>)</TD>
+extract_capture: title body

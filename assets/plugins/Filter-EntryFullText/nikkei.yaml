@@ -1,0 +1,4 @@
+author: woremacx
+handle: http://www\.nikkei\.co\.jp/news/
+extract: <!--FJZONE START NAME="MIDASHI" -->(?:<!-- headline -->)?(.*?)(?:<!-- /headline -->)?<!--FJZONE END NAME="MIDASHI" --></h1>(.*?)<!--FJZONE END NAME="HONBUN" -->
+extract_capture: title body
