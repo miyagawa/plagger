@@ -1,0 +1,4 @@
+author: woremacx
+handle: http://www.okinawatimes.co.jp/day/\d+_\d+.html
+extract: <DIV class=px18b>(.*?)</DIV>(.*?)</TD>
+extract_capture: title body

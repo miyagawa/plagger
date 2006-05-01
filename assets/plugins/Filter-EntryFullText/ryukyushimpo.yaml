@@ -1,0 +1,4 @@
+author: woremacx
+handle: http://ryukyushimpo.jp/news/storyid-\d+-storytopic-\d+.html
+extract: <h2>(.*?)</h2>(.*?)<p class="next_txt">
+extract_capture: title body
