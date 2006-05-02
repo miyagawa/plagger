@@ -1,0 +1,7 @@
+author: woremacx
+handle: http://www\.kyoto-np\.co\.jp/article\.php
+extract: <td bgcolor="#FFFFFF" class="j25"><strong>(.*?)</strong>.*?<td class="j14">(.*?)</td>\s*</tr>\s*</table>\s*<!-- 記事本文 -->
+extract_capture: title body
+extract_after_hook: |
+  $data->{title} =~ s!<br>!!g;
+  $data->{body} =~ s!</?(table|tr|td).*?>!!sg;
