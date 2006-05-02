@@ -1,4 +1,4 @@
 author: woremacx 
-handle: http://www.business-i.jp/news/sou-page/news/
+handle: http://www\.business-i\.jp/news/
 extract: <!--NWC_head1-->(.*?)<!--/NWC_head1-->.*?<!--NWC_body-->(.*?)<!--/NWC_body-->
 extract_capture: title body 
