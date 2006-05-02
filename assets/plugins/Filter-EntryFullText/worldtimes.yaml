@@ -1,0 +1,5 @@
+author: woremacx
+handle: http://www\.worldtimes\.co\.jp/
+extract: <h3>(.*?)</h3>.*?<table align=right width=10><tr><td>(.*?)<!-- date -->(.*?)<!--
+extract_capture: title body date
+extract_date_format: %Y/%m/%d %H:%M
