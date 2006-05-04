@@ -53,6 +53,7 @@ features(
     ],
     'Publish::Gmail' => [
         -default => 1,
+        recommends('Mail::Address'),
         recommends('MIME::Lite'),
     ],
     'Aggregator::Xango' => [
