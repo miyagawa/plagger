@@ -81,7 +81,7 @@ sub rewrite_config {
     # xxx this is a quick hack: It should be a YAML roundtrip maybe
     for my $task (@{ $self->{rewrite_tasks} }) {
         my($key, $old_value, $new_value ) = @$task;
-        if ($data =~ s/^(\s+$key:\s+)$old_value\s*$/$1$new_value/m) {
+        if ($data =~ s/^(\s+$key:\s+)$old_value[ \t]*$/$1$new_value/m) {
             $count++;
         } else {
             $self->log(error => "$key: $old_value not found in $self->{config_path}");
