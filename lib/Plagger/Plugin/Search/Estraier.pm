@@ -15,7 +15,6 @@ sub init {
     $self->conf->{timeout}  ||= 30;
 
     $self->{node} = Search::Estraier::Node->new(
-        debug => 1,
         url => $self->conf->{url},
     );
     $self->{node}->set_auth($self->conf->{username}, $self->conf->{password});
