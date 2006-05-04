@@ -201,6 +201,10 @@ features(
         recommends('JSON::Syck', 0.10),
         recommends('WWW::Mechanize'),
     ],
+    'Search::Estraier' => [
+        -default => 0,
+        recommends('Search::Estraier'),
+    ],
 );
 
 if ($^O eq 'darwin') {
