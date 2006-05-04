@@ -1,0 +1,29 @@
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+        - http://b.hatena.ne.jp/t/plagger?mode=rss&sort=eid
+        - http://del.icio.us/rss/tag/plagger
+        - http://bloglines.com/citations?url=http%3A%2F%2Fplagger.org%2F
+        - http://www.technorati.com/watchlists/rss.html?wid=349774
+        - http://groups.google.com/group/plagger-dev/feed/rss_v2_0_msgs.xml
+
+  - module: Subscription::Planet
+    config:
+      keyword: Plagger
+
+  - module: CustomFeed::BloglinesCitations
+  - module: Aggregator::Xango
+  - module: Filter::TruePermalink
+  - module: Filter::EntryFullText
+
+  - module: SmartFeed::All
+
+  - module: Search::Estraier
+    config:
+      url: http://localhost:1978/node/plagger
+      username: example
+      password: p4ssword
+    rule:
+      expression: $args->{feed}->id eq 'smartfeed:all'
+
