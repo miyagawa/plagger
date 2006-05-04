@@ -32,8 +32,10 @@ sub register {
 sub entry {
     my($self, $context, $args) = @_;
 
+    return unless $args->{entry}->permalink;
+
     my $id  = $self->{node}->uri_to_id($args->{entry}->permalink);
-    $context->log(info => "Going to index entry ", $args->{entry}->permalink . ($id ? " with id=$id" : ""));
+    $context->log(info => "Going to index entry " . $args->{entry}->permalink . ($id ? " with id=$id" : ""));
 
     my $doc = Search::Estraier::Document->new;
     $doc->add_attr('@uri' => $args->{entry}->permalink);
