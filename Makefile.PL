@@ -67,7 +67,7 @@ features(
     ],
     'CustomFeed::Mixi' => [
         -default => 0,
-        recommends('WWW::Mixi'),
+        recommends('WWW::Mixi', 0.46),
     ],
     'Publish::PDF' => [
         -default => 0,
