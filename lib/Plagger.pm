@@ -23,12 +23,6 @@ use Plagger::Subscription;
 use Plagger::Template;
 use Plagger::Update;
 
-sub active_hooks {
-    my $self = shift;
-    my @hooks= keys %{$self->{hooks}};
-    wantarray ? @hooks : \@hooks;
-}
-
 sub context { undef }
 
 sub bootstrap {
