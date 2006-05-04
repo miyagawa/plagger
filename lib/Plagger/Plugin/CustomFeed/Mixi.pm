@@ -30,6 +30,12 @@ our $MAP = {
         get_list   => 'parse_list_comment',
         icon_re    => qr/[^_]id=(\d+)/,
     },
+    Log => {
+        start_url => 'http://mixi.jp/show_log.pl',
+        title     => 'ミクシィ足跡',
+        get_list => 'parse_show_log',
+        icon_re => qr/[^_]id=(\d+)/,
+    }, 
 };
 
 sub plugin_id {
