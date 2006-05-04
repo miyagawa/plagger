@@ -204,7 +204,7 @@ features(
 
 if ($^O eq 'darwin') {
     features(
-        'Publish::Spotlight' => [
+        'Search::Spotlight' => [
             -default => 1,
             recommends('Mac::Glue'),
         ],

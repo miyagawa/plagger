@@ -14,3 +14,4 @@
 \.tar$
 \.tmp$
 \.bak$
+\.orig$

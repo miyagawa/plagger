@@ -4,6 +4,7 @@ assets/plugins/Filter-EntryFullText/akibablog.yaml
 assets/plugins/Filter-EntryFullText/ameblo_jp.yaml
 assets/plugins/Filter-EntryFullText/arstechnica.yaml
 assets/plugins/Filter-EntryFullText/asahi_com.yaml
+assets/plugins/Filter-EntryFullText/asahi_wcup2006.yaml
 assets/plugins/Filter-EntryFullText/ascii24_com.yaml
 assets/plugins/Filter-EntryFullText/atmarkit.yaml
 assets/plugins/Filter-EntryFullText/bbc.yaml
@@ -71,6 +72,8 @@ assets/plugins/Filter-StripRSSAd/seesaa
 assets/plugins/Filter-StripRSSAd/valueclick
 assets/plugins/Filter-TruePermalink/2chrss.yaml
 assets/plugins/Filter-TruePermalink/namaan.yaml
+assets/plugins/Filter-TruePermalink/rd_yahoo.yaml
+assets/plugins/Filter-TruePermalink/reddit.yaml
 assets/plugins/Filter-TruePermalink/refrss.yaml
 assets/plugins/Filter-TruePermalink/tech_souken.yaml
 assets/plugins/Filter-TruePermalink/yahoo_blog_search.yaml
@@ -91,15 +94,16 @@ assets/plugins/Publish-Planet/default/static/css/screen-members-list.css
 assets/plugins/Publish-Planet/default/static/css/screen.css
 assets/plugins/Publish-Planet/default/template/index.tt
 assets/plugins/Publish-PSP/psp.tt
-assets/plugins/Publish-Spotlight/spotlight.tt
 assets/plugins/Publish-Takahashi/takahashi.css
 assets/plugins/Publish-Takahashi/takahashi.js
 assets/plugins/Publish-Takahashi/takahashi.tt
 assets/plugins/Search-Namazu/namazu.tt
+assets/plugins/Search-Spotlight/spotlight.tt
 AUTHORS
 bin/plagger-ircbot
 bin/spotlight_comment.scpt
 Changes
+examples/aggregator.yaml
 examples/atode.yaml
 examples/bloglines2gmail.yaml
 examples/irc.yaml
@@ -218,10 +222,10 @@ lib/Plagger/Plugin/Publish/PSP.pm
 lib/Plagger/Plugin/Publish/Speech.pm
 lib/Plagger/Plugin/Publish/Speech/MacOSX.pm
 lib/Plagger/Plugin/Publish/Speech/Win32.pm
-lib/Plagger/Plugin/Publish/Spotlight.pm
 lib/Plagger/Plugin/Publish/Takahashi.pm
 lib/Plagger/Plugin/Search/Namazu.pm
 lib/Plagger/Plugin/Search/Rast.pm
+lib/Plagger/Plugin/Search/Spotlight.pm
 lib/Plagger/Plugin/SmartFeed.pm
 lib/Plagger/Plugin/SmartFeed/All.pm
 lib/Plagger/Plugin/Subscription/2chThreadList.pm
