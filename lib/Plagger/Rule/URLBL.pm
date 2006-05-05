@@ -8,17 +8,24 @@ use URI;
 sub init {
     my $self = shift;
 
-    Plagger->context->error("plase dnbl")
-	unless $self->{dnsbl};
+    Plagger->context->error("No dnsbl configuration")
+        unless $self->{dnsbl};
 }
 
 sub dispatch {
     my($self, $args) = @_;
 
-    my $feed = $args->{feed}
-        or Plagger->context->error("No feed object in this plugin phase");
+    my $url;
+    if ($args->{entry}) {
+        $url = $args->{entry}->permalink;
+    } elsif ($args->{feed}) {
+        $url = $args->{feed}->url;
+    } else {
+        Plagger->context->error("No feed nor entry object in this plugin phase");
+    }
 
-    my $url = $args->{feed}->url;
+    return unless $url;
+    
     my $res = Net::DNS::Resolver->new;
     my $dnsbl = $self->{dnsbl};
        $dnsbl = [ $dnsbl ] unless ref $dnsbl;
@@ -28,12 +35,12 @@ sub dispatch {
     $domain =~ s/^www\.//;
 
     for my $dns (@$dnsbl) {
-	Plagger->context->log(debug => "looking up $domain.$dns");
-	my $q = $res->search("$domain.$dns");
-	if ($q && $q->answer) {
-	    Plagger->context->log(warn => "$domain.$dns found.");
-	    return 0;
-	}
+        Plagger->context->log(debug => "looking up $domain.$dns");
+        my $q = $res->search("$domain.$dns");
+        if ($q && $q->answer) {
+            Plagger->context->log(info => "$domain.$dns found.");
+            return 0;
+        }
     }
     return 1;
 }
