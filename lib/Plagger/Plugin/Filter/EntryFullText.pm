@@ -12,6 +12,8 @@ use Plagger::Util qw( decode_content );
 use Plagger::Plugin::CustomFeed::Simple;
 use Plagger::UserAgent;
 
+sub rule_hook { 'update.entry.fixup' }
+
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
