@@ -70,6 +70,11 @@ RE
         @{$data}{@keys} = ($1, $2, $3, $4, $5, $6);
         $data->{date} = Plagger::Date->strptime($date_format, $data->{date});
 
+        # This is a bit tricky: Bloglines Citation page returns datetime as Pacific Time as default
+        # Fix it first to PST to figure out the UTC date, then switch to Plagger's preference
+        $data->{date}->set_time_zone('America/Los_Angeles');
+        $data->{date}->set_time_zone(Plagger->context->conf->{timezone} || 'local');
+
         my $entry = Plagger::Entry->new;
         $entry->title($data->{title});
         $entry->link($data->{link});

@@ -20,8 +20,10 @@ sub parse {
     }
 
     my $dt = $module->parse_datetime($date) or return;
-    if (my $context = Plagger->context) {
-        $dt->set_time_zone($context->conf->{timezone} || 'local');
+
+    # If parsed datetime is floating, don't set timezone here. It should be "fixed" in caller plugins
+    unless ($dt->time_zone->is_floating) {
+        $dt->set_time_zone( Plagger->context->conf->{timezone} || 'local' );
     }
 
     bless $dt, $class;
