@@ -1,7 +1,7 @@
 package Plagger::Util;
 use strict;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title );
+our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri );
 
 use Encode ();
 use List::Util qw(min);
@@ -76,6 +76,37 @@ sub extract_title {
     my $content = shift;
     my $title = ($content =~ m!<title>\s*(.*?)\s*</title>!s)[0] or return;
     HTML::Entities::decode($1);
+}
+
+sub load_uri {
+    my($uri, $plugin) = @_;
+
+    my $data;
+    if (ref($uri) eq 'SCALAR') {
+        $data = $$uri;
+    }
+    elsif ($uri->scheme =~ /^https?$/) {
+        Plagger->context->log(debug => "Fetch remote file from $uri");
+
+        my $response = Plagger::UserAgent->new->fetch($uri, $plugin);
+        if ($response->is_error) {
+            Plagger->context->log(error => "GET $uri failed: " .
+                                  $response->http_status . " " .
+                                  $response->http_response->message);
+        }
+        $data = $response->content;
+    }
+    elsif ($uri->scheme eq 'file') {
+        Plagger->context->log(debug => "Open local file " . $uri->path);
+        open my $fh, '<', $uri->path
+            or Plagger->context->error( $uri->path . ": $!" );
+        $data = join '', <$fh>;
+    }
+    else {
+        Plagger->context->error("Unsupported URI scheme: " . $uri->scheme);
+    }
+
+    return $data;
 }
 
 1;

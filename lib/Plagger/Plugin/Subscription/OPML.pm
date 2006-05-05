@@ -2,7 +2,7 @@ package Plagger::Plugin::Subscription::OPML;
 use strict;
 use base qw( Plagger::Plugin );
 
-use Plagger::UserAgent;
+use Plagger::Util;
 use URI;
 use XML::OPML;
 
@@ -31,30 +31,7 @@ sub load {
 sub load_opml {
     my($self, $context, $uri) = @_;
 
-    my $xml;
-    if (ref($uri) eq 'SCALAR') {
-        $xml = $$uri;
-    }
-    elsif ($uri->scheme =~ /^https?$/) {
-        $context->log(debug => "Fetch remote OPML from $uri");
-
-        my $response = Plagger::UserAgent->new->fetch($uri, $self);
-        if ($response->is_error) {
-            $context->log(error => "GET $uri failed: " .
-                          $response->http_status . " " .
-                          $response->http_response->message);
-        }
-        $xml = $response->content;
-    }
-    elsif ($uri->scheme eq 'file') {
-        $context->log(debug => "Open local OPML file " . $uri->path);
-        open my $fh, '<', $uri->path
-            or $context->error( $uri->path . ": $!" );
-        $xml = join '', <$fh>;
-    }
-    else {
-        $context->error("Unsupported URI scheme: " . $uri->scheme);
-    }
+    my $xml = Plagger::Util::load_uri($uri, $self);
 
     if ($HAS_LIBERAL) {
         my $parser = XML::Liberal->new('LibXML');
