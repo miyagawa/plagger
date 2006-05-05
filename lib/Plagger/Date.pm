@@ -6,10 +6,7 @@ use Encode;
 use DateTime::Format::Strptime;
 use UNIVERSAL::require;
 
-sub rebless {
-    my($class, $dt) = @_;
-    bless $dt, $class;
-}
+sub rebless { bless $_[1], $_[0] }
 
 sub parse {
     my($class, $format, $date) = @_;
@@ -23,7 +20,13 @@ sub parse {
     }
 
     my $dt = $module->parse_datetime($date) or return;
-    $class->rebless($dt);
+
+    # If parsed datetime is floating, don't set timezone here. It should be "fixed" in caller plugins
+    unless ($dt->time_zone->is_floating) {
+        $dt->set_time_zone( Plagger->context->conf->{timezone} || 'local' );
+    }
+
+    bless $dt, $class;
 }
 
 sub parse_dwim {
