@@ -16,6 +16,12 @@ sub add {
     push @{ $self->{by_types}->{$feed->type} }, $feed;
 }
 
+sub delete_feed {
+    my($self, $feed) = @_;
+    my @feeds = grep { $_ ne $feed } $self->feeds;
+    $self->{feeds} = \@feeds;
+}
+
 sub types {
     my $self = shift;
     keys %{ $self->{by_types} };

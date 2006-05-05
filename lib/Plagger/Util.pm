@@ -46,19 +46,36 @@ sub dumbnail {
 }
 
 sub decode_content {
-    my $res = shift;
-    my $content = $res->content;
+    my $stuff = shift;
 
-    # 1) get charset from HTTP Content-Type header
-    my $charset = ($res->http_response->content_type =~ /charset=([\w\-]+)/)[0];
+    my $content;
+    my $res;
+    if (ref($stuff) && ref($stuff) eq 'URI::Fetch::Response') {
+        $res     = $stuff;
+        $content = $res->content;
+    } elsif (ref($stuff)) {
+        Plagger->context->error("Don't know how to decode " . ref($stuff));
+    } else {
+        $content = $stuff;
+    }
 
-    # 2) if there's not, try META tag
+    my $charset;
+
+    # 1) if it is HTTP response, get charset from HTTP Content-Type header
+    if ($res) {
+        $charset = ($res->http_response->content_type =~ /charset=([\w\-]+)/)[0];
+    }
+
+    # 2) if there's not, try XML encoding
+    $charset ||= ( $content =~ /<\?xml version="1.0" encoding="([\w\-]+)"\?>/ )[0];
+
+    # 3) if there's not, try META tag
     $charset ||= ( $content =~ m!<meta http-equiv="Content-Type" content=".*charset=([\w\-]+)"!i )[0];
 
-    # 3) if there's not still, try Detector/Guess
+    # 4) if there's not still, try Detector/Guess
     $charset ||= $Detector->($content);
 
-    # 4) falls back to UTF-8
+    # 5) falls back to UTF-8
     $charset ||= 'utf-8';
 
     my $decoded = eval { Encode::decode($charset, $content) };
@@ -81,6 +98,8 @@ sub extract_title {
 sub load_uri {
     my($uri, $plugin) = @_;
 
+    require Plagger::UserAgent;
+
     my $data;
     if (ref($uri) eq 'SCALAR') {
         $data = $$uri;
@@ -94,13 +113,13 @@ sub load_uri {
                                   $response->http_status . " " .
                                   $response->http_response->message);
         }
-        $data = $response->content;
+        $data = decode_content($response);
     }
     elsif ($uri->scheme eq 'file') {
         Plagger->context->log(debug => "Open local file " . $uri->path);
         open my $fh, '<', $uri->path
             or Plagger->context->error( $uri->path . ": $!" );
-        $data = join '', <$fh>;
+        $data = decode_content(join '', <$fh>);
     }
     else {
         Plagger->context->error("Unsupported URI scheme: " . $uri->scheme);

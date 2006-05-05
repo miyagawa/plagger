@@ -29,13 +29,14 @@ sub add_feed {
         $feed,
 #        HTML::Tidy->new,
         undef,
-        HTML::Scrubber->new(
-            rules => [
-                style => 0,
-                script => 0,
-            ],
-            default => [ 1, { '*' => 1, style => 0 } ],
-        ),
+#        HTML::Scrubber->new(
+#            rules => [
+#                style => 0,
+#                script => 0,
+#            ],
+#            default => [ 1, { '*' => 1, style => 0 } ],
+#        ),
+        undef,
     );
 
     $self->_write_index(
@@ -70,7 +71,7 @@ sub _sanitize_entries {
     
     foreach my $entry ($feed->entries) {
 #        $entry->{body} = $tidy->clean($entry->{body});
-        $entry->{body} = $scrubber->scrub($entry->{body});
+        $entry->{body} = $scrubber->scrub($entry->{body}) if $scrubber;
     }
 }
 

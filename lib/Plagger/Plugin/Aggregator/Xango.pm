@@ -124,9 +124,13 @@ sub handle_response {
         } else {
             my @feeds = Feed::Find->find_in_html($r->content_ref, $url);
             if (@feeds) {
-                $url = $feeds[0];
-                return unless $url =~ m!^https?://!i;
-                $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => $redirect));
+                my $feed_url = $feeds[0];
+                return unless $feed_url =~ m!^https?://!i;
+
+                # OMG we should alias Feed so it can be looked up with $feed_url, too
+                $plugin->{_url2feed}->{$feed_url} = $plugin->{_url2feed}->{$url};
+
+                $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($feed_url), redirect => $redirect));
             }
             return;
         }

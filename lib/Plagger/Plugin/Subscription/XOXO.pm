@@ -27,7 +27,6 @@ sub load_xoxo {
     my($self, $context, $uri) = @_;
 
     my $xhtml = Plagger::Util::load_uri($uri, $self);
-
     my $tree = HTML::TreeBuilder->new;
     $tree->parse($xhtml);
     $tree->eof;
