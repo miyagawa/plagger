@@ -205,6 +205,10 @@ features(
         -default => 0,
         recommends('Search::Estraier'),
     ],
+    'Subscription::XOXO' => [
+        -default => 0,
+        recommends('HTML::TreeBuilder'),
+    ],
 );
 
 if ($^O eq 'darwin') {
