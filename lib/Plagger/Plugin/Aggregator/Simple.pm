@@ -32,13 +32,13 @@ sub aggregate {
 
     my $content = $res->content;
     if ( $Feed::Find::IsFeed{$content_type} || $self->looks_like_feed(\$content) ) {
-        $self->handle_feed($url, \$content);
+        $self->handle_feed($url, \$content, $args->{feed});
     } else {
         my @feeds = Feed::Find->find_in_html(\$content, $url);
         if (@feeds) {
             $url = $feeds[0];
             $res = $self->fetch_content($url) or return;
-            $self->handle_feed($url, \$res->content);
+            $self->handle_feed($url, \$res->content, $args->{feed});
         } else {
             return;
         }
@@ -75,7 +75,7 @@ sub fetch_content {
 }
 
 sub handle_feed {
-    my($self, $url, $xml_ref) = @_;
+    my($self, $url, $xml_ref, $feed) = @_;
 
     my $context = Plagger->context;
 
@@ -89,7 +89,7 @@ sub handle_feed {
         next;
     }
 
-    my $feed = Plagger::Feed->new;
+    $feed ||= Plagger::Feed->new;
     $feed->title(_u($remote->title));
     $feed->url($url);
     $feed->link($remote->link);

@@ -60,7 +60,7 @@ sub templatize {
     $tt->process("$skin/template/index.tt", {
         %{ $self->conf->{template} },
         feed  => $feed,
-        members => $self->_get_members($context, $feed),
+        members => [ $context->subscription->feeds ],
     }, \my $out) or $context->error($tt->error);
     $out;
 }
@@ -91,22 +91,6 @@ sub _apply_skin {
         File::Spec->catfile($self->assets_dir, $skin_name, 'static'),
         $output_dir,
     ) or $context->error("rcopy: $!");
-}
-
-sub _get_members {
-    my ($self, $context, $feed) = @_;
-    
-    my %members;
-    foreach my $entry ($feed->entries) {
-        unless ($members{$entry->source->id}) {
-            $members{$entry->source->id} = {
-                title => $entry->source->title,
-                link  => $entry->source->link,
-            };
-        }
-    }
-    
-    return [ sort { $a->{title} cmp $b->{title} } values %members ];
 }
 
 1;

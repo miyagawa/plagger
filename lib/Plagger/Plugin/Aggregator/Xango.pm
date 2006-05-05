@@ -42,8 +42,16 @@ sub aggregate {
 
     my $url = $args->{feed}->url;
     return unless $url =~ m!^https?://!i;
+
+    $self->{_url2feed}->{$url} = $args->{feed}; # map from url to feed object
+
     $context->log(info => "Fetch $url");
     POE::Kernel->post($self->{xango_alias}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => 0));
+}
+
+sub handle_feed {
+    my($self, $url, $xml_ref) = @_;
+    $self->SUPER::handle_feed($url, $xml_ref, $self->{_url2feed}->{$url});
 }
 
 sub finalize {
