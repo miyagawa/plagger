@@ -1,0 +1,21 @@
+plugins:
+  - module: Subscription::XOXO
+    config:
+      url: http://d.hatena.ne.jp/antipop/20050628/1119966355
+
+#  - module: Aggregator::Xango
+  - module: SmartFeed::All
+    rule:
+      module: Fresh
+      duration: 10080 # Seven Days
+    config:
+      title: Planet Perl JP
+
+  - module: Publish::Planet
+    rule:
+      expression: $args->{feed}->id eq 'smartfeed:all'
+    config:
+      dir: /home/miyagawa/public_html/perl
+      skin: default
+      template:
+        members_list: 1
