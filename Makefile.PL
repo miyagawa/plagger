@@ -207,7 +207,7 @@ features(
     ],
     'Subscription::XOXO' => [
         -default => 0,
-        recommends('HTML::TreeBuilder'),
+        recommends('HTML::TreeBuilder::XPath'),
     ],
 );
 

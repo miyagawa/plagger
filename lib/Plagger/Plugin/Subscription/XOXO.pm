@@ -2,7 +2,7 @@ package Plagger::Plugin::Subscription::XOXO;
 use strict;
 use base qw( Plagger::Plugin );
 
-use HTML::TreeBuilder;
+use HTML::TreeBuilder::XPath;
 use Plagger::Util;
 use URI;
 
@@ -27,7 +27,7 @@ sub load_xoxo {
     my($self, $context, $uri) = @_;
 
     my $xhtml = Plagger::Util::load_uri($uri, $self);
-    my $tree = HTML::TreeBuilder->new;
+    my $tree = HTML::TreeBuilder::XPath->new;
     $tree->parse($xhtml);
     $tree->eof;
 
@@ -37,36 +37,15 @@ sub load_xoxo {
 sub find_xoxo {
     my($self, $tree) = @_;
 
-    for my $child ($tree->content_list) {
-        next unless ref $child;
-        if ($child->tag eq 'ul' || $child->tag eq 'ol') {
-            my $class = $child->attr('class') || '';
-            if ($class eq 'xoxo' || $class eq 'subscriptionlist') {
-                $self->find_list($child);
-            }
-        } else {
-            $self->find_xoxo($child);
-        }
-    }
-}
+    for my $child ($tree->findnodes('//ul[@class="xoxo" or @class="subscriptionlist"]//a')) {
+        my $href  = $child->attr('href') or next;
+        my $title = $child->attr('title') || $child->as_text;
 
-sub find_list {
-    my($self, $tree) = @_;
+        my $feed = Plagger::Feed->new;
+        $feed->url($href);
+        $feed->title($title);
 
-    for my $child ($tree->content_list) {
-        next unless ref $child;
-        if ($child->tag eq 'a') {
-            my $href  = $child->attr('href') or next;
-            my $title = $child->attr('title') || $child->as_text;
-
-            my $feed = Plagger::Feed->new;
-            $feed->url($href);
-            $feed->title($title);
-
-            Plagger->context->subscription->add($feed);
-        } else {
-            $self->find_list($child);
-        }
+        Plagger->context->subscription->add($feed);
     }
 }
 
