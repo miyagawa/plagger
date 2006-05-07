@@ -1,0 +1,6 @@
+author: woremacx
+handle: http://.*?\.ti-da\.net/
+extract: <div class="main">(.*?)</div>.*?<a name="more">.*?</a>.*?<div class="main">(.*?)</div>
+extract_capture: body body_more
+extract_after_hook: |
+  $data->{body} .= $data->{body_more} if $data->{body_more};
