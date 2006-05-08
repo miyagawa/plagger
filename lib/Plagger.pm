@@ -150,18 +150,25 @@ sub load_plugins {
 
     if ($self->conf->{plugin_path}) {
         for my $path (@{ $self->conf->{plugin_path} }) {
-            my $rule = File::Find::Rule->new;
-               $rule->file;
-               $rule->name( qr/^\w[\w\.]*$/ );
-            my @files = $rule->in($path);
-
-            for my $file (@files) {
-                next if $file =~ /\W(?:\.svn|CVS)\b/;
-                my $pkg = $self->extract_package($file)
-                    or die "Can't find package from $file";
-
-                (my $base = $file) =~ s!^$path/!!;
-                $self->plugins_path->{$pkg} = $file;
+            opendir my $dir, $path or do {
+                $self->log(warn => "$path: $!");
+                next;
+            };
+            while (my $ent = readdir $dir) {
+                next if $ent =~ /^\./;
+                $ent = File::Spec->catfile($path, $ent);
+                if (-f $ent && $ent =~ /\.pm$/) {
+                    my $pkg = $self->extract_package($ent)
+                        or die "Can't find package from $ent";
+                    (my $base = $ent) =~ s!^$path/!!;
+                    $self->plugins_path->{$pkg} = $ent;
+                } elsif (-d $ent) {
+                    my $lib = File::Spec->catfile($ent, "lib");
+                    if (-e $lib && -d _) {
+                        $self->log(debug => "Add $lib to INC path");
+                        unshift @INC, $lib;
+                    }
+                }
             }
         }
     }
