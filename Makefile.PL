@@ -209,6 +209,10 @@ features(
         -default => 0,
         recommends('HTML::TreeBuilder::XPath'),
     ],
+    'Publish::2chdat' => [
+        -default => 0,
+        recommends('DateTime::Locale'),
+    ],
 );
 
 if ($^O eq 'darwin') {
