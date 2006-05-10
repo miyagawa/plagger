@@ -17,7 +17,7 @@ sub filter {
 
     my $body = $args->{entry}->body;
     if ($body =~ s!^([^:]*):(\d{4}/\d\d/\d\d)\(.*?\) (\d\d:\d\d:\d\d)\.\d\d (ID:\S+)  ?!!) {
-        my($email, $day, $time, $id) = ($1, $2, $3, $4);
+        my($from, $day, $time, $id) = ($1, $2, $3, $4);
 
         my $date = Plagger::Date->strptime('%Y/%m/%d %H:%M:%S', "$day $time");
         $date->set_time_zone('Asia/Tokyo');
@@ -25,7 +25,8 @@ sub filter {
         $context->log(info => "Normalize 2ch rss body $id on $date");
 
         $args->{entry}->date($date);
-        $args->{entry}->author( $email ? "$id <$email>" : $id );
+        $args->{entry}->author( $from ? "$from $id" : $id );
+        $args->{entry}->body($body);
     } elsif ($args->{entry}->title =~ /^\d+\-$/) {
         $context->log(info => "Strip 2ch bogus entry " . $args->{entry}->title);
         $args->{feed}->delete_entry($args->{entry});
