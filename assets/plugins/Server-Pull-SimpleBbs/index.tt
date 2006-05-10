@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>[% feed.title %]</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<h1>[% feed.title %]</h1><br />
+<form method="post">
+Name:<input name="name" /><br />
+Title:<input name="title" /><br />
+Body<br />
+<textarea name="body" cols="60" rows="5"></textarea><br />
+<input type="submit" />
+</form>
+<hr />
+[% FOREACH entry = feed.entries -%]
+Title: [% entry.title  | html %]
+[% IF entry.date %]<br />Date: [% entry.date.format('Mail') %][% END %]
+[% IF entry.author %]<br />Name: [% entry.author | html %][% END %]
+[% IF entry.body %]<br />[% entry.body | html | replace('\n', '<br />') %][% END %]
+[% UNLESS loop.last %]<hr />[% END %]
+[%- END %]
+<hr />
+Powerd By Plagger Server
+</body>
+</html>

@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use FindBin;
+use File::Spec;
+
+use lib File::Spec->catdir($FindBin::Bin, 'lib');
+use Plagger::Server;
+
+use Getopt::Long;
+
+my $config = File::Spec->catfile($FindBin::Bin, 'config.yaml');
+GetOptions('--config=s', \$config, '--version' => \my $version);
+Getopt::Long::Configure("bundling"); # allows -c -v
+
+if ($version) {
+    print "Plagger version $Plagger::VERSION\n";
+    exit;
+}
+
+Plagger::Server->bootstrap(config => $config);
+
