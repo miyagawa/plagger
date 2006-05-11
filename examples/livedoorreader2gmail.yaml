@@ -1,7 +1,7 @@
 global:
   plugin_path:
     - /home/miyagawa/plagger/plugins
-  #assets_path: /home/miyagawa/plagger/assets
+  assets_path: /home/miyagawa/plagger/assets
   timezone: Asia/Tokyo
   log:
     level: info
