@@ -25,7 +25,7 @@ sub dispatch {
     }
 
     return unless $url;
-    
+
     my $res = Net::DNS::Resolver->new;
     my $dnsbl = $self->{dnsbl};
        $dnsbl = [ $dnsbl ] unless ref $dnsbl;
