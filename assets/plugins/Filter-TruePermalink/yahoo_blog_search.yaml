@@ -1,4 +1,4 @@
 author: Tatsuhiko Miyagawa
 match: http://rd\.yahoo\.co\.jp/rss/l/blogsearch
-rewrite: s!^http://rd\.yahoo\.co\.jp/rss/l/blogsearch/search/.*?\*!!
+rewrite: s!^http://rd\.yahoo\.co\.jp/rss/l/blogsearch/search/.*?\*\-!!
 
