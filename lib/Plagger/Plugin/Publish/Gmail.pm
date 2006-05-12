@@ -68,7 +68,20 @@ sub notify {
         Data => encode("utf-8", $body),
     );
 
+    for my $entry ($args->{feed}->entries) {
+        for my $enclosure (grep $_->local_path, $entry->enclosures) {
+            $msg->attach(
+                Type => $enclosure->type,
+                Path => $enclosure->local_path,
+                Filename => $enclosure->filename,
+                Disposition => 'attachment',
+            );
+        }
+    }
+
     my $route = $cfg->{mailroute} || { via => 'smtp', host => 'localhost' };
+    $route->{via} ||= 'smtp';
+
     if ($route->{via} eq 'smtp_tls') {
         $self->{tls_args} = [
             $route->{host},

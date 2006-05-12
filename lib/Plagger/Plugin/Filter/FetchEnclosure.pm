@@ -38,6 +38,7 @@ sub filter {
         my $path = File::Spec->catfile($feed_dir, $enclosure->filename);
         $context->log(info => "fetch " . $enclosure->url . " to " . $path);
         $ua->mirror($enclosure->url, $path);
+        $enclosure->local_path($path); # set to be used in later plugins
     }
 }
 
