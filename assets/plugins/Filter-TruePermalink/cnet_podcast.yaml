@@ -1,0 +1,4 @@
+# http://dw.com.com/redir/file.mp3?destURL=http://podcast-files.cnet.com/podcast/cnetbuzz_051206.mp3&ctype=podCast&cval=BuzzOutLoud;051206 
+author: Tatsuhiko Miyagawa
+match: http://dw\.com\.com/redir
+query_param: destURL

@@ -42,30 +42,45 @@ sub register {
 sub update {
     my($self, $context, $args) = @_;
 
-    my $orig = $args->{entry}->permalink;
+    $self->rewrite($args->{entry}->permalink, sub { $args->{entry}->link(@_) });
+    for my $enclosure ($args->{entry}->enclosures) {
+        $self->rewrite($enclosure->url, sub { $enclosure->url( URI->new(@_) ) });
+    }
+}
+
+sub rewrite {
+    my($self, $link, $callback) = @_;
+
+    my $context = Plagger->context;
+
+    my $orig = $link; # copy
     my $count = 0;
+    my $rewritten;
 
     for my $plugin (@{ $self->{plugins}}) {
         my $match = $plugin->{match} || '.'; # anything
-        next unless $args->{entry}->permalink =~ m/$match/i;
+        next unless $link =~ m/$match/i;
 
         if ($plugin->{rewrite}) {
-            local $_ = $args->{entry}->permalink;
+            local $_ = $link;
             $count += eval $plugin->{rewrite};
             if ($@) {
                 $context->error("$@ in $plugin->{rewrite}");
             }
-            $args->{entry}->link($_);
+            $callback->($_);
+            $rewritten = $_;
         } elsif ($plugin->{query_param}) {
-            my $link = URI->new($args->{entry}->permalink)->query_param($plugin->{query_param})
-                or $context->error("No query param $plugin->{query_param} in " . $args->{entry}->permalink);
-            $args->{entry}->link($link);
+            my $param = URI->new($link)->query_param($plugin->{query_param})
+                or $context->error("No query param $plugin->{query_param} in " . $link);
+            $callback->($param);
             $count++;
+            $rewritten = $param;
+            last;
         }
     }
 
     if ($count) {
-        $context->log(info => "Permalink $orig rewritten to " . $args->{entry}->permalink);
+        $context->log(info => "Link $orig rewritten to $rewritten");
     }
 }
 
@@ -88,7 +103,9 @@ files. Various permalink fix filters in the past (YahooBlogSearch,
 Namaan, 2chRSSPermalink) can now be writting as a pattern file for
 this plugin.
 
-This plugin rewrites I<link> attribute of C<$entry>, rather than I<permalink>.
+This plugin rewrites I<link> attribute of C<$entry>, rather than
+I<permalink>. If C<$entry> has enclosures, this plugin also tries to
+rewrite url of them.
 
 =head1 PATTERN FILES
 
