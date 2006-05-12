@@ -140,16 +140,16 @@ sub handle_feed {
         # enclosure support, to be added to XML::Feed
         if ($remote->format =~ /^RSS / && $e->{entry}->{enclosure}) {
             my $enclosure = Plagger::Enclosure->new;
-            $enclosure->url($e->{entry}->{enclosure}->{url});
+            $enclosure->url( URI->new($e->{entry}->{enclosure}->{url}) );
             $enclosure->length($e->{entry}->{enclosure}->{length});
-            $enclosure->type($e->{entry}->{enclosure}->{type});
+            $enclosure->auto_set_type($e->{entry}->{enclosure}->{type});
             $entry->add_enclosure($enclosure);
         } elsif ($remote->format eq 'Atom') {
             for my $link ( grep { $_->rel eq 'enclosure' } $e->{entry}->link ) {
                 my $enclosure = Plagger::Enclosure->new;
-                $enclosure->url($link->href);
+                $enclosure->url( URI->new($link->href) );
                 $enclosure->length($link->length);
-                $enclosure->type($link->type);
+                $enclosure->auto_set_type($link->type);
                 $entry->add_enclosure($enclosure);
             }
         }
