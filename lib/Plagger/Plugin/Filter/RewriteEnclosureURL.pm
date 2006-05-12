@@ -60,13 +60,20 @@ Plagger::Plugin::Filter::RewriteEnclosureURL - Rewrite enclosure URL for republi
 
 =head1 DESCRIPTION
 
-This plugin downloads enclosure files set for each entry.
+This plugin rewrites enclosure URL using rewrite rule.
 
-=head1 TODO
+=head1 CONFIG
 
 =over 4
 
-=item Support asynchronous download using POE
+=item rewrite
+
+List of hash that defines rule to rewrite URL. C<local> to represent
+local path, which should match with enclosure's local_path and C<url>
+to represent publicly accessible HTTP base URL.
+
+In this example, I</home/miyagawa/public_html/foo.mp3> is rewritten to
+I<http://rock/~miyagawa/foo.mp3>.
 
 =back
 
