@@ -84,5 +84,10 @@ sub enclosures {
     wantarray ? @{$self->{enclosures}} : $self->{enclosures};
 }
 
+sub has_enclosure {
+    my $self = shift;
+    scalar @{$self->{enclosures}} > 0;
+}
+
 1;
 

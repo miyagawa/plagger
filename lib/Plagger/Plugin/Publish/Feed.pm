@@ -57,6 +57,19 @@ sub publish_feed {
         $entry->category(join(' ', @{$e->tags}));
         $entry->issued($e->date) if $e->date;
         $entry->author($e->author);
+
+        # RSS 2.0 by spec doesn't allow multiple enclosures
+        if ($e->has_enclosure) {
+            my @enclosures = $feed_format eq 'RSS' ? ($e->enclosures->[0]) : $e->enclosures;
+            for my $enclosure (@enclosures) {
+                $entry->add_enclosure({
+                    url    => $enclosure->url,
+                    length => $enclosure->length,
+                    type   => $enclosure->type,
+                });
+            }
+        }
+
         $feed->add_entry($entry);
     }
 
@@ -98,6 +111,27 @@ sub safe_filename {
     $path =~ s!\s+!_!g;
     $path;
 }
+
+# XXX okay, this is a hack until XML::Feed is updated
+*XML::Feed::Entry::Atom::add_enclosure = sub {
+    my($entry, $enclosure) = @_;
+    my $link = XML::Atom::Link->new;
+    $link->rel('enclosure');
+    $link->type($enclosure->{type});
+    $link->href($enclosure->{url});
+    $link->length($enclosure->{length});
+    $entry->{entry}->add_link($link);
+};
+
+*XML::Feed::Entry::RSS::add_enclosure = sub {
+    my($entry, $enclosure) = @_;
+    $entry->{entry}->{enclosure} = {
+        url    => $enclosure->{url},
+        type   => $enclosure->{type},
+        length => $enclosure->{length},
+    };
+};
+
 
 1;
 
@@ -155,6 +189,10 @@ like printf():
 =head1 AUTHOR
 
 Yoshiki KURIHARA
+
+Tatsuhiko Miyagawa
+
+Gosuke Miyashita
 
 =head1 SEE ALSO
 
