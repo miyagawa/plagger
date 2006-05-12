@@ -2,6 +2,7 @@ package Plagger::Plugin::Subscription::Odeo;
 use strict;
 use base qw( Plagger::Plugin::Subscription::OPML );
 
+use Plagger::UserAgent;
 use URI::Escape;
 use HTML::Entities;
 
