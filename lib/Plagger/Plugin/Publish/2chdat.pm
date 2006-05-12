@@ -29,7 +29,7 @@ sub feed {
     my($self, $context, $args) = @_;
 
     my $feed = $args->{feed};
-    my $out  = File::Spec->catfile($self->conf->{dir}, 'dat', $self->safe_id($feed->id) . ".dat");
+    my $out  = File::Spec->catfile($self->conf->{dir}, 'dat', $feed->id_safe . ".dat");
     $context->log(info => "Writing dat output to $out");
 
     my $anonymous = decode("utf-8", $self->conf->{default_anonymous} || "名無しさん");
@@ -38,7 +38,7 @@ sub feed {
     printf $fh "%s<><>%s ID:%s<> %s<>%s\n",
         ($feed->author || $feed->entries->[0]->author || $anonymous),
         $self->format_date( Plagger::Date->from_epoch(0) ), # Fix created date to handle bytes-range request
-        substr($self->safe_id($feed->id), 0, 8),
+        substr($feed->id_safe), 0, 8),
         $self->format_body($feed->description) . "<BR>" . $feed->link,
         $feed->title;
 
@@ -64,15 +64,8 @@ sub finalize {
     my $out = File::Spec->catfile($self->conf->{dir}, 'subject.txt');
     open my $fh, ">:encoding(shift_jis)", $out or $context->erorr("$out: $!");
     for my $feed ($context->update->feeds) {
-        printf $fh "%s.dat<>%s (%d)\n", $self->safe_id($feed->id), $feed->title, $feed->count;
+        printf $fh "%s.dat<>%s (%d)\n", $feed->id_safe, $feed->title, $feed->count;
     }
-}
-
-sub safe_id {
-    my($self, $id) = @_;
-    $id =~ s![^\w\s]+!_!g;
-    $id =~ s!\s+!_!g;
-    $id;
 }
 
 sub format_date {

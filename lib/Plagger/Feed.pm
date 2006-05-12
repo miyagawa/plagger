@@ -54,6 +54,14 @@ sub id {
     $self->{id} || Digest::MD5::md5_hex($self->url || $self->link);
 }
 
+sub id_safe {
+    my $self = shift;
+    my $id = $self->id;
+    $id =~ s![^\w\s]+!_!g;
+    $id =~ s!\s+!_!g;
+    $id;
+}
+
 sub title_text {
     my $self = shift;
     Plagger::Util::strip_html($self->title);

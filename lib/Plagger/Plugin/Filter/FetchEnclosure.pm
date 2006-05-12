@@ -29,7 +29,13 @@ sub filter {
 
     my $ua = Plagger::UserAgent->new;
     for my $enclosure ($args->{entry}->enclosures) {
-        my $path = File::Spec->catfile($self->conf->{dir}, $enclosure->filename);
+        my $feed_dir = File::Spec->catfile($self->conf->{dir}, $args->{feed}->id_safe);
+        unless (-e $feed_dir && -d _) {
+            $context->log(info => "mkdir $feed_dir");
+            mkdir $feed_dir, 0777;
+        }
+
+        my $path = File::Spec->catfile($feed_dir, $enclosure->filename);
         $context->log(info => "fetch " . $enclosure->url . " to " . $path);
         $ua->mirror($enclosure->url, $path);
     }
