@@ -1,5 +1,37 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.6.6 (2006/05/12) ==
+
+=== Core ===
+
+ * Added sites upgrade files (woremacx)
+ * Don't truncate newline after password rewrite #200
+ * Share $feed object between subscription and update
+ * encode detection now uses XML encoding declaration first
+ * Unhandled feed is removed from $context->subscription
+ * Plagger::Date->parse doesn't force preference timezone if parsed datetime is floating
+ * Load plugins from plugins/*/lib #212
+
+=== New Plugins ===
+ 
+ * Filter::HatenaKeywordTag: Use Hatena Keyword API to auto-tag (secondlife)
+ * Search::Estraier: Search plugin to use Hyper Estraier Node API (miyagawa)
+ * Subscription::XOXO: load subscription from XOXO microformats (miyagawa)
+ * Publish::2chdat: Create 2ch subject.txt and *.dat files (miyagawa)
+ * Filter::2chRSSContent: Fix rss.s2ch.net feed content (miyagawa)
+ * Filter::Markdown: Filter entry body using Markdown syntax (s_nobu) 
+
+=== Plugins Updates ===
+
+ * Notify::IRC: added password config to plagger-ircbot #197
+ * Filter::TruePermalink: Updated Y! Blogsearch pattern. Added reedit.com
+ * rename Publish::Spotlight to Search::Spotlight #207
+ * CustomFeed::Mixi: support "ashiato". Update WWW::Mixi deps
+ * Rule::URLBL: now works with $args->{entry} to be used with Filter::Rule
+ * Publish::Planet: get members from subscription rather than update #198
+ * CustomFeed::BloglinesCitation: Handle local datetime PST #187
+ * Filter::EntryFullText: now work with rule
+
 == 0.6.5 (2006/04/28) ==
 
 === Core ===
