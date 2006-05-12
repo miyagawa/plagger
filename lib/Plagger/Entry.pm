@@ -16,6 +16,7 @@ sub new {
         widgets => [],
         tags    => [],
         meta    => {},
+        enclosures => [],
     }, $class;
 }
 
@@ -66,6 +67,21 @@ sub title_text {
 sub body_text {
     my $self = shift;
     Plagger::Util::strip_html($self->body);
+}
+
+sub add_enclosure {
+    my($self, $enclosure) = @_;
+    push @{ $self->{enclosures} }, $enclosure;
+}
+
+sub enclosure {
+    my $self = shift;
+    wantarray ? @{$self->{enclosures}} : $self->{enclosures}->[0];
+}
+
+sub enclosures {
+    my $self = shift;
+    wantarray ? @{$self->{enclosures}} : $self->{enclosures};
 }
 
 1;

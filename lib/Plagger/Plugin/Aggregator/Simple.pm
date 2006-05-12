@@ -3,6 +3,7 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use Feed::Find;
+use Plagger::Enclosure;
 use Plagger::UserAgent;
 use List::Util qw(first);
 use UNIVERSAL::require;
@@ -135,6 +136,23 @@ sub handle_feed {
         $entry->feed_link($feed->link);
         $entry->id($e->id);
         $entry->body(_u($e->content->body || $e->summary->body));
+
+        # enclosure support, to be added to XML::Feed
+        if ($remote->format =~ /^RSS / && $e->{entry}->{enclosure}) {
+            my $enclosure = Plagger::Enclosure->new;
+            $enclosure->url($e->{entry}->{enclosure}->{url});
+            $enclosure->length($e->{entry}->{enclosure}->{length});
+            $enclosure->type($e->{entry}->{enclosure}->{type});
+            $entry->add_enclosure($enclosure);
+        } elsif ($remote->format eq 'Atom') {
+            for my $link ( grep { $_->rel eq 'enclosure' } $e->{entry}->link ) {
+                my $enclosure = Plagger::Enclosure->new;
+                $enclosure->url($link->href);
+                $enclosure->length($link->length);
+                $enclosure->type($link->type);
+                $entry->add_enclosure($enclosure);
+            }
+        }
 
         my $args = {
             entry      => $entry,
