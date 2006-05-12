@@ -1,4 +1,4 @@
-package Plagger::Plugin::Filter::HatenaKeywordNewsokuTag;
+package Plagger::Plugin::Filter::HatenaKeywordTag;
 use strict;
 use base qw( Plagger::Plugin );
 use Hatena::Keyword;
@@ -30,11 +30,11 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::HatenaKeywordNewsokuTag - Hatena::Keyword API for auto-tagging
+Plagger::Plugin::Filter::HatenaKeywordTag - Hatena::Keyword API for auto-tagging
 
 =head1 SYNOPSIS
 
-  - module: Filter::HatenaKeywordNewsokuTag
+  - module: Filter::HatenaKeywordTag
   - module: Filter::2chNewsokuTitle
 
 =head1 DESCRIPTION
