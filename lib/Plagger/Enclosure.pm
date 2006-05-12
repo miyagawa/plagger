@@ -32,7 +32,10 @@ sub sub_type {
 
 sub filename {
     my $self = shift;
-    (split '/', $self->url->path)[-1];
+    if (@_) {
+        $self->{filename} = shift;
+    }
+    $self->{filename} || (split '/', $self->url->path)[-1];
 }
 
 1;

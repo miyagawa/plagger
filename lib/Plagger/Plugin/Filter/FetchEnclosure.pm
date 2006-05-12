@@ -37,8 +37,13 @@ sub filter {
 
         my $path = File::Spec->catfile($feed_dir, $enclosure->filename);
         $context->log(info => "fetch " . $enclosure->url . " to " . $path);
-        $ua->mirror($enclosure->url, $path);
+        my $res = $ua->mirror($enclosure->url, $path);
         $enclosure->local_path($path); # set to be used in later plugins
+
+        # Fix length if it's broken
+        if ($res->header('Content-Length')) {
+            $enclosure->length( $res->header('Content-Length') );
+        }
     }
 }
 
