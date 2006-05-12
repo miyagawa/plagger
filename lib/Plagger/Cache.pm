@@ -35,7 +35,7 @@ sub path_to {
     my($self, @path) = @_;
     if (@path > 1) {
         my @chunk = @path[0..$#path-1];
-        mkpath(File::Spec->catfile(@chunk), 0, 0700);
+        mkpath(File::Spec->catfile($self->{base}, @chunk), 0, 0700);
     }
     File::Spec->catfile($self->{base}, @path);
 }
