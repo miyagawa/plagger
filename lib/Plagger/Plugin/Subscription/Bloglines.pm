@@ -175,6 +175,14 @@ sub sync {
             $entry->id($item->{guid});
             $entry->body($item->{description});
 
+            if ($item->{enclosure}) {
+                my $enclosure = Plagger::Enclosure->new;
+                $enclosure->url( URI->new($item->{enclosure}->{url}) );
+                $enclosure->length($item->{enclosure}->{length});
+                $enclosure->auto_set_type($item->{enclosure}->{type});
+                $entry->add_enclosure($enclosure);
+            }
+
             $feed->add_entry($entry);
         }
 
