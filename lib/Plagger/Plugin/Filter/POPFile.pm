@@ -2,7 +2,7 @@ package Plagger::Plugin::Filter::POPFile;
 use strict;
 use base qw( Plagger::Plugin );
 
-our $VERSION = '0.03_02';
+our $VERSION = '0.03_04';
 
 use XMLRPC::Lite;
 use File::Temp ();
@@ -26,7 +26,7 @@ sub filter {
     my $entry    = $args->{entry};
     my $filename = write_tmpfile($self, $context, $args);
     my $training = $self->conf->{training};
-       $training = 1 unless defined $training.
+       $training = 1 unless defined $training;
 
     my $bucket;
     if ($training) {
