@@ -36,7 +36,7 @@ sub aggregate {
     my $res = $agent->fetch($url, $self);
 
     if ($res->http_response->is_error) {
-        $context->log(error => "GET $url failed: " . $res->status_code);
+        $context->log(error => "GET $url failed: " . $res->status_line);
         return;
     }
 
