@@ -58,10 +58,10 @@ sub publish_feed {
         $entry->issued($e->date) if $e->date;
         $entry->author($e->author);
 
-        # RSS 2.0 by spec doesn't allow multiple enclosures
         if ($e->has_enclosure) {
+            # RSS 2.0 by spec doesn't allow multiple enclosures
             my @enclosures = $feed_format eq 'RSS' ? ($e->enclosures->[0]) : $e->enclosures;
-            for my $enclosure (@enclosures) {
+            for my $enclosure (grep defined $_->url, @enclosures) {
                 $entry->add_enclosure({
                     url    => $enclosure->url,
                     length => $enclosure->length,
