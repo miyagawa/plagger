@@ -54,20 +54,18 @@ Plagger::Plugin::Filter::RSSTimeZoneString - Fix bad RFC822 timezone string in R
 This plugin fixes a bad timezone string in pubDate of RSS 2.0 (or
 0.91) feeds to a correct one.
 
-Namely, when you create RSS feeds with POSIX C<strftime> function for
+Namely, when you create RSS feeds with POSIX C<ctime> function for
 example, it'll create a following pubDate format if you're on the box
 under Japanese standard time:
 
   Fri, 03 Mar 2006 03:52:42 JST
 
-which is invalid in RFC 822. (RFC 822 only allows timezone strings for
-North America, like PST and CST).
+which is B<invalid> in RFC 822. (RFC 822 only allows timezone strings
+for North America, like PST and CST).
 
 This plugin fixes the string to:
 
   Fri, 03 Mar 2006 03:52:42 +0900
-
-and the correct one is re-parsed and set to C<< $entry->date >>.
 
 =head1 AUTHOR
 
@@ -75,6 +73,6 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<DateTime::Format::Mail>, L<Time::Zone>
+L<Plagger>, L<DateTime::Format::Mail>, L<Time::Zone>, L<Plagger::Plugin::Filter::RSSLiberalDateTime>
 
 =cut
