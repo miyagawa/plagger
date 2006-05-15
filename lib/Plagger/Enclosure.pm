@@ -2,7 +2,17 @@ package Plagger::Enclosure;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( url length type local_path ));
+__PACKAGE__->mk_accessors(qw( length type local_path ));
+
+use URI;
+
+sub url {
+    my $self = shift;
+    if (@_) {
+        $self->{url} = URI->new($_[0]);
+    }
+    $self->{url};
+}
 
 sub auto_set_type {
     my($self, $type) = @_;
