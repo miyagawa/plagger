@@ -2,8 +2,9 @@ package Plagger::Enclosure;
 use strict;
 
 use base qw( Class::Accessor::Fast );
-__PACKAGE__->mk_accessors(qw( length type local_path ));
+__PACKAGE__->mk_accessors(qw( length type local_path is_inline ));
 
+use Plagger::Util;
 use URI;
 
 sub url {
@@ -21,13 +22,9 @@ sub auto_set_type {
         return $self->type($type);
     }
 
-    require MIME::Types;
-
-    # no type is set in XML ... set via URL extension
-    my $ext  = ( $self->url->path =~ /\.(\w+)/ )[0];
-    my $mime = MIME::Types->new->mimeTypeOf($ext) or return;
-
-    $self->type($mime->type);
+    # set MIME type via URL extension
+    my $mime = Plagger::Util::mime_type_of($self->url);
+    $self->type($mime->type) if $mime;
 }
 
 sub media_type {

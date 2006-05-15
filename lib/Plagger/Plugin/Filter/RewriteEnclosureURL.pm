@@ -24,7 +24,7 @@ sub filter {
     for my $enclosure ($args->{entry}->enclosures) {
         my $local_path = $enclosure->local_path;
         unless ($local_path) {
-            $context->log(error => "\$enclosure->local_path is not set. You need to load Filter::FetchEnclosure to use this plugin.");
+            $context->log(warn => "\$enclosure->local_path is not set. You need to load Filter::FetchEnclosure to use this plugin.");
             return;
         }
 
