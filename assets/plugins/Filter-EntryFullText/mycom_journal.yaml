@@ -1,4 +1,4 @@
-# upgrade http://pcweb.mycom.co.jp/haishin/rss/index.rdf
+# upgrade http://journal.mycom.co.jp/haishin/rss/index.rdf
 author: Nobuhito Sato
 handle: http://journal\.mycom\.co\.jp/
 extract: <!-- #BeginEditable "contents" -->(.*?)<!-- #EndEditable -->
