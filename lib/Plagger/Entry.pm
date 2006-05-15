@@ -71,7 +71,11 @@ sub body_text {
 
 sub add_enclosure {
     my($self, $enclosure) = @_;
-    push @{ $self->{enclosures} }, $enclosure;
+
+    # don't add enclosure with the same URL again and again
+    unless ($enclosure->url && grep { $_->url && $_->url eq $enclosure->url } $self->enclosures) {
+        push @{ $self->{enclosures} }, $enclosure;
+    }
 }
 
 sub enclosure {

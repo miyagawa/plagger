@@ -19,20 +19,23 @@ sub register {
 sub filter {
     my($self, $context, $args) = @_;
 
+    # check $entry->link first, if it links directly to media files
+    $self->add_enclosure($args->{entry}, [ 'a', { href => $args->{entry}->link } ], 'href' );
+
     my $parser = HTML::TokeParser->new(\$args->{entry}->body);
     while (my $tag = $parser->get_tag('a', 'embed', 'img')) {
         if ($tag->[0] eq 'a' ) {
-            $self->add_enclosure($args, $tag, 'href');
+            $self->add_enclosure($args->{entry}, $tag, 'href');
         } elsif ($tag->[0] eq 'embed') {
-            $self->add_enclosure($args, $tag, 'src');
+            $self->add_enclosure($args->{entry}, $tag, 'src');
         } elsif ($tag->[0] eq 'img') {
-            $self->add_enclosure($args, $tag, 'src', 1);
+            $self->add_enclosure($args->{entry}, $tag, 'src', 1);
         }
     }
 }
 
 sub add_enclosure {
-    my($self, $args, $tag, $attr, $inline) = @_;
+    my($self, $entry, $tag, $attr, $inline) = @_;
 
     if ($self->is_enclosure($tag, $attr)) {
         Plagger->context->log(info => "Found enclosure $tag->[1]{$attr}");
@@ -40,7 +43,7 @@ sub add_enclosure {
         $enclosure->url($tag->[1]{$attr});
         $enclosure->auto_set_type;
         $enclosure->is_inline($inline);
-        $args->{entry}->add_enclosure($enclosure);
+        $entry->add_enclosure($enclosure);
     }
 }
 
