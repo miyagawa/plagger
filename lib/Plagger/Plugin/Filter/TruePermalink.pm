@@ -63,12 +63,14 @@ sub rewrite {
 
         if ($plugin->{rewrite}) {
             local $_ = $link;
-            $count += eval $plugin->{rewrite};
+            my $done = eval $plugin->{rewrite};
             if ($@) {
                 $context->error("$@ in $plugin->{rewrite}");
+            } elsif ($done) {
+                $count += $done;
+                $rewritten = $_;
+                $callback->($_);
             }
-            $callback->($_);
-            $rewritten = $_;
         } elsif ($plugin->{query_param}) {
             my $param = URI->new($link)->query_param($plugin->{query_param})
                 or $context->error("No query param $plugin->{query_param} in " . $link);
