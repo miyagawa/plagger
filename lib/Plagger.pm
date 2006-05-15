@@ -158,15 +158,20 @@ sub load_plugins {
                 next if $ent =~ /^\./;
                 $ent = File::Spec->catfile($path, $ent);
                 if (-f $ent && $ent =~ /\.pm$/) {
-                    my $pkg = $self->extract_package($ent)
-                        or die "Can't find package from $ent";
-                    (my $base = $ent) =~ s!^$path/!!;
-                    $self->plugins_path->{$pkg} = $ent;
+                    $self->add_plugin_path($ent);
                 } elsif (-d $ent) {
                     my $lib = File::Spec->catfile($ent, "lib");
                     if (-e $lib && -d _) {
                         $self->log(debug => "Add $lib to INC path");
                         unshift @INC, $lib;
+                    } else {
+                        my $rule = File::Find::Rule->new;
+                           $rule->file;
+                           $rule->name('*.pm');
+                        my @modules = $rule->in($ent);
+                        for my $module (@modules) {
+                            $self->add_plugin_path($module);
+                        }
                     }
                 }
             }
@@ -176,6 +181,15 @@ sub load_plugins {
     for my $plugin (@plugins) {
         $self->load_plugin($plugin) unless $plugin->{disable};
     }
+}
+
+sub add_plugin_path {
+    my($self, $file) = @_;
+
+    my $pkg = $self->extract_package($file)
+        or die "Can't find package from $file";
+    $self->plugins_path->{$pkg} = $file;
+    $self->log(debug => "$file is added as a path to plugin $pkg");
 }
 
 sub extract_package {
