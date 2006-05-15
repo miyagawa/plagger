@@ -16,7 +16,7 @@ sub update {
     my $title = $args->{entry}->title;
     my $body = $args->{entry}->body;
     Encode::_utf8_off($body); # Hatena::Keyword's Bug?
-    my $keywords = Hatena::Keyword->extract($body);
+    my $keywords = Hatena::Keyword->extract($title . ' ' . $body);
     my @terms = sort { $a->refcount <=> $b->refcount } @$keywords;
 
     for my $term (@terms) {

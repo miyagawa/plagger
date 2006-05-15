@@ -16,6 +16,8 @@ sub register {
     );
 }
 
+sub rule_hook { 'publish.entry.fixup' }
+
 sub initialize {
     my ($self, $context, $args) = @_;
     $self->{client} = XML::Atom::Client->new;
