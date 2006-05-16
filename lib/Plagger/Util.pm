@@ -23,6 +23,8 @@ BEGIN {
     }
 }
 
+
+
 sub strip_html {
     my $html = shift;
     $html =~ s/<[^>]*>//g;
@@ -130,16 +132,16 @@ sub load_uri {
     return $data;
 }
 
+our $mimetypes = MIME::Types->new;
+$mimetypes->addType( MIME::Type->new(type => 'video/flv', extensions => [ 'flv' ]) );
+$mimetypes->addType( MIME::Type->new(type => 'audio/aac', extensions => [ 'm4a', '.aac' ]) );
+
 sub mime_type_of {
     my $ext = shift;
 
     if (UNIVERSAL::isa($ext, 'URI')) {
         $ext = ( $ext->path =~ /\.(\w+)/ )[0];
     }
-
-    my $mimetypes = MIME::Types->new;
-    $mimetypes->addType( MIME::Type->new(type => 'video/flv', extensions => [ 'flv' ]) );
-    $mimetypes->addType( MIME::Type->new(type => 'audio/aac', extensions => [ 'm4a', '.aac' ]) );
 
     return $mimetypes->mimeTypeOf($ext);
 }

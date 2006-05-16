@@ -22,7 +22,7 @@ requires('Cache::Cache' => 1.04);
 requires('Module::Pluggable::Fast');
 requires('HTML::ResolveLink');
 requires('Date::Parse');
-requires('MIME::Types');
+requires('MIME::Types', 1.16);
 
 build_requires(Test::More => 0.42);
 
