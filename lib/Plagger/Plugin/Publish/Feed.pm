@@ -76,7 +76,7 @@ sub publish_feed {
     # generate file path
     my $filepath = File::Spec->catfile($self->conf->{dir}, $self->gen_filename($f));
 
-    $context->log(info => "save feed for " . $f->url . " to $filepath");
+    $context->log(info => "save feed for " . $f->link . " to $filepath");
 
     my $xml = $feed->as_xml;
     utf8::decode($xml) unless utf8::is_utf8($xml);
