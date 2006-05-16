@@ -1,0 +1,14 @@
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+         - url: http://www.archive.org/search.php?query=subject:%22yapc%22
+  - module: Aggregator::Simple
+  - module: Filter::EntryFullText
+  - module: Filter::FindEnclosures
+  - module: Filter::HEADEnclosureMetadata
+  - module: Publish::Feed
+    config:
+      format: RSS
+      dir: /vh/tokyo.yapcasia.org/htdocs
+      filename: video.xml
