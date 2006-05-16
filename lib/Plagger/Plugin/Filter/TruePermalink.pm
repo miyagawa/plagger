@@ -42,17 +42,29 @@ sub register {
 sub update {
     my($self, $context, $args) = @_;
 
-    $self->rewrite($args->{entry}->permalink, sub { $args->{entry}->link(@_) });
+    $self->rewrite(sub { $args->{entry}->link }, sub { $args->{entry}->link(@_) });
     for my $enclosure ($args->{entry}->enclosures) {
-        $self->rewrite($enclosure->url, sub { $enclosure->url( URI->new(@_) ) });
+        $self->rewrite(sub { $enclosure->url }, sub { $enclosure->url( URI->new(@_) ) });
     }
 }
 
 sub rewrite {
-    my($self, $link, $callback) = @_;
+    my($self, $getter, $callback) = @_;
+
+    my $loop;
+    while ($self->rewrite_link($getter, $callback)) {
+        if ($loop++ >= 100) {
+            Plagger->error("Possible infinite loop on " . $getter->());
+        }
+    }
+}
+
+sub rewrite_link {
+    my($self, $getter, $callback) = @_;
 
     my $context = Plagger->context;
 
+    my $link = $getter->();
     my $orig = $link; # copy
     my $count = 0;
     my $rewritten;
@@ -70,6 +82,7 @@ sub rewrite {
                 $count += $done;
                 $rewritten = $_;
                 $callback->($_);
+                last;
             }
         } elsif ($plugin->{query_param}) {
             my $param = URI->new($link)->query_param($plugin->{query_param})
@@ -84,6 +97,8 @@ sub rewrite {
     if ($count) {
         $context->log(info => "Link $orig rewritten to $rewritten");
     }
+
+    return $count;
 }
 
 1;
