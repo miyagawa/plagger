@@ -16,7 +16,7 @@ sub load_patterns {
 
     my $dir = $self->assets_dir;
     my $dh = DirHandle->new($dir) or Plagger->context->error("$dir: $!");
-    for my $file (grep -f $_->[0] && $_->[1] =~ /^[\w\-]+$/,
+    for my $file (grep -f $_->[0] && $_->[1] =~ /^[\w\-\.]+$/,
                   map [ File::Spec->catfile($dir, $_), $_ ], sort $dh->read) {
         $self->load_pattern(@$file);
     }
@@ -27,11 +27,30 @@ sub load_pattern {
 
     Plagger->context->log(debug => "loading $file");
 
+    if ($file =~ /\.yaml$/) {
+        $self->load_yaml($file, $base);
+    } else {
+        $self->load_regexp($file, $base);
+    }
+}
+
+sub load_regexp {
+    my($self, $file, $base) = @_;
+
     open my $fh, $file or Plagger->context->error("$file: $!");
     my $re = join '', <$fh>;
     chomp($re);
 
     push @{$self->{pattern}}, { site => $base, re => qr/$re/ };
+}
+
+sub load_yaml {
+    my($self, $file, $base) = @_;
+
+    my $pattern = eval { YAML::LoadFile($file) }
+        or Plagger->context->error("$file: $@");
+
+    push @{$self->{pattern}}, { site => $base, %$pattern };
 }
 
 sub register {
@@ -44,21 +63,25 @@ sub register {
 
 sub update {
     my($self, $context, $args) = @_;
-    my $body = $self->filter($args->{entry}->body, $args->{entry}->link);
-    $args->{entry}->body($body);
-}
-
-sub filter {
-    my($self, $body, $link) = @_;
+    my $body = $args->{entry}->body;
 
     for my $pattern (@{ $self->{pattern} }) {
-        my $re = $pattern->{re};
-        if (my $count = $body =~ s!$re!defined($1) ? $1 : ''!egs) {
-            Plagger->context->log(debug => "Stripped $pattern->{site} Ad on $link");
+        if (my $re = $pattern->{re}) {
+            if (my $count = $body =~ s!$re!defined($1) ? $1 : ''!egs) {
+                Plagger->context->log(info => "Stripped $pattern->{site} Ad on " . $args->{entry}->link);
+            }
+        } elsif (my $cond = $pattern->{condition}) {
+            local $args->{body} = $body;
+            if (eval $cond && $pattern->{strip}) {
+                $args->{feed}->delete_entry($args->{entry});
+                Plagger->context->log(info => "Stripped Ad entry " . $args->{entry}->link);
+            } elsif ($@) {
+                Plagger->context->log(error => "Error evaluating $cond: $@");
+            }
         }
     }
 
-    $body;
+    $args->{entry}->body($body);
 }
 
 1;

@@ -1,0 +1,4 @@
+condition: $args->{entry}->link =~ m!^http://www\.pheedo\.jp/click\.phdo\?z=\w+&a=\w+&unq=\w+!
+strip: 1
+
+
