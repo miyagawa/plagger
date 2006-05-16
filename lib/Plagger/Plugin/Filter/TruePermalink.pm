@@ -4,6 +4,7 @@ use base qw( Plagger::Plugin );
 
 use DirHandle;
 use YAML;
+use Plagger::UserAgent;
 use URI;
 use URI::QueryParam;
 
@@ -28,7 +29,12 @@ sub load_plugin {
     my($self, $file, $base) = @_;
 
     Plagger->context->log(debug => "loading $file");
-    push @{$self->{plugins}}, YAML::LoadFile($file);
+    my $data = YAML::LoadFile($file);
+    if (ref($data) eq 'ARRAY') {
+        push @{$self->{redirectors}}, { follow_link => "^(?:" . join("|", @$data) . ")" };
+    } else {
+        push @{$self->{plugins}}, $data;
+    }
 }
 
 sub register {
@@ -81,24 +87,58 @@ sub rewrite_link {
             } elsif ($done) {
                 $count += $done;
                 $rewritten = $_;
-                $callback->($_);
                 last;
             }
         } elsif ($plugin->{query_param}) {
             my $param = URI->new($link)->query_param($plugin->{query_param})
                 or $context->error("No query param $plugin->{query_param} in " . $link);
-            $callback->($param);
             $count++;
             $rewritten = $param;
             last;
         }
     }
 
+    unless ($count) {
+        for my $red (@{ $self->{redirectors} }) {
+            next unless $red->{follow_link};
+            if ($link =~ /$red->{follow_link}/i) {
+                my $url = $self->follow_redirect($link);
+                if ($url && $url ne $link) {
+                    $count++;
+                    $rewritten = $url;
+                    last;
+                }
+            }
+        }
+    }
+
     if ($count) {
+        $callback->($rewritten);
         $context->log(info => "Link $orig rewritten to $rewritten");
     }
 
     return $count;
+}
+
+sub follow_redirect {
+    my($self, $link) = @_;
+
+    my $url = $self->cache->get_callback(
+        "redirector:$link",
+        sub {
+            my $ua  = Plagger::UserAgent->new;
+            my $res = $ua->simple_request( HTTP::Request->new(GET => $link) );
+            if ($res->is_redirect) {
+                return $res->header('Location');
+            }
+            return;
+        },
+        '1 day',
+    );
+
+    Plagger->context->log(debug => "Resolving redirection of $link: $url") if $url;
+
+    return $url;
 }
 
 1;
