@@ -214,6 +214,10 @@ features(
         -default => 0,
         recommends('DateTime::Locale'),
     ],
+    'Subscription::PlanetINI' => [
+        -default => 0,
+        recommends('Config::INI::Simple'),
+    ],
 );
 
 if ($^O eq 'darwin') {
