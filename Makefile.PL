@@ -252,6 +252,8 @@ if ($^O eq 'darwin') {
     );
 }
 
+tests 't/*.t t/*/*.t t/*/*/*.t';
+
 auto_include;
 auto_install;
 install_script('plagger');

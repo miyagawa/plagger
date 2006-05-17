@@ -53,6 +53,7 @@ sub bootstrap {
     $self->{conf} = $config->{global};
     $self->{conf}->{log} ||= { level => 'debug' };
 
+    no warnings 'redefine';
     local *Plagger::context = sub { $self };
 
     $self->load_recipes($config);
@@ -145,7 +146,7 @@ sub load_cache {
     my($self, $config) = @_;
 
     # use config filename as a base directory for cache
-    my $base = ( basename($config) =~ /^(.*?)\.yaml$/ )[0];
+    my $base = ( basename($config) =~ /^(.*?)\.yaml$/ )[0] || 'config';
     my $dir  = $base eq 'config' ? ".plagger" : ".plagger-$base";
 
     $self->{conf}->{cache} ||= {
