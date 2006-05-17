@@ -16,3 +16,4 @@
 \.bak$
 \.orig$
 plugins/.*\.pm$
+tools/release\.pl
