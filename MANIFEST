@@ -300,7 +300,6 @@ lib/Plagger/UserAgent.pm
 lib/Plagger/Util.pm
 Makefile.PL
 MANIFEST			This list of files
-META.yml
 plagger
 t/00_compile.t
 t/plugins/Subscription-ConfigINI/config.ini
