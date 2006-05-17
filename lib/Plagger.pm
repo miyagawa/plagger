@@ -245,12 +245,10 @@ sub load_plugin {
 
     if ($module->isa('Plagger::Plugin')) {
         $self->log(debug => "$module is loaded elsewhere ... maybe .t script?");
+    } elsif (my $path = $self->plugins_path->{$module}) {
+        eval { require $path } or die $@;
     } else {
-        if (my $path = $self->plugins_path->{$module}) {
-            eval { require $path } or die $@;
-        } else {
-            $module->require or die $@;
-        }
+        $module->require or die $@;
     }
 
     $self->log(info => "plugin $module loaded.");
