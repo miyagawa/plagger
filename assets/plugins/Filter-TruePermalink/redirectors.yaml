@@ -1,6 +1,5 @@
 - http://www\.pheedo\.jp/click.phdo\?i=\w+
 - http://feeds\.feedburner\.(com|jp)/[\w/]+\?m=\d+
-- http://(\w+\.)?reddit\.com/goto\?rss=true&id=
 - http://tinyurl\.com/\w+
 - http://xrl\.us/\w+
 - http://qurl\.net/\w+
