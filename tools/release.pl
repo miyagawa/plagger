@@ -39,8 +39,8 @@ system("make dist");
 system("cpan-upload Plagger-$version.tar.gz");
 
 chdir "..";
-system("svk co --detach $workdir");
-rmtree($workdir);
+system("svk co --detach $checkout");
+rmtree("$workdir/$checkout");
 
 sub rewrite_version {
     my($file, $version) = @_;
