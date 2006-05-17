@@ -112,7 +112,6 @@ AUTHORS
 bin/plagger-ircbot
 bin/spotlight_comment.scpt
 Changes
-examples/aggregator.yaml
 examples/atode.yaml
 examples/bloglines2gmail.yaml
 examples/irc.yaml
