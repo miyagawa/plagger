@@ -56,6 +56,7 @@ assets/plugins/Filter-EntryFullText/sanspo.yaml
 assets/plugins/Filter-EntryFullText/sciam.yaml
 assets/plugins/Filter-EntryFullText/searchenginejournal.yaml
 assets/plugins/Filter-EntryFullText/sixapart.pl
+assets/plugins/Filter-EntryFullText/slashcode.pl
 assets/plugins/Filter-EntryFullText/slashdot_jp.yaml
 assets/plugins/Filter-EntryFullText/sponichi.yaml
 assets/plugins/Filter-EntryFullText/sportsnavi.yaml
@@ -75,14 +76,19 @@ assets/plugins/Filter-StripRSSAd/feedburner
 assets/plugins/Filter-StripRSSAd/google_adsense
 assets/plugins/Filter-StripRSSAd/google_adsense2
 assets/plugins/Filter-StripRSSAd/pheedo
+assets/plugins/Filter-StripRSSAd/pheedo_jp
+assets/plugins/Filter-StripRSSAd/pheedo_jp_ad_entry.yaml
 assets/plugins/Filter-StripRSSAd/plaza_rakuten
 assets/plugins/Filter-StripRSSAd/rssad_jp
 assets/plugins/Filter-StripRSSAd/seesaa
 assets/plugins/Filter-StripRSSAd/valueclick
 assets/plugins/Filter-TruePermalink/2chrss.yaml
+assets/plugins/Filter-TruePermalink/cnet_podcast.yaml
+assets/plugins/Filter-TruePermalink/imenu.yaml
 assets/plugins/Filter-TruePermalink/namaan.yaml
 assets/plugins/Filter-TruePermalink/rd_yahoo.yaml
 assets/plugins/Filter-TruePermalink/reddit.yaml
+assets/plugins/Filter-TruePermalink/redirectors.yaml
 assets/plugins/Filter-TruePermalink/refrss.yaml
 assets/plugins/Filter-TruePermalink/tech_souken.yaml
 assets/plugins/Filter-TruePermalink/yahoo_blog_search.yaml
@@ -117,9 +123,11 @@ examples/bloglines2gmail.yaml
 examples/irc.yaml
 examples/livedoorreader2gmail.yaml
 examples/planet.yaml
+examples/podcast.yaml
 examples/search.yaml
 examples/xoxo-planet.yaml
 examples/xoxo2opml.yaml
+examples/yapcvideo.yaml
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
 inc/Module/Install/AutoInstall.pm
@@ -140,6 +148,7 @@ lib/Plagger/CacheProxy.pm
 lib/Plagger/Crypt.pm
 lib/Plagger/Crypt/Base64.pm
 lib/Plagger/Date.pm
+lib/Plagger/Enclosure.pm
 lib/Plagger/Entry.pm
 lib/Plagger/Feed.pm
 lib/Plagger/Operator.pm
@@ -162,6 +171,7 @@ lib/Plagger/Plugin/CustomFeed/POP3.pm
 lib/Plagger/Plugin/CustomFeed/Simple.pm
 lib/Plagger/Plugin/CustomFeed/SVNLog.pm
 lib/Plagger/Plugin/CustomFeed/Yahoo360JP.pm
+lib/Plagger/Plugin/CustomFeed/YouTube.pm
 lib/Plagger/Plugin/Filter/2chNewsokuTitle.pm
 lib/Plagger/Plugin/Filter/2chRSSContent.pm
 lib/Plagger/Plugin/Filter/2chRSSPermalink.pm
@@ -178,6 +188,8 @@ lib/Plagger/Plugin/Filter/Emoticon.pm
 lib/Plagger/Plugin/Filter/EntryFullText.pm
 lib/Plagger/Plugin/Filter/FeedBurnerPermalink.pm
 lib/Plagger/Plugin/Filter/FeedFlareStripper.pm
+lib/Plagger/Plugin/Filter/FetchEnclosure.pm
+lib/Plagger/Plugin/Filter/FindEnclosures.pm
 lib/Plagger/Plugin/Filter/FloatingDateTime.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkUsersCount.pm
@@ -185,13 +197,16 @@ lib/Plagger/Plugin/Filter/HatenaDiaryKeywordLink.pm
 lib/Plagger/Plugin/Filter/HatenaDiaryKeywordUnlink.pm
 lib/Plagger/Plugin/Filter/HatenaFormat.pm
 lib/Plagger/Plugin/Filter/HatenaKeywordTag.pm
+lib/Plagger/Plugin/Filter/HEADEnclosureMetadata.pm
 lib/Plagger/Plugin/Filter/ImageInfo.pm
 lib/Plagger/Plugin/Filter/Markdown.pm
 lib/Plagger/Plugin/Filter/NamaanPermalink.pm
 lib/Plagger/Plugin/Filter/Pipe.pm
+lib/Plagger/Plugin/Filter/POPFile.pm
 lib/Plagger/Plugin/Filter/Profanity.pm
 lib/Plagger/Plugin/Filter/Regexp.pm
 lib/Plagger/Plugin/Filter/ResolveRelativeLink.pm
+lib/Plagger/Plugin/Filter/RewriteEnclosureURL.pm
 lib/Plagger/Plugin/Filter/Romanize.pm
 lib/Plagger/Plugin/Filter/Romanize/Japanese.pm
 lib/Plagger/Plugin/Filter/RSSLiberalDateTime.pm
@@ -199,6 +214,7 @@ lib/Plagger/Plugin/Filter/RSSTimeZoneString.pm
 lib/Plagger/Plugin/Filter/Rule.pm
 lib/Plagger/Plugin/Filter/SpamAssassin.pm
 lib/Plagger/Plugin/Filter/StripRSSAd.pm
+lib/Plagger/Plugin/Filter/TagsToTitle.pm
 lib/Plagger/Plugin/Filter/tDiaryComment.pm
 lib/Plagger/Plugin/Filter/Thumbnail.pm
 lib/Plagger/Plugin/Filter/TruePermalink.pm
@@ -255,7 +271,9 @@ lib/Plagger/Plugin/Subscription/Odeo.pm
 lib/Plagger/Plugin/Subscription/OPML.pm
 lib/Plagger/Plugin/Subscription/PingServer.pm
 lib/Plagger/Plugin/Subscription/Planet.pm
+lib/Plagger/Plugin/Subscription/PlanetINI.pm
 lib/Plagger/Plugin/Subscription/XOXO.pm
+lib/Plagger/Plugin/Subscription/XPath.pm
 lib/Plagger/Plugin/Widget/BloglinesSubscription.pm
 lib/Plagger/Plugin/Widget/BulkfeedsSpamReport.pm
 lib/Plagger/Plugin/Widget/Delicious.pm
@@ -285,3 +303,6 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
+t/plugins/Subscription-ConfigINI/config.ini
+t/plugins/Subscription-ConfigINI/subscription.t
+t/regression/mime-type-dup.t

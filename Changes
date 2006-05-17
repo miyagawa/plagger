@@ -1,5 +1,40 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.0 (2006/05/17) ==
+
+=== Core ===
+
+ * Shiny new Enclosure support!
+ * Dependency for MIME::Types
+ * Fix $cache->path_to auto creation bug
+ * Allow plugins/Foo/Bar.pm directory strcuture to be backward compatible
+ * Added regression and plugins tests suite for the first time
+
+
+=== New Plugins ===
+
+ * Filter::FetchEnclosure: Download enclosures automatically to local
+ * CustomFeed::YouTube: Search YouTube and find enclosures (mizzy)
+ * Filter::RewriteEnclosureURL: Rewrite enclosure's URL when you republish downloaded enclosures
+ * Filter::POPFile: Use POPFile XMLRPC API to classify feeds (charsbar)
+ * Filter::TagsToTitle: Add tags to title as prefixes (charsbar)
+ * Filter::FindEnclosures: Automatically discover enclosures in entry content
+ * Filter::HEADEnclosureMetadata: Send HEAD requests to enclosures to get Length and correct filename
+ * Subscription::XPath: extract subscriptions from XHTML using XPath (youpy)
+ * Subscription::PlanetINI: extract subscriptions from Planet's config.ini file
+
+=== Plugins Updates ===
+
+ * Publish::2chdat: Internal fix to use id_safe method
+ * Subscription::Bloglines: support enclosures taken from sync API
+ * Publish::Gmail: Attach enclosures if they're downloaded locally with FetchEnclosure
+ * Filter::TruePermalink: Now supports rewriting enclosure URL as well.
+ * Filter::TruePermalink: Support recursive mode and redirector resolution
+ * Publish::Feed: Support enclosure creation in RSS 2.0 and Atom feeds
+ * Filter::SpamAssassin: Nuked some options (charsbar)
+ * Filter::HatenaKeyword: Use title to extract keywords as well
+ * Filter::StripRSSAd: Added pheedo.jp pattern. Now can strip entry if it contains certain pattern.
+ * 
 == 0.6.6 (2006/05/12) ==
 
 === Core ===
