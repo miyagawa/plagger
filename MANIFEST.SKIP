@@ -17,3 +17,4 @@
 \.orig$
 plugins/.*\.pm$
 tools/release\.pl
+t/plugins

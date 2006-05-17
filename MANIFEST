@@ -302,6 +302,4 @@ Makefile.PL
 MANIFEST			This list of files
 plagger
 t/00_compile.t
-t/plugins/Subscription-ConfigINI/config.ini
-t/plugins/Subscription-ConfigINI/subscription.t
 t/regression/mime-type-dup.t
