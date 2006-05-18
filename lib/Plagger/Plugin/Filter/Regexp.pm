@@ -1,6 +1,7 @@
 package Plagger::Plugin::Filter::Regexp;
 use strict;
 use base qw( Plagger::Plugin::Filter::Base );
+use Encode;
 
 sub init {
     my $self = shift;
@@ -16,7 +17,8 @@ sub filter {
     my($self, $body) = @_;
 
     local $_ = $body;
-    my $count = eval $self->conf->{regexp};
+    my $regexp = decode_utf8($self->conf->{regexp}, Encode::FB_CROAK);
+    my $count = eval $regexp;
 
     if ($@) {
         Plagger->context->log(error => "Error: $@ in " . $self->conf->{regexp});
