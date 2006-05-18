@@ -22,11 +22,12 @@ sub add {
 sub html {
     my($self, $entry) = @_;
     my $uri = URI->new('http://del.icio.us/' . $self->conf->{username});
-    $uri->query_form(
-        v => 3,
-        url => $entry->permalink,
-        title => encode('utf-8', $entry->title),
-    );
+    my %query;
+    $query{'url'}  = $entry->permalink;
+    $query{'description'} = encode('utf-8', $entry->title);
+    $query{'tags'} = $self->conf->{tags} if $self->conf->{tags};
+    $query{'jump'} = 'doclose' if $self->conf->{one_click_post} == 1;
+    $uri->query_form(%query);
 
     my $url = HTML::Entities::encode($uri->as_string);
     return qq(<a href="$url"><img src="http://del.icio.us/static/img/delicious.small.gif" alt="del.icio.us it!" style="border:0;vertical-align:middle" /></a>);
