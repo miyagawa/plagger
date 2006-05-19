@@ -1,0 +1,3 @@
+author: Tatsuhiko Miyagawa
+match: http://www\.mainichi-msn\.co\.jp/
+rewrite: s!\?in=rssw!!
