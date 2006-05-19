@@ -3,8 +3,11 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use HTML::TokeParser;
-use Plagger::Util;
+use Plagger::Util qw( decode_content );
 use URI;
+use DirHandle;
+use Plagger::Enclosure;
+use Plagger::UserAgent;
 
 sub register {
     my($self, $context) = @_;
@@ -15,6 +18,61 @@ sub register {
         'update.entry.fixup' => \&filter,
     );
 }
+
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
+    $self->load_plugins();
+
+    $self->{ua} = Plagger::UserAgent->new;
+}
+
+sub load_plugins {
+    my $self = shift;
+    my $context = Plagger->context;
+
+    my $dir = $self->assets_dir;
+    my $dh = DirHandle->new($dir) or $context->error("$dir: $!");
+    for my $file (grep -f $_->[0] && $_->[0] =~ /\.(?:pl|yaml)$/,
+                  map [ File::Spec->catfile($dir, $_), $_ ], sort $dh->read) {
+        $self->load_plugin(@$file);
+    }
+}
+
+sub load_plugin {
+    my($self, $file, $base) = @_;
+
+    Plagger->context->log(debug => "loading $file");
+
+    my $load_method = $file =~ /\.pl$/ ? 'load_plugin_perl' : 'load_plugin_yaml';
+    push @{ $self->{plugins} }, $self->$load_method($file, $base);
+}
+
+sub load_plugin_perl {
+    my($self, $file, $base) = @_;
+
+    open my $fh, $file or Plagger->context->error("$file: $!");
+    (my $pkg = $base) =~ s/\.pl$//;
+    my $plugin_class = "Plagger::Plugin::Filter::FindEnclosures::Site::$pkg";
+
+    my $code = join '', <$fh>;
+    unless ($code =~ /^\s*package/s) {
+        $code = join "\n",
+            ( "package $plugin_class;",
+              "use strict;",
+              "use base qw( Plagger::Plugin::Filter::FindEnclosures::Site );",
+              "sub site_name { '$pkg' }",
+              $code,
+              "1;" );
+    }
+
+    eval $code;
+    Plagger->context->error($@) if $@;
+
+    return $plugin_class->new;
+}
+
+sub load_plugin_yaml { Plagger->context->error("NOT IMPLEMENTED YET") }
 
 sub filter {
     my($self, $context, $args) = @_;
@@ -44,7 +102,45 @@ sub add_enclosure {
         $enclosure->auto_set_type;
         $enclosure->is_inline($inline);
         $entry->add_enclosure($enclosure);
+        return;
     }
+
+    my $url = $tag->[1]{$attr};
+    my $content;
+    for my $plugin (@{$self->{plugins}}) {
+        if ( $plugin->handle($url) ) {
+            Plagger->context->log(debug => "Try $url with " . $plugin->site_name);
+            $content ||= $self->fetch_content($url) or return;
+
+            if (my $enclosure = $plugin->find($content)) {
+                Plagger->context->log(info => "Found enclosure " . $enclosure->url ." with " . $plugin->site_name);
+                $entry->add_enclosure($enclosure);
+                return;
+            }
+        }
+    }
+}
+
+sub fetch_content {
+    my($self, $url) = @_;
+
+    my $ua  = Plagger::UserAgent->new;
+    my $res = $ua->fetch($url, $self);
+    return if $res->is_error;
+
+    return decode_content($res);
+}
+
+sub find_enclosure_plugin {
+    my($self, $plugin, $url) = @_;
+
+    my $content;
+    $content ||= do {
+        my $res = $self->{ua}->fetch( $url, $self );
+        my $content = decode_content($res);
+    };
+
+    return $plugin->handle($url) && $plugin->find($content);
 }
 
 sub is_enclosure {
@@ -62,6 +158,11 @@ sub has_enclosure_mime_type {
     my $mime = Plagger::Util::mime_type_of( URI->new($url) );
     $mime && $mime->mediaType =~ m!^(?:audio|video|image)$!;
 }
+
+package Plagger::Plugin::Filter::FindEnclosures::Site;
+sub new { bless {}, shift }
+sub handle { 0 }
+sub find { }
 
 1;
 
