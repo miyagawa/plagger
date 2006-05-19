@@ -131,18 +131,6 @@ sub fetch_content {
     return decode_content($res);
 }
 
-sub find_enclosure_plugin {
-    my($self, $plugin, $url) = @_;
-
-    my $content;
-    $content ||= do {
-        my $res = $self->{ua}->fetch( $url, $self );
-        my $content = decode_content($res);
-    };
-
-    return $plugin->handle($url) && $plugin->find($content);
-}
-
 sub is_enclosure {
     my($self, $tag, $attr) = @_;
 
