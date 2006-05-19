@@ -49,17 +49,23 @@ sub aggregate {
 
     my $re = $args->{match};
 
+    my %seen;
     my $parser = HTML::TokeParser->new(\$content);
     while (my $token = $parser->get_tag('a')) {
         next unless $token->[0] eq 'S' || $token->[1]->{href} =~ /$re/;
 
         my $text = $parser->get_trimmed_text('/a');
+        next if !$text || $text eq '[IMG]';
+
+        my $url = URI->new_abs($token->[1]->{href}, $url);
+        next if $seen{$url->as_string}++;
+
         my $entry = Plagger::Entry->new;
         $entry->title($text);
-        $entry->link( URI->new_abs($token->[1]->{href}, $url) );
+        $entry->link($url);
         $feed->add_entry($entry);
 
-        $context->log(debug => "Add $token->[1]->{href}");
+        $context->log(debug => "Add $token->[1]->{href} ($text)");
     }
 
     $context->update->add($feed);

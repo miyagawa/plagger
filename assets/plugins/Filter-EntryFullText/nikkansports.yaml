@@ -8,4 +8,4 @@ extract_capture: title body date
 extract_date_format:
   - %Y年%m月%d日%H時%M分
   - %Y/%m/%d %H:%M
-
+extract_date_timezone: Asia/Tokyo

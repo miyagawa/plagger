@@ -1,0 +1,9 @@
+author: Tatsuhiko Miyagawa
+custom_feed_handle: http://(?:www\.)?youtube\.com/(?:browse|results)
+custom_feed_follow_link: /watch\?v=\w+
+handle: http://(?:www\.)?youtube\.com/(?:watch)\?v=
+extract: <span class="smallLabel">Added on</span> <b class="smallText">(.*?)</b><br/>.*?<span id="vidDescBegin">\s*(.*?)\s*</span>
+extract_capture: date body
+extract_date_format: %B %d, %Y, %I:%M %p
+extract_date_timezone: America/Los_Angeles
+

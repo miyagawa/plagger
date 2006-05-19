@@ -177,6 +177,7 @@ sub new {
 
     # decode as UTF-8
     for my $key ( qw(extract extract_date_format) ) {
+        next unless defined $data->{$key};
 	if (ref $data->{$key} && ref $data->{$key} eq 'ARRAY') {
 	    $data->{$key} = [ map decode("UTF-8", $_), @{$data->{$key}} ];
 	} else {
@@ -226,6 +227,9 @@ sub extract {
             if (my $format = $self->{extract_date_format}) {
                 $format = [ $format ] unless ref $format;
                 $data->{date} = (map { Plagger::Date->strptime($_, $data->{date}) } @$format)[0];
+                if ($data->{date} && $self->{extract_date_timezone}) {
+                    $data->{date}->set_time_zone($self->{extract_date_timezone});
+                }
             } else {
                 $data->{date} = Plagger::Date->parse_dwim($data->{date});
             }
