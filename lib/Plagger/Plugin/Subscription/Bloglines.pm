@@ -165,7 +165,8 @@ sub sync {
             $entry->link($item->{link});
 
             if ($item->{guid}) {
-                my $is_permalink = $item->{guid}->{isPermaLink};
+                my $is_permalink = eval { $item->{guid}->{isPermaLink}  } ||
+		    'false';
                 my $guid_url     = "$item->{guid}"; # stringify MagicElement
                 $entry->permalink($guid_url)
                     if $guid_url =~ m!^https?://! && $is_permalink eq 'true';
