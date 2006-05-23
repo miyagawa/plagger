@@ -10,6 +10,8 @@ sub new {
     bless {}, shift;
 }
 
+sub DESTROY { }
+
 sub AUTOLOAD {
     no strict 'refs';
     my $self = shift;

@@ -23,6 +23,14 @@ sub register {
     );
 }
 
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
+
+    $self->conf->{mailto} or Plagger->context->error("mailto is required");
+    $self->conf->{mailfrom} ||= 'plagger@localhost';
+}
+
 sub initialize {
     my($self,$context) = @_;
 
