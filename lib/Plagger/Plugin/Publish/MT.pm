@@ -24,7 +24,7 @@ sub mt {
     }
     $self->{mt}->username($self->conf->{username});
     $self->{mt}->password($self->conf->{password});
-    $self->{mt}->blogId($self->{blog_id} || 1);
+    $self->{mt}->blogId($self->conf->{blog_id} || 1);
     return $self->{mt};
 }
 
