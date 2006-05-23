@@ -129,13 +129,23 @@ sub login_reader {
             Plagger->context->error("Failed to login using username & password");
         }
     }
+
+    $self->{mech}->cookie_jar->scan(
+        sub {
+            my($key, $val) = @_[1,2];
+            if ($key =~ /_sid/) {
+                $self->{apikey} = $val;
+                return;
+            }
+        },
+    );
 }
 
 sub _request {
     my($self, $method, $param) = @_;
 
     my $uri = URI->new_abs($method, "http://reader.livedoor.com/");
-    $uri->query_param(%$param) if $param;
+    $uri->query_form(%$param, ApiKey => $self->{apikey});
 
     $self->{mech}->get($uri->as_string);
 
