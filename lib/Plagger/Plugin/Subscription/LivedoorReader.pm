@@ -4,7 +4,6 @@ use base qw( Plagger::Plugin );
 
 use JSON::Syck;
 use URI;
-use URI::QueryParam;
 use WWW::Mechanize;
 use Plagger::Util;
 
