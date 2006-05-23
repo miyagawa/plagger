@@ -66,6 +66,7 @@ sub notify {
     $msg->attach(
         Type => 'text/html; charset=utf-8',
         Data => encode("utf-8", $body),
+        Encoding => 'quoted-printable',
     );
 
     for my $entry ($args->{feed}->entries) {

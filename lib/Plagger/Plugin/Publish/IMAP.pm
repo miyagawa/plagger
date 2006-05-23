@@ -73,6 +73,7 @@ sub store_entry {
   $msg->attach(
     Type => 'text/html; charset=utf-8',
     Data => $body,
+    Encoding => 'quoted-printable',
   );
   $msg->add('X-Tags', encode('MIME-Header',join(' ',@{$entry->tags})));
   my $xmailer = "MIME::Lite (Publish::Maildir Ver.$self->{version} in plagger)";
