@@ -70,8 +70,10 @@ assets/plugins/Filter-EntryFullText/worldtimes.yaml
 assets/plugins/Filter-EntryFullText/www_nikkeibp.yaml
 assets/plugins/Filter-EntryFullText/yakult.yaml
 assets/plugins/Filter-EntryFullText/yomiuri.yaml
+assets/plugins/Filter-EntryFullText/youtube.yaml
 assets/plugins/Filter-EntryFullText/zakzak.yaml
 assets/plugins/Filter-EntryFullText/zzz_google_adsense.pl
+assets/plugins/Filter-FindEnclosures/youtube.pl
 assets/plugins/Filter-StripRSSAd/feedburner
 assets/plugins/Filter-StripRSSAd/google_adsense
 assets/plugins/Filter-StripRSSAd/google_adsense2
@@ -85,6 +87,7 @@ assets/plugins/Filter-StripRSSAd/valueclick
 assets/plugins/Filter-TruePermalink/2chrss.yaml
 assets/plugins/Filter-TruePermalink/cnet_podcast.yaml
 assets/plugins/Filter-TruePermalink/imenu.yaml
+assets/plugins/Filter-TruePermalink/msn-mainichi.yaml
 assets/plugins/Filter-TruePermalink/namaan.yaml
 assets/plugins/Filter-TruePermalink/rd_yahoo.yaml
 assets/plugins/Filter-TruePermalink/reddit.yaml
@@ -94,7 +97,9 @@ assets/plugins/Filter-TruePermalink/tech_souken.yaml
 assets/plugins/Filter-TruePermalink/yahoo_blog_search.yaml
 assets/plugins/Filter-TruePermalink/yahoo_blog_search2.yaml
 assets/plugins/Filter-TruePermalink/yahoo_us_rd.yaml
+assets/plugins/Filter-TruePermalink/youtube.yaml
 assets/plugins/Notify-IRC/irc_notify.tt
+assets/plugins/Notify-Tiarra/irc_notify.tt
 assets/plugins/Publish-CHTML/chtml_entry.tt
 assets/plugins/Publish-CHTML/chtml_feed.tt
 assets/plugins/Publish-CHTML/chtml_index.tt
@@ -103,6 +108,7 @@ assets/plugins/Publish-JavaScript/javascript.tt
 assets/plugins/Publish-MT/mt.tt
 assets/plugins/Publish-MTWidget/mt_widget.tt
 assets/plugins/Publish-OPML/opml.tt
+assets/plugins/Publish-PalmDoc/palmdoc.tt
 assets/plugins/Publish-Planet/default/static/css/handheld.css
 assets/plugins/Publish-Planet/default/static/css/print.css
 assets/plugins/Publish-Planet/default/static/css/screen-members-list.css
@@ -145,12 +151,14 @@ lib/Plagger.pm
 lib/Plagger/Cache.pm
 lib/Plagger/Cache/Null.pm
 lib/Plagger/CacheProxy.pm
+lib/Plagger/Cookies.pm
 lib/Plagger/Crypt.pm
 lib/Plagger/Crypt/Base64.pm
 lib/Plagger/Date.pm
 lib/Plagger/Enclosure.pm
 lib/Plagger/Entry.pm
 lib/Plagger/Feed.pm
+lib/Plagger/Mechanize.pm
 lib/Plagger/Operator.pm
 lib/Plagger/Plugin.pm
 lib/Plagger/Plugin/Aggregator/Simple.pm
@@ -231,6 +239,8 @@ lib/Plagger/Plugin/Notify/Growl.pm
 lib/Plagger/Plugin/Notify/IRC.pm
 lib/Plagger/Plugin/Notify/MSAgent.pm
 lib/Plagger/Plugin/Notify/SSTP.pm
+lib/Plagger/Plugin/Notify/Tiarra.pm
+lib/Plagger/Plugin/Notify/UpdatePing.pm
 lib/Plagger/Plugin/Publish/2chdat.pm
 lib/Plagger/Plugin/Publish/CHTML.pm
 lib/Plagger/Plugin/Publish/CSV.pm
@@ -245,6 +255,8 @@ lib/Plagger/Plugin/Publish/Maildir.pm
 lib/Plagger/Plugin/Publish/MT.pm
 lib/Plagger/Plugin/Publish/MTWidget.pm
 lib/Plagger/Plugin/Publish/OPML.pm
+lib/Plagger/Plugin/Publish/OutlineText.pm
+lib/Plagger/Plugin/Publish/PalmDoc.pm
 lib/Plagger/Plugin/Publish/PDF.pm
 lib/Plagger/Plugin/Publish/Pipe.pm
 lib/Plagger/Plugin/Publish/Planet.pm
@@ -300,6 +312,6 @@ lib/Plagger/UserAgent.pm
 lib/Plagger/Util.pm
 Makefile.PL
 MANIFEST			This list of files
+META.yml
 plagger
 t/00_compile.t
-t/regression/mime-type-dup.t

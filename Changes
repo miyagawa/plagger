@@ -1,5 +1,36 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.1 (2006/05/24) ==
+
+=== Core ===
+
+ * Added woremacx, topia and cheebow as AUTHORS
+ * Plagger::Cookies and Plagger::Mechanize allows Plagger to share cookies with your browser like Firefox, IE or Safari.
+
+=== New Plugins ===
+
+ * Notify::UpdatePing: notify updates via XMLRPC pings (miyagawa)
+ * Publish::PalmDoc: publish updates to PalmDoc (cheebow)
+ * Publish::OutlineText: publish updates as outline text (cheebow)
+
+=== Plugins Updates ===
+
+ * Filter::Regexp: now you can use utf-8 regular expressions (woremacx)
+ * Widget::Delicious: Support one_click_post to automatically post by clicking (s_nobu)
+ * Filter::FetchEnclosures: Now it's extensible using meta-plugins. Added youtube.pl as an example. Thanks to mizzy
+ * CustomFeed::Simple: deduplicate links by URLs. Don't add links associated with images without alt (miyagawa)
+ * Filter::TruePermalink: Added YouTube, MSN Mainichi
+ * Publish::MT: Fixed blog_id config bug. #252
+ * Subscription::LivedoorReader: Adds ApiKey as a sticky query to their API (suggested by mala)
+ * Publish::Gmail: Don't trim lines over 1000 by using quoted-printable.
+ * CustomFeed::GoogleNews: now accepts keyword search result page as well
+ * Filter::HatenaRSS: Update OPML URL. Uses Cookie sharing framework.
+ * CustomFeed::Frepa: Uses Cookie sharing.
+ * CustomFeed::Mixi: Uses Cookie sharing.
+ * CustomFeed::Yahoo360JP: Uses Cookie sharing.
+ * Subscription::LivedoorReader: Uses Cookie sharing.
+ * Notify::Campfire: Uses Cookie sharing.
+
 == 0.7.0 (2006/05/17) ==
 
 === Core ===
