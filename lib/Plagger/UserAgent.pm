@@ -16,6 +16,7 @@ sub new {
 
     $self->agent( $conf->{agent} || "Plagger/$Plagger::VERSION (http://plagger.org/)" );
     $self->timeout( $conf->{timeout} || 15 );
+    $self->env_proxy();
 
     $self;
 }
