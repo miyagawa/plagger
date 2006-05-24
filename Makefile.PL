@@ -36,6 +36,13 @@ features(
         recommends('Test::Pod'),
         recommends('Test::Pod::Coverage'),
     ],
+    'Cookie sharing with Firefox' => [
+        -default => 0,
+        recommends('HTTP::Cookies::Mozilla'),
+    ],
+);
+
+features(
     'Subscription::Bloglines' => [
         -default => 1,
         recommends('WebService::Bloglines', 0.11),
@@ -230,12 +237,14 @@ features(
 
 if ($^O eq 'darwin') {
     features(
+        'Cookie sharing with Safari' => [
+            -default => 0,
+            recommends('HTTP::Cookies::Safari'),
+        ],
         'Search::Spotlight' => [
             -default => 1,
             recommends('Mac::Glue'),
         ],
-    );
-    features(
         'Publish::Speech' => [
             -default => 0,
             recommends('Mac::Speech'),
@@ -246,6 +255,10 @@ if ($^O eq 'darwin') {
 
 } elsif ($^O eq 'MSWin32') {
     features(
+        'Cookie sharing with MSIE' => [
+            -default => 0,
+            recommends('HTTP::Cookies::Microsoft'),
+        ],
         'Publish::Speech' => [
             -default => 0,
             recommends('Win32::OLE'),
