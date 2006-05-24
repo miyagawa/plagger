@@ -131,9 +131,6 @@ sub login {
     my $res = $self->{mech}->get($start_url);
     return 0 unless $self->{mech}->success;
 
-    open FOO, ">foo";
-    print FOO $self->{mech}->content;
-
     if ($self->{mech}->content =~ /loginside/) {
         Plagger->context->log(debug => "cookie not found. logging in");
         $self->{mech}->submit_form(
