@@ -253,6 +253,10 @@ if ($^O eq 'darwin') {
             -default => 0,
             recommends('Win32::MCI::Basic'),
         ],
+        'Publish::PalmDoc' => [
+            -default => 0,
+            recommends('Palm::PalmDoc'),
+        ],
     );
 }
 
