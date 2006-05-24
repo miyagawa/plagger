@@ -6,7 +6,7 @@ use Plagger;
 Plagger->bootstrap(config => \<<'CONFIG');
 global:
   log:
-#    level: error
+    level: error
 plugins:
   - module: Subscription::Config
     config:
