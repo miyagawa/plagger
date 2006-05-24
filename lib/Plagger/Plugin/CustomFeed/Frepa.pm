@@ -128,9 +128,14 @@ sub login {
 
     my $start_url = 'http://www.frepa.livedoor.com/';
     my $res = $self->{mech}->get($start_url);
-    return 0 unless $self->{mech}->success;
+    return unless $self->{mech}->success;
 
     if ($self->{mech}->content =~ /loginside/) {
+        unless ($args{livedoor_id} && $args{password}) {
+            Plagger->context->log(error => "Error logging in using existent Cookies. Your User-Agent (" . $self->{mech}->agent . ") should strictly match with the UA used with the Cookies.");
+            return;
+        }
+
         Plagger->context->log(debug => "cookie not found. logging in");
         $self->{mech}->submit_form(
             fields => {
@@ -140,8 +145,8 @@ sub login {
             },
         );
         $self->{mech}->submit;
-        return 0 unless $self->{mech}->success;
-        return 0 if $self->{mech}->content =~ /loginside/;
+        return unless $self->{mech}->success;
+        return if $self->{mech}->content =~ /loginside/;
     }
 
     return 1;
