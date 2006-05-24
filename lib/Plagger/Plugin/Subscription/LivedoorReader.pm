@@ -180,6 +180,16 @@ Reader JSON API.
 
 Your username & password to use with livedoor Reader.
 
+Note that you don't have to supply username and password if you set
+global cookie_jar in your configuration file and the cookie_jar
+contains a valid login session there, such as:
+
+  global:
+    user_agent:
+      cookies: /path/to/cookies.txt
+
+See L<Plagger::Cookies> for details.
+
 =item mark_read
 
 C<mark_read> specifies whether this plugin I<marks as read> the items

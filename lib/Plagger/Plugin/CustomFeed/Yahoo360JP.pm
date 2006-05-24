@@ -273,6 +273,16 @@ Yahoo! JAPAN 360 and make a custom feed off of them.
 
 Your Yahoo! ID and password to login.
 
+Note that you don't have to supply these variables if you set global
+cookie_jar in your configuration file and the cookie_jar contains a
+valid login session there, such as:
+
+  global:
+    user_agent:
+      cookies: /path/to/cookies.txt
+
+See L<Plagger::Cookies> for details.
+
 =item fetch_body
 
 Specifies whether this plugin fetches body of your friends' blog

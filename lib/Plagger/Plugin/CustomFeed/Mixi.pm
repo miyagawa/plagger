@@ -226,6 +226,16 @@ This plugin fetches your friends diary updates from mixi
 
 Credential you need to login to mixi.jp.
 
+Note that you don't have to supply email and password if you set
+global cookie_jar in your configuration file and the cookie_jar
+contains a valid login session there, such as:
+
+  global:
+    user_agent:
+      cookies: /path/to/cookies.txt
+
+See L<Plagger::Cookies> for details.
+
 =item fetch_body
 
 With this option set, this plugin fetches entry body HTML, not just a

@@ -210,6 +210,17 @@ This plugin fetches your friend blog updates from livedoor Frepa
 See L<Plagger::Plugin::CustomFeed::Mixi> for C<fetch_body>,
 C<fetch_body_interval> and C<show_icon>.
 
+Note that you don't have to supply livedoor_id and password if you set
+global cookie_jar in your configuration file and the cookie_jar
+contains a valid login session there, such as:
+
+  global:
+    user_agent:
+      cookies: /path/to/cookies.txt
+
+See L<Plagger::Cookies> for details.
+
+
 =head1 AUTHOR
 
 Kazuhiro Osawa
