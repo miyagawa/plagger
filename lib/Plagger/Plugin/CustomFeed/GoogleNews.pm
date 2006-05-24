@@ -53,10 +53,14 @@ sub aggregate {
     $feed->title($title);
     $feed->link($args->{feed}->url);
 
-    while ($content =~ m!<a href="(http://[^"]*)" id=r-\d[^>]*><b>([^<]*)</b></a>!g) {
+    while ($content =~ m!<a href="(http://[^"]*)" id=r-\d[^>]*>(.*?)</a>!g) {
+        my($link, $title) = ($1, $2);
+        $title =~ s!<b>(.*?)</b>!$1!g;
+
         my $entry = Plagger::Entry->new;
-        $entry->title($2);
-        $entry->link($1);
+        $entry->title($title);
+        $entry->link($link);
+
         $feed->add_entry($entry);
     }
 
@@ -77,6 +81,7 @@ Plagger::Plugin::CustomFeed::GoogleNews - Create Google News custom feed
     config:
       feed:
         - http://news.google.com/news?ned=jp&rec=0&topic=s
+        - http://news.google.co.jp/news?hl=ja&ned=jp&q=%E5%9B%B2%E7%A2%81
 
   - module: CustomFeed::GoogleNews
 
