@@ -4,6 +4,7 @@ use base qw( Class::Accessor::Fast );
 
 __PACKAGE__->mk_accessors( qw(conf rule rule_hook cache) );
 
+use Plagger::Cookies;
 use Plagger::Crypt;
 use Plagger::Rule;
 use Plagger::Rules;
@@ -111,6 +112,17 @@ sub assets_dir {
 sub log {
     my $self = shift;
     Plagger->context->log(@_, caller => ref($self));
+}
+
+sub cookie_jar {
+    my $self = shift;
+
+    my $agent_conf = Plagger->context->conf->{user_agent} || {};
+    if ($agent_conf->{cookies}) {
+        return Plagger::Cookies->create($agent_conf->{cookies});
+    }
+
+    return $self->cache->cookie_jar;
 }
 
 1;

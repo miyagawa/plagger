@@ -34,7 +34,7 @@ sub aggregate {
 
     my $start = "http://360.yahoo.co.jp/";
 
-    my $mech = WWW::Mechanize->new(cookie_jar => $self->cache->cookie_jar);
+    my $mech = WWW::Mechanize->new(cookie_jar => $self->cookie_jar);
     $mech->agent_alias( 'Windows IE 6' );
     $mech->get($start);
 

@@ -24,7 +24,7 @@ sub register {
 sub load {
     my ($self, $context) = @_;
 
-    $self->{mech} = WWW::Mechanize->new(cookie_jar => $self->cache->cookie_jar); # enbug???
+    $self->{mech} = WWW::Mechanize->new(cookie_jar => $self->cookie_jar);
     $self->{mech}->agent_alias( "Windows IE 6" );
 
     my $feed = Plagger::Feed->new;
@@ -130,6 +130,9 @@ sub login {
     my $start_url = 'http://www.frepa.livedoor.com/';
     my $res = $self->{mech}->get($start_url);
     return 0 unless $self->{mech}->success;
+
+    open FOO, ">foo";
+    print FOO $self->{mech}->content;
 
     if ($self->{mech}->content =~ /loginside/) {
         Plagger->context->log(debug => "cookie not found. logging in");

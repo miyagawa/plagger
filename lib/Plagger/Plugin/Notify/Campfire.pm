@@ -50,7 +50,7 @@ sub new {
     my $class  = shift;
     my $plugin = shift;
 
-    my $mech = WWW::Mechanize->new(cookie_jar => $plugin->cache->cookie_jar);
+    my $mech = WWW::Mechanize->new(cookie_jar => $plugin->cookie_jar);
     $mech->agent_alias("Windows IE 6");
 
     bless {

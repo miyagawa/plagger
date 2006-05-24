@@ -24,7 +24,7 @@ sub register {
 
 sub init_reader {
     my $self = shift;
-    $self->{mech} = WWW::Mechanize->new(cookie_jar => $self->cache->cookie_jar);
+    $self->{mech} = WWW::Mechanize->new(cookie_jar => $self->cookie_jar);
 
     unless (defined($self->conf->{username}) && defined($self->conf->{password})) {
         Plagger->context->error("username and/or password is missing");
