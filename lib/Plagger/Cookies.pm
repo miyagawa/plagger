@@ -2,6 +2,7 @@ package Plagger::Cookies;
 use strict;
 
 use UNIVERSAL::require;
+use Storable;
 
 our %Instances;
 
@@ -14,6 +15,7 @@ sub create {
     }
 
     $Instances{$conf->{file}} ||= do {
+        $conf = Storable::dclone($conf);
         my $type = delete $conf->{type};
         my $impl = $type ? "HTTP::Cookies::$type" : "HTTP::Cookies";
         Plagger->context->log(debug => "$conf->{file} => $impl");
@@ -36,6 +38,9 @@ sub auto_guess {
     }
     elsif ($filename =~ /Cookies\.plist$/i) {
         return { type => 'Safari', file => $filename };
+    }
+    elsif ($filename =~ m!\.w3m/cookie$!) {
+        return { type => 'w3m', file => $filename };
     }
 
     Plagger->context->log(warn => "Don't know type of $filename. Use it as LWP default");
