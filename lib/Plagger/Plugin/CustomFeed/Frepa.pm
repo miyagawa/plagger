@@ -6,7 +6,7 @@ use DateTime::Format::Strptime;
 use Encode;
 use Time::HiRes;
 use UNIVERSAL::require;
-use WWW::Mechanize;
+use Plagger::Mechanize;
 
 sub plugin_id {
     my $self = shift;
@@ -24,8 +24,7 @@ sub register {
 sub load {
     my ($self, $context) = @_;
 
-    $self->{mech} = WWW::Mechanize->new(cookie_jar => $self->cookie_jar);
-    $self->{mech}->agent_alias( "Windows IE 6" );
+    $self->{mech} = Plagger::Mechanize->new(cookie_jar => $self->cookie_jar);
 
     my $feed = Plagger::Feed->new;
     $feed->aggregator(sub { $self->aggregate(@_) });
@@ -228,7 +227,7 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<Plagger::Plugin::CustomFeed::Mixi>, L<WWW::Mechanize>,
+L<Plagger>, L<Plagger::Plugin::CustomFeed::Mixi>, L<Plagger::Mechanize>,
 L<http://frepa.livedoor.com/>
 
 =cut

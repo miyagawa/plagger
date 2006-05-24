@@ -8,13 +8,14 @@ use URI::Fetch 0.06;
 sub new {
     my $class = shift;
     my $self  = $class->SUPER::new();
-    $self->agent("Plagger/$Plagger::VERSION (http://plagger.bulknews.net/)");
-    $self->timeout(15); # xxx to be config
 
     my $conf = Plagger->context->conf->{user_agent};
     if ($conf->{cookies}) {
         $self->cookie_jar( Plagger::Cookies->create($conf->{cookies}) );
     }
+
+    $self->agent( $conf->{agent} || "Plagger/$Plagger::VERSION (http://plagger.org/)" );
+    $self->timeout( $conf->{timeout} || 15 );
 
     $self;
 }

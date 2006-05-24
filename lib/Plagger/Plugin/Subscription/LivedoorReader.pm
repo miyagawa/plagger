@@ -4,7 +4,7 @@ use base qw( Plagger::Plugin );
 
 use JSON::Syck;
 use URI;
-use WWW::Mechanize;
+use Plagger::Mechanize;
 use Plagger::Util;
 
 sub plugin_id {
@@ -24,7 +24,7 @@ sub register {
 
 sub init_reader {
     my $self = shift;
-    $self->{mech} = WWW::Mechanize->new(cookie_jar => $self->cookie_jar);
+    $self->{mech} = Plagger::Mechanize->new(cookie_jar => $self->cookie_jar);
 
     unless (defined($self->conf->{username}) && defined($self->conf->{password})) {
         Plagger->context->error("username and/or password is missing");

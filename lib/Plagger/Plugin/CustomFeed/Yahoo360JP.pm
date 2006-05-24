@@ -5,7 +5,7 @@ use base qw( Plagger::Plugin );
 use DateTime::Format::Strptime;
 use Encode;
 use Time::HiRes;
-use WWW::Mechanize;
+use Plagger::Mechanize;
 
 sub plugin_id {
     my $self = shift;
@@ -34,8 +34,7 @@ sub aggregate {
 
     my $start = "http://360.yahoo.co.jp/";
 
-    my $mech = WWW::Mechanize->new(cookie_jar => $self->cookie_jar);
-    $mech->agent_alias( 'Windows IE 6' );
+    my $mech = Plagger::Mechanize->new(cookie_jar => $self->cookie_jar);
     $mech->get($start);
 
     if ($mech->content =~ /mgb_login/) {
@@ -301,6 +300,6 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<WWW::Mechanize>, L<Plagger::Plugin::CustomFeed::Mixi>
+L<Plagger>, L<Plagger::Mechanize>, L<Plagger::Plugin::CustomFeed::Mixi>
 
 =cut

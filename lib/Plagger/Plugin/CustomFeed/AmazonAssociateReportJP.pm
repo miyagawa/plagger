@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base qw (Plagger::Plugin);
 
-use WWW::Mechanize;
+use Plagger::Mechanize;
 
 sub register {
     my ($self, $context) = @_;
@@ -50,7 +50,7 @@ sub aggregate {
 package Plagger::Plugin::CustomFeed::AmazonAssociateReportJP::Mechanize;
 use strict;
 use warnings;
-use WWW::Mechanize;
+use Plagger::Mechanize;
 use base qw(Class::Accessor::Fast);
 
 __PACKAGE__->mk_accessors(qw(mech email password start_url));
@@ -58,7 +58,7 @@ __PACKAGE__->mk_accessors(qw(mech email password start_url));
 sub new {
     my $class = shift;
     my $plugin = shift;
-    my $mech = WWW::Mechanize->new;
+    my $mech = Plagger::Mechanize->new;
     $mech->agent_alias( "Windows IE 6" );
     return bless {
 	mech     => $mech,
@@ -143,6 +143,6 @@ Naoya Ito E<lt>naoya@bloghackers.netE<gt>
 
 =head1 SEE ALSO
 
-L<Plagger>, L<WWW::Mechanize>
+L<Plagger>, L<Plagger::Mechanize>
 
 =cut

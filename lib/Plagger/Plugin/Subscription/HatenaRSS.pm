@@ -2,7 +2,7 @@ package Plagger::Plugin::Subscription::HatenaRSS;
 use strict;
 use base qw( Plagger::Plugin::Subscription::OPML );
 
-use WWW::Mechanize;
+use Plagger::Mechanize;
 
 sub register {
     my($self, $context) = @_;
@@ -21,8 +21,8 @@ sub load {
 
     my $start = "https://www.hatena.ne.jp/login?backurl=http%3A%2F%2Fr.hatena.ne.jp%2F";
 
-    # TODO: we should save the cookie and reuse
-    my $mech = WWW::Mechanize->new;
+    # support cookie_jar
+    my $mech = Plagger::Mechanize->new;
     $mech->get($start);
 
     $mech->submit_form(
