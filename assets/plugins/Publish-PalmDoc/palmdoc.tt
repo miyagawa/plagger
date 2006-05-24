@@ -1,0 +1,5 @@
+[% entry.title %]
+[% entry.link %]
+
+[% entry.body_text %]
+----------
