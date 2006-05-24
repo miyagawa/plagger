@@ -17,30 +17,27 @@ sub load {
     my($self, $context) = @_;
 
     my $username = $self->conf->{username}
-        or $context->error('username is missing');
+        or $context->error("username is missing");
 
-    my $start = "https://www.hatena.ne.jp/login?backurl=http%3A%2F%2Fr.hatena.ne.jp%2F";
+    my $mech = Plagger::Mechanize->new(cookie_jar => $self->cookie_jar);
+    $mech->get("http://r.hatena.ne.jp/$username/opml");
 
-    # support cookie_jar
-    my $mech = Plagger::Mechanize->new;
-    $mech->get($start);
+    if ($mech->content !~ /<opml version/) {
+        $mech->get("https://www.hatena.ne.jp/login?backurl=http%3A%2F%2Fr.hatena.ne.jp%2F");
+        $mech->submit_form(
+            fields => {
+                key      => $username,
+                password => $self->conf->{password},
+            },
+        );
 
-    $mech->submit_form(
-        fields => {
-            key      => $username,
-            password => $self->conf->{password},
-        },
-    );
-
-    if ( $mech->content =~ m!<div class="error">! ) {
-        $context->log(error => "Login to HatenaRSS failed.");
-        return;
+        if ( $mech->content =~ m!<div class="error">! ) {
+            $context->log(error => "Login to HatenaRSS failed.");
+            return;
+        }
     }
 
     $context->log(info => "Login to HatenaRSS succeed.");
-
-    $mech->get("http://r.hatena.ne.jp/$username/config");
-    $mech->submit_form(form_name => 'opmlexport');
 
     my $opml = $mech->content;
     $context->log(info => "Exported OPML: " . length($opml) . " bytes");
@@ -61,14 +58,21 @@ Plagger::Plugin::Subscription::HatenaRSS - HatenaRSS Subscription via OPML
   - module: Subscription::HatenaRSS
     config:
       username: example
-      password: xxxxxxxx
 
 =head1 DESCRIPTION
 
 This plugin creates Subscription by fetching Hatena RSS
-L<http://r.hatena.ne.jp> OPML by HTTP. Since Hatena RSS OPML export
-requires login state, it uses WWW::Mechanize module to emulate the
-browser's login authentication procedure.
+L<http://r.hatena.ne.jp> OPML by HTTP.
+
+If your OPML is shared public (which is default), you don't have to
+pass password to the config. Also, even if you OPML is private, you
+can share Cookies with your favorite browser like Firefox, using
+
+  global:
+    user_agent:
+      cookies: /path/to/cookies.txt
+
+so that you don't have to pass password to the config, again.
 
 =head1 AUTHOR
 
