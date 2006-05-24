@@ -1,4 +1,4 @@
 author: kazeburo
-handle: http://\w+\.watch\.impress\.co\.jp/
+handle: http://(\w+\.watch|k-tai)\.impress\.co\.jp/
 extract: <!--\s?本文開始\s?-->(.*)<!--\s?本文終了\s?-->
 extract_capture: body
