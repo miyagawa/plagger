@@ -19,3 +19,4 @@ plugins/.*\.pm$
 tools/release\.pl
 t/plugins
 t/regression
+^#
