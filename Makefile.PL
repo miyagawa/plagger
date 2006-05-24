@@ -222,6 +222,10 @@ features(
         -default => 0,
         recommends('XMLRPC::Lite'),
     ],
+    'Publish::PalmDoc' => [
+        -default => 0,
+        recommends('Palm::PalmDoc'),
+    ],
 );
 
 if ($^O eq 'darwin') {
@@ -252,10 +256,6 @@ if ($^O eq 'darwin') {
         'Notify::Eject' => [
             -default => 0,
             recommends('Win32::MCI::Basic'),
-        ],
-        'Publish::PalmDoc' => [
-            -default => 0,
-            recommends('Palm::PalmDoc'),
         ],
     );
 }
