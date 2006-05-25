@@ -16,7 +16,7 @@ sub filter {
     return unless $args->{entry}->link =~ m!\.2ch\.net/test/read\.cgi|rss\.s2ch\.net/test/\-/!;
 
     my $body = $args->{entry}->body;
-    if ($body =~ s!^([^:]*):(\d{4}/\d\d/\d\d)\(.*?\) (\d\d:\d\d:\d\d)\.\d\d (ID:\S+)  ?!!) {
+    if ($body =~ s!^([^:]*):(\d{4}/\d\d/\d\d)\(.*?\) (\d\d:\d\d:\d\d)(?:\.\d\d)? (ID:\S+)  ?!!) {
         my($from, $day, $time, $id) = ($1, $2, $3, $4);
 
         my $date = Plagger::Date->strptime('%Y/%m/%d %H:%M:%S', "$day $time");
