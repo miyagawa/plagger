@@ -14,7 +14,7 @@ sub update {
     my($self, $context, $args) = @_;
     my $body = $args->{entry}->body;
 
-    my $count = $body =~ s!<a .*? href="http://keyword\.livedoor\.com/w/.*?"[^>]*>(.*?)</a>!$1!g;
+    my $count = $body =~ s!<a .*?href="http://keyword\.livedoor\.com/w/.*?"[^>]*>(.*?)</a>!$1!g;
 
     if ($count) {
         $context->log(info => "Stripped $count links to Livedoor Keyword");
