@@ -37,7 +37,7 @@ Plagger::Plugin::Filter::LivedoorKeywordUnlink - Strip Livedoor keyword links fr
 
 =head1 DESCRIPTION
 
-This plugin strips link toLivedoor keyword links in feeds.
+This plugin strips link to Livedoor keyword links in feeds.
 
 =head1 AUTHOR
 
