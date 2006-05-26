@@ -46,7 +46,7 @@ features(
     'Subscription::Bloglines' => [
         -default => 1,
         recommends('WebService::Bloglines', 0.11),
-        recommends('XML::Liberal', 0.06),
+        recommends('XML::Liberal', 0.07),
     ],
     'Subscription::OPML' => [
         -default => 1,
