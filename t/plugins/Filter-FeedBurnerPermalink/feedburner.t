@@ -1,9 +1,11 @@
 use strict;
-use Test::More tests => 2;
+use Test::More tests => 1;
 
 use Plagger;
 
-Plagger->bootstrap(config => \<<'CONFIG');
+my $log;
+{ local $SIG{__WARN__} = sub { $log .= "@_" };
+  Plagger->bootstrap(config => \<<'CONFIG');
 global:
   log:
 #    level: error
@@ -15,3 +17,6 @@ plugins:
 
   - module: Filter::FeedBurnerPermalink
 CONFIG
+}
+
+like $log, qr/Permalink rewritten to/;
