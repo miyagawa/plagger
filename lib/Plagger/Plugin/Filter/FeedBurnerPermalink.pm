@@ -14,10 +14,22 @@ sub register {
 sub fixup {
     my($self, $context, $args) = @_;
 
+    my $fbns = 'http://rssnamespace.org/feedburner/ext/1.0';
+
     # RSS 1.0 & 2.0
-    if (my $orig_link = $args->{orig_entry}->{entry}->{'http://rssnamespace.org/feedburner/ext/1.0'}->{origLink}) {
-        $args->{entry}->permalink($orig_link);
-        $context->log(info => "Permalink rewritten to $orig_link");
+    if ($args->{orig_entry}->isa('XML::Feed::Entry::RSS')) {
+        if (my $orig_link = $args->{orig_entry}->{entry}->{$fbns}->{origLink}) {
+            $args->{entry}->permalink($orig_link);
+            $context->log(info => "Permalink rewritten to $orig_link");
+        }
+    }
+    # Atom 1.0
+    elsif ($args->{orig_entry}->isa('XML::Feed::Entry::Atom')) {
+        my $ns = XML::Atom::Namespace->new(feedburner => $fbns);
+        if (my $orig_link = $args->{orig_entry}->{entry}->get($ns, 'origLink')) {
+            $args->{entry}->permalink($orig_link);
+            $context->log(info => "Permalink rewritten to $orig_link");
+        }
     }
 }
 
