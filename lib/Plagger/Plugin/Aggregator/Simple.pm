@@ -87,7 +87,7 @@ sub handle_feed {
 
     unless ($remote) {
         $context->log(error => "Parsing $url failed. " . ($@ || XML::Feed->errstr));
-        next;
+        return;
     }
 
     $feed ||= Plagger::Feed->new;
