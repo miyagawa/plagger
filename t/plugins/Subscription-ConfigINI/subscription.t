@@ -35,7 +35,7 @@ sub load {
 
 sub test {
     my $self = shift;
-    Test::More::is_deeply(
+    ::is_deeply(
         $self->{feeds},
         [ 'http://usefulinc.com/edd/blog/rss91',
           'http://www.netsplit.com/blog/index.rss',
