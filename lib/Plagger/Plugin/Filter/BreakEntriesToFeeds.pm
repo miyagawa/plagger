@@ -17,7 +17,6 @@ sub entry {
     my $feed = $args->{feed}->clone;
     $feed->clear_entries;
     $feed->add_entry($args->{entry});
-    $feed->title($args->{entry}->title);
 
     push @{$self->{feeds}}, $feed;
 }
