@@ -72,6 +72,22 @@ Plagger::Plugin::Filter::FetchEnclosure - Fetch enclosure(s) in entry
 
 This plugin downloads enclosure files set for each entry.
 
+=head1 CONFIG
+
+=over 4
+
+=item dir
+
+Directory to store downloaded enclosures. Required.
+
+=item fake_referer
+
+Flag to set I<Referer> HTTP header when downloading enclosures. Some
+sites would deny downloading images without Referer header. Defaults
+to 0.
+
+=back
+
 =head1 TODO
 
 =over 4
