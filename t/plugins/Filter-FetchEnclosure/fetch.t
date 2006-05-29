@@ -33,6 +33,7 @@ plugins:
       link: http://example.com/
       entry:
        - title: Test 1
+         link: http://bulknews.typepad.com/
          body: |
            Hello <img src="http://bulknews.typepad.com/P506iC0003735833.jpg" /> foobar
 
@@ -44,6 +45,7 @@ plugins:
   - module: Publish::Gmail
     config:
       mailto: fooba\@localhost
+      attach_enclosures: 1
 CONFIG
 
 END { rmtree $tmpdir }
