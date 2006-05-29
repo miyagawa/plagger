@@ -55,9 +55,11 @@ sub notify {
     my $feed = $args->{feed};
     my $subject = $feed->title || '(no-title)';
 
-    my $enclosure_cb;
-    for my $entry ($args->{feed}->entries) {
-        $enclosure_cb = $self->prepare_enclosures($entry);
+    my @enclosure_cb;
+    if ($self->conf->{attach_enclosures}) {
+        for my $entry ($args->{feed}->entries) {
+            push @enclosure_cb, $self->prepare_enclosures($entry);
+        }
     }
 
     my $body = $self->templatize($context, $feed);
@@ -85,8 +87,8 @@ sub notify {
         Encoding => 'quoted-printable',
     );
 
-    if ($enclosure_cb) {
-        $enclosure_cb->($msg);
+    for my $cb (@enclosure_cb) {
+        $cb->($msg);
     }
 
     my $route = $cfg->{mailroute} || { via => 'smtp', host => 'localhost' };
@@ -243,3 +245,62 @@ sub DESTORY {
 sub MIME::Lite::SMTP::TLS::print { shift->datasend(@_) }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Publish::Gmail - Notify updates to your email account
+
+=head1 SYNOPSIS
+
+  - module: Publish::Gmail
+    config:
+      mailto: example@gmail.com
+      mailfrom: you@example.net
+
+=head1 DESCRIPTION
+
+This plugin creates HTML emails and sends them to your Gmail mailbox.
+
+=head1 CONFIG
+
+=over 4
+
+=item mailto
+
+Your email address to send updatess to. Required.
+
+=item mailfrom
+
+Email address to send email from. Defaults to I<plagger@localhost>.
+
+=item mailroute
+
+Hash to specify how to send emails. Defaults to:
+
+  mailroute:
+    via: smtp
+    host: localhost
+
+the value of I<via> would be either I<smtp>, I<smtp_tls> or I<sendmail>.
+
+  mailroute:
+    via: sendmail
+    command: /usr/sbin/sendmail
+
+=item attach_enclosures
+
+Flag to attach enclosures as Email attachments. Defaults to 0.
+
+=back
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=head1 SEE ALSO
+
+L<Plagger>, L<MIME::Lite>
+
+=cut
