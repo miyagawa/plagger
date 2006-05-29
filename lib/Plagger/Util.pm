@@ -143,6 +143,7 @@ sub mime_type_of {
         $ext = ( $ext->path =~ /\.(\w+)/ )[0];
     }
 
+    return unless $ext;
     return $mimetypes->mimeTypeOf($ext);
 }
 
