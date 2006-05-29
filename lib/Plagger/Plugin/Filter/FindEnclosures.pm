@@ -4,6 +4,7 @@ use base qw( Plagger::Plugin );
 
 use HTML::TokeParser;
 use Plagger::Util qw( decode_content );
+use List::Util qw(first);
 use URI;
 use DirHandle;
 use Plagger::Enclosure;
@@ -81,26 +82,61 @@ sub filter {
     $self->add_enclosure($args->{entry}, [ 'a', { href => $args->{entry}->link } ], 'href' );
 
     my $parser = HTML::TokeParser->new(\$args->{entry}->body);
-    while (my $tag = $parser->get_tag('a', 'embed', 'img')) {
+    while (my $tag = $parser->get_tag('a', 'embed', 'img', 'object')) {
         if ($tag->[0] eq 'a' ) {
             $self->add_enclosure($args->{entry}, $tag, 'href');
         } elsif ($tag->[0] eq 'embed') {
-            $self->add_enclosure($args->{entry}, $tag, 'src');
+            $self->add_enclosure($args->{entry}, $tag, 'src', { type => $tag->[1]->{type} });
         } elsif ($tag->[0] eq 'img') {
-            $self->add_enclosure($args->{entry}, $tag, 'src', 1);
+            $self->add_enclosure($args->{entry}, $tag, 'src', { inline => 1 });
+        } elsif ($tag->[0] eq 'object') {
+            $self->add_enclosure_from_object($args->{entry}, $parser);
         }
     }
 }
 
-sub add_enclosure {
-    my($self, $entry, $tag, $attr, $inline) = @_;
+sub add_enclosure_from_object {
+    my($self, $entry, $parser) = @_;
 
-    if ($self->is_enclosure($tag, $attr)) {
+    # get param tags and find appropriate FLV movies
+    my @params;
+    while (my $tag = $parser->get_tag('param', '/object')) {
+        last if $tag->[0] eq '/object';
+        push @params, $tag;
+    }
+
+    # find URL inside flashvars parameter
+    my $url;
+    if (my $flashvars = first { lc($_->[1]->{name}) eq 'flashvars' } @params) {
+        my %values = split /[=&]/, $flashvars->[1]->{value} || '';
+        $url = first { m!^https?://! } values %values;
+    }
+
+    # if URL isn't found in flash vars, then fallback to <param name="movie" />
+    if (!$url) {
+        my $movie = first { lc($_->[1]->{name}) eq 'movie' } @params;
+        $url = $movie->[1]->{value} if $movie;
+    }
+
+    if ($url) {
+        Plagger->context->log(info => "Found enclosure $url");
+        my $enclosure = Plagger::Enclosure->new;
+        $enclosure->url( URI->new($url) );
+        $enclosure->auto_set_type;
+        $entry->add_enclosure($enclosure); # XXX inline?
+    }
+}
+
+sub add_enclosure {
+    my($self, $entry, $tag, $attr, $opt) = @_;
+    $opt ||= {};
+
+    if ($self->is_enclosure($tag, $attr, $opt->{type})) {
         Plagger->context->log(info => "Found enclosure $tag->[1]{$attr}");
         my $enclosure = Plagger::Enclosure->new;
         $enclosure->url($tag->[1]{$attr});
-        $enclosure->auto_set_type;
-        $enclosure->is_inline($inline);
+        $enclosure->auto_set_type($opt->{type});
+        $enclosure->is_inline(1) if $opt->{inline};
         $entry->add_enclosure($enclosure);
         return;
     }
@@ -132,18 +168,18 @@ sub fetch_content {
 }
 
 sub is_enclosure {
-    my($self, $tag, $attr) = @_;
+    my($self, $tag, $attr, $type) = @_;
 
     return 1 if $tag->[1]{rel} && $tag->[1]{rel} eq 'enclosure';
-    return 1 if $self->has_enclosure_mime_type($tag->[1]{$attr});
+    return 1 if $self->has_enclosure_mime_type($tag->[1]{$attr}, $type);
 
     return;
 }
 
 sub has_enclosure_mime_type {
-    my($self, $url) = @_;
+    my($self, $url, $type) = @_;
 
-    my $mime = Plagger::Util::mime_type_of( URI->new($url) );
+    my $mime = $type ? MIME::Type->new(type => $type) : Plagger::Util::mime_type_of( URI->new($url) );
     $mime && $mime->mediaType =~ m!^(?:audio|video|image)$!;
 }
 
