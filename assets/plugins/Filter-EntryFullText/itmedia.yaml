@@ -1,4 +1,6 @@
 author: manabou
 handle: http://(\w+)\.itmedia\.co\.jp/(\w+)/articles
-extract: <div class="newart">.*?<h1>(.*?)</h1>.*?<!--BODY-->(.*?)<!--BODYEND-->
-extract_capture: title body
+extract: <div class="newart">.*?(?:<div id="update">(\d{4}年\d\d月\d\d日 \d\d時\d\d分) 更新</div>)?.*?<h1>(.*?)</h1>\s*<h5>(.*?)</h5>\s*(?:<div id="update">(\d{4}年\d\d月\d\d日 \d\d時\d\d分) 更新</div>)?.*?<!--BODY-->(.*?)<!--BODYEND-->
+extract_capture: date1 title summary date2 body
+extract_after_hook: $data->{date} = $data->{date1} || $data->{date2}
+extract_date_format: %Y年%m月%d日 %H時%M分
