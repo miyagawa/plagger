@@ -223,6 +223,11 @@ sub extract {
         my $data;
         @{$data}{@capture} = @match;
 
+        if ($self->{extract_after_hook}) {
+            eval $self->{extract_after_hook};
+            Plagger->context->error($@) if $@;
+        }
+
         if ($data->{date}) {
             if (my $format = $self->{extract_date_format}) {
                 $format = [ $format ] unless ref $format;
@@ -233,11 +238,6 @@ sub extract {
             } else {
                 $data->{date} = Plagger::Date->parse_dwim($data->{date});
             }
-        }
-
-        if ($self->{extract_after_hook}) {
-            eval $self->{extract_after_hook};
-            Plagger->context->error($@) if $@;
         }
 
         return $data;
