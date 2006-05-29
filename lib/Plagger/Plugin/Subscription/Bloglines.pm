@@ -1,4 +1,4 @@
-package Plagger::Plugin::Subscription::Bloglines;
+pakage Plagger::Plugin::Subscription::Bloglines;
 use strict;
 use base qw( Plagger::Plugin );
 
@@ -116,7 +116,7 @@ sub sync {
 
     # catch bad XML feed by Bloglines
     eval {
-        @updates = $self->{bloglines}->getitems(0, $mark_read);
+        @updates = $self->{bloglines}->getitems(0, 0);
     };
 
     if ($@) {
@@ -128,6 +128,11 @@ sub sync {
                 push @updates, eval { $self->{bloglines}->getitems($feed->{BloglinesSubId}, $mark_read) };
             }
         }
+    } elsif ($mark_read) {
+        # no error found with XML ... call the API again to mark read
+        eval {
+            @updates = $self->{bloglines}->getitems(0, $mark_read);
+        };
     }
 
     $context->log(info => scalar(@updates) . " feed(s) updated.");
