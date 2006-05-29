@@ -22,12 +22,13 @@ sub new {
 }
 
 sub fetch {
-    my($self, $url, $plugin) = @_;
+    my($self, $url, $plugin, $opt) = @_;
 
     URI::Fetch->fetch($url,
         UserAgent => $self,
         $plugin ? (Cache => $plugin->cache) : (),
         ForceResponse => 1,
+        ($opt ? %$opt : ()),
     );
 }
 

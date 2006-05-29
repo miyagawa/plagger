@@ -67,7 +67,7 @@ sub decode_content {
 
     # 1) if it is HTTP response, get charset from HTTP Content-Type header
     if ($res) {
-        $charset = ($res->http_response->content_type =~ /charset=([\w\-]+)/)[0];
+        $charset = ($res->content_type =~ /charset=([\w\-]+)/)[0];
     }
 
     # 2) if there's not, try XML encoding
