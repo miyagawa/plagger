@@ -1,4 +1,4 @@
-pakage Plagger::Plugin::Subscription::Bloglines;
+package Plagger::Plugin::Subscription::Bloglines;
 use strict;
 use base qw( Plagger::Plugin );
 
