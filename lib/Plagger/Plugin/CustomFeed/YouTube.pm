@@ -119,7 +119,7 @@ sub aggregate {
 
                         my $enclosure = Plagger::Enclosure->new;
                         $enclosure->url( URI->new($video_url) );
-                        $enclosure->type('video/flv');
+                        $enclosure->type('video/x-flv');
                         $enclosure->filename("$video_id.flv");
                         $entry->add_enclosure($enclosure);
                     }
