@@ -63,7 +63,7 @@ sub aggregate {
                         $title_flag = 0;
                     }
                 };
-            m!<img src="(http://static\d+.youtube.com/[^">]+/1.jpg)" class="vimgSm" />!
+            m!<img src="(http://[\w-]*static\d+(.[\w-]+)?\.youtube.com/[^">]+/1.jpg)" class="vimgSm" />!
                 and $data->{image}->{url} = $1;
             m!<div class="desc">(.*)</div>!
                 and $data->{description} = $1;
