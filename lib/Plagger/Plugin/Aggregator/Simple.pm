@@ -159,6 +159,27 @@ sub handle_feed {
             }
         }
 
+        # Media RSS
+        my $media_ns = "http://search.yahoo.com/mrss";
+        my $media = $e->{entry}->{$media_ns}->{group} || $e->{entry};
+        my $content = $media->{$media_ns}->{content} || [];
+           $content = [ $content ] unless ref $content;
+
+        for my $media_content (@{$content}) {
+            my $enclosure = Plagger::Enclosure->new;
+            $enclosure->url( URI->new($media_content->{url}) );
+            $enclosure->auto_set_type($media_content->{type});
+            $entry->add_enclosure($enclosure);
+        }
+
+        if (my $thumbnail = $media->{$media_ns}->{thumbnail}) {
+            $entry->icon({
+                url   => $thumbnail->{url},
+                width => $thumbnail->{width},
+                height => $thumbnail->{height},
+            });
+        }
+
         my $args = {
             entry      => $entry,
             feed       => $feed,
