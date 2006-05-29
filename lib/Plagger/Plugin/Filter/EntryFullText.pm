@@ -116,7 +116,7 @@ sub filter {
 
     # if the request was redirected, set it as permalink
     if ($res->http_response) {
-        my $base = $res->http_response->uri;
+        my $base = $res->http_response->request->uri;
         if ( $base ne $args->{entry}->permalink ) {
             $context->log(info => "rewrite permalink to $base");
             $args->{entry}->permalink($base);
