@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns="http://purl.org/rss/1.0/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:hatena="http://www.hatena.ne.jp/info/xmlns#"
+	xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+	xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"
+	xml:lang="ja">
+<channel rdf:about="http://f.hatena.ne.jp/miyagawa/rss">
+	<title>miyagawa&#39;s fotolife</title>
+	<link>http://f.hatena.ne.jp/miyagawa/</link>
+	<description>miyagawa&#39;s fotolife</description>
+	<openSearch:totalResults>14</openSearch:totalResults>
+	<openSearch:startIndex>0</openSearch:startIndex>
+	<openSearch:itemsPerPage>50</openSearch:itemsPerPage>
+	<items>
+	<rdf:Seq>
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060529191228" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060510165331" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060510150318" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060508173350" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060505165823" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060504194207" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060428190531" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060401211506" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060401032547" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060324172117" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060324170852" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060324164649" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20060315143015" />
+		<rdf:li rdf:resource="http://f.hatena.ne.jp/miyagawa/20040619132102" />
+	</rdf:Seq>
+	</items>
+</channel>
+
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060529191228">
+	<title>20060529191228</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060529191228</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060529191228"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060529/20060529191228_m.jpg" alt="20060529191228"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060529191228"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060529/20060529191228.gif" alt="20060529191228"></a>]]></content:encoded>
+	<dc:date>2006-05-29T19:12:28+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060529/20060529191228.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060529/20060529191228_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060510165331">
+	<title>20060510165331</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060510165331</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060510165331"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510165331_m.jpg" alt="20060510165331"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060510165331"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510165331.png" alt="20060510165331"></a>]]></content:encoded>
+	<dc:date>2006-05-10T16:53:31+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510165331.png</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510165331_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060510150318">
+	<title>20060510150318</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060510150318</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060510150318"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510150318_m.jpg" alt="20060510150318"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060510150318"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510150318.gif" alt="20060510150318"></a>]]></content:encoded>
+	<dc:date>2006-05-10T15:03:18+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510150318.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060510/20060510150318_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060508173350">
+	<title>20060508173350</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060508173350</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060508173350"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060508/20060508173350_m.jpg" alt="20060508173350"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060508173350"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060508/20060508173350.gif" alt="20060508173350"></a>]]></content:encoded>
+	<dc:date>2006-05-08T17:33:50+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060508/20060508173350.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060508/20060508173350_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060505165823">
+	<title>20060505165823</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060505165823</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060505165823"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060505/20060505165823_m.jpg" alt="20060505165823"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060505165823"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060505/20060505165823.gif" alt="20060505165823"></a>]]></content:encoded>
+	<dc:date>2006-05-05T16:58:23+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060505/20060505165823.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060505/20060505165823_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060504194207">
+	<title>20060504194207</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060504194207</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060504194207"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060504/20060504194207_m.jpg" alt="20060504194207"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060504194207"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060504/20060504194207.gif" alt="20060504194207"></a>]]></content:encoded>
+	<dc:date>2006-05-04T19:42:07+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060504/20060504194207.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060504/20060504194207_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060428190531">
+	<title>20060428190531</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060428190531</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060428190531"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060428/20060428190531_m.jpg" alt="20060428190531"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060428190531"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060428/20060428190531.gif" alt="20060428190531"></a>]]></content:encoded>
+	<dc:date>2006-04-28T19:05:31+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060428/20060428190531.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060428/20060428190531_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060401211506">
+	<title>20060401211506</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060401211506</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060401211506"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401211506_m.jpg" alt="20060401211506"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060401211506"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401211506.gif" alt="20060401211506"></a>]]></content:encoded>
+	<dc:date>2006-04-01T21:15:06+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401211506.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401211506_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060401032547">
+	<title>20060401032547</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060401032547</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060401032547"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401032547_m.jpg" alt="20060401032547"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060401032547"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401032547.gif" alt="20060401032547"></a>]]></content:encoded>
+	<dc:date>2006-04-01T03:25:47+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401032547.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060401/20060401032547_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060324172117">
+	<title>20060324172117</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060324172117</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060324172117"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324172117_m.jpg" alt="20060324172117"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060324172117"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324172117.gif" alt="20060324172117"></a>]]></content:encoded>
+	<dc:date>2006-03-24T17:21:17+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324172117.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324172117_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060324170852">
+	<title>20060324170852</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060324170852</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060324170852"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324170852_m.jpg" alt="20060324170852"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060324170852"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324170852.gif" alt="20060324170852"></a>]]></content:encoded>
+	<dc:date>2006-03-24T17:08:52+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324170852.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324170852_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060324164649">
+	<title>20060324164649</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060324164649</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060324164649"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324164649_m.jpg" alt="20060324164649"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060324164649"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324164649.gif" alt="20060324164649"></a>]]></content:encoded>
+	<dc:date>2006-03-24T16:46:49+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324164649.gif</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060324/20060324164649_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20060315143015">
+	<title>20060315143015</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20060315143015</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060315143015"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060315/20060315143015_m.jpg" alt="20060315143015"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20060315143015"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060315/20060315143015.png" alt="20060315143015"></a>]]></content:encoded>
+	<dc:date>2006-03-15T14:30:15+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060315/20060315143015.png</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20060315/20060315143015_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+<item rdf:about="http://f.hatena.ne.jp/miyagawa/20040619132102">
+	<title>うま</title>
+	<link>http://f.hatena.ne.jp/miyagawa/20040619132102</link>
+	<description><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20040619132102"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20040619/20040619132102_m.jpg" alt="うま"></a>]]></description>
+	<content:encoded><![CDATA[<a href="http://f.hatena.ne.jp/miyagawa/20040619132102"><img src="http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20040619/20040619132102.jpg" alt="うま"></a>]]></content:encoded>
+	<dc:date>2004-06-19T13:21:02+09:00</dc:date>
+	<hatena:imageurl>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20040619/20040619132102.jpg</hatena:imageurl>
+	<hatena:imageurlsmall>http://f.hatena.ne.jp/images/fotolife/m/miyagawa/20040619/20040619132102_m.jpg</hatena:imageurlsmall>
+	
+</item>
+
+
+</rdf:RDF>

@@ -159,6 +159,8 @@ sub handle_feed {
             }
         }
 
+        # TODO: move MediaRSS, Hatena, iTunes and those specific parser to be subclassed
+
         # Media RSS
         my $media_ns = "http://search.yahoo.com/mrss";
         my $media = $e->{entry}->{$media_ns}->{group} || $e->{entry};
@@ -178,6 +180,19 @@ sub handle_feed {
                 width => $thumbnail->{width},
                 height => $thumbnail->{height},
             });
+        }
+
+        # Hatena Image extensions
+        my $hatena = $e->{entry}->{"http://www.hatena.ne.jp/info/xmlns#"};
+        if ($hatena->{imageurl}) {
+            my $enclosure = Plagger::Enclosure->new;
+            $enclosure->url($hatena->{imageurl});
+            $enclosure->auto_set_type;
+            $entry->add_enclosure($enclosure);
+        }
+
+        if ($hatena->{imageurlsmall}) {
+            $entry->icon({ url   => $hatena->{imageurlsmall} });
         }
 
         my $args = {
