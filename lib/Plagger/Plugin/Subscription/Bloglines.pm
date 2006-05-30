@@ -120,7 +120,7 @@ sub sync {
     };
 
     if ($@) {
-        $context->log(warn => "Bloglines Sync API returned bad XML. fallbacks to loop mode");
+        $context->log(warn => "Bloglines Sync API returned bad XML. fallbacks to loop mode: $@");
         my @feeds = $self->{bloglines}->listsubs()->feeds;
         for my $feed (@feeds) {
             if ($feed->{BloglinesUnread}) {

@@ -13,10 +13,10 @@ use XML::Feed::RSS;
 
 $XML::Feed::RSS::PREFERRED_PARSER = first { $_->require } qw( XML::RSS::Liberal XML::RSS::LibXML XML::RSS );
 
-#eval { require XML::Liberal };
-#if (!$@ && XML::Liberal->can('globally_override')) {
-#    XML::Liberal->globally_override('LibXML');
-#}
+eval { require XML::Liberal };
+if (!$@ && $XML::Liberal::VERSION >= 0.10) {
+    XML::Liberal->globally_override('LibXML');
+}
 
 sub register {
     my($self, $context) = @_;
