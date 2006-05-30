@@ -109,7 +109,8 @@ sub add_enclosure_from_object {
     my $url;
     if (my $flashvars = first { lc($_->[1]->{name}) eq 'flashvars' } @params) {
         my %values = split /[=&]/, $flashvars->[1]->{value} || '';
-        $url = first { m!^https?://! } values %values;
+        $url   = first { m!^https?://.*\flv! } values %values;
+        $url ||= first { m!^https?://.*! } values %values;
     }
 
     # if URL isn't found in flash vars, then fallback to <param name="movie" />
