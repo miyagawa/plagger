@@ -47,7 +47,8 @@ features(
     ],
     'Liberal XML parsing' => [
         -default => 1,
-        recommends('XML::Liberal', 0.10),
+        recommends('XML::Liberal', 0.11),
+        recommends('XML::RSS::Liberal'),
     ],
 );
 
@@ -59,10 +60,6 @@ features(
     'Subscription::OPML' => [
         -default => 1,
         recommends('XML::OPML'),
-    ],
-    'Aggregator::Simple' => [
-        -default => 1,
-        recommends('XML::RSS::Liberal'),
     ],
     'Publish::Gmail' => [
         -default => 1,
