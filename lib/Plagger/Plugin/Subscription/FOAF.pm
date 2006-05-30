@@ -31,7 +31,7 @@ sub load_foaf {
     my $person = eval { XML::FOAF->new( \$content, $uri )->person };
 
     unless ($person) {
-        $context->log( error => "Error loading FOAF file $uri: " . XML::FOAF->errstr );
+        $context->log( error => "Error loading FOAF file $uri: " . ($@ || XML::FOAF->errstr) );
         return;
     }
 
