@@ -45,6 +45,10 @@ features(
         -default => 0,
         recommends('HTTP::Cookies::Mozilla'),
     ],
+    'Liberal XML parsing' => [
+        -default => 1,
+        recommends('XML::Liberal', 0.10),
+    ],
 );
 
 features(
