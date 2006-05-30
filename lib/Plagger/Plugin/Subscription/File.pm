@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use base qw(Plagger::Plugin);
-use Plagger::Util qw(load_uri);
+use Plagger::Util;
 
 use URI;
 
@@ -22,11 +22,11 @@ sub load {
 
     $uri->scheme('file') unless $uri->scheme;
 
-    for my $line ( grep { !/^\s*#/ } split /\n/, load_uri $uri) {
+    for ( split /\n/, Plagger::Util::load_uri($uri)) {
+        s/\#.*//;
+        next if /^\s*$/;
         my $feed = Plagger::Feed->new;
-
-        $feed->url($line);
-
+        $feed->url($_);
         $context->subscription->add($feed);
     }
 
