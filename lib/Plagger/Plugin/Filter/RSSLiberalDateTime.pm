@@ -38,7 +38,7 @@ sub fixup_datetime {
 
     if ($time[6]) {
         use integer;
-        my $tz = sprintf "%s%02d%02d", ($time[6] > 0 ? "+" : "-"), $time[6] / 3600, $time[6] % 3600;
+        my $tz = sprintf "%s%02d%02d", ($time[6] > 0 ? "+" : "-"), abs($time[6] / 3600), $time[6] % 3600;
         $dt->set_time_zone($tz);
     }
 
