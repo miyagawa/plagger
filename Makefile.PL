@@ -215,6 +215,10 @@ features(
         -default => 0,
         recommends('Palm::PalmDoc'),
     ],
+    'Subscription::FOAF' => [
+        -default => 0,
+        recommends('XML::FOAF'),
+    ],
 );
 
 if ($^O eq 'darwin') {
