@@ -183,7 +183,7 @@ sub handle_feed {
         }
 
         # Hatena Image extensions
-        my $hatena = $e->{entry}->{"http://www.hatena.ne.jp/info/xmlns#"};
+        my $hatena = $e->{entry}->{"http://www.hatena.ne.jp/info/xmlns#"} || {};
         if ($hatena->{imageurl}) {
             my $enclosure = Plagger::Enclosure->new;
             $enclosure->url($hatena->{imageurl});
@@ -193,6 +193,18 @@ sub handle_feed {
 
         if ($hatena->{imageurlsmall}) {
             $entry->icon({ url   => $hatena->{imageurlsmall} });
+        }
+
+        # Apple photocast feed
+        my $apple = $e->{entry}->{"http://www.apple.com/ilife/wallpapers"} || {};
+        if ($apple->{image}) {
+            my $enclosure = Plagger::Enclosure->new;
+            $enclosure->url( URI->new($apple->{image}) );
+            $enclosure->auto_set_type;
+            $entry->add_enclosure($enclosure);
+        }
+        if ($apple->{thumbnail}) {
+            $entry->icon({ url => $apple->{thumbnail} });
         }
 
         my $args = {
