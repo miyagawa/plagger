@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:cc="http://web.resource.org/cc/"
+ xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
+ xmlns:admin="http://webns.net/mvcb/"
+>
+
+<channel rdf:about="http://del.icio.us/miyagawa/mycomments">
+<title>del.icio.us/miyagawa/mycomments</title>
+<link>http://del.icio.us/miyagawa/mycomments</link>
+<description></description>
+<items>
+ <rdf:Seq>
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/agw/20060526/1148633449#c" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/nirvash/20060517/1147836803#c" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/nirvash/20060515/1147701349#c" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/fuba/20060514/1147579162#c" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/tokuhirom/20060426/1146015356" />
+  <rdf:li rdf:resource="http://as-is.net/blog/archives/001122.html" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/manabou/20060413/1144934871#c" />
+  <rdf:li rdf:resource="http://www5d.biglobe.ne.jp/~y0ka/2006-03.html#2006-03-01-4" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/nekokak/20060228/1141138614" />
+  <rdf:li rdf:resource="http://www.witha.jp/blog/archives/2006/02/typekeyweb_api.html" />
+  <rdf:li rdf:resource="http://tdiary.ishinao.net/20060210.html#c03" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/charsbar/20060203/1138909272#c" />
+  <rdf:li rdf:resource="http://oyatsu.typepad.com/yorimichi/2005/12/post_10.html#comment-12116187" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/tokuhirom/20051201/1133417854#c" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/tokuhirom/20051129/1133235940" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/tokuhirom/20051129/1133240808#c" />
+  <rdf:li rdf:resource="http://labs.cybozu.co.jp/blog/akky/archives/2005/11/ahah.html" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/tokuhirom/20051126/1133017749#c" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/antipop/20051126/1132939340#c" />
+  <rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/tokuhirom/20051122#c" />
+  <rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/yappo/20051121#c" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/higepon/20051117/1132209246#c" />
+  <rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/tokuhirom/20051106#c" />
+  <rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/nipotan/20051104#c" />
+  <rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/tokuhirom/20051031#c" />
+  <rdf:li rdf:resource="http://clouder.jp/yoshiki/mt/archives/000579.html" />
+  <rdf:li rdf:resource="http://clouder.jp/yoshiki/mt/archives/000578.html" />
+  <rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/tokuhirom/20051028/1130478226" />
+  <rdf:li rdf:resource="http://www.hsbt.org/diary/20051028.html#c01" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/higepon/20051024/1130167526" />
+  <rdf:li rdf:resource="http://d.hatena.ne.jp/naoya/20051024/1130133664" />
+ </rdf:Seq>
+</items>
+</channel>
+
+<item rdf:about="http://d.hatena.ne.jp/agw/20060526/1148633449#c">
+<title>agwの日記 - Using early plagger</title>
+<link>http://d.hatena.ne.jp/agw/20060526/1148633449#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-05-26T09:21:03Z</dc:date>
+<dc:subject>imap mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/imap" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/nirvash/20060517/1147836803#c">
+<title>nirvashの日記 - [rss][ad] /.J の RSS に RSS広告が。</title>
+<link>http://d.hatena.ne.jp/nirvash/20060517/1147836803#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-05-17T04:20:12Z</dc:date>
+<dc:subject>mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/nirvash/20060515/1147701349#c">
+<title>nirvashの日記 - [plagger][rss] RSS 2.0 pubDate</title>
+<link>http://d.hatena.ne.jp/nirvash/20060515/1147701349#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-05-15T16:54:50Z</dc:date>
+<dc:subject>mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/fuba/20060514/1147579162#c">
+<title>fubaはてな - config.yamlのplugin_path設定</title>
+<link>http://d.hatena.ne.jp/fuba/20060514/1147579162#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-05-14T11:51:20Z</dc:date>
+<dc:subject>mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/tokuhirom/20060426/1146015356">
+<title>NamingSense::TokuLog! - テストスクリプトはどうあるべきか</title>
+<link>http://d.hatena.ne.jp/tokuhirom/20060426/1146015356</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-04-26T05:17:44Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://as-is.net/blog/archives/001122.html">
+<title>Google Calendar data API - Ogawa::Memoranda</title>
+<link>http://as-is.net/blog/archives/001122.html</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-04-20T08:10:13Z</dc:date>
+<dc:subject>api atom calendar google mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/google" />
+    <rdf:li resource="http://del.icio.us/tag/calendar" />
+    <rdf:li resource="http://del.icio.us/tag/api" />
+    <rdf:li resource="http://del.icio.us/tag/atom" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/manabou/20060413/1144934871#c">
+<title>manabouのログ - plaggerのEntryFullTextを書いてみるeweek</title>
+<link>http://d.hatena.ne.jp/manabou/20060413/1144934871#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-04-13T14:50:46Z</dc:date>
+<dc:subject>mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://www5d.biglobe.ne.jp/~y0ka/2006-03.html#2006-03-01-4">
+<title>2006-03のいろいろ memo</title>
+<link>http://www5d.biglobe.ne.jp/~y0ka/2006-03.html#2006-03-01-4</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-03-01T14:22:28Z</dc:date>
+<dc:subject>mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/nekokak/20060228/1141138614">
+<title>Hatena::Diary::Neko::kak 500 Internal Server Error - Plaggerはいらない！</title>
+<link>http://d.hatena.ne.jp/nekokak/20060228/1141138614</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-02-28T20:26:58Z</dc:date>
+<dc:subject>mycomments plagger</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/plagger" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://www.witha.jp/blog/archives/2006/02/typekeyweb_api.html">
+<title>HepCat Dev and Test: TypeKeyとWeb APIの（ちょっとした）落とし穴</title>
+<link>http://www.witha.jp/blog/archives/2006/02/typekeyweb_api.html</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-02-24T18:21:18Z</dc:date>
+<dc:subject>mycomments typekey</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/typekey" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://tdiary.ishinao.net/20060210.html#c03">
+<title>いしなお! - bigpresenいいなー , tracに日記インターフェースがあれば , 参照を持つオブジェクトや配列の比較 , オブジェクトを含む配列にin_..</title>
+<link>http://tdiary.ishinao.net/20060210.html#c03</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-02-10T11:32:47Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/charsbar/20060203/1138909272#c">
+<title>Charsbar::Note - Jiftyを入れてみた</title>
+<link>http://d.hatena.ne.jp/charsbar/20060203/1138909272#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2006-02-06T03:48:46Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://oyatsu.typepad.com/yorimichi/2005/12/post_10.html#comment-12116187">
+<title>寄り道: コメントのハードル高まる？</title>
+<link>http://oyatsu.typepad.com/yorimichi/2005/12/post_10.html#comment-12116187</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-12-15T10:20:47Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/tokuhirom/20051201/1133417854#c">
+<title>Sledge::Plugin::TokuLog! - CVS から SVN への移行に際する履歴の捨て方について</title>
+<link>http://d.hatena.ne.jp/tokuhirom/20051201/1133417854#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-12-01T07:40:34Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/tokuhirom/20051129/1133235940">
+<title>tokuhirom method - Sledge::Pages->redirect が return しないことについて</title>
+<link>http://d.hatena.ne.jp/tokuhirom/20051129/1133235940</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-29T07:42:27Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/tokuhirom/20051129/1133240808#c">
+<title>tokuhirom method - えーマジCVS!!CVSが許されるのは小学生までだよね</title>
+<link>http://d.hatena.ne.jp/tokuhirom/20051129/1133240808#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-29T07:41:32Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://labs.cybozu.co.jp/blog/akky/archives/2005/11/ahah.html">
+<title>秋元@サイボウズ研究所プログラマーBlog: AHAH (アハー)補足</title>
+<link>http://labs.cybozu.co.jp/blog/akky/archives/2005/11/ahah.html</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-28T16:18:24Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/tokuhirom/20051126/1133017749#c">
+<title>TokuLog!@ はてなダイアリー - Sledge::Plugin::Validator のドキュメント</title>
+<link>http://d.hatena.ne.jp/tokuhirom/20051126/1133017749#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-28T04:33:12Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/antipop/20051126/1132939340#c">
+<title>antipop - タグがひとをつなぐ</title>
+<link>http://d.hatena.ne.jp/antipop/20051126/1132939340#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-26T00:16:20Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://subtech.g.hatena.ne.jp/tokuhirom/20051122#c">
+<title>subtechグループ - tokuhiromの日記</title>
+<link>http://subtech.g.hatena.ne.jp/tokuhirom/20051122#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-22T21:54:14Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://subtech.g.hatena.ne.jp/yappo/20051121#c">
+<title>subtechグループ - Yappo::Hatena::Group::Subtech</title>
+<link>http://subtech.g.hatena.ne.jp/yappo/20051121#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-22T21:54:05Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/higepon/20051117/1132209246#c">
+<title>ひげぽん OSとか作っちゃうかMona- - VC管理下のファイルのバックアップ</title>
+<link>http://d.hatena.ne.jp/higepon/20051117/1132209246#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-17T19:26:57Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://subtech.g.hatena.ne.jp/tokuhirom/20051106#c">
+<title>subtechグループ - tokuhiromの日記</title>
+<link>http://subtech.g.hatena.ne.jp/tokuhirom/20051106#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-06T13:56:38Z</dc:date>
+<dc:subject>mycomments sledge tt</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+    <rdf:li resource="http://del.icio.us/tag/sledge" />
+    <rdf:li resource="http://del.icio.us/tag/tt" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://subtech.g.hatena.ne.jp/nipotan/20051104#c">
+<title>subtechグループ - nipotanの日記</title>
+<link>http://subtech.g.hatena.ne.jp/nipotan/20051104#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-11-04T13:07:10Z</dc:date>
+<dc:subject>mycomments sledge</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/sledge" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://subtech.g.hatena.ne.jp/tokuhirom/20051031#c">
+<title>subtechグループ - tokuhiromの日記</title>
+<link>http://subtech.g.hatena.ne.jp/tokuhirom/20051031#c</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-10-31T11:14:36Z</dc:date>
+<dc:subject>datetime mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/datetime" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://clouder.jp/yoshiki/mt/archives/000579.html">
+<title>Clouder::Blogger: Sledge::Plugin::SessionAccessor</title>
+<link>http://clouder.jp/yoshiki/mt/archives/000579.html</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-10-31T10:19:02Z</dc:date>
+<dc:subject>mycomments sledge</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/sledge" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://clouder.jp/yoshiki/mt/archives/000578.html">
+<title>Clouder::Blogger: Sledge::Sessionに便利なアクセサ追加するには</title>
+<link>http://clouder.jp/yoshiki/mt/archives/000578.html</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-10-31T06:34:28Z</dc:date>
+<dc:subject>mycomments sledge</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/sledge" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://subtech.g.hatena.ne.jp/tokuhirom/20051028/1130478226">
+<title>subtechグループ - tokuhiromの日記 - Sledge::SessionManager にアクセサ追加</title>
+<link>http://subtech.g.hatena.ne.jp/tokuhirom/20051028/1130478226</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-10-28T14:18:23Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://www.hsbt.org/diary/20051028.html#c01">
+<title>HsbtDiary - MSN Spacesが無駄に凄い件</title>
+<link>http://www.hsbt.org/diary/20051028.html#c01</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-10-28T03:06:42Z</dc:date>
+<dc:subject>mycomments</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/higepon/20051024/1130167526">
+<title>ひげぽん OSとか作っちゃうかMona- - Subversionを ssh 経由で使おう(ApacheもWebDAVも必要ないよ)</title>
+<link>http://d.hatena.ne.jp/higepon/20051024/1130167526</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-10-25T06:43:50Z</dc:date>
+<dc:subject>mycomments subversion</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/subversion" />
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+<item rdf:about="http://d.hatena.ne.jp/naoya/20051024/1130133664">
+<title>naoyaのはてなダイアリー - Perl::Critic / UNIVERSAL::require</title>
+<link>http://d.hatena.ne.jp/naoya/20051024/1130133664</link>
+<dc:creator>miyagawa</dc:creator>
+<dc:date>2005-10-24T06:39:23Z</dc:date>
+<dc:subject>mycomments perl</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://del.icio.us/tag/mycomments" />
+    <rdf:li resource="http://del.icio.us/tag/perl" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+
+</rdf:RDF>
