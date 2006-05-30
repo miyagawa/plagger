@@ -24,6 +24,11 @@ requires('HTML::ResolveLink');
 requires('Date::Parse');
 requires('MIME::Types', 1.16);
 
+requires('XML::Feed', 0.08);
+requires('XML::LibXML');
+requires('XML::Atom', 0.19);
+requires('XML::RSS::LibXML', 0.20),
+
 build_requires(Test::More => 0.42);
 
 features(
@@ -46,7 +51,6 @@ features(
     'Subscription::Bloglines' => [
         -default => 1,
         recommends('WebService::Bloglines', 0.11),
-        recommends('XML::Liberal', 0.09),
     ],
     'Subscription::OPML' => [
         -default => 1,
@@ -54,9 +58,6 @@ features(
     ],
     'Aggregator::Simple' => [
         -default => 1,
-        recommends('XML::Feed', 0.08),
-        recommends('XML::Atom'),
-        recommends('XML::RSS::LibXML', 0.20),
         recommends('XML::RSS::Liberal'),
     ],
     'Publish::Gmail' => [
@@ -68,7 +69,6 @@ features(
         -default => 0,
         recommends('POE'),
         recommends('Xango', 1.04), # protect ourselves from my stupidity
-        recommends('XML::Feed', 0.08),
         recommends('Cache::FastMmap'),
         recommends('POE::Component::Client::DNS'),
         recommends('POE::Component::Client::HTTP'),
@@ -110,26 +110,9 @@ features(
         -default => 0,
         recommends('XMLRPC::Lite'),
     ],
-    'Publish::Feed' => [
-        -default => 1,
-        recommends('XML::Feed', 0.08),
-        recommends('XML::RSS::LibXML', 0.19),
-    ],
     'Filter::ResolveRelativeLink' => [
         -default => 0,
         recommends('HTML::ResolveLink', 0.02),
-    ],
-    'Filter::BulkfeedsTerms' => [
-        -default => 0,
-        recommends('XML::LibXML'),
-    ],
-    'Publish::HatenaBookmark' => [
-        -default => 0,
-        recommends('XML::Atom'),
-    ],
-    'Publish::Playlog' => [
-        -default => 0,
-        recommends('XML::Atom', 0.13),
     ],
     'Publish::Planet' => [
         -default => 0,
@@ -151,7 +134,6 @@ features(
     ],
     'CustomFeed::FlickrSearch' => [
         -default => 0,
-        recommends('XML::LibXML'),
         recommends('Flickr::API'),
         recommends('DateTime::Format::Epoch'),
     ],
