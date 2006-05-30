@@ -41,9 +41,9 @@ Plagger::Plugin::Subscription::File - Store feed URLs in a file
 
 =head1 SYNOPSIS
 
-    -   module: Subscription::File
-        config:
-            file: feeds.txt
+  - module: Subscription::File
+    config:
+      file: feeds.txt
 
 =head1 DESCRIPTION
 

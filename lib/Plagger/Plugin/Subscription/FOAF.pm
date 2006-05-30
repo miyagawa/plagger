@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use base qw(Plagger::Plugin);
-use Plagger::Util qw(load_uri);
+use Plagger::Util;
 
 use XML::FOAF;
 
@@ -26,25 +26,25 @@ sub load {
 sub load_foaf {
     my ( $self, $context, $uri ) = @_;
 
-    my $content = load_uri $uri;
+    my $content = Plagger::Util::load_uri($uri);
 
     my $person = eval { XML::FOAF->new( \$content, $uri )->person };
 
     unless ($person) {
-        $context->log( debug => XML::FOAF->errstr );
+        $context->log( erorr => "Error loading FOAF file $uri: " . XML::FOAF->errstr );
         return;
     }
 
     for my $friend ( @{ $person->knows } ) {
-        my $feed = Plagger::Feed->new;
+        my $blog = $friend->weblog or next;
 
-        $feed->url( $friend->weblog or next );
+        my $feed = Plagger::Feed->new;
+        $feed->url($blog);
 
         $context->subscription->add($feed);
     }
 
     return 1;
-    
 }
 
 1;
@@ -55,9 +55,9 @@ Plagger::Plugin::Subscription::FOAF - Simple subscription of friends' blogs
 
 =head1 SYNOPSIS
 
-    -   module: Subscription::FOAF
-        config:
-            url: http://user.livejournal.com/data/foaf
+  - module: Subscription::FOAF
+    config:
+      url: http://user.livejournal.com/data/foaf
 
 =head1 DESCRIPTION
 
