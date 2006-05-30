@@ -1,0 +1,43 @@
+<?xml version='1.0'?>
+<rdf:RDF
+   xml:lang="en"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <foaf:Person>
+    <foaf:nick>Example person</foaf:nick>
+    <foaf:dateOfBirth>1983-12-01</foaf:dateOfBirth>
+    <foaf:knows>
+      <foaf:Person>
+        <foaf:nick>friend 1</foaf:nick>
+        <foaf:weblog rdf:resource="http://usefulinc.com/edd/blog/rss91"/>
+      </foaf:Person>
+    </foaf:knows>
+    <foaf:knows>
+      <foaf:Person>
+        <foaf:nick>friend 2</foaf:nick>
+        <foaf:weblog rdf:resource="http://www.netsplit.com/blog/index.rss"/>
+      </foaf:Person>
+    </foaf:knows>
+    <foaf:knows>
+      <foaf:Person>
+        <foaf:nick>friend 3</foaf:nick>
+        <foaf:weblog rdf:resource="http://www.gnome.org/~jdub/blog/?flav=rss"/>
+      </foaf:Person>
+    </foaf:knows>
+    <foaf:knows>
+      <foaf:Person>
+        <foaf:nick>friend 4</foaf:nick>
+        <foaf:weblog rdf:resource="http://blog.clearairturbulence.org/?flav=rss"/>
+      </foaf:Person>
+    </foaf:knows>
+    <foaf:knows>
+      <foaf:Person>
+        <foaf:nick>friend 5</foaf:nick>
+        <foaf:weblog rdf:resource="http://www.hadess.net/diary.rss"/>
+      </foaf:Person>
+    </foaf:knows>
+  </foaf:Person>
+</rdf:RDF>
