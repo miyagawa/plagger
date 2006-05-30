@@ -1,0 +1,7 @@
+http://usefulinc.com/edd/blog/rss91
+http://www.netsplit.com/blog/index.rss
+     # this is a comment
+http://www.gnome.org/~jdub/blog/?flav=rss
+# this is a comment
+http://blog.clearairturbulence.org/?flav=rss
+http://www.hadess.net/diary.rss
