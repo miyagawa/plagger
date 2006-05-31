@@ -163,7 +163,7 @@ sub fetch_content {
 
     my $ua  = Plagger::UserAgent->new;
     my $res = $ua->fetch($url, $self, { NoNetwork => 3 * 60 * 60 });
-    return if $res->status != URI::Fetch::URI_OK && $res->is_error;
+    return if !$res->status && $res->is_error;
 
     return decode_content($res);
 }
