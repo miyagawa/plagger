@@ -29,6 +29,7 @@ sub enqueue {
         my $path = File::Spec->catfile($feed_dir, $enclosure->filename);
 
         if ($enclosure->length && -e $path && -s _ == $enclosure->length) {
+            # TODO: if-none-match
             $context->log(debug => $enclosure->url . "is already stored in $path");
             next;
         }
@@ -39,6 +40,16 @@ sub enqueue {
         if ($self->conf->{fake_referer}) {
             $context->log(debug => "Sending Referer: " . $args->{entry}->permalink);
             $referer = $args->{entry}->permalink;
+        }
+
+        my $cookies;
+        my $conf = $context->conf->{user_agent} || {};
+        if ($conf->{cookies}) {
+            my $cookie_jar = Plagger::Cookies->create($conf->{cookies});
+            if ($cookie_jar->isa('HTTP::Cookies::Mozilla')) {
+                $cookies = $cookie_jar->{file};
+                $context->log(debug => "Using cookie file $cookies");
+            }
         }
 
         # TODO: max connections per domain to respect RFC
@@ -55,6 +66,7 @@ sub enqueue {
                             '--timestamping',
                             '--tries', 5,
                             ($referer ? ('--referer', $referer) : ()),
+                            ($cookies ? ('--load-cookies', $cookies) : ())
                         ],
                         StderrEvent => 'stderr',
                         ErrorEvent => 'wheel_close',
@@ -107,6 +119,7 @@ Plagger::Plugin::Filter::FetchEnclosure::Wget - Fetch enclosures using wget
     config:
       dir: /path/to/download
       concurrency: 5
+      max_requests_per_host: 2
 
 =head1 DESCRIPTION
 
