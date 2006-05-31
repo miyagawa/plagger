@@ -124,7 +124,13 @@ sub handle_response {
     if ($r->code =~ /^30[12]$/) {
         $url = $r->header('location');
         return unless $url =~ m!^https?://!i;
-        $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => $redirect));
+        my $new_job = Xango::Job->new(
+            uri => URI->new($url),
+            redirect => $redirect,
+            path => $job->notes('path'), # TODO: rewrite path with the new URL? respect Content-Disposition?
+            enclosure => $job->notes('enclosure'),
+        );
+        $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', $new_job);
 	return;
     } else {
         return unless $r->is_success;
