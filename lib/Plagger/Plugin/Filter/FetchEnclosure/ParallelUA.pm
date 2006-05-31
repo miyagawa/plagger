@@ -38,7 +38,7 @@ sub enqueue {
         if ($enclosure->length && -e $path && -s _ == $enclosure->length) {
             # TODO: if-none-match
             $context->log(debug => $enclosure->url . "is already stored in $path");
-#            next;
+            next;
         }
 
         $context->log(info => "fetch " . $enclosure->url . " to " . $path);
