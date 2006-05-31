@@ -1,0 +1,5 @@
+#upgrade http://www.thinkit.co.jp/rss.xml
+author: Masafumi Otsune
+handle: http://www\.thinkit\.co\.jp/
+extract: <!--本文-->(.+)<!--評価-->
+extract_capture: body
