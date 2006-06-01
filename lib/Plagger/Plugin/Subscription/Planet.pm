@@ -17,7 +17,7 @@ my @sites = (
     'http://b.hatena.ne.jp/t/%s?mode=rss&sort=eid&threshold=1',
     'http://d.hatena.ne.jp/keyworddiary/%s?mode=rss',
     'http://feeds.technorati.com/feed/posts/tag/%s',
-    'http://bloglines.com/search?q=%s&ql=en&s=f&pop=l&news=m&format=rss',
+    'http://bloglines.com/search?q=%s+lang:any&ql=en&s=f&pop=l&news=m&format=rss',
 );
 
 sub load {
