@@ -1,0 +1,11 @@
+# upgrade http://opentechpress.jp/
+#    index.rss
+#    enterprise.rss
+#    opensource.rss
+#    developer.rss
+#    security.rss
+#    news.rss
+author: Nobuhito Sato
+handle: http://opentechpress\.jp/(?:news|enterprise|developer|security|opensource)/.*
+extract: <!-- google_ad_section_start -->(.*?)<!-- google_ad_section_end -->
+extract_capture: body
