@@ -3,3 +3,4 @@
 - http://tinyurl\.com/\w+
 - http://xrl\.us/\w+
 - http://qurl\.net/\w+
+- http://(?:\w+\.)?reddit\.com/goto\?
