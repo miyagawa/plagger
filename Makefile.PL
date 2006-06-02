@@ -65,6 +65,7 @@ features(
         -default => 1,
         recommends('Mail::Address'),
         recommends('MIME::Lite'),
+        recommends('Net::SMTP::TLS'),
     ],
     'Aggregator::Xango' => [
         -default => 0,
