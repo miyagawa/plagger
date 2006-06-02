@@ -1,5 +1,49 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.2 (2006/06/02) ==
+
+=== Core ===
+
+ * Make Cookies instances Singleton (suggested by Yappo)
+ * Calls env_proxy on Plagger::UserAgent so that HTTP_PROXY env variable is respected (woremacx)
+ * Add w3m cookie files support
+ * Aggregator::Simple globally overrides LibXML parser with Liberal if possible
+ * Recommend newest XML::Liberal 0.11 so that liberal XML parsing would take the best effect 
+ * $ua->mirror can take $req so that plugins can add custom HTTP headers like Referer. #208
+ * Change flv MIME value to video/x-flv
+ * Media RSS support in RSS parsers to extract enclosures and thumbnails. #141
+ * XML::Feed, XML::Atom, XML::LibXML and XML::RSS::LibXML are now core required modules. #176
+ * Support Hatena Fotolife and Apple photocast namespaces for thumbnail extraction. 
+ * Filter::FetchEnclosure::Xango: Xango-based asynchronous POE downloader (dmaki)
+
+=== New Plugins ===
+
+ * Filter::LivedoorKeywordUnlink: strip and normalize links to livedoor keywords (miyagawa)
+ * Subscription::File: subscribe to URLs in plain text file (wolverian)
+ * Subscription::FOAF: subscribe to friends' weblogs in FOAF:knows (wolverian)
+ * Subscription::Feed: subscribe to item links in RSS/Atom Feeds (miyagawa)
+ * Filter::FetchEnclosure::Xango: Xango-based asynchronous POE downloader (dmaki)
+ * Filter::FetchEnclosure::Wget: use wget command line tool for async download (miyagawa)
+ * Filter::FetchEnclosure::ParallelUA: use LWP::Parallel for async download (miyagawa)
+  
+=== Plugins Updates ===
+
+ * Filter::2chRSSContent: Updated regexp so that it works without milliseconds (miagawa)
+ * Filter::FeedBurnerPermalink: Work with Atom 1.0 feed to extract permalink
+ * Subscription::Bloglines: Try with mark_read=0, then fallback to loop mode if it failed, to avoid data loss
+ * CustomFeed::YouTube: updated regexp for thumbnail servers (fujiwara)
+ * Filter::EntryFullText: move the place of hook before date parser to hack date format
+ * Filter::BreakEntriesToFeeds: Don't change feed title. #220
+ * Filter::FetchEnclosure: Added fake_referer config to add Referer header. 
+ * Publish::Gmail: attaches inline img enclosures as multipart/related and replace img src with Content-IDs.
+ * Publish::Gmail: attach_enclosures is now optional, defaults to off.
+ * Fliter::RSSLiberalDateTime: Fixed bug around minus timezones
+ * Filter::EntryFullText: Support icon extraction
+ * Filter::EntryFullText: Added NoNetwork option to URI::Fetch so that it's much faster
+ * Filter::EntryFullText: thinkit.co.jp and pasonatech.co.jp (otsune)
+ * Subscription::Planet: Added new Bloglines feed search 
+ * Filter::*Permalink: removed in favor of TruePermalink
+ 
 == 0.7.1 (2006/05/24) ==
 
 === Core ===
@@ -10,6 +54,7 @@ The latest, HTML version of this document is always available at http://plagger.
 === New Plugins ===
 
  * Notify::UpdatePing: notify updates via XMLRPC pings (miyagawa)
+ * Notify::Tiarra: notify updates via Tiarra control socket (topia)
  * Publish::PalmDoc: publish updates to PalmDoc (cheebow)
  * Publish::OutlineText: publish updates as outline text (cheebow)
 
@@ -17,7 +62,7 @@ The latest, HTML version of this document is always available at http://plagger.
 
  * Filter::Regexp: now you can use utf-8 regular expressions (woremacx)
  * Widget::Delicious: Support one_click_post to automatically post by clicking (s_nobu)
- * Filter::FetchEnclosures: Now it's extensible using meta-plugins. Added youtube.pl as an example. Thanks to mizzy
+ * Filter::FindEnclosures: Now it's extensible using meta-plugins. Added youtube.pl as an example. Thanks to mizzy
  * CustomFeed::Simple: deduplicate links by URLs. Don't add links associated with images without alt (miyagawa)
  * Filter::TruePermalink: Added YouTube, MSN Mainichi
  * Publish::MT: Fixed blog_id config bug. #252
@@ -303,146 +348,4 @@ The latest, HTML version of this document is always available at http://plagger.
 
  * Notify::SSTP: Notify updates to Sakura Script Transfer Protocol (secondlife)
  * Publish::Playlog: Use Atom Publishing Protocol to post iTunes playlog (mizzy)
- * CustomFeed::iTunesRecentPlay: iTunes' recent playlist as a custom feed (mizzy)
- * SmartFeed::All: All updates as one feed (miyagawa, cwest)
- * Publish::CSV: publish updates as Comma Separated Value format (naoya)
- * Filter::HatenaFormat: filter hatena format (naoya)
- * Publish::MT: publish updates using MT XML-RPC API (naoya)
- * Publish::Planet: Planet-Planet clone in Plagger (cwest)
- * Publish::OPML: publish OPML files based on subscription (miyagawa)
- * CustomFeed::FlickrSearch: Use Flickr API to create custom feeds (cwest)
- * CustomFeed::AmazonAssociateReportJP: Fetch Amazon's associate report (naoya)
- * Filter::ImageInfo: fetch information of $feed->image and $entry->icon (miyagawa)
- * Subscription::HatenaGroup: fetch Hatena Group blogs as subscription (tokuhirom)
- * Filter::BlogPet: Strip BlogPet's post (naoya)
- * Filter::SpamAssassin: Use SpamAssassin to strip spam posts (charsbar)
- * Filter::RSSLiberalDateTime: parses pubDate sring liberally (miyagawa)
-
-=== Plugins Updates ===
-
- * Aggregator::Xango: Added conditional GET support #93 (Daisuke)
- * CustomFeed::Mixi: Support links to deleted entry #96 (miyagawa)
- * Aggregator::Simple: Fixed error handling bug when URL is 404 #97 (miyagawa)
- * CustomFeed::POP3: Create one feed per one mail (tokuhirom)
- * Publish::Gmail: Fixed bad MAIL FROM: when used with Sendmail (Thanks to maru.gs)
- * Subscription::Config: Support array of just URLs (miyagawa)
- * Publish::PSP: template typo fix in permalink (miyagawa)
- * Rule::Fresh: no datetime field means it's fresh (miyagawa)
- * Subscription::Bloglines: Liberal parser support. Fallbacks to loop mode when it still finds error (miyagawa)
- * Aggregator::Simple: uses XML::RSS::Liberal if it's installed (miyagawa)
- * Publish::Gmail: resizes feed and entry images when it's too big (miyagawa)
- * Filter::StripRssAd: Support Pheedo ads pattern (miyagawa)
- * Rule::Fresh: Handle empty dates better (cwest)
- * Aggregator::Simple: handle Atom 1.0 date fields (miyagawa, cwest)
- * Widget::HatenaBookmarkUsersCount: Support '#' in the URL (otsune)
- * CustomFeed::Frepa: Fixed to support Frepa's new HTML (miyagawa)
-
-== 0.5.5 (2006/03/03) ==
-
-=== Core ===
-
- * Added --version and shorter -c & -v to plagger script
- * $entry->body_text now decode HTML entities correctly. #82
- * New Plagger::Cache framework, accessible via $plugin->cache
- * Added cookie_jar method to cache. $plugin->cache->cookie_jar
- * config.yaml is now found using FindBin, rather than the current directory (Naoya Ito)
- * New AUTHORS: Yoshiki Kurihara, Fumiaki Yoshimatsu, Masafumi Otsune, Takeshi Nagayama and fuba
-
-=== New Plugins ===
-
- * Filter::HatenaDiaryKeywordLink: Automatically link Hatena Diary Keywords in entry body (tokuhirom)
- * Publish::Feed: Output Atom and RSS feeds using XML::Feed (clouder)
- * Filter::ResolveRelativeLink: Fix relative links in entry body (miyagawa)
- * CustomFeed::Yahoo360JP: Login to Yahoo! 360 Japan and fetch blogs and blasts (miyagawa)
- * Filter::BulkfeedsTerms: Use Bulkfeeds API to fetch specific terms in entry (miyagawa)
- * Filter::2chNewsokuTitle: Add prefix and postfix to entry title ala 2ch.net Newsoku style (miyagawa)
- * Notify::Eject: eject your CD drive to notify feed updates! :-) (Yappo, fumiakiy, otsune)
- * Publish::Pipe: use UNIX pipe to notify the updates to commands (e.g: lpr, /usr/bin/say) (youpy)
- * Notify::Campfire: Notify feed updates to 37 signals' Campfire chat service (nagayama)
- * Filter::Regexp: Update entry body by a regular expression in config (miyagawa)
- * Publish::HatenaBookmark: post updates to Hatena Bookmark using Atom Protocol (fuba)
- * CustomFeed::POP3: Fetch email using POP3 protocl and creates feed off of it (tokuhirom)
- * Filter::RSSTimeZoneString: Fix RSS 2.0 bad timezone string in RFC 822 date format (miyagawa)
- * Filter::FloatingDateTime: Fix floating datetime (dc:date and such) to your local timezone (kazeburo)
-
-=== Plugins Updates ===
- 
- * Publish::Delicious: fix UTF-8 escape bug.
- * Subscription::Bloglines: Added 'fetch_meta' option to fetch folder structure and feed URL
- * Subscription::Bloglines: Fix annoying UTF-8 bad sequences by upgrading to WebService::Bloglines 0.10
- * Filter::TTP: Added 'text_only' option to filter text element only in HTML. #76
- * Fitler::StripRSSAd: Now it works with Bloglines subscription. Added Google AdSense pattern.
- * Publish::IRC, Publish::MSAgent and Publish::Growl are now renamed to Notify::*
- * Publish::Gmail: fixed typo in "Permalink" footer
- * CustomFeed::Mixi, CustomFeed::Frepa now uses Cache framework to store persistent cookies 
- * CustomFeed::Frepa: support PNG buddyicon
- * Publish::Gmail: do POP before SMTP authentication only once per whole publish
- * Subscription::OPML and Aggregator::Simple now use URI::Fetch and Cache framework for conditional GET
-
-== 0.5.4 (2006/02/27) ==
-
-=== Core ===
-
- * Makefile.PL has a much better dependencies definition #59 (Thanks to Daisuke Maki)
- * Fixed multiple categories handling bug in Aggregator::Simple (Thanks to koyachi)
- * Added body_text, title_text convinience methods to Feed and Entry
- * Now uses FindBin module to find templates directory in a better way (youpy)
- * New authors: Daisuke Maki, Tokuhiro Matsuno and Tsutomu Koyachi
-
-=== New Plugins ===
-
- * Aggregator::Xango - POE based high-speed parallel crawling (daisuke)
- * Publish::PDF - Create PDF files based on feeds (miyagawa)
- * Publish::Speech - Make the feeds as an audio using Text-to-Speech (miyagawa)
- * Publish::MSAgent - Let Microsoft Agent speak feeds content (miyagawa)
- * Publish::Growl - Send feed notifications to Mac OSX Growl (kazeburo)
- * Filter::tDiaryComment - strip comments from tDiary RSS (tokuhirom)
- * Filter::TTP - replace ttp: with http: (tokuhirom)
- * Filter::DeliciousFeedTags - split del.icio.us "foo bar baz" tags into array (miyagawa)
- * Publish::Delicious - post entries to del.icio.us automatically (koyachi)
-
-=== Plugins Updates ===
-
- * Publish::Spotlight: Now it fallbacks to osascript when Mac::Glue is not installed
- * Publish::MTWidget: Added an option to rebuild the blog templates after updating widgets
- * Publish::Gmail: Added an option to support POP3 before SMTP (tokuhirom)
-
-== 0.5.3 (2006/02/25) ==
-
-=== Core ===
-
- * Added aggregator.finalize, publish.entry and publish.init hook
- * Added Plagger::Rule::Fresh to match with 'fresh' entries (thanks to youpy)
- * Fixed bug with SmartFeed creating duplicated entries #61
- * Support log:level global configuration flag to set min loglevel
-
-=== Plugins ===
-
- * Added Publish::Spotlight to create WebBookmark searchable with Spotlight (youpy)
- * Added Search::Namazu to create HTML files searchable with Namazu (miyagawa)
- * Added Search::Rast to index entries with Rast (Yappo)
- * Added Publish::MTWidget to publish Movable Type Sidebar Manager widget (miyagawa)
- * Added an option 'show_icon: 1', to show users pic in Frepa and Mixi custom feeds
- * Fixed Subscription::Mailman to handle subject prefixes without index
- * Publish::IRC now has 'announce: action' option to use CTCP ACTION rather than NOTICE
- * Filter::StripRSSAd now strips Rakuten Hiroba (plaza.rakuten.co.jp) ad pattern
- * Fixed CustomFeed::Frepa to complete the trimmed title under fetch_body mode
- * Fixed typo in Subscription::HatenaRSS
-
-== 0.5.2 (2006/02/22) ==
-
- * Added Subscription::HatenaRSS plugin to fetch subscription from Hatena RSS (http://r.hatena.ne.jp/)
- * Added Subscription::Odeo plugin to fetch subscription from Odeo (http://www.odeo.com/): #43
- * Added Publish::IRC plugin to notify updates to IRC channel: #46 (Masayoshi Sekimura)
- * Fixed critical bug that Rule::Expression is broken: #51
- * Fixed Mailman CustomFeed bug around English localization: #49
- * Added Filter::RSSStripAd plugin to strip ads of Google AdSense or RssAd.jp: #33
-
-== 0.5.1 (2006/02/17) ==
- 
- * Updated package name from "plagger" to "Plagger"
- * Fixed MANIFEST problem that doesn't contain "config.yaml.sample"
-
-== 0.5.0 (2006/02/17) ==
-
- * First release
+ * CustomFeed::iTunesRecentPlay: iTunes' recent playlist

@@ -9,6 +9,7 @@ assets/plugins/Filter-EntryFullText/ascii24_com.yaml
 assets/plugins/Filter-EntryFullText/atmarkit.yaml
 assets/plugins/Filter-EntryFullText/bbc.yaml
 assets/plugins/Filter-EntryFullText/blog_goo_ne_jp.yaml
+assets/plugins/Filter-EntryFullText/blog_pasonatech_co_jp.yaml
 assets/plugins/Filter-EntryFullText/blog_tech.rikunabi_next.yaml
 assets/plugins/Filter-EntryFullText/business-i.yaml
 assets/plugins/Filter-EntryFullText/chugoku-np.yaml
@@ -45,6 +46,7 @@ assets/plugins/Filter-EntryFullText/nikkansports.yaml
 assets/plugins/Filter-EntryFullText/nikkei.yaml
 assets/plugins/Filter-EntryFullText/nytimes.yaml
 assets/plugins/Filter-EntryFullText/okinawatimes_day.yaml
+assets/plugins/Filter-EntryFullText/opentechpress_jp.yaml
 assets/plugins/Filter-EntryFullText/osaka_nikkansports.yaml
 assets/plugins/Filter-EntryFullText/physorg.yaml
 assets/plugins/Filter-EntryFullText/plaza_rakuten.yaml
@@ -63,6 +65,7 @@ assets/plugins/Filter-EntryFullText/sportsnavi.yaml
 assets/plugins/Filter-EntryFullText/tencount.yaml
 assets/plugins/Filter-EntryFullText/theinquirer.yaml
 assets/plugins/Filter-EntryFullText/theregister.yaml
+assets/plugins/Filter-EntryFullText/thinkit_co_jp.yaml
 assets/plugins/Filter-EntryFullText/ti-da_net.yaml
 assets/plugins/Filter-EntryFullText/usatoday.yaml
 assets/plugins/Filter-EntryFullText/wired_com.yaml
@@ -196,6 +199,9 @@ lib/Plagger/Plugin/Filter/EntryFullText.pm
 lib/Plagger/Plugin/Filter/FeedBurnerPermalink.pm
 lib/Plagger/Plugin/Filter/FeedFlareStripper.pm
 lib/Plagger/Plugin/Filter/FetchEnclosure.pm
+lib/Plagger/Plugin/Filter/FetchEnclosure/ParallelUA.pm
+lib/Plagger/Plugin/Filter/FetchEnclosure/Wget.pm
+lib/Plagger/Plugin/Filter/FetchEnclosure/Xango.pm
 lib/Plagger/Plugin/Filter/FindEnclosures.pm
 lib/Plagger/Plugin/Filter/FloatingDateTime.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
@@ -206,6 +212,7 @@ lib/Plagger/Plugin/Filter/HatenaFormat.pm
 lib/Plagger/Plugin/Filter/HatenaKeywordTag.pm
 lib/Plagger/Plugin/Filter/HEADEnclosureMetadata.pm
 lib/Plagger/Plugin/Filter/ImageInfo.pm
+lib/Plagger/Plugin/Filter/LivedoorKeywordUnlink.pm
 lib/Plagger/Plugin/Filter/Markdown.pm
 lib/Plagger/Plugin/Filter/Pipe.pm
 lib/Plagger/Plugin/Filter/POPFile.pm
@@ -273,6 +280,9 @@ lib/Plagger/Plugin/Subscription/2chThreadList.pm
 lib/Plagger/Plugin/Subscription/Bloglines.pm
 lib/Plagger/Plugin/Subscription/Config.pm
 lib/Plagger/Plugin/Subscription/DBI.pm
+lib/Plagger/Plugin/Subscription/Feed.pm
+lib/Plagger/Plugin/Subscription/File.pm
+lib/Plagger/Plugin/Subscription/FOAF.pm
 lib/Plagger/Plugin/Subscription/HatenaGroup.pm
 lib/Plagger/Plugin/Subscription/HatenaRSS.pm
 lib/Plagger/Plugin/Subscription/LivedoorReader.pm
@@ -312,3 +322,12 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
+t/core/cookies.t
+t/core/cookies.txt
+t/core/googlevideo.xml
+t/core/hatenafotolife.rdf
+t/core/hatenafotolife.t
+t/core/monkey.rss
+t/core/mrss.t
+t/core/photocast.rss
+t/core/photocast.t
