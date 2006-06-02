@@ -4,9 +4,9 @@ sub handle {
 }
 
 sub find {
-    my ($self, $content) = @_;
+    my ($self, $args) = @_;
 
-    if ($content =~ m!<a href="([^\"]*)">DOWNLOAD\s*THIS FILE</a>!s) { 
+    if ($args->{content} =~ m!<a href="([^\"]*)">DOWNLOAD\s*THIS FILE</a>!s) { 
         my $enclosure = Plagger::Enclosure->new;
         $enclosure->url($1);
         $enclosure->auto_set_type;

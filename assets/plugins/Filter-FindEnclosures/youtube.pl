@@ -6,9 +6,9 @@ sub handle {
 }
 
 sub find {
-    my ($self, $content) = @_;
+    my ($self, $args) = @_;
 
-    if ($content =~ /video_id=([^&]+)&l=\d+&t=([^&]+)/gms){
+    if ($args->{content} =~ /video_id=([^&]+)&l=\d+&t=([^&]+)/gms){
         my $enclosure = Plagger::Enclosure->new;
         $enclosure->url("http://youtube.com/get_video?video_id=$1&t=$2");
         $enclosure->type('video/flv');
