@@ -182,7 +182,6 @@ lib/Plagger/Plugin/CustomFeed/Yahoo360JP.pm
 lib/Plagger/Plugin/CustomFeed/YouTube.pm
 lib/Plagger/Plugin/Filter/2chNewsokuTitle.pm
 lib/Plagger/Plugin/Filter/2chRSSContent.pm
-lib/Plagger/Plugin/Filter/2chRSSPermalink.pm
 lib/Plagger/Plugin/Filter/AtomLinkRelated.pm
 lib/Plagger/Plugin/Filter/Base.pm
 lib/Plagger/Plugin/Filter/BloglinesContentNormalize.pm
@@ -208,7 +207,6 @@ lib/Plagger/Plugin/Filter/HatenaKeywordTag.pm
 lib/Plagger/Plugin/Filter/HEADEnclosureMetadata.pm
 lib/Plagger/Plugin/Filter/ImageInfo.pm
 lib/Plagger/Plugin/Filter/Markdown.pm
-lib/Plagger/Plugin/Filter/NamaanPermalink.pm
 lib/Plagger/Plugin/Filter/Pipe.pm
 lib/Plagger/Plugin/Filter/POPFile.pm
 lib/Plagger/Plugin/Filter/Profanity.pm
@@ -228,7 +226,6 @@ lib/Plagger/Plugin/Filter/Thumbnail.pm
 lib/Plagger/Plugin/Filter/TruePermalink.pm
 lib/Plagger/Plugin/Filter/TTP.pm
 lib/Plagger/Plugin/Filter/URLBL.pm
-lib/Plagger/Plugin/Filter/YahooBlogSearchPermalink.pm
 lib/Plagger/Plugin/Notify/Campfire.pm
 lib/Plagger/Plugin/Notify/Eject.pm
 lib/Plagger/Plugin/Notify/Eject/darwin.pm
