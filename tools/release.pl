@@ -33,12 +33,14 @@ if ($res !~ /^[23]/) {
 
 check_version("Changes", $version);
 
-system("svk ci -m 'packaging $version'");
-system("svk cp -m 'tag release $version' //mirror/plagger/trunk //mirror/plagger/tags/release-$version");
-
-system("make disttest");
-system("make dist");
-system("cpan-upload Plagger-$version.tar.gz");
+if (!system("make disttest")) {
+    system("svk ci -m 'packaging $version'");
+    system("svk cp -m 'tag release $version' //mirror/plagger/trunk //mirror/plagger/tags/release-$version");
+    system("make dist");
+    system("cpan-upload Plagger-$version.tar.gz");
+} else {
+    warn "make disttest failed. Don't upload";
+}
 
 chdir "..";
 system("svk co --detach $checkout");
