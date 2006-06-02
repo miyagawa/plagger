@@ -4,6 +4,7 @@ use base qw(Plagger::Plugin::Filter::FetchEnclosure);
 
 use LWP::Parallel::UserAgent;
 use HTTP::Request;
+use Plagger::Cookies;
 
 sub register {
     my($self, $context) = @_;
@@ -20,6 +21,11 @@ sub plugin_init {
     $self->{ua} = LWP::Parallel::UserAgent->new;
     $self->{ua}->max_hosts( $self->conf->{concurrency} || 10 );
     $self->{ua}->max_req( $self->conf->{max_requests_per_host} || 2 );
+
+    my $conf = Plagger->context->conf->{user_agent};
+    if ($conf->{cookies}) {
+        $self->{ua}->cookie_jar( Plagger::Cookies->create($conf->{cookies}) );
+    }
 }
 
 sub enqueue {
