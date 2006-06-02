@@ -30,7 +30,6 @@ assets/plugins/Filter-EntryFullText/impress.yaml
 assets/plugins/Filter-EntryFullText/indiesmusic_com.yaml
 assets/plugins/Filter-EntryFullText/itmedia.yaml
 assets/plugins/Filter-EntryFullText/itpro_nikkeibp.yaml
-assets/plugins/Filter-EntryFullText/japan_linux_com.yaml
 assets/plugins/Filter-EntryFullText/japan_zdnet_com.yaml
 assets/plugins/Filter-EntryFullText/kyodo.yaml
 assets/plugins/Filter-EntryFullText/kyoko_shimbun_news.yaml
@@ -93,7 +92,6 @@ assets/plugins/Filter-TruePermalink/imenu.yaml
 assets/plugins/Filter-TruePermalink/msn-mainichi.yaml
 assets/plugins/Filter-TruePermalink/namaan.yaml
 assets/plugins/Filter-TruePermalink/rd_yahoo.yaml
-assets/plugins/Filter-TruePermalink/reddit.yaml
 assets/plugins/Filter-TruePermalink/redirectors.yaml
 assets/plugins/Filter-TruePermalink/refrss.yaml
 assets/plugins/Filter-TruePermalink/tech_souken.yaml
