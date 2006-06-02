@@ -94,21 +94,27 @@ sub notify {
     my $route = $cfg->{mailroute} || { via => 'smtp', host => 'localhost' };
     $route->{via} ||= 'smtp';
 
-    if ($route->{via} eq 'smtp_tls') {
-        $self->{tls_args} = [
-            $route->{host},
-            User     => $route->{username},
-            Password => $route->{password},
-            Port     => $route->{port} || 587,
-        ];
-        $msg->send_by_smtp_tls(@{ $self->{tls_args} });
-    } elsif ($route->{via} eq 'sendmail') {
-        my %param = (FromSender => "<$cfg->{mailfrom}>");
-        $param{Sendmail} = $route->{command} if defined $route->{command};
-        $msg->send('sendmail', %param);
-    } else {
-        my @args  = $route->{host} ? ($route->{host}) : ();
-        $msg->send($route->{via}, @args);
+    eval {
+        if ($route->{via} eq 'smtp_tls') {
+            $self->{tls_args} = [
+                $route->{host},
+                User     => $route->{username},
+                Password => $route->{password},
+                Port     => $route->{port} || 587,
+            ];
+            $msg->send_by_smtp_tls(@{ $self->{tls_args} });
+        } elsif ($route->{via} eq 'sendmail') {
+            my %param = (FromSender => "<$cfg->{mailfrom}>");
+            $param{Sendmail} = $route->{command} if defined $route->{command};
+            $msg->send('sendmail', %param);
+        } else {
+            my @args  = $route->{host} ? ($route->{host}) : ();
+            $msg->send($route->{via}, @args);
+        }
+    };
+
+    if ($@) {
+        $context->log(error => "Error while sending emails: $@");
     }
 }
 
