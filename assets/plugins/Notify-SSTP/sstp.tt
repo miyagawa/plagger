@@ -1,0 +1,3 @@
+[% entry.title || '(no-title)' %]
+[% IF entry.author %] by [% entry.author %] [% END %]
+[% entry.permalink %]
