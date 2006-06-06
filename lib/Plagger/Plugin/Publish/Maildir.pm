@@ -10,9 +10,10 @@ use MIME::Lite;
 use Digest::MD5 qw/ md5_hex /;;
 use File::Find;
 
+our $VERSION = '0.2';
+
 sub register {
     my($self, $context) = @_;
-    $self->{version} = '0.1';
     $context->register_hook(
       $self,
       'publish.init' => \&initialize,
@@ -66,6 +67,12 @@ sub store_entry {
   my $subject    = $entry->title || '(no-title)';
   my $body       = $self->templatize($context, $args);
   my $from       = 'plagger@localhost';
+  my @enclosure_cb;
+  if ($self->conf->{attach_enclosures}) {
+    for my $entry ($args->{feed}->entries) {
+      push @enclosure_cb, $self->prepare_enclosures($entry);
+    }
+  }
   my $now = Plagger::Date->now(timezone => $context->conf->{timezone});
   $msg = MIME::Lite->new(
     Date    => $now->format('Mail'),
@@ -80,12 +87,73 @@ sub store_entry {
     Data => $body,
     Encoding => 'quoted-printable',
   );
+  for my $cb (@enclosure_cb) {
+    $cb->($msg);
+  }
   $msg->add('X-Tags', encode('MIME-Header',join(' ',@{$entry->tags})));
-  my $xmailer = "MIME::Lite (Publish::Maildir Ver.$self->{version} in plagger)";
+  my $xmailer = "MIME::Lite (Publish::Maildir/$VERSION in Plagger/$Plagger::VERSION)";
   $msg->replace('X-Mailer',$xmailer);
   my $filename = md5_hex($entry->id_safe);
   store_maildir($self, $context,$msg->as_string(),$filename);
   $self->{msg} += 1;
+}
+
+sub prepare_enclosures {
+    my($self, $entry) = @_;
+
+    if (grep $_->is_inline, $entry->enclosures) {
+        # replace inline enclosures to cid: entities
+        my %url2enclosure = map { $_->url => $_ } $entry->enclosures;
+
+        my $output;
+        my $p = HTML::Parser->new(api_version => 3);
+        $p->handler( default => sub { $output .= $_[0] }, "text" );
+        $p->handler( start => sub {
+                         my($tag, $attr, $attrseq, $text) = @_;
+                         # TODO: use HTML::Tagset?
+                         if (my $url = $attr->{src}) {
+                             if (my $enclosure = $url2enclosure{$url}) {
+                                 $attr->{src} = "cid:" . $self->enclosure_id($enclosure);
+                             }
+                             $output .= $self->generate_tag($tag, $attr, $attrseq);
+                         } else {
+                             $output .= $text;
+                         }
+                     }, "tag, attr, attrseq, text");
+        $p->parse($entry->body);
+        $p->eof;
+
+        $entry->body($output);
+    }
+
+    return sub {
+        my $msg = shift;
+
+        for my $enclosure (grep $_->local_path, $entry->enclosures) {
+            my %param = (
+                Type => $enclosure->type,
+                Path => $enclosure->local_path,
+                Filename => $enclosure->filename,
+            );
+
+            if ($enclosure->is_inline) {
+                $param{Id} = '<' . $self->enclosure_id($enclosure) . '>';
+                $param{Disposition} = 'inline';
+            } else {
+                $param{Disposition} = 'attachment';
+            }
+
+            $msg->attach(%param);
+        }
+    }
+}
+
+sub generate_tag {
+    my($self, $tag, $attr, $attrseq) = @_;
+
+    return "<$tag " .
+        join(' ', map { $_ eq '/' ? '/' : sprintf qq(%s="%s"), $_, encode_entities($attr->{$_}, q(<>"')) } @$attrseq) .
+        '>';
 }
 
 sub templatize {
@@ -97,6 +165,11 @@ sub templatize {
     feed  => $args->{feed},
   }, \my $out ) or $context->error($tt->error);
   $out;
+}
+
+sub enclosure_id {
+  my($self, $enclosure) = @_;
+  return Digest::MD5::md5_hex($enclosure->url->as_string) . '@Plagger';
 }
 
 sub store_maildir {
@@ -129,6 +202,7 @@ Plagger::Plugin::Publish::Maildir - Store Maildir
     config:
       maildir: /home/foo/Maildir
       folder: plagger
+      attach_enclosures: 1
 
 =head1 DESCRIPTION
 
