@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="generator" content="Plagger [% context.VERSION %]" />
+  <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title %]" href="smartfeed_all.atom" />
+  <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title %]" href="smartfeed_all.rss" />
+  [% IF style_url %]<link rel="stylesheet" type="text/css" href="[% style_url %]" />[% END %]
+  <title>[% feed.title | html %]</title>
+</head>
+[% USE util = Plagger.Util -%]
+<body class="layout-two-column-right">
+  <div id="container">
+    <div id="container-inner" class="pkg">
+      <div id="banner">
+        <div id="banner-inner" class="pkg">
+          <h1 id="banner-header">[% feed.title | html %]</h1>
+          <h2 id="banner-description"></h2>
+        </div>
+      </div>
+      <div id="pagebody">
+        <div id="pagebody-inner" class="pkg">
+          <div id="alpha">
+            <div id="alpha-inner" class="pkg">
+              [% FOREACH entry IN feed.entries %]
+              <a id="[% entry.id %]"></a>
+              <div class="entry" id="entry-[% entry.id %]">
+                <h3 class="entry-header">
+                [% IF entry.source.title %]
+                <a href="[% entry.source.link | html %]">[% entry.source.title | html %]</a>: 
+                [% END %]
+                <a href="[% (entry.permalink || entry.id) | html %]">[% entry.title | html %]</a>
+                </h3>
+                <div class="entry-content">
+                [% IF entry.icon %]<div class="entry-userpic"><img [% util.dumbnail(entry.icon, width=150, height=100) %] border="0" alt="[% (entry.icon.title || entry.title) | html %]" /></div>[% END %]
+                  <div class="entry-body">
+                  [% entry.body %]
+                  <p class="entry-footer">
+                    <span class="post-footers">Posted
+                    [% IF entry.author %]by [% entry.author | html %][% END %]
+                    [% IF entry.tags.size %] on <a rel="tag">[% entry.tags.join('</a>, <a rel="tag">') %]</a>[% END %]
+                    [% IF entry.date %] at [% entry.date.format('Mail') %][% END %]
+                    </span>
+                    <span class="separator">|</span>
+                    <a class="permalink" href="[% entry.permalink | html %]">Permalink</a>
+                    [% FOREACH widget = entry.widgerts %]
+                    | [% widget.html(entry) %]
+                    [% END %]
+                  </p>
+                  </div>
+                </div>
+              </div>
+              [% END %]
+            </div>
+          </div>
+          <div id="beta">
+            <div id="beta-inner" class="pkg">
+            [% IF members_list %]
+              <div class="module">
+                <h2 class="module-header">Subscriptions</h2>
+                <div class="module-content">
+                  <ul class="module-list">
+                    [% FOREACH member IN members %]
+                    <li class="module-list-item">
+                    <a  href="[% member.link | html %]">[% member.title | html %]</a>
+                    </li>
+                    [% END %]
+                  </ul>
+                </div>
+              </div>
+            [% END %]
+              <div class="module-powered module">
+                <div class="module-content">
+                <a href="http://plagger.org/">Powered by Plagger [% context.VERSION %]</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
