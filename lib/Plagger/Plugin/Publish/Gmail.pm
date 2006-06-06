@@ -52,6 +52,8 @@ sub initialize {
 sub notify {
     my($self, $context, $args) = @_;
 
+    return if $args->{feed}->count == 0;
+
     my $feed = $args->{feed};
     my $subject = $feed->title || '(no-title)';
 
