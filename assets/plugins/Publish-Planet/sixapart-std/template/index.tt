@@ -16,7 +16,7 @@
       <div id="banner">
         <div id="banner-inner" class="pkg">
           <h1 id="banner-header">[% feed.title | html %]</h1>
-          <h2 id="banner-description"></h2>
+          <h2 id="banner-description">[% feed.description | html %]</h2>
         </div>
       </div>
       <div id="pagebody">
@@ -33,7 +33,7 @@
                 <a href="[% (entry.permalink || entry.id) | html %]">[% entry.title | html %]</a>
                 </h3>
                 <div class="entry-content">
-                [% IF entry.icon %]<div class="entry-userpic"><img [% util.dumbnail(entry.icon, width=150, height=100) %] border="0" alt="[% (entry.icon.title || entry.title) | html %]" /></div>[% END %]
+                [% IF entry.icon %]<div class="entry-userpic"><img src="[% entry.icon.url | html %]" [% util.dumbnail(entry.icon, width=150, height=100) %] border="0" alt="[% (entry.icon.title || entry.title) | html %]" /></div>[% END %]
                   <div class="entry-body">
                   [% entry.body %]
                   <p class="entry-footer">
