@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" contnet="Plagger [% context.VERSION %]" />
     <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title %]" href="smartfeed_all.atom" />
     <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title %]" href="smartfeed_all.rss" />
     <link rel="stylesheet" type="text/css" href="css/screen.css" />
