@@ -1,0 +1,8 @@
+author: Tatsuhiko Miyagawa
+match: http://mark\.jolt\.jp/pageDetail/\d+
+rewrite: |
+  if ($args->{entry}->body =~ m!^\s*<a href="([^\"]+)" target="_blank".*?>\x{30EA}\x{30F3}\x{30AF}</a>\s*$!) {
+      $_ = $1;
+      $args->{entry}->body(undef);
+      return 1;
+  }
