@@ -283,7 +283,7 @@ Defaults to 0.
 =item force_upgrade
 
 Even if entry body already contains HTML, this config forces the
-plugin to upgrade the body.
+plugin to upgrade the body. Defaults to 0.
 
 =back
 
