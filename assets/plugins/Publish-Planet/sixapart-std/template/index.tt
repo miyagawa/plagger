@@ -39,7 +39,7 @@
                   <p class="entry-footer">
                     <span class="post-footers">Posted
                     [% IF entry.author %]by [% entry.author | html %][% END %]
-                    [% IF entry.tags.size %] on <span rel="tag">[% entry.tags.join('</span>, <span rel="tag">') %]</span>[% END %]
+                    [% IF entry.tags.size %] on <span class="tag">[% entry.tags.join('</span>, <span class="tag">') %]</span>[% END %]
                     [% IF entry.date %] at [% entry.date.format('Mail') %][% END %]
                     </span>
                     <span class="separator">|</span>
