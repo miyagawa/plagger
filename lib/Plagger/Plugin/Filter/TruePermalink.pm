@@ -50,12 +50,12 @@ sub update {
 
     $self->rewrite(sub { $args->{entry}->link }, sub { $args->{entry}->link(@_) }, $args);
     for my $enclosure ($args->{entry}->enclosures) {
-        $self->rewrite(sub { $enclosure->url }, sub { $enclosure->url( URI->new(@_) ) });
+        $self->rewrite(sub { $enclosure->url }, sub { $enclosure->url( URI->new(@_) ) }, $args);
     }
 }
 
 sub rewrite {
-    my($self, $getter, $callback) = @_;
+    my($self, $getter, $callback, $args) = @_;
 
     my $loop;
     while ($self->rewrite_link($getter, $callback, $args)) {
