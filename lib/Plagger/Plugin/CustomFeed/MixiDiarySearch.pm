@@ -44,7 +44,7 @@ sub aggregate {
 
     my %query = URI->new($url)->query_form;
 
-    my $feed = Plagger::Feed->new;
+    my $feed = $args->{feed};
     $feed->title("mixi: Search for $query{keyword}");
     $feed->link($url);
 
@@ -85,12 +85,13 @@ RE
         my $current = $now->year;
         $data->{date} = Plagger::Date->strptime($date_format, "$current $data->{date}");
 
+        $data->{date}->set_time_zone('Asia/Tokyo'); # set floating datetime
+
         # one year ago, if the parsed datetime is in the future
         if ($data->{date} > $now) {
-            $data->{date}->subtract(year => 1);
+            $data->{date}->subtract(years => 1);
         }
 
-        $data->{date}->set_time_zone('Asia/Tokyo'); # set floating datetime
         $data->{date}->set_time_zone(Plagger->context->conf->{timezone} || 'local');
 
         my $entry = Plagger::Entry->new;
