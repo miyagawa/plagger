@@ -98,7 +98,7 @@ sub filter {
     my($self, $context, $args) = @_;
 
     my $handler = first { $_->handle_force($args) } @{ $self->{plugins} };
-    if ( !$handler && $args->{entry}->body && $args->{entry}->body =~ /<\w+>/ ) {
+    if ( !$handler && $args->{entry}->body && $args->{entry}->body =~ /<\w+>/ && !$self->conf->{force_upgrade} ) {
         $self->log(debug => $args->{entry}->link . " already contains body. Skipped");
         return;
     }
@@ -279,6 +279,11 @@ Even if fulltext handlers fail to extract content body from HTML, this
 option enables to store the whole document HTML as entry body. It will
 be useful to use with search engines like Gmail and Search:: plugins.
 Defaults to 0.
+
+=item force_upgrade
+
+Even if entry body already contains HTML, this config forces the
+plugin to upgrade the body.
 
 =back
 
