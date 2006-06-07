@@ -1,0 +1,7 @@
+author: Tatsuhiko Miyagawa
+match: http://(?:\w+\.)?reddit\.com/goto\?
+rewrite: |
+  if ($args->{entry}->body =~ m!^\s*<a href="[^\"]+".*?>\[link\]</a>!) {
+      $_ = $1;
+      return 1;
+  }

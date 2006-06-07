@@ -48,7 +48,7 @@ sub register {
 sub update {
     my($self, $context, $args) = @_;
 
-    $self->rewrite(sub { $args->{entry}->link }, sub { $args->{entry}->link(@_) });
+    $self->rewrite(sub { $args->{entry}->link }, sub { $args->{entry}->link(@_) }, $args);
     for my $enclosure ($args->{entry}->enclosures) {
         $self->rewrite(sub { $enclosure->url }, sub { $enclosure->url( URI->new(@_) ) });
     }
@@ -58,7 +58,7 @@ sub rewrite {
     my($self, $getter, $callback) = @_;
 
     my $loop;
-    while ($self->rewrite_link($getter, $callback)) {
+    while ($self->rewrite_link($getter, $callback, $args)) {
         if ($loop++ >= 100) {
             Plagger->error("Possible infinite loop on " . $getter->());
         }
@@ -66,7 +66,7 @@ sub rewrite {
 }
 
 sub rewrite_link {
-    my($self, $getter, $callback) = @_;
+    my($self, $getter, $callback, $args) = @_;
 
     my $context = Plagger->context;
 
