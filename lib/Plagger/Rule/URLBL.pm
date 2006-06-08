@@ -26,28 +26,28 @@ sub dispatch {
 
     return unless $url;
 
-    if (exists $self->{dnscache}->{$url}) {
-        return $self->{dnscache}->{$url};
+    my $uri = URI->new($url);
+    my $domain = $uri->host;
+    $domain =~ s/^www\.//;
+
+    if (exists $self->{dnscache}->{$domain}) {
+        return $self->{dnscache}->{$domain};
     }
 
     my $res = Net::DNS::Resolver->new;
     my $dnsbl = $self->{dnsbl};
        $dnsbl = [ $dnsbl ] unless ref $dnsbl;
 
-    my $uri = URI->new($url);
-    my $domain = $uri->host;
-    $domain =~ s/^www\.//;
-
     for my $dns (@$dnsbl) {
         Plagger->context->log(debug => "looking up $domain.$dns");
         my $q = $res->search("$domain.$dns");
         if ($q && $q->answer) {
             Plagger->context->log(info => "$domain.$dns found.");
-            return $self->{dnscache}->{$url} = 0;
+            return $self->{dnscache}->{$domain} = 0;
         }
     }
 
-    return $self->{dnscache}->{$url} = 1;
+    return $self->{dnscache}->{$domain} = 1;
 }
 
 1;
