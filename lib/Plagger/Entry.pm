@@ -93,5 +93,10 @@ sub has_enclosure {
     scalar @{$self->{enclosures}} > 0;
 }
 
+sub digest {
+    my $self = shift;
+    Digest::MD5::md5_hex($self->title . ($self->body || ''));
+}
+
 1;
 
