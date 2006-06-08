@@ -59,23 +59,12 @@ Plagger::Rule::Deduped - Rule to get Deduped entries based on the database
 
 This rule de-duplicates entry based on cached index (database).
 
-=head1 CONFIG
-
-=over 4
-
-=item C<path>
-
-  path: /tmp/plagger.db
-
-
-
-=back
-
 =head1 AUTHOR
 
 Tatsuhiko Miyagawa
 
-Kazuhiro Ohsawa
+Kazuhiro Ohsawa created Plagger::Plugin::Cache in early days, which
+gives me a base idea of this module.
 
 =head1 SEE ALSO
 
