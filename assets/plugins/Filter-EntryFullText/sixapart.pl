@@ -1,6 +1,8 @@
 sub handle {
     my($self, $args) = @_;
-    $args->{content} =~ m!<meta name="generator" content="(?:http://www\.typepad\.com/|Movable Type.*?)" />!;
+    return 1 if $args->{content} =~ m!<html[^>]+id="sixapart-standard"!;
+    return 1 if $args->{content} =~ m!<meta name="generator" content="(?:http://www\.typepad\.com/|Movable Type.*?)" />!;
+    return;
 }
 
 sub extract {
