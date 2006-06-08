@@ -1,5 +1,5 @@
 # upgrade http://business.nikkeibp.co.jp/rss/\
-#         all_nbo|news|nb100|money|manage|tech|world||skillup|person|life.rdf
+#         (all_nbo|news|nb100|money|manage|tech|world||skillup|person|life).rdf
 author: Masafumi Otsune
 handle: http://business\.nikkeibp\.co\.jp/article/
 extract: <li>(\d{4}年\d{1,2}月\d{1,2}日).*?</li>.*?<div class="articlecontent">(.*?)<!-- /articlecontent -->

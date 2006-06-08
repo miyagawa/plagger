@@ -1,0 +1,5 @@
+# upgrade http://memn0ck.com/rss.rdf
+author: Masafumi Otsune
+handle: http://www\.memn0ck\.com/log\d+\.html
+extract: <span class="date">.*?</span>(<br>.*<br>)<hr size="1">
+extract_capture: body 

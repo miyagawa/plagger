@@ -1,0 +1,7 @@
+author: Masafumi Otsune
+handle: http://yaplog\.jp/
+extract: <h\d class="title">.*?</h\d>.*?<div class="txt">(.*?)<div class="ext"><a id="BlogEntryExtend"></a>(?:(.*?))?<ul class="link s">
+extract_capture: body body_more
+extract_after_hook: |
+  $data->{body} .= $data->{body_more} if $data->{body_more};
+  $data->{body} =~ s!<script.*?</script>!!g;
