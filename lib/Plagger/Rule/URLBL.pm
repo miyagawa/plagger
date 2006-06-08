@@ -26,6 +26,10 @@ sub dispatch {
 
     return unless $url;
 
+    if (exists $self->{dnscache}->{$url}) {
+        return $self->{dnscache}->{$url};
+    }
+
     my $res = Net::DNS::Resolver->new;
     my $dnsbl = $self->{dnsbl};
        $dnsbl = [ $dnsbl ] unless ref $dnsbl;
@@ -39,10 +43,11 @@ sub dispatch {
         my $q = $res->search("$domain.$dns");
         if ($q && $q->answer) {
             Plagger->context->log(info => "$domain.$dns found.");
-            return 0;
+            return $self->{dnscache}->{$url} = 0;
         }
     }
-    return 1;
+
+    return $self->{dnscache}->{$url} = 1;
 }
 
 1;

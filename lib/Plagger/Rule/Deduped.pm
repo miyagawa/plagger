@@ -66,7 +66,8 @@ This rule de-duplicates entry based on cached index (database).
 
 =item path
 
-Specified path to the database. This config is dependent for the DB_File backend.
+Specified path to the database. This config is dependent for the
+DB_File backend.
 
 =item compare_body
 
