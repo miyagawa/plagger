@@ -54,10 +54,26 @@ Plagger::Rule::Deduped - Rule to get Deduped entries based on the database
     rule:
       module: Deduped
       path: /tmp/var.db
+      compare_body: 1
 
 =head1 DESCRIPTION
 
 This rule de-duplicates entry based on cached index (database).
+
+=head1 CONFIG
+
+=over 4
+
+=item path
+
+Specified path to the database. This config is dependent for the DB_File backend.
+
+=item compare_body
+
+If set, this rule checks digest of entry, which is a MD5 hash of
+entry's title with body. Defaults to 0.
+
+=back
 
 =head1 AUTHOR
 
