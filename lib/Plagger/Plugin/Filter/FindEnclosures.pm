@@ -79,7 +79,7 @@ sub filter {
     my($self, $context, $args) = @_;
 
     # check $entry->link first, if it links directly to media files
-    $self->add_enclosure($args->{entry}, [ 'a', { href => $args->{entry}->link } ], 'href' );
+    $self->add_enclosure($args->{entry}, [ 'a', { href => $args->{entry}->permalink } ], 'href' );
 
     my $parser = HTML::TokeParser->new(\$args->{entry}->body);
     while (my $tag = $parser->get_tag('a', 'embed', 'img', 'object')) {
