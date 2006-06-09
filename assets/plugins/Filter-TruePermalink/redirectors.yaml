@@ -1,6 +1,7 @@
 - http://www\.pheedo\.jp/click.phdo\?i=\w+
 - http://feeds\.feedburner\.(com|jp)/[\w/]+\?m=\d+
 - http://feeds\.feedburner\.(com|jp)/~r/
+- http://feeds\.feedburner\.(com|jp)/[\w/]+\.mp3\?d=\d+
 - http://tinyurl\.com/\w+
 - http://xrl\.us/\w+
 - http://qurl\.net/\w+
