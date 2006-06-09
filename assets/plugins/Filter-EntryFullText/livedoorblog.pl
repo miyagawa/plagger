@@ -1,6 +1,10 @@
 sub handle_force {
     my($self, $args) = @_;
-    $args->{entry}->link =~ qr!^http://(?:blog\.livedoor\.jp/|[\w\-]+\.livedoor\.biz/)!;
+    return ($args->{entry}->link =~ qr!^http://(?:blog\.livedoor\.jp/|[\w\-]+\.livedoor\.biz/)!
+             or
+            $args->{content} =~ m!trackback:ping="http://app\.blog\.livedoor\.jp/!)
+           and
+           $args->{entry}->body =~ m!<a href=".*?">\x{7D9A}\x{304D}\x{3092}\x{8AAD}\x{3080}</a>!;
 }
 
 sub extract {
