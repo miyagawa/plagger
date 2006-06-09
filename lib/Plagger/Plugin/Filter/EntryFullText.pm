@@ -123,6 +123,11 @@ sub filter {
         }
     }
 
+    # use Last-Modified to populate entry date, even if handler doesn't find one
+    if ($res->last_modified && !$args->{entry}->date) {
+        $args->{entry}->date( Plagger::Date->from_epoch($res->last_modified) );
+    }
+
     my @plugins = $handler ? ($handler) : @{ $self->{plugins} };
 
     for my $plugin (@plugins) {
@@ -138,11 +143,9 @@ sub filter {
                 $args->{entry}->title($data->{title}) if $data->{title};
                 $args->{entry}->icon({ url => $data->{icon} }) if $data->{icon};
 
-                # extract date using found one, falls back to Last-Modified
+                # extract date using found one
                 if ($data->{date}) {
                     $args->{entry}->date($data->{date});
-                } elsif ($res->last_modified) {
-                    $args->{entry}->date( Plagger::Date->from_epoch($res->last_modified) );
                 }
 
                 return 1;
