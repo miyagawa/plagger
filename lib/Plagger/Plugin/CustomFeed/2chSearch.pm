@@ -75,7 +75,6 @@ RE
         $entry->date($data->{date});
         $entry->body( munge_body($data->{body}) );
 
-        warn $data->{link};
         $feed->add_entry($entry);
     }
 
@@ -111,6 +110,12 @@ sub find_entry {
             Plagger->context->log(info => "found entry on $id");
             # xxx I could update other metadata, but leave it for EntryFullText ...
             $data->{link} = "http://$server.2ch.net/test/read.cgi/$board/$thread/$id";
+
+            if ($data[2] =~ m!^(\d{4}/\d\d/\d\d)\(.*?\) (\d\d:\d\d:\d\d)!) {
+                $data->{date} = Plagger::Date->strptime("%Y/%m/%d %H:%M:%S", "$1 $2");
+                $data->{date}->set_time_zone('Asia/Tokyo'); # set floating datetime
+                $data->{date}->set_time_zone(Plagger->context->conf->{timezone} || 'local');
+            }
             return;
         }
     }
