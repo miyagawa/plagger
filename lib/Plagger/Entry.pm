@@ -95,7 +95,9 @@ sub has_enclosure {
 
 sub digest {
     my $self = shift;
-    Digest::MD5::md5_hex($self->title . ($self->body || ''));
+    my $data = $self->title . ($self->body || '');
+    Encode::_utf8_off($data);
+    Digest::MD5::md5_hex($data);
 }
 
 1;
