@@ -45,7 +45,7 @@ sub aggregate {
     my %query = URI->new($url)->query_form;
 
     my $feed = $args->{feed};
-    $feed->title("mixi: Search for $query{keyword}");
+    $feed->title("mixi: Search for " . decode("euc-jp", $query{keyword}));
     $feed->link($url);
 
     my $re = decode('utf-8', <<'RE');
