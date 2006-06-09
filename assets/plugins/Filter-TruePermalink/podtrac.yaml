@@ -1,0 +1,5 @@
+# http://www.podtrac.com/pts/redirect.mp3?http://aolradio.podcast.aol.com/twit/TWiT0055H.mp3
+author: Tatsuhiko Miyagawa
+match: http://www\.podtrac\.com/pts/redirect\.mp3\?
+rewrite: s!^http://www\.podtrac\.com/pts/redirect\.mp3\?http://!http://!
+
