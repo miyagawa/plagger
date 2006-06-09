@@ -50,7 +50,7 @@ sub aggregate {
     $feed->link($url);
 
     my $re = decode('utf-8', <<'RE');
-<dt><a href="(.*?)"><b>(.*?)</a> \((\d+)\) - <font size=-1>.*?</font> - <font size=-1><a href=.*?</a>＠.*?</font></dt><dd>(.*?)<br><font color=\#228822>.*?鯖 / 最新:(\d{4}/\d\d/\d\d \d\d:\d\d)</font> - .*?</dd>
+<dt><a href="(.*?)"><b>(.*?)</b></a> \((\d+)\) - <font size=-1>.*?</font> - <font size=-1><a href=.*?</a>＠.*?</font></dt><dd>(.*?)<br><font color=\#228822>.*?鯖 / 最新:(\d{4}/\d\d/\d\d \d\d:\d\d)</font> - .*?</dd>
 RE
 
     $content =~ s/\r\n/\n/g;
