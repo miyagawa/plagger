@@ -213,13 +213,13 @@ sub custom_feed_follow_link {
 sub handle_force {
     my($self, $args) = @_;
     $self->{handle_force}
-        ? $args->{entry}->link =~ /$self->{handle_force}/ : 0;
+        ? $args->{entry}->permalink =~ /$self->{handle_force}/ : 0;
 }
 
 sub handle {
     my($self, $args) = @_;
     $self->{handle}
-        ? $args->{entry}->link =~ /$self->{handle}/ : 0;
+        ? $args->{entry}->permalink =~ /$self->{handle}/ : 0;
 }
 
 sub extract {
