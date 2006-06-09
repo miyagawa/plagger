@@ -19,7 +19,7 @@ sub register {
 sub chtml_init {
     my ($self, $context) = @_;
     $self->{context} = $context;
-    $self->conf->{encoding} ||= 'shift_jis';
+    $self->conf->{encoding} ||= 'cp932';
     $self->{id} = time;
     @{$self->{feeds}} = ();
     unless ($self->conf->{work}) {
