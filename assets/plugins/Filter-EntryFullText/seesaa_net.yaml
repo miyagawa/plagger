@@ -1,0 +1,4 @@
+author: Masafumi Otsune
+handle: http://\w+\.seesaa\.net/
+extract: <div class="blogbody">\n<h3 class="title">.*?</h3>.*?<div class="text">(.*?)<div class="posted">
+extract_capture: body 
