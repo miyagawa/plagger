@@ -1,0 +1,7 @@
+# upgrade http://taka.no32.tk/summary/pya18+.rdf (http://pya.cc/)
+author: Masafumi Otsune
+custom_feed_handle: http://pya\.cc/
+custom_feed_follow_link: cnt2\.php\?uid=\d+
+handle: http://pya\.cc/
+extract: (<[iI]mg [sS]rc="?http://61\.197\.151\.26/\d+/omote/img\d+/[\d_]+\.(?:png|jpg)"?.*?>.+)<table width="770">
+extract_capture: body
