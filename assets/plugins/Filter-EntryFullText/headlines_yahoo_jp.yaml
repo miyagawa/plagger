@@ -1,0 +1,5 @@
+# upgrade http://headlines.yahoo.co.jp/rss/*.xml
+author: Masafumi Otsune
+handle: http://headlines\.yahoo\.co\.jp/
+extract: <!--- OUTLINE_TABLE --->(.*?)<!---お役立ちBOX-->
+extract_capture: body 
