@@ -33,7 +33,7 @@ sub aggregate {
     $context->log(info => "GET $url");
 
     my $agent = Plagger::UserAgent->new;
-    my $res = $agent->fetch($url, $self, { NoNetwork => 60 * 60 * 12 });
+    my $res = $agent->fetch($url, $self, { NoNetwork => 60 * 60 });
 
     if (!$res->status && $res->is_error) {
         $context->log(error => "GET $url failed: " . $res->status_code);
