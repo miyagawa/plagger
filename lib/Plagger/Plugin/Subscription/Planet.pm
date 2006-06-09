@@ -7,7 +7,7 @@ use URI::Escape;
 
 my @sites = (
     'http://www.blogpulse.com/rss?query=%s&sort=date&operator=and',
-    'http://www.feedster.com/search/type/rss/%s',
+#    'http://www.feedster.com/search/type/rss/%s',
     'http://blogsearch.google.com/blogsearch_feeds?hl=en&q=%s&scoring=d&ie=utf-8&num=100&output=rss',
     'http://blog-search.yahoo.co.jp/rss?p=%s:euc-jp',
     'http://blog.goo.ne.jp/search/search.php?status=select&tg=all&st=time&dc=10&dp=all&bu=&ts=all&MT=%s:euc-jp&da=all&rss=1',

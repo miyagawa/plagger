@@ -29,13 +29,13 @@ sub add_feed {
         $feed,
 #        HTML::Tidy->new,
         undef,
-#        HTML::Scrubber->new(
-#            rules => [
-#                style => 0,
-#                script => 0,
-#            ],
-#            default => [ 1, { '*' => 1, style => 0 } ],
-#        ),
+        HTML::Scrubber->new(
+            rules => [
+                style => 0,
+                script => 0,
+            ],
+            default => [ 1, { '*' => 1, style => 0 } ],
+        ),
         undef,
     );
 
