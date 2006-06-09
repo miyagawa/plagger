@@ -1,0 +1,5 @@
+# Apple Support KB http://docs.info.apple.com/
+author: Masafumi Otsune
+handle: http://docs\.info\.apple\.com/article\.html\?artnum=
+extract: <td id="kbcontent">(.*?)<td id="kbgutter">
+extract_capture: body
