@@ -28,4 +28,4 @@ __END__
 example config.
     rule:
       - module: DateTimeCron
-        crontab: * 12 * * *
+        crontab: "* 12 * * *"
