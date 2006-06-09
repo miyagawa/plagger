@@ -19,7 +19,7 @@ sub register {
 sub chtml_init {
     my ($self, $context) = @_;
     $self->{context} = $context;
-    $self->conf->{encoding} ||= 'shiftjis';
+    $self->conf->{encoding} ||= 'shift_jis';
     $self->{id} = time;
     @{$self->{feeds}} = ();
     unless ($self->conf->{work}) {
@@ -122,6 +122,7 @@ sub templatize {
 sub write {
     my ($self, $file, $chtml, $symlink) = @_;
     open my $out, ">:encoding($self->{conf}->{encoding})", $file or $self->context->error("$file: $!");
+    local $PerlIO::encoding::fallback = Encode::FB_HTMLCREF;
     print $out $chtml;
     close $out;
     $self->symlink($file, $symlink) if $symlink;
