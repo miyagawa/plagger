@@ -36,7 +36,7 @@ sub aggregate {
     my $res = $agent->fetch($url, $self, { NoNetwork => 60 * 60 });
 
     if (!$res->status && $res->is_error) {
-        $context->log(error => "GET $url failed: " . $res->status_code);
+        $context->log(error => "GET $url failed: " . $res->status);
         return;
     }
 
