@@ -51,7 +51,7 @@ sub aggregate {
     my $re = decode('utf-8', <<'RE');
 <table BORDER=0 CELLSPACING=1 CELLPADDING=4 WIDTH=550>
 <tr>
-<td WIDTH=90 VALIGN=top ROWSPAN=5 ALIGN=center background=http://img\.mixi\.jp/img/bg_line\.gif><a href="(view_diary\.pl\?id=\d+&owner_id=\d+)"><img SRC="(http://img\.mixi\.jp/photo/member/.*?\.jpg)" VSPACE=3 border=0></a></td>
+<td WIDTH=90 VALIGN=top ROWSPAN=5 ALIGN=center background=http://img\.mixi\.jp/img/bg_line\.gif><a href="(view_diary\.pl\?id=\d+&owner_id=\d+)"><img SRC="(http://img\.mixi\.jp/photo/member/.*?\.\w+)" VSPACE=3 border=0></a></td>
 <td BGCOLOR=#FDF9F2><font COLOR=#996600>名&nbsp;&nbsp;前</font></td>
 <td COLSPAN=2 BGCOLOR=#FFFFFF>(.*?) \(.*?\)
 
