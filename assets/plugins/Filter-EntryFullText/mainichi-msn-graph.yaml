@@ -1,0 +1,9 @@
+# support http://www.mainichi-msn.co.jp/photo/etc/photo_feature/
+author: Masafumi Otsune
+handle: http://www\.mainichi-msn\.co\.jp/.+/graph/
+extract: <div class="today_ttl txt6"><span>(.*?)</span></div>(.*([\x{ff10}-\x{ff19}]{4}年(?:.*?)?[\x{ff10}-\x{ff19}]{1,2}月[\x{ff10}-\x{ff19}]{1,2}日n*?)<!-- || /todays_topics ||-->
+extract_capture: title body date
+extract_date_format: %Y年%m月%d日
+extract_after_hook: |
+    $data=>{date} =~ tr/\x{ff10}-\x{ff19}/0-9/;
+    $data->{body} =~ s!<div class="mai_link"><a href.*?</a></div>!!s;

@@ -8,7 +8,7 @@ sub handle {
 
 sub extract {
     my($self, $args) = @_;
-    if ($args->{content} =~ m#(<div class="storycontent">.*?)<div class="feedback">#){
+    if ($args->{content} =~ m#(<div class="storycontent">.*?)<div class="feedback">#s){
         return $1;
     }
     return;

@@ -1,6 +1,6 @@
 author: woremacx
-handle: http://www\.mainichi-msn\.co\.jp/
-extract: <div class="today_ttl txt6"><span>(.*?)</span></div>(.*)<p>.*?(\d{4}年\d+月\d+日　\d+時\d+分)</p>\s*<!--
+handle: http://www\.mainichi-msn\.co\.jp/.+[^/graph/]
+extract: <div class="today_ttl txt6"><span>(.*?)</span></div>(.*)(\d{4}年(?:.*?)?\d{1,2}月\d{1,2}日　\d{1,2}時\d{1,2}分).*?</p>\s*<!--
 extract_capture: title body date
 extract_date_format: %Y年%m月%d日　%H時%M分
 extract_after_hook: $data->{body} =~ s!<div class="txt_right txt1">.*?</div>!!s;

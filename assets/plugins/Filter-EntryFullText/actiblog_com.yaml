@@ -1,0 +1,5 @@
+# http://www.actiblog.com/
+author: Masafumi Otsune
+handle: http://www\.actiblog\.com/
+extract: <div id="main">(.*?)<div class="item com">
+extract_capture: body
