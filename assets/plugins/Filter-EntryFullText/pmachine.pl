@@ -6,7 +6,7 @@ sub handle {
 
 sub extract {
     my($self, $args) = @_;
-    if ($args->{content} =~ m!<h2 class="title">(?:.*?)</h2>(?:</a>)?(.*?)<!--\n<rdf:RDF!s){
+    if ($args->{content} =~ m!<h2 class="title">(?:.*?)</h2>(?:</a>)?(.*?)<\!--\n<rdf:RDF!s){
         my $body = $1;
         return "<div>$body</div>";
     }
