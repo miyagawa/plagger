@@ -1,6 +1,7 @@
+# add Enclosure http://www.mainichi-msn.co.jp/photo/etc/photo_feature/
 sub handle {
     my ($self, $url) = @_;
-    $url =~ qr!http://www.mainichi-msn.co.jp/entertainment/geinou/.*graph/.*\d+\.html$!;
+    $url =~ qr!http://www.mainichi-msn.co.jp/.*/graph/.*\d+\.html$!;
 }
 
 sub find {
