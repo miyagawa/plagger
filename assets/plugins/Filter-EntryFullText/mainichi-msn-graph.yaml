@@ -5,5 +5,5 @@ extract: <div class="today_ttl txt6"><span>(.*?)</span></div>(.*([\x{ff10}-\x{ff
 extract_capture: title body date
 extract_date_format: %Y年%m月%d日
 extract_after_hook: |
-    $data=>{date} =~ tr/\x{ff10}-\x{ff19}/0-9/;
+    $data->{date} =~ tr/\x{ff10}-\x{ff19}/0-9/;
     $data->{body} =~ s!<div class="mai_link"><a href.*?</a></div>!!s;

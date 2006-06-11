@@ -5,6 +5,6 @@ extract: <!-- google_ad_section_start=s1 -->\s*(<.*?)<!-- google_ad_section_end=
 extract_capture: body
 extract_after_hook: |
   if ($args->{entry}->link =~ m!/(\d{4})/(\d\d)/(\d\d)/!) {
-      $data->{date} = Plagger::Date->new(year => $1, month => $2, day => $2);
+      $data->{date} = Plagger::Date->new(year => $1, month => $2, day => $3);
   }
 
