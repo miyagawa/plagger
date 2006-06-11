@@ -1,4 +1,4 @@
 author: Masafumi Otsune
 handle: http://blog.goo.ne.jp/.+
-extract: <!-- エントリー -->(.*?)<!-- /エントリー -->
+extract: <div class="entry">(.*?)<!-- COMMENT MODULE -->
 extract_capture: body
