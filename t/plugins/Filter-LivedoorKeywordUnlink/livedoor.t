@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 1;
+use Test::More skip_all => "their keyword link feature is now disabled.";
 
 use Plagger;
 
