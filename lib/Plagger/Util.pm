@@ -95,7 +95,7 @@ sub decode_content {
 
 sub extract_title {
     my $content = shift;
-    my $title = ($content =~ m!<title>\s*(.*?)\s*</title>!s)[0] or return;
+    my $title = ($content =~ m!<title>\s*(.*?)\s*</title>!is)[0] or return;
     HTML::Entities::decode($1);
 }
 
