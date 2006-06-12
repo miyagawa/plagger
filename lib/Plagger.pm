@@ -95,7 +95,7 @@ sub rewrite_config {
 
     if ($count) {
         File::Copy::copy( $self->{config_path}, $self->{config_path} . ".bak" );
-        open my $fh, ">", $self->{config_path} or $self->error("$self->{config_path}: $!");
+        open my $fh, ">", $self->{config_path} or return $self->log(error => "$self->{config_path}: $!");
         print $fh $data;
         close $fh;
 
