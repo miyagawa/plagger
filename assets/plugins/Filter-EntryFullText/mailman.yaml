@@ -1,0 +1,6 @@
+# upgrade mailman feeds
+author: youpy
+handle: .+/pipermail/\w+/\d{4}-\w+/\d+\.html
+extract: <!--beginarticle-->(.*?)<!--endarticle-->
+extract_capture: body
+
