@@ -36,7 +36,6 @@ sub add_feed {
             ],
             default => [ 1, { '*' => 1, style => 0 } ],
         ),
-        undef,
     );
 
     $self->_write_index(
