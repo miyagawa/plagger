@@ -28,7 +28,6 @@ our $MAP = {
         start_url  => 'http://mixi.jp/list_comment.pl',
         title      => 'ミクシィ最近のコメント一覧',
         get_list   => 'parse_list_comment',
-        icon_re    => qr/[^_]id=(\d+)/,
     },
     Log => {
         start_url => 'http://mixi.jp/show_log.pl',
