@@ -221,6 +221,10 @@ features(
         -default => 0,
         recommends('XML::FOAF'),
     ],
+    'Notify::Beep' => [
+        -default => 0,
+        recommends('Audio::Beep'),
+    ],
 );
 
 if ($^O eq 'darwin') {
