@@ -6,8 +6,11 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - url: http://bulknews.typepad.com/blog/index.rdf
-        - url: http://engadget.com/rss.xml
+        - http://bulknews.typepad.com/blog/index.rdf
+        - http://blog.bulknews.net/mt/
+        - http://subtech.g.hatena.ne.jp/miyagawa/
+        - http://bulknews.vox.com/
+        - http://d.hatena.ne.jp/miyagawa/
 
   - module: Aggregator::Simple
   
@@ -23,9 +26,10 @@ plugins:
       expression: $args->{feed}->id eq 'smartfeed:all'
     config:
       dir: /tmp/planet
-      skin: default
+      skin: sixapart-std
       template:
         members_list: 1
+        style_url: http://bulknews.typepad.com/blog/styles.css
 
   - module: Publish::Feed
     rule:
