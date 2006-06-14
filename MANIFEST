@@ -320,12 +320,3 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
-t/core/cookies.t
-t/core/cookies.txt
-t/core/googlevideo.xml
-t/core/hatenafotolife.rdf
-t/core/hatenafotolife.t
-t/core/monkey.rss
-t/core/mrss.t
-t/core/photocast.rss
-t/core/photocast.t
