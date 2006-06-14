@@ -102,13 +102,11 @@ RE
 
         my $entry = Plagger::Entry->new;
 
+        $entry->title($data->{title});
         $entry->link( URI->new_abs($data->{link}, $url) );
         $entry->date($data->{date});
 
-        if ($self->conf->{mixi_tos_paranoia}) {
-            $entry->title( $entry->link->as_string );
-        } else {
-            $entry->title($data->{title});
+        unless ($self->conf->{mixi_tos_paranoia}) {
             $entry->body( munge_body($data->{body}) );
             $entry->icon({ url => URI->new_abs($data->{photo}, $url) });
             $entry->author( decode_entities($data->{name}) );
