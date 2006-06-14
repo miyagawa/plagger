@@ -44,8 +44,14 @@ sub aggregate {
 
     my %query = URI->new($url)->query_form;
 
+    # heh, this is a "Cache"
+    my $title = "mixi: Search for " . decode("euc-jp", $query{keyword});
+    if (!$self->conf->{mixi_tos_paranoia}) {
+        $title .= " (Cache)";
+    }
+
     my $feed = $args->{feed};
-    $feed->title("mixi: Search for " . decode("euc-jp", $query{keyword}));
+    $feed->title($title);
     $feed->link($url);
 
     my $re = decode('utf-8', <<'RE');
@@ -95,12 +101,18 @@ RE
         $data->{date}->set_time_zone(Plagger->context->conf->{timezone} || 'local');
 
         my $entry = Plagger::Entry->new;
-        $entry->title($data->{title});
+
         $entry->link( URI->new_abs($data->{link}, $url) );
         $entry->date($data->{date});
-        $entry->body( munge_body($data->{body}) );
-        $entry->icon({ url => URI->new_abs($data->{photo}, $url) });
-        $entry->author( decode_entities($data->{name}) );
+
+        if ($self->conf->{mixi_tos_paranoia}) {
+            $entry->title( $entry->link->as_string );
+        } else {
+            $entry->title($data->{title});
+            $entry->body( munge_body($data->{body}) );
+            $entry->icon({ url => URI->new_abs($data->{photo}, $url) });
+            $entry->author( decode_entities($data->{name}) );
+        }
 
         $feed->add_entry($entry);
     }
