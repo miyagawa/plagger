@@ -262,6 +262,12 @@ if ($^O eq 'darwin') {
             -default => 0,
             recommends('Win32::MCI::Basic'),
         ],
+        'Subscription::Bookmarks' => [
+            -default => 0,
+            recommends('Win32::IEFavorites', 0.03),
+            recommends('Win32::Locale'),
+        ],
+ 
     );
 }
 

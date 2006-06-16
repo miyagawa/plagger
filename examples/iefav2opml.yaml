@@ -1,0 +1,10 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: Subscription::Bookmarks
+    config:
+      browser: InternetExplorer
+  - module: Publish::OPML
+    config:
+      filename: plagger.opml
