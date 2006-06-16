@@ -27,6 +27,7 @@ sub load {
         $feed->url($item->url);
         $feed->title($title);
         # TODO: add favico?
+        # TODO: tag support by folder name
         
         $context->subscription->add($feed);
     }
