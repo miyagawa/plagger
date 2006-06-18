@@ -120,9 +120,9 @@ sub load_uri {
         $data = decode_content($response);
     }
     elsif ($uri->scheme eq 'file') {
-        Plagger->context->log(debug => "Open local file " . $uri->path);
-        open my $fh, '<', $uri->path
-            or Plagger->context->error( $uri->path . ": $!" );
+        Plagger->context->log(debug => "Open local file " . $uri->file);
+        open my $fh, '<', $uri->file
+            or Plagger->context->error( $uri->file . ": $!" );
         $data = decode_content(join '', <$fh>);
     }
     else {
