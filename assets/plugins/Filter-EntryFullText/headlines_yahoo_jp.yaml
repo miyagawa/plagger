@@ -1,6 +1,8 @@
 # upgrade http://headlines.yahoo.co.jp/rss/*.xml
 author: Masafumi Otsune
 handle: http://headlines\.yahoo\.co\.jp/
-extract: <!--- OUTLINE_TABLE --->(.*?)<!---お役立ちBOX-->
-extract_capture: body 
-extract_after_hook: $data->{body} =~ s!</?t[able|d|r][^>]*>!!
+extract: <font size=5 class="s130"><b>(.*?)</b></font><br><br>(.*?)<br>\n*?</td></tr>\n*?<!---お役立ちBOX-->
+extract_capture: title body
+extract_after_hook: $data->{body} .= '<div style="clear: both;">&#160;</div>' if $data->{body} =~ /yimg\.jp/;
+custom_feed_handle: (http://nsearch\.yahoo\.co\.jp/bin/search\?p=|http://headlines\.yahoo\.co\.jp/hl\?c=)
+custom_feed_follow_link: http://headlines\.yahoo\.co\.jp/hl\?a=(?:(?!view-).)+$

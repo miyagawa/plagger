@@ -1,0 +1,5 @@
+# upgrade http://www.computerworld.jp/rss/rss.rdf
+author: Masafumi Otsune
+handle: http://www\.computerworld\.jp/news/
+extract: <!-- latest news -->(.*?)<!-- /latest news -->
+extract_capture: body
