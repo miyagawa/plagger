@@ -1,0 +1,7 @@
+# http://www.mtvjapan.com/news/music/news_music_list.php
+author: drawnboy
+custom_feed_handle: http://www\.mtvjapan\.com/news/music/news_music_list\.php
+custom_feed_follow_link: news_music_detail\.php\?music_news_id=
+handle: http://www\.mtvjapan\.com/news/music/news_music_detail\.php
+extract: <h4>(.*?)</h4>.*?<p class="text02">(.*?)<div class="pagecontents">
+extract_capture: title body

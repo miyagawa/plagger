@@ -1,0 +1,7 @@
+# http://www.hmv.co.jp/news/index.asp?category=1&genre=0&pagenum=2
+author: drawnboy
+custom_feed_handle: http://www\.hmv\.co\.jp/news/
+custom_feed_follow_link: news/newsdetail\.asp\?newsnum=
+handle: http://www\.hmv\.co\.jp/news/
+extract: <span class="x1 x3 fs7">(.*?).*?<span class="fs3 x7">(.*?)</span>
+extract_capture: title body

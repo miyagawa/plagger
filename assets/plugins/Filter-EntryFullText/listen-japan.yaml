@@ -1,0 +1,7 @@
+# http://www.listen.jp/store/news.aspx
+author: drawnboy
+custom_feed_handle: http://www\.listen\.jp/store/news\.aspx
+custom_feed_follow_link: musicnews_\d+\.htm
+handle: http://www\.listen\.jp/store/
+extract: <span id="NewsBody1_ct1__ctl0_LabelSubject">(.*?)</span>.*?<span id="NewsBody1_ct1__ctl0_LabelBody" class="text2h">(.*?)</span>
+extract_capture: title body

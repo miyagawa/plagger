@@ -1,0 +1,7 @@
+# http://www.cdjournal.com/main/news/
+author: drawnboy
+custom_feed_handle: http://www\.cdjournal\.com/main/news/
+custom_feed_follow_link: news\.php\?nno=
+handle: http://www\.cdjournal\.com/main/news/
+extract: <div><h2>(.*?)</h2>.*?<div class='productstxt'>(.*?)</div>
+extract_capture: title body

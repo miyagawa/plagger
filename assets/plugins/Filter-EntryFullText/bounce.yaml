@@ -1,0 +1,7 @@
+# http://www.bounce.com/contents/
+author: drawnboy 
+custom_feed_handle: http://www\.bounce\.com/contents/
+custom_feed_follow_link: news/daily\.php/
+handle: http://www\.bounce\.com/news/daily\.php/
+extract: <font color="#003399" size="3" class="j14">(.*?)</font>.*?<span style="line-height:1.5em;">(.*?)</span></td>
+extract_capture: title body

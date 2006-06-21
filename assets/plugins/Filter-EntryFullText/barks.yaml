@@ -1,0 +1,7 @@
+# http://www.barks.jp/news/
+author: 
+custom_feed_handle: http://www\.barks\.jp/news/
+custom_feed_follow_link: \?id=\d+&m=all
+handle: http://www\.barks\.jp/news/
+extract: <strong class="news_title">\n(.*?)</strong>.*?<span id="intelliTxt" class="article">\n(.*?)</(span|table)>
+extract_capture: title body
