@@ -241,6 +241,10 @@ if ($^O eq 'darwin') {
             -default => 0,
             recommends('Mac::Speech'),
         ],
+        'Subscription::Bookmarks' => [
+            -default => 0,
+            recommends('Mac::Tie::PList'),
+        ],
     );
 
     install_script('bin/spotlight_comment.scpt');
