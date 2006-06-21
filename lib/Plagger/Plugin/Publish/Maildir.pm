@@ -6,6 +6,7 @@ use DateTime;
 use DateTime::Format::Mail;
 use Encode qw/ from_to encode/;
 use Encode::MIME::Header;
+use HTML::Entities;
 use MIME::Lite;
 use Digest::MD5 qw/ md5_hex /;;
 use File::Find;
