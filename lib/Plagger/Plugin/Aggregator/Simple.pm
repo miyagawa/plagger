@@ -143,12 +143,17 @@ sub handle_feed {
         $entry->body(_u($e->content->body || $e->summary->body));
 
         # enclosure support, to be added to XML::Feed
-        if ($remote->format =~ /^RSS / && $e->{entry}->{enclosure}) {
-            my $enclosure = Plagger::Enclosure->new;
-            $enclosure->url( URI->new($e->{entry}->{enclosure}->{url}) );
-            $enclosure->length($e->{entry}->{enclosure}->{length});
-            $enclosure->auto_set_type($e->{entry}->{enclosure}->{type});
-            $entry->add_enclosure($enclosure);
+        if ($remote->format =~ /^RSS / and my $encls = $e->{entry}->{enclosure}) {
+            # some RSS feeds contain multiple enclosures, and we support them
+            $encls = [ $encls ] unless ref $encls eq 'ARRAY';
+
+            for my $encl (@$encls) {
+                my $enclosure = Plagger::Enclosure->new;
+                $enclosure->url( URI->new($encl->{url}) );
+                $enclosure->length($encl->{length});
+                $enclosure->auto_set_type($encl->{type});
+                $entry->add_enclosure($enclosure);
+            }
         } elsif ($remote->format eq 'Atom') {
             for my $link ( grep { $_->rel eq 'enclosure' } $e->{entry}->link ) {
                 my $enclosure = Plagger::Enclosure->new;
