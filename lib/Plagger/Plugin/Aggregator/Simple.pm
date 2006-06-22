@@ -36,6 +36,8 @@ sub aggregate {
                        $res->http_response->content_type ||
                        "text/xml";
 
+    $content_type =~ s/;.*$//; # strip charset= cruft
+
     my $content = $res->content;
     if ( $Feed::Find::IsFeed{$content_type} || $self->looks_like_feed(\$content) ) {
         $self->handle_feed($url, \$content, $args->{feed});
@@ -55,7 +57,7 @@ sub aggregate {
 
 sub looks_like_feed {
     my($self, $content_ref) = @_;
-    $$content_ref =~ m!<rss\s+version="|<rdf:RDF\s+xmlns="http://purl\.org/rss|<feed\s+xmlns="!s;
+    $$content_ref =~ m!<rss |<rdf:RDF\s+xmlns="http://purl\.org/rss|<feed\s+xmlns="!s;
 }
 
 sub fetch_content {
