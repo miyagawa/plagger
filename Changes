@@ -1,5 +1,43 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.3 (2006/06/22) ==
+
+=== Core ===
+ 
+ * Added Net::SMTP::TLS as a dependency
+ * rewrite_config doesn't die if there's permission error
+ * rewrite_config escapes regexp meta characters (Reported by s_fujiwara)
+ * Don't include t/core in the distro now
+ *   
+
+=== New Plugins ===
+
+ * Filter::FetchEnclosure::Curl: download enlcosures using Curl 
+ * CustomFeed::MixiDiarySearch: CustomFeed handler for mixi.jp diary search 
+ * Rule::Deduped: dedupe entries based on URL
+ * CustomFeed::2chSearch: CustomFeed to handle find.2ch.net SERP
+ * Notify::Beep: Beep your PC for feed notification using Audio::Beep
+ * Subscription::Bookmarks: Extract subscription from Bookmarks of IE, Firefox and Safari (miyagawa, youpy)
+ 
+=== Plugins Updates ===
+
+ * Publish::Gmail: wrap MIME::Lite errors in eval
+ * Filter::FindEnclosures: Added yourfilehost.com, Mainichi Interactive and TypePad.com enclosure finder 
+ * CustomFeed::Flickr: refactored from scratch and added enclosure support 
+ * Filter::FetchEnclosure::ParallelUA: support Cookie sharing
+ * Filter::EntryFullText: misc upgrader files (topia, otsune, youpy, drawnboy)
+ * Notify::SSTP: added missing template (secondlife)
+ * Filter::2chRSSContent: Support id-less boards
+ * Publish::Gmail: don't send email when there's no entry #297 
+ * Filter::EntryFullText: Added config parameter "force_upgrade"
+ * Rule::URLBL: support DNS caching 
+ * Filter::TruePermalink: Don't rewrite permalink but link
+ * Publish::JavaScript: code tweaks and document updates
+ * Filter::EntryFullText: use Last-Modified to populate entry date even if there's no match 
+ * Publish::CHTML: don't die if entry body contains non-sjis mappable entities. Change default to cp932
+ * Subscription::Planet: Added feedster.jp
+ * CustomFeed::Mixi: don't try to get unknown owner_id in RecentComment
+
 == 0.7.2 (2006/06/02) ==
 
 === Core ===
@@ -14,7 +52,6 @@ The latest, HTML version of this document is always available at http://plagger.
  * Media RSS support in RSS parsers to extract enclosures and thumbnails. #141
  * XML::Feed, XML::Atom, XML::LibXML and XML::RSS::LibXML are now core required modules. #176
  * Support Hatena Fotolife and Apple photocast namespaces for thumbnail extraction. 
- * Filter::FetchEnclosure::Xango: Xango-based asynchronous POE downloader (dmaki)
 
 === New Plugins ===
 
