@@ -1,8 +1,16 @@
 # upgrade http://headlines.yahoo.co.jp/rss/*.xml
 author: Masafumi Otsune
 handle: http://headlines\.yahoo\.co\.jp/
-extract: <font size=5 class="s130"><b>(.*?)</b></font><br><br>(.*?)<br>\n*?</td></tr>\n*?<!---お役立ちBOX-->
-extract_capture: title body
-extract_after_hook: $data->{body} .= '<div style="clear: both;">&#160;</div>' if $data->{body} =~ /yimg\.jp/;
+extract: <font size=5 class="s130"><b>(.*?)</b></font><br><br>(.*? - (\d+月\d+日\d+時\d+分)更新</div>)<br>\n*?</td></tr>\n*?<!---お役立ちBOX-->
+extract_capture: title body date
+extract_after_hook: |
+  if ($data->{body} =~ /yimg\.jp/) {
+    $data->{body} .= '<div style="clear: both;">&#160;</div>';
+  }
+  if ($args->{entry}->link =~ m!/hl\?a=(\d{4})\d{2}\d{2}-!) {
+    $data->{date} = "$1/" . $data->{date};
+  }
+
+extract_date_format: %Y/%m月%d日%H時%M分
 custom_feed_handle: (http://nsearch\.yahoo\.co\.jp/bin/search\?p=|http://headlines\.yahoo\.co\.jp/hl\?c=)
 custom_feed_follow_link: http://headlines\.yahoo\.co\.jp/hl\?a=(?:(?!view-).)+$
