@@ -67,13 +67,11 @@ sub sync {
 
     $self->login_reader();
 
-    my $subs = $self->_request("/api/subs", { unread => 1 });
+    my $subs = $self->_request("/api/subs", { unread => 1 }) || [];
 
     for my $sub (@$subs) {
         $context->log(debug => "get unread items of $sub->{subscribe_id}");
-        my $data = $self->_request("/api/unread", { subscribe_id => $sub->{subscribe_id} });
-        $self->_request("/api/touch_all", { subscribe_id => $sub->{subscribe_id} })
-            if $mark_read;
+        my $data = $self->_request("/api/unread", { subscribe_id => $sub->{subscribe_id} }) or next;
 
         my $feed = Plagger::Feed->new;
         $feed->type('livedoorReader');
@@ -103,6 +101,9 @@ sub sync {
 
             $feed->add_entry($entry);
         }
+
+        $self->_request("/api/touch_all", { subscribe_id => $sub->{subscribe_id} })
+            if $mark_read;
 
         $context->update->add($feed);
     }
@@ -148,7 +149,11 @@ sub _request {
 
     $self->{mech}->get($uri->as_string);
 
-    return JSON::Syck::Load($self->{mech}->content);
+    if ($self->{mech}->status == 200) {
+        return JSON::Syck::Load($self->{mech}->content);
+    }
+
+    return;
 }
 
 1;
