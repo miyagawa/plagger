@@ -46,6 +46,7 @@ POE::Session->create(
         _stop            => \&bot_stop,
         irc_001          => \&bot_connected,
         irc_372          => \&bot_motd,
+        irc_433          => \&bot_nick_taken,
         irc_disconnected => \&bot_reconnect,
         irc_error        => \&bot_reconnect,
         irc_socketerr    => \&bot_reconnect,
@@ -140,4 +141,17 @@ sub bot_reconnect
     err "reconnect: " . $_[ARG0];
     $kernel->delay( autoping => undef );
     $kernel->delay( connect  => 60 );
+}
+
+sub bot_nick_taken
+{
+    my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
+    if ($config->{nick} !~ /\d$/) {
+        $config->{nick} .= 0;
+    } else {
+        substr( $config->{nick}, -1, 1 )++;
+    }
+    err 'nick taken, trying new nick ' . $config->{nick};
+    $kernel->post( bot => nick => $config->{nick} );
+    $heap->{seen_traffic} = 1;
 }
