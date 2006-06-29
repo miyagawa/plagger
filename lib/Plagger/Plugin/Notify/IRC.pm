@@ -75,6 +75,16 @@ This plugin allows you to notify feed updates to IRC channels using
 POE based IRC client. This module uses IKC inter-kernal protocol to
 communicate with POE daemon.
 
+=head1 SETUP
+
+In order to make Notify::IRC run, you need to run I<plagger-ircbot>
+script first, before running the plagger main process.
+
+  % ./bin/plagger-ircbot -c irc.yaml &
+
+I<plagger-ircbot> is a POE process that persistently connects to an
+IRC server, and this plugin uses POE IKC to talk to the bot process.
+
 =head1 AUTHOR
 
 Masayoshi Sekimura, Tatsuhiko Miyagawa
