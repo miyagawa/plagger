@@ -150,9 +150,8 @@ sub load_cache {
     my $base = ( basename($config) =~ /^(.*?)\.yaml$/ )[0] || 'config';
     my $dir  = $base eq 'config' ? ".plagger" : ".plagger-$base";
 
-    $self->{conf}->{cache} ||= {
-        base => File::Spec->catfile($ENV{HOME}, $dir),
-    };
+    # cache is auto-vivified but that's okay
+    $self->{conf}->{cache}->{base} ||= File::Spec->catfile($ENV{HOME}, $dir);
 
     $self->cache( Plagger::Cache->new($self->{conf}->{cache}) );
 }
@@ -407,7 +406,6 @@ sub templatize {
     $tt->process($file, $vars, \my $out) or $self->error($tt->error);
     $out;
 }
-
 
 1;
 __END__

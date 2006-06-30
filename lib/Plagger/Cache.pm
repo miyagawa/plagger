@@ -14,6 +14,7 @@ sub new {
     $conf->{class}  ||= 'Cache::FileCache';
     $conf->{params} ||= {
         cache_root => File::Spec->catfile($conf->{base}, 'cache'),
+        default_expires_in => $conf->{expires} || 'never',
     };
 
     $conf->{class}->require;
@@ -28,6 +29,7 @@ sub new {
     my $self = bless {
         base  => $conf->{base},
         cache => $conf->{class}->new($conf->{params}),
+        to_purge => $conf->{expires} ? 1 : 0,
     }, $class;
 }
 
@@ -100,6 +102,11 @@ sub cookie_jar {
         file => File::Spec->catfile($dir, $file),
         autosave => 1,
     );
+}
+
+sub DESTROY {
+    my $self = shift;
+    $self->{cache}->purge() if $self->{to_purge};
 }
 
 1;
