@@ -7,11 +7,10 @@ global:
 
 plugins:
   - module: Subscription::Config
-    disable: 0
     config:
       feed:
-        - url: http://plagger.org/trac.cgi/timeline?milestone=on&ticket=on&changeset=on&wiki=on&max=50&daysback=90&format=rss
-        - url: http://unknownplace.org/cpanrecent/rss/Plagger
+        - http://plagger.org/trac.cgi/timeline?milestone=on&ticket=on&changeset=on&wiki=on&max=50&daysback=90&format=rss
+        - http://unknownplace.org/cpanrecent/rss/Plagger
 
   - module: Aggregator::Simple
 
@@ -19,10 +18,8 @@ plugins:
 
   - module: Filter::Rule
     rule:
-      - module: Fresh
-        mtime:
-          path: /home/miyagawa/svn/plagger/irc.mtime
-          autoupdate: 1
+      - module: Deduped
+        path: /home/miyagawa/svn/plagger/irc.db
 
   - module: Notify::IRC
     config:
