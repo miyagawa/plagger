@@ -9,6 +9,7 @@ use File::Copy;
 use File::Basename;
 use File::Find::Rule;
 use YAML;
+use Storable;
 use UNIVERSAL::require;
 
 use base qw( Class::Accessor::Fast );
@@ -44,7 +45,7 @@ sub bootstrap {
     } elsif (ref($opt{config}) && ref($opt{config}) eq 'SCALAR') {
         $config = YAML::Load(${$opt{config}});
     } elsif (ref($opt{config}) && ref($opt{config}) eq 'HASH') {
-        $config = $opt{config};
+        $config = Storable::dclone($opt{config});
     } else {
         croak "Plagger->bootstrap: $opt{config}: $!";
     }

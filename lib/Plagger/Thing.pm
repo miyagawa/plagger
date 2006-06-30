@@ -22,4 +22,24 @@ sub clone {
     $clone;
 }
 
+sub mk_date_accessors {
+    my $class = shift;
+
+    for my $key (@_) {
+        no strict 'refs';
+        *{"$class\::$key"} = sub {
+            my $obj = shift;
+            if (@_) {
+                my $date = $_[0];
+                unless (ref($date)) {
+                    $date = Plagger::Date->parse_dwim($date);
+                }
+                $obj->{$key} = $date;
+            } else {
+                return $obj->{$key};
+            }
+        };
+    }
+}
+
 1;
