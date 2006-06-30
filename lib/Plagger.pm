@@ -159,30 +159,28 @@ sub load_cache {
 sub load_plugins {
     my($self, @plugins) = @_;
 
-    if ($self->conf->{plugin_path}) {
-        for my $path (@{ $self->conf->{plugin_path} }) {
-            opendir my $dir, $path or do {
-                $self->log(warn => "$path: $!");
-                next;
-            };
-            while (my $ent = readdir $dir) {
-                next if $ent =~ /^\./;
-                $ent = File::Spec->catfile($path, $ent);
-                if (-f $ent && $ent =~ /\.pm$/) {
-                    $self->add_plugin_path($ent);
-                } elsif (-d $ent) {
-                    my $lib = File::Spec->catfile($ent, "lib");
-                    if (-e $lib && -d _) {
-                        $self->log(debug => "Add $lib to INC path");
-                        unshift @INC, $lib;
-                    } else {
-                        my $rule = File::Find::Rule->new;
-                           $rule->file;
-                           $rule->name('*.pm');
-                        my @modules = $rule->in($ent);
-                        for my $module (@modules) {
-                            $self->add_plugin_path($module);
-                        }
+    for my $path (@{ $self->conf->{plugin_path} || [] }) {
+        opendir my $dir, $path or do {
+            $self->log(warn => "$path: $!");
+            next;
+        };
+        while (my $ent = readdir $dir) {
+            next if $ent =~ /^\./;
+            $ent = File::Spec->catfile($path, $ent);
+            if (-f $ent && $ent =~ /\.pm$/) {
+                $self->add_plugin_path($ent);
+            } elsif (-d $ent) {
+                my $lib = File::Spec->catfile($ent, "lib");
+                if (-e $lib && -d _) {
+                    $self->log(debug => "Add $lib to INC path");
+                    unshift @INC, $lib;
+                } else {
+                    my $rule = File::Find::Rule->new;
+                    $rule->file;
+                    $rule->name('*.pm');
+                    my @modules = $rule->in($ent);
+                    for my $module (@modules) {
+                        $self->add_plugin_path($module);
                     }
                 }
             }
