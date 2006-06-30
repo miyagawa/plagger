@@ -239,7 +239,11 @@ if ($^O eq 'darwin') {
         ],
         'Publish::Speech' => [
             -default => 0,
-            recommends('Mac::Speech'),
+            recommends('Mac::Carbon'),
+        ],
+        'Notify::Growl' => [
+            -default => 0,
+            recommends('Mac::Growl'),
         ],
         'Subscription::Bookmarks' => [
             -default => 0,
