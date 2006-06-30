@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 3;
+use Test::More tests => 5;
 use FindBin;
 use File::Spec;
 
@@ -49,11 +49,26 @@ my $config = {
 
 my $log; $SIG{__WARN__} = sub { $log .= "@_" };
 
+my $expect_count = 2;
+
 Plagger->bootstrap(config => $config);
 unlike $log, qr/Deleting/;
 
 Plagger->bootstrap(config => $config);
 like $log, qr/Deleting/;
+
+# Add newer entry
+unshift @{ $config->{plugins}->[0]->{config}->{entry} }, {
+    title => "foo2",
+    date => "2006-06-29 19:15:00",
+    link => "http://localhost/2/",
+};
+
+undef $log;
+$expect_count = 1;
+
+Plagger->bootstrap(config => $config);
+unlike $log, qr/Deleting/;
 
 unlink $db if -e $db;
 
@@ -71,5 +86,5 @@ sub register {
 
 sub test {
     my($self, $context, $args) = @_;
-    ::is $args->{feed}->count, 2;
+    ::is $args->{feed}->count, $expect_count;
 }
