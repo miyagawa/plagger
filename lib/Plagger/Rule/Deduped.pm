@@ -54,7 +54,6 @@ Plagger::Rule::Deduped - Rule to get Deduped entries based on the database
     rule:
       module: Deduped
       path: /tmp/var.db
-      compare_body: 1
 
 =head1 DESCRIPTION
 
