@@ -6,3 +6,4 @@
 - http://xrl\.us/\w+
 - http://qurl\.net/\w+
 - http://(?:\w+\.)?reddit\.com/goto\?
+- http://mixfeed\.jp/\?app=visitor&event=getFeed
