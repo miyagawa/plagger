@@ -16,15 +16,23 @@ sub register {
 sub update {
     my($self, $context, $args) = @_;
 
+    my $host = $self->conf->{daemon_host} || 'localhost',
+    my $port = $self->conf->{daemon_port} || 9999;
+
     my $remote = POE::Component::IKC::ClientLite::create_ikc_client(
-        port    => $self->conf->{daemon_port} || 9999,
-        ip      => $self->conf->{daemon_host} || 'localhost',
+        port    => $port,
+        ip      => $host,
         name    => "Plagger$$",
         timeout => 5,
     );
 
     unless ($remote) {
-        $context->log(error => $POE::Component::IKC::ClientLite::error);
+        my $msg = q{unable to connect to plagger-ircbot process on } 
+            . "$host:$port"
+            . q{, if you're not running plagger-ircbot, you should be able }
+            . q{to start it with the same Notify::IRC config you passed to }
+            . q{plagger. };
+        $context->log( error => $msg );
         return;
     }
 
