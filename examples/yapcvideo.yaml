@@ -1,12 +1,22 @@
+# Generate videocast feed (RSS 2.0) from archive.org search result page
+
 plugins:
+  # Subscribe to the archive.org tag search page
   - module: Subscription::Config
     config:
       feed:
          - url: http://www.archive.org/search.php?query=subject:%22yapc%22
-  - module: Aggregator::Simple
+
+  # Upgrade entry body to fulltext
   - module: Filter::EntryFullText
+
+  # Find Enclosures from entry body by looking for links to mov/mp4 files
   - module: Filter::FindEnclosures
+
+  # Issue HEAD requests to found enclosures to know HTTP Content-Length
   - module: Filter::HEADEnclosureMetadata
+
+  # Create RSS 2.0 feed out of those enclosures
   - module: Publish::Feed
     config:
       format: RSS

@@ -1,8 +1,11 @@
 global:
+  # Make plagger more verbose than default
   log:
     level: debug
 
 plugins:
+  # Subscribe to a couple of "My Feeds" on the web
+  # They could be either Feeds URL or Blog URL (with AUto-Discovery support)
   - module: Subscription::Config
     config:
       feed:
@@ -12,8 +15,8 @@ plugins:
         - http://bulknews.vox.com/
         - http://d.hatena.ne.jp/miyagawa/
 
-  - module: Aggregator::Simple
-  
+  # Create "Smart Feed" with all entries across the feeds, fresher than 7 days old
+  # Add the title "Planet Plagger" to the smartfeed
   - module: SmartFeed::All
     rule:
       module: Fresh
@@ -21,22 +24,24 @@ plugins:
     config:
       title: Planet Plagger
 
+  # Generate Planet XHTML output out of the smartfeed
+  # to the directory /tmp/planet with sixapart-std "skin"
   - module: Publish::Planet
     rule:
       expression: $args->{feed}->id eq 'smartfeed:all'
     config:
       dir: /tmp/planet
       skin: sixapart-std
-      template:
-        members_list: 1
-        style_url: http://bulknews.typepad.com/blog/styles.css
+      style_url: http://bulknews.typepad.com/blog/styles.css
 
+  # Output Atom feed for the smartfeed
   - module: Publish::Feed
     rule:
       expression:  $args->{feed}->id eq 'smartfeed:all'
     config:
       dir: /tmp/planet
 
+  # Output RSS feed for the smartfeed
   - module: Publish::Feed
     rule:
       expression:  $args->{feed}->id eq 'smartfeed:all'

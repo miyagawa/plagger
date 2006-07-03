@@ -1,27 +1,34 @@
+# Bookmark web pages "to read later" on del.icio.us
+# Send HTML emails out of those bookmarks to your inbox
+
 global:
+  # Set timezone to Tokyo
   timezone: Asia/Tokyo
 
 plugins:
+  # Add del.icio.us bookmarks tagged "toread"  
   - module: Subscription::Config
     config:
       feed:
         - http://del.icio.us/rss/miyagawa/toread
 
+  # Resolve relative links in the entry body
   - module: Filter::ResolveRelativeLink
 
+  # Upgrade entry body to fulltext. Even if upgrade fails, store the whole HTML
   - module: Filter::EntryFullText
     config:
       store_html_on_failure: 1
 
+  # Deduplicate entries using URL + datetime as a key
   - module: Filter::Rule
     rule:
-      module: Fresh
-      mtime:
-        path: /home/miyagawa/tmp/atode.mtime
-        autoupdate: 1
+      module: Deduped
 
+  # Break each entry as a feed so Gmail will send you emails per entry
   - module: Filter::BreakEntriesToFeeds
 
+  # Finally send emails to your Gmail account using localhost SMTP server
   - module: Publish::Gmail
     config:
       mailto: miyagawa@bulknews.net
@@ -29,4 +36,3 @@ plugins:
       mailroute:
         via: smtp
         host: localhost:25
-

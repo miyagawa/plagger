@@ -1,24 +1,28 @@
-plugins:
-  - module: Subscription::Config
-    config:
-      feed:
-        - http://b.hatena.ne.jp/t/plagger?mode=rss&sort=eid
-        - http://del.icio.us/rss/tag/plagger
-        - http://bloglines.com/citations?url=http%3A%2F%2Fplagger.org%2F
-        - http://www.technorati.com/watchlists/rss.html?wid=349774
-        - http://groups.google.com/group/plagger-dev/feed/rss_v2_0_msgs.xml
+# Create your own search engine by aggregating data from variouis search engines
+# and store the updated entry data to the localhost HyperEstraier
 
+plugins:
+  # Subscribe to search engines using "Plagger" as a keyword
+  # and "http://plagger.org/" as a linking URL
   - module: Subscription::Planet
     config:
       keyword: Plagger
+      url: http://plagger.org/
 
-  - module: CustomFeed::BloglinesCitations
+  # Aggregate those feeds using Xango the asynchronous crawler
   - module: Aggregator::Xango
+
+  # Fixup permalink by resolving redirector cruft to the canonicalized URL
   - module: Filter::TruePermalink
+
+  # Upgrade entry body to fulltext if possible
   - module: Filter::EntryFullText
 
+  # Create SmartFeed by merging search results into a single new feed
   - module: SmartFeed::All
 
+  # Store merged feed entries to localhost Estraier instance
+  # by using its node HTTP API
   - module: Search::Estraier
     config:
       url: http://localhost:1978/node/plagger

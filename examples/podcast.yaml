@@ -1,25 +1,33 @@
 # synchronize Podcasts from Odeo subscription, download all the
 # episodes, rewrite enclosure URL and republish as RSS 2.0 podcast
-# locally
+
 plugins:
+  # Subscribe to Odeo RSS feed of the user TatsuhikoMiyagawa
   - module: Subscription::Odeo
     config:
       account: TatsuhikoMiyagawa
 
+  # Fix permalinks to the enclosures file (by resolving redirector cruft etc.)
   - module: Filter::TruePermalink
 
+  # Download enclosures to the local directory
   - module: Filter::FetchEnclosure
     config:
       dir: /home/miyagawa/public_html/podcasts
 
+  # Rewrite downloaded enclosure's URL (file path) by replacing
+  # ".../public_html/" with ".../~miyagawa/"
+  # This way enclosure URL links to your local web server
   - module: Filter::RewriteEnclosureURL
     config:
       rewrite:
         - local: /home/miyagawa/public_html/
           url:   http://rock/~miyagawa/
 
+  # Create SmartFeed for the all entries across the feeds
   - module: SmartFeed::All
 
+  # Create a single unified odeo.xml as RSS 2.0 format
   - module: Publish::Feed
     rule:
       expression: $args->{feed}->id eq 'smartfeed:all'

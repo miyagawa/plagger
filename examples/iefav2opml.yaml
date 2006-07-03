@@ -1,10 +1,17 @@
+# Convert websites included in Win32 IE favorites to OPML file
+# by doing RSS/Atom auto-discovery
+
 global:
+  # set timezone to your local
   timezone: Asia/Tokyo
 
 plugins:
+  # Read your bookmarks by scanning IE favorites
   - module: Subscription::Bookmarks
     config:
       browser: InternetExplorer
+
+  # Output OPML file as plagger.opml in the current directory
   - module: Publish::OPML
     config:
       filename: plagger.opml

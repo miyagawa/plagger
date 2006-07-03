@@ -1,22 +1,28 @@
+# Fetch Livedoor Reader's unread items using JSON API
+# and send them as HTML email to your Gmail account
+
 global:
-  plugin_path:
-    - /home/miyagawa/plagger/plugins
-  assets_path: /home/miyagawa/plagger/assets
+  # Set timezone to your local
   timezone: Asia/Tokyo
+  # This makes Plagger log important things
   log:
     level: info
 
 plugins:
+  # Fetch Livedoor Reader unread items using their authentication scheme
+  # Mark retrieved items as "read" if the request succeeds
   - module: Subscription::LivedoorReader
     config:
       username: <your-livedoor-id>
       password: <password>
       mark_read: 1
 
+  # Add "Add to del.icio.us" Widget
   - module: Widget::Delicious
     config:
       username: miyagawa
 
+  # Send HTML emails to Gmail account using external SMTP
   - module: Publish::Gmail
     config:
       mailto:   example@gmail.com

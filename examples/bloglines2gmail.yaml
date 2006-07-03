@@ -1,12 +1,17 @@
+# Fetch Bloglines unread items using Bloglines Web Services API
+# and send HTML emails for each feed (not entry)
+
 global:
-  plugin_path:
-    - /home/miyagawa/plagger/plugins
-  assets_path: /home/miyagawa/plagger/assets
+  # Set timezone to your local one
   timezone: Asia/Tokyo
+  # this make logger logs important information
   log:
     level: info
 
 plugins:
+  # Fetch your Bloglines updated entries using Bloglines API
+  # Mark them read if the retrieval succceeds.
+  # Fetch optional metadata by using listsubs API
   - module: Subscription::Bloglines
     config:
       username: miyagawa@example.com
@@ -14,12 +19,15 @@ plugins:
       mark_read: 1
       fetch_meta: 1
 
+  # Add "Add to del.icio.us" Widget in the Email body
   - module: Widget::Delicious
     config:
       username: miyagawa
 
+  # Add "Manage Bloglines Subscription of this feed" Widget
   - module: Widget::BloglinesSubscription
 
+  # Send HTML email to your Gmail account using external SMTP server
   - module: Publish::Gmail
     config:
       mailto:   example@gmail.com

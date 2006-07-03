@@ -1,8 +1,12 @@
+# Convert XOXO XHTML subscription to OPML
+
 plugins:
+  # Create subcriptions from XOXO XHTML web page
   - module: Subscription::XOXO
     config:
       url: http://d.hatena.ne.jp/antipop/20050628/1119966355
 
+  # Convert the subscriptions to OPML format
   - module: Publish::OPML
     config:
       filename: /home/miyagawa/public_html/perl/subscription.xml

@@ -1,9 +1,12 @@
+# Create Planet web page using XOXO microformats as a subscription
+
 plugins:
+  # Create a subscription out of XOXO-compatible XHTML web page
   - module: Subscription::XOXO
     config:
       url: http://d.hatena.ne.jp/antipop/20050628/1119966355
 
-#  - module: Aggregator::Xango
+  # Create SmartFeed with entries Fresher than 7 days old
   - module: SmartFeed::All
     rule:
       module: Fresh
@@ -11,11 +14,10 @@ plugins:
     config:
       title: Planet Perl JP
 
+  # Output XHTML to public_html/perl using the default skin
   - module: Publish::Planet
     rule:
       expression: $args->{feed}->id eq 'smartfeed:all'
     config:
       dir: /home/miyagawa/public_html/perl
       skin: default
-      template:
-        members_list: 1
