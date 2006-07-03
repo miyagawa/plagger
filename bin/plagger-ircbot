@@ -36,7 +36,7 @@ POE::Component::IKC::Server->spawn(
 );
 
 msg 'creating irc component';
-POE::Component::IRC->new('bot')
+POE::Component::IRC->spawn( alias => 'bot' )
     or die "Couldn't create IRC POE session: $!";
 
 msg 'creating kernel session';
@@ -44,6 +44,7 @@ POE::Session->create(
     inline_states => {
         _start           => \&bot_start,
         _stop            => \&bot_stop,
+        connect          => \&bot_connect,
         irc_001          => \&bot_connected,
         irc_372          => \&bot_motd,
         irc_433          => \&bot_nick_taken,
@@ -91,7 +92,14 @@ sub bot_start
     $kernel->alias_set('notify_irc');
     $kernel->call( IKC => publish => notify_irc => ['update'] );
     $kernel->post( bot => register => 'all' );
-    $kernel->post(
+    $kernel->yield('connect');
+}
+
+sub bot_connect
+{
+    my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
+    msg "attempting to connect to server";
+    $kernel->post( 
         bot => connect => {
             Nick     => $config->{nickname},
             Ircname  => $config->{ircname} || $config->{nickname},
