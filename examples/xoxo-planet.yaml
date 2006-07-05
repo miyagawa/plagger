@@ -21,3 +21,5 @@ plugins:
     config:
       dir: /home/miyagawa/public_html/perl
       skin: default
+      template:
+        members_list: 1

@@ -32,7 +32,9 @@ plugins:
     config:
       dir: /tmp/planet
       skin: sixapart-std
-      style_url: http://bulknews.typepad.com/blog/styles.css
+      template:
+        members_list: 1
+        style_url: http://bulknews.typepad.com/blog/styles.css
 
   # Output Atom feed for the smartfeed
   - module: Publish::Feed
