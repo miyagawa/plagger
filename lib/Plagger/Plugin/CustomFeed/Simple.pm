@@ -4,6 +4,7 @@ use base qw( Plagger::Plugin );
 
 use Encode;
 use HTML::TokeParser;
+use HTML::ResolveLink;
 use Plagger::UserAgent;
 use Plagger::Util qw( decode_content extract_title );
 
@@ -42,6 +43,9 @@ sub aggregate {
 
     my $content = decode_content($res);
     my $title   = extract_title($content);
+
+    my $resolver = HTML::ResolveLink->new(base => $url);
+    $content = $resolver->resolve($content);
 
     my $feed = Plagger::Feed->new;
     $feed->title($title);
