@@ -1,0 +1,5 @@
+# http://www.juno.co.uk/
+author: youpy
+handle: http://www.juno.co.uk/products/
+extract: <div id="topbar"><h3>(.*?)</h3>.*(<div id="productdataimage1">.*?</div>.*?<div id="tracklistcontainer">.*?</div>)
+extract_capture: title body
