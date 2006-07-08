@@ -59,7 +59,7 @@ sub publish_feed {
         $entry->author($e->author);
 
         if ($e->has_enclosure) {
-            for my $enclosure ($e->enclosures) {
+            for my $enclosure (grep { defined $_->url && !$_->is_inline } $e->enclosures) {
                 $entry->add_enclosure({
                     url    => $enclosure->url,
                     length => $enclosure->length,
