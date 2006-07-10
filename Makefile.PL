@@ -47,7 +47,7 @@ features(
     ],
     'Liberal XML parsing' => [
         -default => 1,
-        recommends('XML::Liberal', 0.11),
+        recommends('XML::Liberal', 0.13),
         recommends('XML::RSS::Liberal'),
     ],
 );
