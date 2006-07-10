@@ -13,11 +13,6 @@ use XML::Feed::RSS;
 
 $XML::Feed::RSS::PREFERRED_PARSER = first { $_->require } qw( XML::RSS::Liberal XML::RSS::LibXML XML::RSS );
 
-eval { require XML::Liberal };
-if (!$@ && $XML::Liberal::VERSION >= 0.10) {
-    XML::Liberal->globally_override('LibXML');
-}
-
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
@@ -89,6 +84,14 @@ sub handle_feed {
 
     my $args = { content => $$xml_ref };
     $context->run_hook('aggregator.filter.feed', $args);
+
+    # override XML::LibXML with Liberal
+    my $sweeper; # XML::Liberal >= 0.13
+
+    eval { require XML::Liberal };
+    if (!$@ && $XML::Liberal::VERSION >= 0.10) {
+        $sweeper = XML::Liberal->globally_override('LibXML');
+    }
 
     my $remote = eval { XML::Feed->parse(\$args->{content}) };
 
