@@ -21,8 +21,6 @@ plugins:
 
   # Add "Add to del.icio.us" Widget in the Email body
   - module: Widget::Delicious
-    config:
-      username: miyagawa
 
   # Add "Manage Bloglines Subscription of this feed" Widget
   - module: Widget::BloglinesSubscription

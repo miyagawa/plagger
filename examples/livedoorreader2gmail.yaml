@@ -19,8 +19,6 @@ plugins:
 
   # Add "Add to del.icio.us" Widget
   - module: Widget::Delicious
-    config:
-      username: miyagawa
 
   # Send HTML emails to Gmail account using external SMTP
   - module: Publish::Gmail

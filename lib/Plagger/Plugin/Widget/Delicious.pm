@@ -21,7 +21,8 @@ sub add {
 
 sub html {
     my($self, $entry) = @_;
-    my $uri = URI->new('http://del.icio.us/' . $self->conf->{username});
+    my $uri = URI->new('http://del.icio.us/post');
+
     my %query;
     $query{url}   = $entry->permalink;
     $query{title} = encode('utf-8', $entry->title);
@@ -44,9 +45,7 @@ Plagger::Plugin::Widget::Delicious - Widget to post to del.icio.us
 
 =head1 SYNOPSIS
 
-   module: Widget::Delicious
-   config:
-     username: miyagawa
+  - module: Widget::Delicious
 
 =head1 DESCRIPTION
 
@@ -56,10 +55,6 @@ modules output.
 =head1 CONFIG
 
 =over 4
-
-=item username
-
-Your del.icio.us username. Required.
 
 =item tags
 
