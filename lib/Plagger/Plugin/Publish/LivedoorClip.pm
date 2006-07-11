@@ -107,7 +107,7 @@ Plagger::Plugin::Publish::LivedoorClip - Post to livedoor Clip automatically
 
 =head1 SYNOPSIS
 
-  - module: Publish::LivedoorClip.pm
+  - module: Publish::LivedoorClip
     config:
       livedoor_id: your-username
       password: your-password
