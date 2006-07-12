@@ -159,7 +159,10 @@ sub load_cache {
 sub load_plugins {
     my($self, @plugins) = @_;
 
-    for my $path (@{ $self->conf->{plugin_path} || [] }) {
+    my $plugin_path = $self->conf->{plugin_path} || [];
+       $plugin_path = [ $plugin_path ] unless ref $plugin_path;
+
+    for my $path (@$plugin_path) {
         opendir my $dir, $path or do {
             $self->log(warn => "$path: $!");
             next;
