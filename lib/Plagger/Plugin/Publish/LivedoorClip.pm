@@ -21,6 +21,7 @@ sub initialize {
     unless ($self->{mech}) {
         my $mech = Plagger::Mechanize->new;
         $mech->agent_alias('Windows IE 6');
+        $mech->quiet(1);
         $self->{mech} = $mech;
     }
     $self->login_livedoor_clip;
@@ -55,13 +56,15 @@ sub add_entry {
         eval { $self->{mech}->submit_form(form_name => 'clip') };
         if ($@) {
            $context->log(info => "can't submit: " . $args->{entry}->link);
+        } else {
+            $context->log(info => "Post entry success.");
         }
     } else {
        $context->log(info => "fail to clip $add_url HTTP Status: " . $res->code);
     }
  
     my $sleeping_time = $self->conf->{interval} || 3;
-    $context->log(info => "Post entry success. sleep $sleeping_time.");
+    $context->log(info => "sleep $sleeping_time.");
     sleep( $sleeping_time );
 }
 
@@ -103,7 +106,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Publish::LivedoorClip - Post to livedoor Clip automatically
+Plagger::Plugin::Publish::LivedoorClip - Post to livedoor clip automatically
 
 =head1 SYNOPSIS
 
@@ -126,6 +129,6 @@ Kazuhiro Osawa, Koichi Taniguchi
 
 =head1 SEE ALSO
 
-L<Plagger>, L<Plagger::Plugin::Publish::HatenaBookmark.pm>, L<Plagger::Mechanize>
+L<Plagger>, L<Plagger::Plugin::Publish::HatenaBookmark>, L<Plagger::Mechanize>
 
 =cut
