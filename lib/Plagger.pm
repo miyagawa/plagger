@@ -5,6 +5,7 @@ our $VERSION = '0.7.3';
 use 5.8.1;
 use Carp;
 use Data::Dumper;
+use Encode;
 use File::Copy;
 use File::Basename;
 use File::Find::Rule;
@@ -53,6 +54,10 @@ sub bootstrap {
     $self->load_include($config);
     $self->{conf} = $config->{global};
     $self->{conf}->{log} ||= { level => 'debug' };
+
+    if (eval { require Term::Encoding }) {
+        $self->{conf}->{log}->{encoding} ||= Term::Encoding::get_encoding;
+    }
 
     no warnings 'redefine';
     local *Plagger::context = sub { $self };
@@ -366,8 +371,11 @@ sub log {
         $caller ||= caller(0);
     }
 
-    chomp($msg);
     if ($self->should_log($level)) {
+        chomp($msg);
+        if ($self->{log}->{encoding}) {
+            $msg = Encode::encode($self->{log}->{encoding}, $msg);
+        }
         warn "$caller [$level] $msg\n";
     }
 }
