@@ -44,6 +44,13 @@ sub aggregate {
     $earnings_entry->body( $mech->earnings_html);
     $feed->add_entry($earnings_entry);
 
+    my $orders_entry = Plagger::Entry->new;
+    $orders_entry->title('注文レポート');
+    $orders_entry->link('https://associates.amazon.co.jp/gp/associates/network/reports/report.html');
+    $orders_entry->date( Plagger::Date->now() );
+    $orders_entry->body( $mech->orders_html);
+    $feed->add_entry($orders_entry);
+  
     $context->update->add($feed);
 }
 
@@ -102,6 +109,21 @@ sub earnings_html {
         $html = $1;
     }
     if ($content =~ m!(<table class="earningsReportSummary">.*?</table>)!is) {
+        $html .= $1;
+    }
+    return $html;
+}
+
+sub orders_html {
+    my $self = shift;
+    my $html;
+    $self->mech->follow_link(url_regex => qr/report\.html.*?ordersReport/);
+    $self->mech->submit_form(form_number => 8);
+    my $content = $self->mech->content;
+    if ($content =~ m!(<table class="report" id="ordersReport">.*?</table>)!is) {
+        $html = $1;
+    }
+    if ($content =~ m!(<table class="ordersReportSummary">.*?</table>)!is) {
         $html .= $1;
     }
     return $html;
