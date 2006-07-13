@@ -5,7 +5,7 @@ our $VERSION = '0.7.3';
 use 5.8.1;
 use Carp;
 use Data::Dumper;
-use Encode;
+use Encode ();
 use File::Copy;
 use File::Basename;
 use File::Find::Rule;
@@ -56,7 +56,7 @@ sub bootstrap {
     $self->{conf}->{log} ||= { level => 'debug' };
 
     if (eval { require Term::Encoding }) {
-        $self->{conf}->{log}->{encoding} ||= Term::Encoding::get_encoding;
+        $self->{conf}->{log}->{encoding} ||= Term::Encoding::get_encoding();
     }
 
     no warnings 'redefine';
@@ -374,6 +374,7 @@ sub log {
     if ($self->should_log($level)) {
         chomp($msg);
         if ($self->{log}->{encoding}) {
+            $msg = Encode::decode_utf8($msg) unless utf8::is_utf8($msg);
             $msg = Encode::encode($self->{log}->{encoding}, $msg);
         }
         warn "$caller [$level] $msg\n";
