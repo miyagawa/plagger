@@ -36,9 +36,7 @@ sub add_entry {
 
     my $summary;
     if ($self->conf->{post_body}) {
-        $summary = encode('utf-8', $tag_string . $args->{entry}->body_text); # xxx should be summary
-    } else {
-        $summary = encode('utf-8', $tag_string);
+        $summary = encode('utf-8', $args->{entry}->body_text); # xxx should be summary
     }
 
     my $uri = URI->new('http://clip.livedoor.com/clip/add');
