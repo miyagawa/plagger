@@ -224,12 +224,31 @@ sub handle {
 
 sub extract {
     my($self, $args) = @_;
+    my $data;
 
     if (my @match = $args->{content} =~ /$self->{extract}/s) {
         my @capture = split /\s+/, $self->{extract_capture};
-        my $data;
         @{$data}{@capture} = @match;
+    }
 
+    if ($self->{extract_xpath}) {
+        eval { require HTML::TreeBuilder::XPath };
+        if ($@) {
+            Plagger->context->log(error => "HTML::TreeBuilder::XPath is required. $@");
+            return;
+        }
+
+        my $tree = HTML::TreeBuilder::XPath->new;
+        $tree->parse($args->{content});
+        $tree->eof;
+
+        for my $capture (keys %{$self->{extract_xpath}}) {
+            my @children = $tree->findnodes($self->{extract_xpath}->{$capture});
+            $data->{$capture} = $children[0]->as_HTML;
+        }
+    }
+
+    if ($data) {
         if ($self->{extract_after_hook}) {
             eval $self->{extract_after_hook};
             Plagger->context->error($@) if $@;
