@@ -28,6 +28,7 @@ requires('XML::Feed', 0.08);
 requires('XML::LibXML');
 requires('XML::Atom', 0.19);
 requires('XML::RSS::LibXML', 0.20);
+requires('Encode', 2.10);
 requires('Term::Encoding');
 
 build_requires(Test::More => 0.42);
