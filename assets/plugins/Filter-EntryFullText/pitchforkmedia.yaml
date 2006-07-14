@@ -1,0 +1,5 @@
+# http://www.pitchforkmedia.com/
+author: youpy
+handle: http://.*pitchforkmedia\.com/article/
+extract_xpath:
+  body: //div[contains(@class, "_item")]
