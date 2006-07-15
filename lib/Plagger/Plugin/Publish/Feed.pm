@@ -10,9 +10,7 @@ use XML::Feed::Entry;
 use XML::RSS::LibXML;
 use File::Spec;
 
-# xxx ugh
-$XML::Feed::RSS::PREFERRED_PARSER =
-    $XML::RSS::LibXML::VERSION >= 0.16 ? "XML::RSS::LibXML" : "XML::RSS";
+$XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
 
 sub register {
     my($self, $context) = @_;
