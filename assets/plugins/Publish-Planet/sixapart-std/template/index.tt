@@ -23,7 +23,7 @@
         <div id="pagebody-inner" class="pkg">
           <div id="alpha">
             <div id="alpha-inner" class="pkg">
-              [% FOREACH entry IN feed.entries %]
+              [% FOREACH entry = feed.entries %]
               <a id="[% entry.id %]"></a>
               <div class="entry" id="entry-[% entry.id %]">
                 <h3 class="entry-header">
@@ -61,7 +61,7 @@
                 <h2 class="module-header">Subscriptions</h2>
                 <div class="module-content">
                   <ul class="module-list">
-                    [% FOREACH member IN members %]
+                    [% FOREACH member = members %]
                     <li class="module-list-item">
                     <a  href="[% member.link | html %]">[% member.title | html %]</a>
                     </li>

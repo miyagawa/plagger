@@ -20,7 +20,7 @@
 
     [% IF members_list %]
       <ul id="members-list">
-        [% FOREACH member IN members %]
+        [% FOREACH member = members %]
           <li class="member">
             <a class="member-link" href="[% member.link | html %]">[% member.title | html %]</a>
           </li>
@@ -28,7 +28,7 @@
       </ul>
     [% END %]
 
-    [% FOREACH entry IN feed.entries %]
+    [% FOREACH entry = feed.entries %]
       <div class="entry">
         <div class="entry-header">
           <div class="entry-title">

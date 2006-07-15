@@ -6,7 +6,7 @@
 </head>
 <body>
 <outline title="Subscriptions">
-[% FOREACH feed IN feeds -%]
+[% FOREACH feed = feeds -%]
 <outline title="[% feed.title | html %]" htmlUrl="[% feed.link | html %]" type="rss" xmlUrl="[% feed.url | html %]" />
 [% END -%]
 </outline>
