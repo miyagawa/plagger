@@ -6,7 +6,7 @@ all_from('lib/Plagger.pm');
 requires('Class::Accessor::Fast');
 requires('File::Find::Rule');
 requires('UNIVERSAL::require' => 0.10);
-requires('Template');
+requires('Template', 2.13);
 requires('Template::Provider::Encoding' => 0.04);
 requires('YAML' => 0.39);
 requires('Text::Tags');
@@ -51,6 +51,10 @@ features(
         -default => 1,
         recommends('XML::Liberal', 0.13),
         recommends('XML::RSS::Liberal'),
+    ],
+    'XPath support in Subscription and Feed Upgrader' => [
+        -default => 1,
+        recommends('HTML::TreeBuilder::XPath'),
     ],
 );
 
@@ -198,10 +202,6 @@ features(
     'Search::Estraier' => [
         -default => 0,
         recommends('Search::Estraier'),
-    ],
-    'Subscription::XOXO' => [
-        -default => 0,
-        recommends('HTML::TreeBuilder::XPath'),
     ],
     'Publish::2chdat' => [
         -default => 0,
