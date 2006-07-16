@@ -53,7 +53,7 @@ sub aggregate {
         my (@videos, $data, $title_flag, $tag_flag);
         while (<$fh>) {
             # get title
-            m!<div class="title">!
+            m!<div class="vtitle">!
                 and $title_flag = 1;
             m!<a href="/watch\?v=([^&]+)&search=[^>]+">(.+)</a>!
                 and do {
@@ -63,13 +63,13 @@ sub aggregate {
                         $title_flag = 0;
                     }
                 };
-            m!<img src="(http://[\w-]*static\d+(.[\w-]+)?\.youtube.com/[^">]+/1.jpg)" class="vimgSm" />!
+            m!<img src="(http://[\w-]*static\d+(.[\w-]+)?\.youtube.com/[^">]+/1.jpg)" class="vimg90" />!
                 and $data->{image}->{url} = $1;
-            m!<div class="desc">(.*)</div>!
+            m!<div class="vdesc">(.*)</div>!
                 and $data->{description} = $1;
-            m!<td><span class="grayText">Tags:</span></td>!
+            m!<div class="vtagLabel">Tags:</div>!
                 and $tag_flag = 1;
-            m!(<td><a href="/results\?search=.*)!
+            m!(<a href="/results\?search=.*)!
                 and do {
                     if($tag_flag){
                         $data->{tags} = $1;
