@@ -1,5 +1,5 @@
 author: Tatsuhiko Miyagawa
-custom_feed_handle: http://(?:www\.)?youtube\.com/(?:browse|results)
+custom_feed_handle: http://(?:www\.)?youtube\.com/(?:browse|results|my_favorites)
 custom_feed_follow_link: /watch\?v=\w+
 handle: http://(?:www\.)?youtube\.com/(?:watch)\?v=
 extract: <span class="smallLabel">Added on</span> <b class="smallText">(.*?)</b><br/>.*?<span id="vidDescBegin">\s*(.*?)\s*</span>.*?(?:<div class="vNowPlaying">.*?<img class="vimgSm" src="(http://.*?\.youtube\.com/vi/.*?/\d+\.jpg)" />)?
