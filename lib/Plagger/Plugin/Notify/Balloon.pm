@@ -27,8 +27,7 @@ sub register {
 
 sub has_balloon_notify {
     my $self = shift;
-    grep { -e File::Spec->catfile($_, 'BallonNotify.exe') }
-        split /;/, $ENV{PATH};
+    grep { -e File::Spec->catfile($_, 'BalloonNotify.exe') } File::Spec->path;
 }
 
 sub initialize {
