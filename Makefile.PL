@@ -277,6 +277,10 @@ if ($^O eq 'darwin') {
             recommends('Win32::IEFavorites', 0.03),
             recommends('Win32::Locale'),
         ],
+        'Notify::Balloon' => [
+            -default => 0,
+            recommends('Win32::Console'),
+        ],
     );
 }
 
