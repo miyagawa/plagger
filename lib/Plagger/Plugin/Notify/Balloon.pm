@@ -4,20 +4,31 @@ use base qw( Plagger::Plugin );
 
 our $VERSION = '0.01';
 
+use File::Spec;
 use Encode ();
 
 sub register {
     my($self, $context) = @_;
 
     if ($^O eq 'MSWin32') {
-        $context->register_hook(
-            $self,
-            'publish.entry' => \&notify,
-            'plugin.init'   => \&initialize,
-        );
+        if ($self->has_balloon_notify) {
+            $context->register_hook(
+                $self,
+                'publish.entry' => \&notify,
+                'plugin.init'   => \&initialize,
+            );
+        } else {
+            $context->log(error => "BalloonNotify is not in your PATH.");
+        }
     } else {
         $context->log(error => "This plugin only works on Win32 systems");
     }
+}
+
+sub has_balloon_notify {
+    my $self = shift;
+    grep { -e File::Spec->catfile($_, 'BallonNotify.exe') }
+        split /;/, $ENV{PATH};
 }
 
 sub initialize {
@@ -45,7 +56,7 @@ sub notify {
 
 sub scrub {
     my($self, $string) = @_;
-    $string =~ s/\s+/ /;
+    $string =~ s/\s+/ /g;
     Encode::encode($self->conf->{encoding}, $string);
 }
 
@@ -65,6 +76,17 @@ Plaggr::Plugin::Notify::Balloon - Notify feed updates using Win32 BalloonNotify
 
 This plugin uses Windows Balloon notification system to notify feed
 updates to users.
+
+You need to install BallonNotify.exe command line tool from
+L<http://www.gertrud.jp/soft/balloonnotify.html>.
+
+=head1 TODO
+
+=over 4
+
+=item Rewrite using Win32::GUI
+
+=back
 
 =head1 AUTHOR
 
