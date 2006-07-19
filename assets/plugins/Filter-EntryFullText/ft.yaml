@@ -1,0 +1,7 @@
+# Financial Times
+#
+author: Manabu Ishii
+handle: http://www\.ft\.com/
+extract: <div class="ft-story-header"><h2>(.*?)</h2>(.*?)<div class="freestyle track-story fixed">
+extract_capture: title body
+

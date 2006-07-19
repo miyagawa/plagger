@@ -1,6 +1,6 @@
 #
 #
 author: Manabu Ishii
-handle: http://www\.theinquirer\.net/\?article
+handle: http://www\.theinquirer\.net/default.aspx\?article
 extract: <span id="article_body_title">(.*?)</span>.*?<DIV id="article_body_content">(.*?)</DIV>
 extract_capture: title body
