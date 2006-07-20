@@ -281,6 +281,10 @@ if ($^O eq 'darwin') {
             -default => 0,
             recommends('Win32::Console'),
         ],
+        'Publish::PowerPoint' => [
+            -default => 0,
+            recommends('Win32::PowerPoint'),
+        ],
     );
 }
 
