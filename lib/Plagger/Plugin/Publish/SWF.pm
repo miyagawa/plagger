@@ -26,6 +26,8 @@ sub feed {
     }
     my $movie = $self->create_stage($context, $args);
     $movie->save($file);
+    $context->log(info => "SWF file saved as $file");
+
     return;
 }
 
@@ -91,8 +93,7 @@ AS_END
 
     my $page = 0;
     for my $entry ($args->{feed}->entries) {
-        $page++;
-        $self->create_page($movie,$page,$entry->title,$entry->body_text);
+        $self->create_page($movie, ++$page, $entry->title, $entry->body_text);
     }
 
     $movie;
@@ -100,14 +101,15 @@ AS_END
 
 sub create_page {
     my($self, $movie, $page, $title, $body) = @_;
+
+    $self->log(debug => "Creating page $page ($title)");
+
     my $font = $self->conf->{font};
     my $color = $self->conf->{color} || '000000';
     my $title_size = $self->conf->{title_size} || 32;
     my $body_size = $self->conf->{body_size} || 24;
 
-    if ($self->conf->{linefeed}) {
-        $body = $self->fold_body($body, $self->conf->{linefeed});
-    }
+    $body = $self->fold_body($body, $self->conf->{linefeed});
 
     my $entry_name = 'entry_text'.$page;
     my $title_name = 'title_text'.$page;
@@ -137,7 +139,7 @@ sub fold_body {
 
     if (eval { require Text::WrapI18N }) {
         local $Text::WrapI18N::columns = $length;
-        return Text::WrapI18N::wrap('', '', Encode::encode_utf8($str));
+        return Encode::decode_utf8( Text::WrapI18N::wrap('', '', Encode::encode_utf8($str)) );
     } else {
         require Text::Wrap;
         local $Text::Wrap::columns = $length + 1;
