@@ -6,39 +6,32 @@ use File::Spec;
 use SWF::Builder;
 use Jcode;
 
-
-sub register{
-    my ($self,$context) = @_;
+sub register {
+    my($self, $context) = @_;
     $context->register_hook(
         $self,
         'publish.feed' => \&feed,
     );
 }
 
-sub feed{
-    my ($self,$context,$args) = @_;
+sub feed {
+    my($self, $context, $args) = @_;
     my $dir = $self->conf->{dir} || 'swf';
     unless (-e $dir && -d _) {
         mkdir $dir, 0755 or $context->error("mkdir $dir: $!");
     }
+
     my $file = File::Spec->catfile($dir, $args->{feed}->id . ".swf");
-    my $id = $args->{feed}->id;
-    unless($self->conf->{font}){
-         $context->error("Error font file  $!");
+    unless ($self->conf->{font}) {
+         $context->error("'font' config is missing");
     }
-    my $movie = $self->create_stage($context,$args);
+    my $movie = $self->create_stage($context, $args);
     $movie->save($file);
     return;
 }
 
-sub convert{
-    my ($self, $str) = @_;
-    utf8::decode($str) unless utf8::is_utf8($str);
-    return $str;
-}
-
-sub create_stage{
-    my ($self,$context,$args) = @_;
+sub create_stage {
+    my($self, $context, $args) = @_;
     my $bgcolor = $self->conf->{bgcolor} || 'ffffff';
     my $width = $self->conf->{width} || 500;
     my $height = $self->conf->{height} || 500;
@@ -97,27 +90,23 @@ AS_END
     $pre_shape->place;
     $new_pre_mc->place->name('pre_mc');
 
-    my $page=0;
+    my $page = 0;
     for my $entry ($args->{feed}->entries) {
         $page++;
-        $self->create_page($movie,$page,$entry->title,$entry->body);
+        $self->create_page($movie,$page,$entry->title,$entry->body_text);
     }
 
     $movie;
 }
 
-sub create_page(){
-    my ($self,$movie,$page,$title,$body) = @_;
+sub create_page {
+    my($self, $movie, $page, $title, $body) = @_;
     my $font = $self->conf->{font};
     my $color = $self->conf->{color} || '000000';
     my $title_size = $self->conf->{title_size} || 32;
     my $body_size = $self->conf->{body_size} || 24;
 
-    $title = $self->convert($title);
-
-    $body =~ s/<.+?>//g;
     $body = $self->linefeed($body);
-    $body = $self->convert($body);
 
     my $entry_name = 'entry_text'.$page;
     my $title_name = 'title_text'.$page;
@@ -140,8 +129,8 @@ sub create_page(){
     $entry_text_ins->moveto(10,50);
 }
 
-sub linefeed{
-    my ($self,$str,$n)=@_;
+sub linefeed {
+    my($self, $str, $n) = @_;
     my $linefeed = $self->conf->{linefeed} || 30;
     my @line = split "\n",$str;
     my $line;
@@ -164,17 +153,17 @@ Plagger::Plugin::Publish::SWF - Publish feeds as SWF
 
 =head1 SYNOPSIS
 
-- module: Publish::SWF
-   config:
-     dir: swf
-     font: HONYA-JI.ttf
-     color: ff0084
-     width: 500
-     height: 500
-     linefeed: 30
-     bgcolor: ffffff
-     title_size: 32
-     body_size: 24
+  - module: Publish::SWF
+    config:
+      dir: swf
+      font: HONYA-JI.ttf
+      color: ff0084
+      width: 500
+      height: 500
+      linefeed: 30
+      bgcolor: ffffff
+      title_size: 32
+      body_size: 24
 
 =head1 DESCRIPTION
 
