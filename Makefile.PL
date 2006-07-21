@@ -227,6 +227,10 @@ features(
         -default => 0,
         recommends('Audio::Beep'),
     ],
+    'Publish::SWF' => [
+        -default => 0,
+        recommends('SWF::Builder'),
+    ],
 );
 
 if ($^O eq 'darwin') {
