@@ -4,7 +4,6 @@ use strict;
 use base qw(Plagger::Plugin);
 use File::Spec;
 use SWF::Builder;
-use Jcode;
 
 sub register {
     my($self, $context) = @_;
@@ -106,7 +105,9 @@ sub create_page {
     my $title_size = $self->conf->{title_size} || 32;
     my $body_size = $self->conf->{body_size} || 24;
 
-    $body = $self->linefeed($body);
+    if ($self->conf->{linefeed}) {
+        $body = $self->fold_body($body, $self->conf->{linefeed});
+    }
 
     my $entry_name = 'entry_text'.$page;
     my $title_name = 'title_text'.$page;
@@ -129,17 +130,19 @@ sub create_page {
     $entry_text_ins->moveto(10,50);
 }
 
-sub linefeed {
-    my($self, $str, $n) = @_;
-    my $linefeed = $self->conf->{linefeed} || 30;
-    my @line = split "\n",$str;
-    my $line;
-    for my $l (@line){
-        my @l = Jcode->new($l)->jfold($linefeed);
-        $line .= join "\n",@l;
-        $line .= "\n";
+sub fold_body {
+    my($self, $str, $length) = @_;
+
+    $length ||= 30;
+
+    if (eval { require Text::WrapI18N }) {
+        local $Text::WrapI18N::columns = $length;
+        return Text::WrapI18N::wrap('', '', Encode::encode_utf8($str));
+    } else {
+        require Text::Wrap;
+        local $Text::Wrap::columns = $length + 1;
+        return Text::Wrap::wrap('', '', $str);
     }
-    $line;
 }
 
 1;
