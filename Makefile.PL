@@ -230,6 +230,7 @@ features(
     'Publish::SWF' => [
         -default => 0,
         recommends('SWF::Builder'),
+        recommends('Text::WrapI18N'),
     ],
 );
 
