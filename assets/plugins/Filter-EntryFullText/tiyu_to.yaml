@@ -1,0 +1,5 @@
+# upgrade http://tiyu.to/index.xml
+author: Masafumi Otsune
+handle: http://tiyu\.to/news/
+extract: <A name="\d\d_\d\d_\d\d">(.*?)</A>(.*?)<P align="right">
+extract_capture: title body

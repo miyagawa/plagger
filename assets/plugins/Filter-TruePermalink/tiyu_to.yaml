@@ -1,0 +1,3 @@
+author: Masafumi Otsune
+match: http://tiyu\.to/
+rewrite: s#http://tiyu\.to/permalink\.cgi\?file=news/(.+)#http://tiyu\.to/news/$1\.html#
