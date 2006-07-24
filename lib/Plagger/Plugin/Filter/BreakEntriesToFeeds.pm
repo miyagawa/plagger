@@ -17,6 +17,8 @@ sub entry {
     my $feed = $args->{feed}->clone;
     $feed->clear_entries;
     $feed->add_entry($args->{entry});
+    $feed->title($args->{entry}->title)
+        if $self->conf->{use_entry_title};
 
     push @{$self->{feeds}}, $feed;
 }
@@ -46,6 +48,16 @@ This plugin breaks all the updated entries into a single feed. This is
 a bit hackish plugin but allows things like sending a single mail
 containing single entry, rather than a feed containing multiple
 entries, with Publish::Gmail plugin.
+
+=head1 CONFIG
+
+=over 4
+
+=item use_entry_title
+
+Use entry's title as a newly genrated feed title. Defaults to 0.
+
+=back
 
 =head1 AUTHOR
 
