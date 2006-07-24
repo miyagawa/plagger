@@ -20,8 +20,7 @@ chdir $checkout;
 
 rewrite_version("lib/Plagger.pm", $version);
 
-mkdir "inc/.author", 0777; # to create META.yml
-system("yes n | perl Makefile.PL");
+system("perl Makefile.PL --skip");
 system("make manifest");
 system("make test");
 
