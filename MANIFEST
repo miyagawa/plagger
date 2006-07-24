@@ -31,6 +31,7 @@ assets/plugins/Filter-EntryFullText/drecom.yaml
 assets/plugins/Filter-EntryFullText/eweek.yaml
 assets/plugins/Filter-EntryFullText/extremetech.yaml
 assets/plugins/Filter-EntryFullText/forbes.yaml
+assets/plugins/Filter-EntryFullText/ft.yaml
 assets/plugins/Filter-EntryFullText/gyao_content.pl
 assets/plugins/Filter-EntryFullText/hatena_diary.pl
 assets/plugins/Filter-EntryFullText/headlines_yahoo_jp.yaml
@@ -40,6 +41,7 @@ assets/plugins/Filter-EntryFullText/indiesmusic_com.yaml
 assets/plugins/Filter-EntryFullText/itmedia.yaml
 assets/plugins/Filter-EntryFullText/itpro_nikkeibp.yaml
 assets/plugins/Filter-EntryFullText/japan_zdnet_com.yaml
+assets/plugins/Filter-EntryFullText/juno.yaml
 assets/plugins/Filter-EntryFullText/kyodo.yaml
 assets/plugins/Filter-EntryFullText/kyoko_shimbun_news.yaml
 assets/plugins/Filter-EntryFullText/kyoto-np.yaml
@@ -62,6 +64,7 @@ assets/plugins/Filter-EntryFullText/okinawatimes_day.yaml
 assets/plugins/Filter-EntryFullText/opentechpress_jp.yaml
 assets/plugins/Filter-EntryFullText/osaka_nikkansports.yaml
 assets/plugins/Filter-EntryFullText/physorg.yaml
+assets/plugins/Filter-EntryFullText/pitchforkmedia.yaml
 assets/plugins/Filter-EntryFullText/plaza_rakuten.yaml
 assets/plugins/Filter-EntryFullText/pmachine.pl
 assets/plugins/Filter-EntryFullText/pya.yaml
@@ -85,6 +88,7 @@ assets/plugins/Filter-EntryFullText/theregister.yaml
 assets/plugins/Filter-EntryFullText/thinkit_co_jp.yaml
 assets/plugins/Filter-EntryFullText/ti-da_net.yaml
 assets/plugins/Filter-EntryFullText/til_info_apple_co_jp.yaml
+assets/plugins/Filter-EntryFullText/tiyu_to.yaml
 assets/plugins/Filter-EntryFullText/usatoday.yaml
 assets/plugins/Filter-EntryFullText/usewill_com_diary.pl
 assets/plugins/Filter-EntryFullText/wired_com.yaml
@@ -120,12 +124,14 @@ assets/plugins/Filter-TruePermalink/imenu.yaml
 assets/plugins/Filter-TruePermalink/joltmark.yaml
 assets/plugins/Filter-TruePermalink/msn-mainichi.yaml
 assets/plugins/Filter-TruePermalink/namaan.yaml
+assets/plugins/Filter-TruePermalink/oreillynet_com.yaml
 assets/plugins/Filter-TruePermalink/podtrac.yaml
 assets/plugins/Filter-TruePermalink/rd_yahoo.yaml
 assets/plugins/Filter-TruePermalink/reddit.yaml
 assets/plugins/Filter-TruePermalink/redirectors.yaml
 assets/plugins/Filter-TruePermalink/refrss.yaml
 assets/plugins/Filter-TruePermalink/tech_souken.yaml
+assets/plugins/Filter-TruePermalink/tiyu_to.yaml
 assets/plugins/Filter-TruePermalink/yahoo_blog_search.yaml
 assets/plugins/Filter-TruePermalink/yahoo_blog_search2.yaml
 assets/plugins/Filter-TruePermalink/yahoo_us_rd.yaml
@@ -213,6 +219,7 @@ lib/Plagger/Plugin/CustomFeed/iTunesRecentPlay.pm
 lib/Plagger/Plugin/CustomFeed/Mailman.pm
 lib/Plagger/Plugin/CustomFeed/Mixi.pm
 lib/Plagger/Plugin/CustomFeed/MixiDiarySearch.pm
+lib/Plagger/Plugin/CustomFeed/PerlMonks.pm
 lib/Plagger/Plugin/CustomFeed/POP3.pm
 lib/Plagger/Plugin/CustomFeed/Simple.pm
 lib/Plagger/Plugin/CustomFeed/SVNLog.pm
@@ -269,6 +276,7 @@ lib/Plagger/Plugin/Filter/Thumbnail.pm
 lib/Plagger/Plugin/Filter/TruePermalink.pm
 lib/Plagger/Plugin/Filter/TTP.pm
 lib/Plagger/Plugin/Filter/URLBL.pm
+lib/Plagger/Plugin/Notify/Balloon.pm
 lib/Plagger/Plugin/Notify/Beep.pm
 lib/Plagger/Plugin/Notify/Campfire.pm
 lib/Plagger/Plugin/Notify/Eject.pm
@@ -292,6 +300,7 @@ lib/Plagger/Plugin/Publish/Gmail.pm
 lib/Plagger/Plugin/Publish/HatenaBookmark.pm
 lib/Plagger/Plugin/Publish/IMAP.pm
 lib/Plagger/Plugin/Publish/JavaScript.pm
+lib/Plagger/Plugin/Publish/LivedoorClip.pm
 lib/Plagger/Plugin/Publish/Maildir.pm
 lib/Plagger/Plugin/Publish/MT.pm
 lib/Plagger/Plugin/Publish/MTWidget.pm
@@ -302,10 +311,12 @@ lib/Plagger/Plugin/Publish/PDF.pm
 lib/Plagger/Plugin/Publish/Pipe.pm
 lib/Plagger/Plugin/Publish/Planet.pm
 lib/Plagger/Plugin/Publish/Playlog.pm
+lib/Plagger/Plugin/Publish/PowerPoint.pm
 lib/Plagger/Plugin/Publish/PSP.pm
 lib/Plagger/Plugin/Publish/Speech.pm
 lib/Plagger/Plugin/Publish/Speech/MacOSX.pm
 lib/Plagger/Plugin/Publish/Speech/Win32.pm
+lib/Plagger/Plugin/Publish/SWF.pm
 lib/Plagger/Plugin/Publish/Takahashi.pm
 lib/Plagger/Plugin/Search/Estraier.pm
 lib/Plagger/Plugin/Search/Namazu.pm

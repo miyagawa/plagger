@@ -1,5 +1,46 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.4 (2006/07/24) ==
+
+=== Core ===
+
+ * Support parsing multiple enclosures in RSS 2.0
+ * require URI::Fetch 0.071 which is not broken
+ * Aggregator::Simple: More Liberal RSS 2.0 detection code
+ * Rule::Deduped: Use entry's datetime as a part of key if it's there
+ * Purge cache on the global destruction phase of every run. #306
+ * Fix Mac dependencies 
+ * RSS 2.0 feed will have the 1st enclosure with the URL defined. #325
+ * CustomFeed::Simple now resolves relative link before parsing. #325
+ * SmartFeed now allows setting 'link' (otsune, Dave Cross)
+ * Don't override XML::LibXML with Liberal other than feed parsing. #324, #328
+ * plugin_path now can be a scalar
+ * Use Term::Encoding to detect terminal encoding automatically if available. #329
+ * Updated Encode.pm dependency for callbacks. #322
+ * Filter::EntryFullText now allows to write XPath expression to extract entry body (youpy)
+ * Replace 'FOREACH foo IN bar' with 'FOREACH foo = bar' for TT backward compatibility (cmarcelo)
+
+=== New Plugins ===
+
+ * CustomFeed::PerlMonks: Newest nodes on perlmonks (Jeff Bisbee)
+ * Publish::LivedoorClip: Post entries to Livedoor Clip (Yappo)
+ * Notify::Balloon: Notify updates using BalloonNotify on Win32 (miyagawa) 
+ * Publish::PowerPoint: Publish slides off of feeds (charsbar)
+ * Publish::SWF: Publish Flash .swf file off of feed entries (akihito)
+
+=== Plugins Updates ===
+
+ * Notify::IRC: better document, ick_taken error handling (Thanks to Jeff Bisbee), update template
+ * Notify::IRC: refactored internal code and check IKC on init (Jeff Bisbee)
+ * Subscription::LivedoorReader: Better JSON error handling
+ * CustomFeed::Debug: Now being able to set datetime
+ * Widget::Delicious: Update the post URI to v4. No username needed anymore.
+ * Widget::HatenaBookmarkUsersCount: Use image based API if XMLRPC is not enabled (default)
+ * Publish::Gmail: use permalink rather then entry.link
+ * CustomFeed::AmazonAssociateReportJP: Added ordersReport (otsune)
+ * CustomFeed::YouTube: update regular expressions (mizzy)
+ * Filter::BreakEntriesToFeeds: Added 'use_entry_title' config
+
 == 0.7.3 (2006/06/22) ==
 
 === Core ===
