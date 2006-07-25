@@ -65,7 +65,7 @@ __END__
 
 =head1 NAME
 
-Plaggr::Plugin::Notify::Balloon - Notify feed updates using Win32 BalloonNotify
+Plagger::Plugin::Notify::Balloon - Notify feed updates using Win32 BalloonNotify
 
 =head1 SYNOPSIS
 
