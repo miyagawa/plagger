@@ -1,5 +1,45 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.5 (2006/07/26) ==
+
+=== Core ===
+
+ * Merge from branches/refactoring-planet
+ * Plagger::UserAgent now deals with local files to get their MIME type correct
+ * Big refactoring done for $plugin->templatize() usage. #229
+ * Start using Test::Base for unit tests and convert most of existent tests to TB based
+ * Plagger->bootstrap() now returns $context
+ * Added $plugin->load_assets method in a base class 
+ * decode $content before feed auto-discovery to avoid HTML::Parser warnings
+ * Bump up XML::Feed requirement to 0.09 so it can generate RSS 2.0 with content:encoded. #104
+ * remove inc from svn
+ * $feed->primary_author to return feed author by invsesting entries authors 
+
+=== New Plugins ===
+
+ * Bundle::Planet: to load bunch of plugins under the table to create Planet site with a few lines of config
+ * Filter::StripTagsFromTitle: Strip tags found in title. #289
+ * Filter::HTMLScrubber: standalone HTML filter to scrub HTML, merged from feature-server (typester)
+ * Publish::FOAFRoll: generate foafroll RDF ala Planet
+ 
+=== Plugin Updates ===
+
+ * Publish::Planet: accept style_url as a list. #316
+ * Publish::Planet: Fixed typo in sixapart-std template. #309
+ * Publish::Planet: members_list is now deprecated and on by default
+ * Publish::Planet: Bye to HTML::Tidy and HTML::Scrubber
+ * Publish::Planet: 'skin' config is now renamed to 'theme'
+ * Publish::Planet: skip non-http URLs
+ * Subscription::Planet: add URL based search. #286
+ * Subscription::Planet: language based goruping. #288
+ * Bundle::Planet: Add OPML generation support
+ * Bundle::Planet: Add FOAFRoll generation support
+ * Aggregator::Null: fixed the fatal bug so it works
+ * Rule::Fresh: now you can use human readable duraion format like '7 days'. Requires Time::Duration::Parse
+ * Publish::Feed: 'full_content' config (defaults to 1) specified whether to publish fullcontent in the feeds
+ * Publish::Feed: now generate Atom 1.0 by default if you use XML::Atom >= 0.20
+ * Publish::OPML: Now OPML validator compatible
+
 == 0.7.4 (2006/07/24) ==
 
 === Core ===
@@ -16,7 +56,7 @@ The latest, HTML version of this document is always available at http://plagger.
  * Don't override XML::LibXML with Liberal other than feed parsing. #324, #328
  * plugin_path now can be a scalar
  * Use Term::Encoding to detect terminal encoding automatically if available. #329
- * Updated Encode.pm dependency for callbacks. #322
+ * Updated Encode.pm dependency for callbacks.
  * Filter::EntryFullText now allows to write XPath expression to extract entry body (youpy)
  * Replace 'FOREACH foo IN bar' with 'FOREACH foo = bar' for TT backward compatibility (cmarcelo)
 

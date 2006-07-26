@@ -142,6 +142,7 @@ assets/plugins/Notify-Tiarra/irc_notify.tt
 assets/plugins/Publish-CHTML/chtml_entry.tt
 assets/plugins/Publish-CHTML/chtml_feed.tt
 assets/plugins/Publish-CHTML/chtml_index.tt
+assets/plugins/Publish-FOAFRoll/foafroll.tt
 assets/plugins/Publish-Gmail/gmail_notify.tt
 assets/plugins/Publish-JavaScript/javascript.tt
 assets/plugins/Publish-MT/mt.tt
@@ -160,6 +161,8 @@ assets/plugins/Publish-Takahashi/takahashi.js
 assets/plugins/Publish-Takahashi/takahashi.tt
 assets/plugins/Search-Namazu/namazu.tt
 assets/plugins/Search-Spotlight/spotlight.tt
+assets/plugins/Subscription-Planet/default.yaml
+assets/plugins/Subscription-Planet/ja.yaml
 AUTHORS
 bin/plagger-ircbot
 bin/spotlight_comment.scpt
@@ -169,6 +172,7 @@ examples/bloglines2gmail.yaml
 examples/iefav2opml.yaml
 examples/irc.yaml
 examples/livedoorreader2gmail.yaml
+examples/planet-old.yaml
 examples/planet.yaml
 examples/podcast.yaml
 examples/search.yaml
@@ -185,8 +189,14 @@ inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Scripts.pm
+inc/Module/Install/TestBase.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
+inc/Spiffy.pm
+inc/Test/Base.pm
+inc/Test/Base/Filter.pm
+inc/Test/Builder.pm
+inc/Test/Builder/Module.pm
 inc/Test/More.pm
 lib/Plagger.pm
 lib/Plagger/Cache.pm
@@ -205,6 +215,7 @@ lib/Plagger/Plugin.pm
 lib/Plagger/Plugin/Aggregator/Null.pm
 lib/Plagger/Plugin/Aggregator/Simple.pm
 lib/Plagger/Plugin/Aggregator/Xango.pm
+lib/Plagger/Plugin/Bundle/Planet.pm
 lib/Plagger/Plugin/CustomFeed/2chSearch.pm
 lib/Plagger/Plugin/CustomFeed/AmazonAssociateReportJP.pm
 lib/Plagger/Plugin/CustomFeed/BloglinesCitations.pm
@@ -254,6 +265,7 @@ lib/Plagger/Plugin/Filter/HatenaDiaryKeywordUnlink.pm
 lib/Plagger/Plugin/Filter/HatenaFormat.pm
 lib/Plagger/Plugin/Filter/HatenaKeywordTag.pm
 lib/Plagger/Plugin/Filter/HEADEnclosureMetadata.pm
+lib/Plagger/Plugin/Filter/HTMLScrubber.pm
 lib/Plagger/Plugin/Filter/ImageInfo.pm
 lib/Plagger/Plugin/Filter/LivedoorKeywordUnlink.pm
 lib/Plagger/Plugin/Filter/Markdown.pm
@@ -270,6 +282,7 @@ lib/Plagger/Plugin/Filter/RSSTimeZoneString.pm
 lib/Plagger/Plugin/Filter/Rule.pm
 lib/Plagger/Plugin/Filter/SpamAssassin.pm
 lib/Plagger/Plugin/Filter/StripRSSAd.pm
+lib/Plagger/Plugin/Filter/StripTagsFromTitle.pm
 lib/Plagger/Plugin/Filter/TagsToTitle.pm
 lib/Plagger/Plugin/Filter/tDiaryComment.pm
 lib/Plagger/Plugin/Filter/Thumbnail.pm
@@ -296,6 +309,7 @@ lib/Plagger/Plugin/Publish/CSV.pm
 lib/Plagger/Plugin/Publish/Debug.pm
 lib/Plagger/Plugin/Publish/Delicious.pm
 lib/Plagger/Plugin/Publish/Feed.pm
+lib/Plagger/Plugin/Publish/FOAFRoll.pm
 lib/Plagger/Plugin/Publish/Gmail.pm
 lib/Plagger/Plugin/Publish/HatenaBookmark.pm
 lib/Plagger/Plugin/Publish/IMAP.pm
@@ -377,3 +391,14 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
+t/samples/delicious.xml
+t/samples/googlevideo.xml
+t/samples/hatenafotolife.rdf
+t/samples/monkey.rss
+t/samples/nasty.xml
+t/samples/non-http-link.xml
+t/samples/photocast.rss
+t/samples/rss-full.xml
+t/samples/tags-in-title.xml
+t/samples/vox.xml
+t/TestPlagger.pm
