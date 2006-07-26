@@ -37,7 +37,7 @@ sub aggregate {
     $context->log(info => "Login to pop3 server($host) succeeded.");
 
     my $msgnums = $pop->list;
-    for my $msgnum (keys %$msgnums) {
+    for my $msgnum (sort { $b <=> $a } keys %$msgnums) {
         $context->log(debug => "get the message : $msgnum");
 
         my $msg = $pop->get($msgnum);
@@ -117,6 +117,10 @@ Plagger::Plugin::CustomFeed::POP3 - Custom feed for POP3
 =head1 AUTHOR
 
 Tokuhiro Matsuno <tokuhiro at mobilefactory.jp>
+
+=head1 THANKS TO
+
+    grzm
 
 =head1 SEE ALSO
 
