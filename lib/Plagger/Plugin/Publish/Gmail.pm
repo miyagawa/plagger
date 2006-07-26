@@ -64,7 +64,7 @@ sub notify {
         }
     }
 
-    my $body = $self->templatize($context, $feed);
+    my $body = $self->templatize('gmail_notify.tt', { feed => $feed });
 
     my $cfg = $self->conf;
     $context->log(info => "Sending $subject to $cfg->{mailto}");
@@ -181,15 +181,6 @@ sub generate_tag {
 sub enclosure_id {
     my($self, $enclosure) = @_;
     return Digest::MD5::md5_hex($enclosure->url->as_string) . '@Plagger';
-}
-
-sub templatize {
-    my($self, $context, $feed) = @_;
-    my $tt = $context->template();
-    $tt->process('gmail_notify.tt', {
-        feed => $feed,
-    }, \my $out) or $context->error($tt->error);
-    $out;
 }
 
 sub DESTORY {

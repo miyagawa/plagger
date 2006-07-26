@@ -66,7 +66,7 @@ sub store_entry {
   my $feed_title = $args->{feed}->title;
      $feed_title =~ tr/,//d;
   my $subject    = $entry->title || '(no-title)';
-  my $body       = $self->templatize($context, $args);
+  my $body       = $self->templatize('mail.tt', $args);
      $body       = encode("utf-8", $body);
   my $from       = $cfg->{mailfrom} || 'plagger@localhost';
   my $id     = md5_hex($entry->id_safe);
@@ -156,17 +156,6 @@ sub generate_tag {
     return "<$tag " .
         join(' ', map { $_ eq '/' ? '/' : sprintf qq(%s="%s"), $_, encode_entities($attr->{$_}, q(<>"')) } @$attrseq) .
         '>';
-}
-
-sub templatize {
-  my ($self, $context, $args) = @_;
-  my $tt = $context->template();
-#  $tt->process( 'gmail_notify.tt', {
-  $tt->process( 'mail.tt', {
-    entry => $args->{entry},
-    feed  => $args->{feed},
-  }, \my $out ) or $context->error($tt->error);
-  $out;
 }
 
 sub enclosure_id {

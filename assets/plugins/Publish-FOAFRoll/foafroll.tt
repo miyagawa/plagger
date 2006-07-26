@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:rss="http://purl.org/rss/1.0/"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+<foaf:Group>
+  <foaf:name>[% (conf.title || 'Plagger foafroll') | html %]</foaf:name>
+[% IF conf.link -%]
+  <foaf:homepage>[% conf.link | html %]</foaf:homepage>
+[% END -%]
+[% IF conf.url -%]
+  <rdfs:seeAlso rdf:resource="[% conf.url | html %]" />
+[% END -%]
+[% FOREACH feed = feeds -%]
+    <foaf:member>
+      <foaf:Person>
+        <foaf:name>[% feed.primary_author | html %]</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="[% feed.link | html %]">
+          <dc:title>[% feed.title | html %]</dc:title>
+          <rdfs:seeAlso>
+            <rss:channel rdf:about="[% feed.url | html %]" />
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Person>
+    </foaf:member>
+[% END %]
+  </foaf:Group>
+</rdf:RDF>
+
+
+

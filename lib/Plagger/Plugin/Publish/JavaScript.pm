@@ -30,7 +30,7 @@ sub feed {
     my $path = File::Spec->catfile($self->conf->{dir}, $file);
     $context->log(info => "writing output to $path");
 
-    my $body = $self->templatize($context, $args->{feed});
+    my $body = $self->templatize('javascript.tt', { feed => $args->{feed} });
 
     open my $out, ">:utf8", $path or $context->error("$path: $!");
     print $out $body;
@@ -61,15 +61,6 @@ sub safe_filename {
     $path =~ s![^\w\s]+!_!g;
     $path =~ s!\s+!_!g;
     $path;
-}
-
-sub templatize {
-    my($self, $context, $feed) = @_;
-    my $tt = $context->template();
-    $tt->process('javascript.tt', {
-        feed => $feed,
-    }, \my $out) or $context->error($tt->error);
-    $out;
 }
 
 1;

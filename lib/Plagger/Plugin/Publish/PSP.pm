@@ -22,22 +22,13 @@ sub add_feed {
 sub finalize {
     my($self, $context) = @_;
 
-    my $body = $self->templatize($context, $self->{__feeds});
+    my $body = $self->templatize('psp.tt', { feeds => $self->{__feeds} });
     my $file = $self->conf->{output_file};
 
     $context->log(info => "Output HTML to $file");
     open my $out, ">:utf8", $file or $context->error("$file: $!");
     print $out $body;
     close $out;
-}
-
-sub templatize {
-    my($self, $context, $feeds) = @_;
-    my $tt = $context->template();
-    $tt->process('psp.tt', {
-        feeds => $feeds,
-    }, \my $out) or $context->error($tt->error);
-    $out;
 }
 
 1;

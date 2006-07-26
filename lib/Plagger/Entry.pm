@@ -67,7 +67,7 @@ sub title_text {
 
 sub body_text {
     my $self = shift;
-    Plagger::Util::strip_html($self->body);
+    Plagger::Util::strip_html($self->body || '');
 }
 
 sub add_enclosure {

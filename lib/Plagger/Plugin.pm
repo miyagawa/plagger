@@ -10,6 +10,7 @@ use Plagger::Rule;
 use Plagger::Rules;
 
 use FindBin;
+use File::Find::Rule ();
 use File::Spec;
 
 sub new {
@@ -123,6 +124,31 @@ sub cookie_jar {
     }
 
     return $self->cache->cookie_jar;
+}
+
+sub templatize {
+    my($self, $file, $vars) = @_;
+
+    my $context = Plagger->context;
+    $vars->{context} ||= $context;
+
+    my $template = Plagger::Template->new($context, $self->class_id);
+    $template->process($file, $vars, \my $out) or $context->error($template->error);
+
+    $out;
+}
+
+sub load_assets {
+    my($self, $rule, $callback) = @_;
+
+    my $context = Plagger->context;
+
+    my $dir = $self->assets_dir;
+
+    # $rule isa File::Find::Rule
+    for my $file ($rule->in($dir)) {
+        $callback->($file);
+    }
 }
 
 1;

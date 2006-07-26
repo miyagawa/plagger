@@ -20,7 +20,7 @@ sub update {
     $context->log(info => "Notifying " . $args->{feed}->title . " to IRC");
 
     my $protocol = 'TIARRACONTROL/1.0';
-    my $tt = $context->template();
+
     my $request_template = <<END;
 NOTIFY System::SendMessage [% protocol %]\r
 Sender: [% sender %]\r
@@ -35,7 +35,7 @@ END
     # but anyway Tiarra processing message with UTF-8.
     my $charset = $self->conf->{charset} || 'UTF-8';
 
-    my $body = $self->templatize($context, $args->{feed});
+    my $body = $self->templatize('irc_notify.tt', $args);
 
     for my $line (split("\n", $body)) {
 	my $remote = IO::Socket::UNIX->new(
@@ -48,16 +48,16 @@ END
 	    return;
 	}
 
-	$tt->process(\$request_template, {
+	my $out = $self->templatize(\$request_template, {
 	    protocol => $protocol,
-	    charset => $charset,
-	    channel => $self->conf->{channel},
-	    sender => $self->conf->{sender} || "Plagger/$Plagger::VERSION (http://plagger.bulknews.net/)",
+	    charset  => $charset,
+	    channel  => $self->conf->{channel},
+	    sender   => $self->conf->{sender} || "Plagger/$Plagger::VERSION (http://plagger.bulknews.net/)",
 	    use_notice => ($self->conf->{use_notice} ? 'yes' : 'no'),
-	    text => $line,
-	}, \my $out) or $context->error($tt->error);
+	    text     => $line,
+	});
 	Encode::_utf8_off($out) if Encode::is_utf8($out);
-	Encode::from_to($out, 'utf-8', $charset) unless $charset eq 'UTF-8';
+	Encode::from_to($out, 'utf-8', $charset) unless uc($charset) eq 'UTF-8';
 	$remote->print($out);
 
 	my $resp = <$remote>;
@@ -68,15 +68,6 @@ END
 	$remote->close;
 	Time::HiRes::sleep( $self->conf->{send_interval} || 2 );
     }
-}
-
-sub templatize {
-    my($self, $context, $feed) = @_;
-    my $tt = $context->template();
-    $tt->process('irc_notify.tt', {
-        feed => $feed,
-    }, \my $out) or $context->error($tt->error);
-    $out;
 }
 
 1;

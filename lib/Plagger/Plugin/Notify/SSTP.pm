@@ -19,7 +19,7 @@ sub feed {
 
     my @messages = $title;
     for my $entry ($args->{feed}->entries) {
-        push @messages, $self->templatize($context, $entry);
+        push @messages, $self->templatize('sstp.tt', { entry => $entry });
     }
     my $message = join '\x', @messages;
     $context->log(debug => $message);
@@ -31,15 +31,6 @@ sub feed {
     );
     my $result = $sstp->send($message);
     $context->log(debug => $result);
-}
-
-sub templatize {
-    my($self, $context, $entry) = @_;
-    my $tt = $context->template();
-    $tt->process('sstp.tt', {
-        entry => $entry,
-    }, \my $out) or $context->error($tt->error);
-    $out;
 }
 
 1;

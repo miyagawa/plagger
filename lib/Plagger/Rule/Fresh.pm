@@ -23,16 +23,39 @@ sub init {
         }
         $self->{timestamp} = $mtime || 0;
     } else {
-        $self->{duration} ||= 120;
-        $self->{timestamp}  = time - ($self->{duration}) * 60;
+        eval {
+            $self->{duration}   = $self->init_duration();
+            $self->{timestamp}  = time - $self->{duration};
+        };
+        if ($@) {
+            Plagger->context->error("Parse duration error: $@");
+        }
     }
 
     $self->{compare_dt} = Plagger::Date->from_epoch(epoch => $self->{timestamp});
 }
 
+sub init_duration {
+    my $self = shift;
+
+    my $duration = $self->{duration} || 120; # minutes
+
+    if ($duration =~ /^\d+$/) {
+        # if it's all digit, the unit is minutes
+        return $duration * 60;
+    }
+
+    eval { require Time::Duration::Parse };
+    if ($@) {
+        Plagger->context->error("You need to install Time::Duration::Parse to use human readable timespec");
+    }
+
+    Time::Duration::Parse::parse_duration($self->{duration});
+}
+
 sub id {
     my $self = shift;
-    return "fresh:$self->{duration}min";
+    return "fresh:$self->{duration}sec";
 }
 
 sub as_title {
@@ -48,8 +71,8 @@ sub as_title {
 sub duration_friendly {
     my $self = shift;
     eval { require Time::Duration };
-    return $@ ? "$self->{duration} minutes"
-              : Time::Duration::duration(60 * $self->{duration});
+    return $@ ? "$self->{duration} seconds"
+              : Time::Duration::duration($self->{duration});
 }
 
 sub dispatch {
@@ -112,7 +135,12 @@ This rule matches with entries posted within 5 minutes. When you
 invoke C<plagger> script in cronjob, you'd better specify the
 same C<duration> variable with the job interval.
 
-It defaults to I<120>, which means 2 hours.
+If the supplied value contains only digit, it's parsed as minutes. You
+can write in a human readable format like:
+
+  duration: 4 hours
+
+and this module DWIMs. It defaults to I<120>, which means 2 hours.
 
 =item C<mtime>
 

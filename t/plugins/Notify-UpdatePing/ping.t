@@ -1,19 +1,32 @@
 use strict;
 use FindBin;
 use File::Spec;
-use Test::More tests => 3;
+use t::TestPlagger;
 
-use Plagger;
+test_requires('XMLRPC::Lite');
+test_requires_network;
 
-no warnings 'redefine';
+my $rpc;
+
+no warnings 'redefine', 'once';
 local *XMLRPC::Lite::call = sub {
     my($self, $method, $name, $url) = @_;
-    is $method, 'weblogUpdates.ping';
-    is $name->value, 'blog.bulknews.net';
-    is $url, 'http://blog.bulknews.net/mt/';
+    $rpc = {
+        method => $method,
+        name   => $name,
+        url    => $url,
+    };
 };
 
-Plagger->bootstrap(config => \<<CONFIG);
+sub rpc { $rpc }
+
+plan tests => 3;
+run_eval_expected;
+
+__END__
+
+=== Test 1
+--- input config rpc
 global:
   log:
     level: error
@@ -25,5 +38,10 @@ plugins:
   - module: Notify::UpdatePing
     config:
       url: http://localhost/ping
-CONFIG
+--- expected
+my $rpc = $block->input;
+is $rpc->{method}, 'weblogUpdates.ping';
+is $rpc->{name}->value, 'blog.bulknews.net';
+is $rpc->{url}, 'http://blog.bulknews.net/mt/';
+
 

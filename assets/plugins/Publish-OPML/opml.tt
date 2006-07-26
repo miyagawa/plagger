@@ -1,13 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?> 
 <opml version="1.0">
 <head>
-<title>Plagger Subscriptions</title>
+<title>[% (conf.title || 'Plagger Subscriptions') | html %]</title>
 <dateCreated>[% now.format('Mail') %]</dateCreated>
 <ownerName />
 </head>
 <body>
-<outline title="Subscriptions">
+<outline text="Subscriptions">
 [% FOREACH feed = feeds -%]
-<outline title="[% feed.title | html %]" htmlUrl="[% feed.link | html %]" type="rss" xmlUrl="[% feed.url | html %]" />
+<outline title="[% feed.title | html %]" htmlUrl="[% feed.link | html %]" text="[% (feed.primary_author || feed.title) | html %]" type="rss" xmlUrl="[% feed.url | html %]" />
 [% END -%]
 </outline>
 </body>

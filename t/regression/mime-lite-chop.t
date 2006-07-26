@@ -1,11 +1,14 @@
 use strict;
 use FindBin;
-use File::Spec;
-use Test::More tests => 2;
 
-use Plagger;
-use MIME::Lite;
-use MIME::Parser;
+use t::TestPlagger;
+
+BEGIN {
+    test_requires('MIME::Lite');
+    test_requires('MIME::Parser');
+}
+
+plan tests => 2;
 
 no warnings 'redefine';
 local *MIME::Lite::send = sub {
@@ -19,18 +22,6 @@ local *MIME::Lite::send = sub {
     my $body = Encode::decode("utf-8", $entity->parts(0)->bodyhandle->as_string);
     like $body, qr/\x{5bae}{500}/;
 };
-
-Plagger->bootstrap(config => \<<CONFIG);
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../assets
-plugins:
-  - module: CustomFeed::LongBody
-  - module: Publish::Gmail
-    config:
-      mailto: foobar\@localhost
-CONFIG
 
 package Plagger::Plugin::CustomFeed::LongBody;
 use base qw( Plagger::Plugin );
@@ -66,3 +57,23 @@ sub aggregate {
     $feed->add_entry($entry);
     $context->update->add($feed);
 }
+
+package main;
+
+run_eval_expected;
+
+__END__
+
+=== Test
+--- input config
+global:
+  log:
+    level: error
+  assets_path: $FindBin::Bin/../../assets
+plugins:
+  - module: CustomFeed::LongBody
+  - module: Publish::Gmail
+    config:
+      mailto: foobar\@localhost
+--- expected
+1

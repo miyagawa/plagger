@@ -94,4 +94,14 @@ sub dedupe_entries {
     $self->{entries} = \@entries;
 }
 
+sub primary_author {
+    my $self = shift;
+    $self->author || do {
+        # if all entries are authored by the same person, use him/her as primary
+        my %authors = map { defined $_->author ? ($_->author => 1) : () } $self->entries;
+        my @authors = keys %authors;
+        @authors == 1 ? $authors[0] : undef;
+    };
+}
+
 1;

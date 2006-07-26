@@ -22,7 +22,7 @@ sub feed {
     }
 
     my $file = File::Spec->catfile($dir, $args->{feed}->id . ".pdf");
-    my $body = $self->templatize($context, $args);
+    my $body = $self->templatize('gmail_notify.tt', $args);
     utf8::encode($body);
 
     $context->log(info => "Writing PDF to $file");
@@ -31,17 +31,6 @@ sub feed {
     $pdf->load_file(\$body);
     $pdf->convert();
     $pdf->write_file($file);
-}
-
-sub templatize {
-    my($self, $context, $args) = @_;
-
-    # HACK: share the template with Gmail ... for now
-    my $tt = $context->template();
-    $tt->process('gmail_notify.tt', $args, \my $out)
-        or $context->error($tt->error);
-
-    $out;
 }
 
 1;

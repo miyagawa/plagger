@@ -8,7 +8,7 @@ use Data::Dumper;
 use Encode ();
 use File::Copy;
 use File::Basename;
-use File::Find::Rule;
+use File::Find::Rule (); # don't import rule()!
 use YAML;
 use Storable;
 use UNIVERSAL::require;
@@ -67,6 +67,8 @@ sub bootstrap {
     $self->load_plugins(@{ $config->{plugins} || [] });
     $self->rewrite_config if @{ $self->{rewrite_tasks} };
     $self->run();
+
+    $self;
 }
 
 sub add_rewrite_task {
@@ -360,6 +362,8 @@ sub run {
 sub log {
     my($self, $level, $msg, %opt) = @_;
 
+    return unless $self->should_log($level);
+
     # hack to get the original caller as Plugin or Rule
     my $caller = $opt{caller};
     unless ($caller) {
@@ -371,14 +375,12 @@ sub log {
         $caller ||= caller(0);
     }
 
-    if ($self->should_log($level)) {
-        chomp($msg);
-        if ($self->{log}->{encoding}) {
-            $msg = Encode::decode_utf8($msg) unless utf8::is_utf8($msg);
-            $msg = Encode::encode($self->{log}->{encoding}, $msg);
-        }
-        warn "$caller [$level] $msg\n";
+    chomp($msg);
+    if ($self->{log}->{encoding}) {
+        $msg = Encode::decode_utf8($msg) unless utf8::is_utf8($msg);
+        $msg = Encode::encode($self->{log}->{encoding}, $msg);
     }
+    warn "$caller [$level] $msg\n";
 }
 
 my %levels = (
@@ -408,15 +410,15 @@ sub dumper {
 
 sub template {
     my $self = shift;
+    $self->log(error => "\$context->template is DEPRECATED NOW. use \$plugin->templatize()");
     my $plugin = shift || (caller)[0];
     Plagger::Template->new($self, $plugin->class_id);
 }
 
 sub templatize {
     my($self, $plugin, $file, $vars) = @_;
-    my $tt = $self->template($plugin);
-    $tt->process($file, $vars, \my $out) or $self->error($tt->error);
-    $out;
+    $self->log(error => "\$context->templatize is DEPRECATED NOW. use \$plugin->templatize()");
+    $plugin->templatize($file, $vars);
 }
 
 1;

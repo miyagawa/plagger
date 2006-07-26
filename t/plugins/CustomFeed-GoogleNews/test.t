@@ -1,9 +1,16 @@
 use strict;
-use Test::More tests => 2;
+use t::TestPlagger;
 
-use Plagger;
+test_requires_network;
 
-Plagger->bootstrap(config => \<<'CONFIG');
+plan 'no_plan';
+
+run_eval_expected;
+
+__END__
+
+=== Test Google News live
+--- input config
 global:
   log:
     level: error
@@ -15,21 +22,7 @@ plugins:
         - http://news.google.co.jp/news?hl=ja&ned=tjp&q=%E5%9B%B2%E7%A2%81&ie=UTF-8&scoring=d
 
   - module: CustomFeed::GoogleNews
-  - module: Filter::Test
-CONFIG
+--- expected
+is $context->update->feeds->[0]->link, 'http://news.google.com/news?ned=jp&rec=0&topic=s';
+ok $context->update->feeds->[0]->count;
 
-package Plagger::Plugin::Filter::Test;
-use base qw( Plagger::Plugin );
-
-sub register {
-    my($self, $context) = @_;
-    $context->register_hook(
-        $self,
-        'update.feed.fixup' => \&feed,
-    );
-}
-
-sub feed {
-    my($self, $context, $args) = @_;
-    ::ok $args->{feed}->count;
-}

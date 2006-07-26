@@ -25,7 +25,7 @@ sub feed {
     my $path  = File::Spec->catfile($self->conf->{dir}, $file);
     $context->log(info => "writing output to $path");
 
-    my $body = $context->templatize($self, 'takahashi.tt', $args);
+    my $body = $self->templatize('takahashi.tt', $args);
     open my $out, ">:utf8", $path or $context->error("$path: $!");
     print $out $body;
     close $out;

@@ -29,6 +29,10 @@ sub init_feed {
     unless (-e $dir && -d _) {
         mkdir $dir, 0755 or $context->error("mkdir $dir: $!");
     }
+
+    unless (exists $self->conf->{full_content}) {
+        $self->conf->{full_content} = 1;
+    }
 }
 
 sub publish_feed {
@@ -37,6 +41,8 @@ sub publish_feed {
     my $conf = $self->conf;
     my $f = $args->{feed};
     my $feed_format = $conf->{format} || 'Atom';
+
+    local $XML::Atom::DefaultVersion = "1.0";
 
     # generate feed
     my $feed = XML::Feed->new($feed_format);
@@ -50,8 +56,9 @@ sub publish_feed {
         my $entry = XML::Feed::Entry->new($feed_format);
         $entry->title($e->title);
         $entry->link($e->link);
-        $entry->summary($e->body_text);
-        $entry->content($e->body);
+        $entry->summary($e->body_text) if defined $e->body;
+        $entry->content($e->body)
+            if $self->conf->{full_content} && defined $e->body;
         $entry->category(join(' ', @{$e->tags}));
         $entry->issued($e->date) if $e->date;
         $entry->author($e->author);
@@ -150,38 +157,46 @@ Plagger::Plugin::Publish::Feed - republish RSS/Atom feeds
 
 =head1 CONFIG
 
-=head2 format
+=over 4
+
+=item format
 
 Specify the format of feed. C<Plagger::Plugin::Publish::Feed> supports
 the following syndication feed formats:
 
-=over 4
+=over 8
 
-=item * Atom (default)
+=item Atom (default)
 
-=item * RSS
+=item RSS
 
 =back
 
-=head2 dir
+=item dir
 
 Directory to save feed files in.
 
-=head2 filename
+=item filename
 
 Filename to be used to create feed files. It defaults to C<%i.rss> for
 RSS and C<%i.atom> for Atom feed. It supports the following format
 like printf():
 
-=over 4
+=over 8
 
-=item * %u url
+=item %u url
 
-=item * %l link
+=item %l link
 
-=item * %t title
+=item %t title
 
-=item * %i id
+=item %i id
+
+=back
+
+=item full_content
+
+Whether to publish full content feed. Defaults to 1.
 
 =back
 

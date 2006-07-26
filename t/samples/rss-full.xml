@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<?xml-stylesheet href="/miyagawa/rssxsl" type="text/xsl" media="screen"?>
+
+
+<rdf:RDF
+	xmlns="http://purl.org/rss/1.0/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xml:lang="ja">
+<channel rdf:about="http://subtech.g.hatena.ne.jp/miyagawa/rss">
+	<title>Bulknews::Subtech</title>
+	<link>http://subtech.g.hatena.ne.jp/miyagawa/</link>
+	<description>Bulknews::Subtech</description>
+
+	<dc:creator>miyagawa</dc:creator>
+	<items>
+	<rdf:Seq>
+		<rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/miyagawa/20060710/1152534733"/>
+		<rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/miyagawa/20060708/1152343238"/>
+		<rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/miyagawa/20060705/1152028676"/>
+		<rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/miyagawa/20060704/1152024502"/>
+		<rdf:li rdf:resource="http://subtech.g.hatena.ne.jp/miyagawa/20060704/1151996123"/>
+	</rdf:Seq>
+	</items>
+</channel>
+<item rdf:about="http://subtech.g.hatena.ne.jp/miyagawa/20060710/1152534733">
+	<title> タイプ数カウンターをビジュアル表示</title>
+	<link>http://subtech.g.hatena.ne.jp/miyagawa/20060710/1152534733</link>
+	<description> ひげぽん OSとか作っちゃうかMona- - どんなキーを押していますか? 「タイプ数カウンターのデータファイルからCSVを作る」でも書いたタイプ数カウンターの結果が面白かったので公表してみ</description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<p><a href="http://d.hatena.ne.jp/higepon/20060709/1152429461" target="_blank">ひげぽん OSとか作っちゃうかMona- - どんなキーを押していますか?</a></p>
+			<blockquote>
+			<p>「タイプ数カウンターのデータファイルからCSVを作る」でも書いたタイプ数カウンターの結果が面白かったので公表してみるテスト。</p>
+			</blockquote>
+			<p>数字でみてもいまいちピンとこないので、こういうときは Data Visualization してみるテスト。</p>
+			<p><a href="http://blog.bulknews.net/keyboard.cgi" target="_blank">How you type keyboards: Visualized</a></p>
+			<p>typect フォルダにある 'data' ファイルをアップロードすると頻度に応じてキーボードに色がつきます。Permalink ... ってのをやると他からリンクできます。僕の場合は、<a href="http://blog.bulknews.net/keyboard.cgi?token=LS0tCjA6IDIwMQoxOiAyMDkKMjogMzkyCjM6IDE0MAo0OiAyMDIKNTogMTM3CjY6IDQyCjc6IDIyMQo4OiAxODMKOTogMTM1Cl86IDAKYTogMzIwOQphbHQ6IDM3ODIKYjogMTY0MgpiczogNDY2OQpjOiAxMTgxCmN0cmw6IDE5NTkxCmQ6IDE1NDIKZGVsOiA2ODEKZG93bjogNDQxMwplOiAyNTQ1CmVzYzogMgpmOiAxMzMyCmc6IDY3OApoOiA0NTE4Cmk6IDE2MzAKajogMTQ3Cms6IDIxMjQKbDogMTA5MgpsZWZ0OiAxMTQyCm06IDI0NDAKbjogMzcxNQpvOiAyMTk0Cm90aGVyOiA0Mjg4CnA6IDMxMjIKcTogOTUKcjogMTI1OApyZXQ6IDI1OTQKcmlnaHQ6IDExMjcKczogMjEwNApzaGlmdDogNDcwMgpzcGFjZTogMTQ2NTAKdDogMjEzOAp0YWI6IDYwNAp1OiAxMTIyCnVwOiAxOTkxCnY6IDQyNAp3OiA1NzkKeDogNzkxCnk6IDY3Nwp6OiA2OAo=">こんな感じに</a>。</p>
+			<p>やはり Ctrl が多いのは <a class="keyword" href="/keyword/Emacs">Emacs</a> だから。h は C-h だし、k は Gmail で <a class="keyword" href="/keyword/Plagger">Plagger</a> 読みするときに使う、からかな。</p>
+			<p>一番苦労したのは、キーボード配列を HTML + CSS で書くことだったりする。。</p>
+			<p>記号類 (: とか @とか) は「その他」でまとまっているので <a class="keyword" href="/keyword/vim">vim</a> ユーザがどれくらい : を押すか、とかはわからないのが残念。</p>
+		</div>
+]]></content:encoded>
+
+	<dc:creator>miyagawa</dc:creator>
+	<dc:date>2006-07-10T21:32:13+09:00</dc:date>
+</item>
+<item rdf:about="http://subtech.g.hatena.ne.jp/miyagawa/20060708/1152343238">
+	<title> タイプカウンタのあれ</title>
+	<link>http://subtech.g.hatena.ne.jp/miyagawa/20060708/1152343238</link>
+	<description> ひげぽん OSとか作っちゃうかMona- - タイプ数カウンターのデータファイルからCSVを作る ソースも同梱してあるのでもっと高級言語(Ruby?Python?)で書き直したほうが汎用性があがるかも。 毎日</description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<p><a href="http://d.hatena.ne.jp/higepon/20060708/1152336702" target="_blank">ひげぽん OSとか作っちゃうかMona- -  タイプ数カウンターのデータファイルからCSVを作る</a></p>
+			<blockquote>
+			<p>ソースも同梱してあるのでもっと高級言語(<a class="keyword" href="/keyword/Ruby">Ruby</a>?<a class="keyword" href="/keyword/Python">Python</a>?)で書き直したほうが汎用性があがるかも。</p>
+			<p>毎日どこかにこのタイプ数をポストしたりとかグラフをほげほげとか。</p>
+			</blockquote>
+			<p>それ<a class="keyword" href="/keyword/Perl">Perl</a>(ry ってことで書いてみた。実質はワンライナーだけど padding をとったりとか。</p>
+<pre>
+use strict;
+
+my @keys = (
+    (&#39;_&#39;) x 29,
+    &#39;other&#39;,
+    (&#39;_&#39;) x 7,
+    &#39;bs&#39;, &#39;tab&#39;,
+    (&#39;_&#39;) x 3,
+    &#39;enter&#39;,
+    (&#39;_&#39;) x 2,
+    &#39;shift&#39;, &#39;ctrl&#39;, &#39;alt&#39;,
+    (&#39;_&#39;) x 8,
+    &#39;esc&#39;,
+    (&#39;_&#39;) x 4,
+    &#39;space&#39;,
+    (&#39;_&#39;) x 4,
+    &#39;left&#39;, &#39;up&#39;, &#39;right&#39;, &#39;down&#39;,
+    (&#39;_&#39;) x 5,
+    &#39;del&#39;,
+    (&#39;_&#39;) x 1,
+    0 .. 9,
+    (&#39;_&#39;) x 7,
+    &#39;a&#39; .. &#39;z&#39;,
+);
+
+local $/; # slurp data file
+
+my %data;
+@data{@keys} = unpack &quot;L*&quot;, &lt;&gt;;
+
+my @print_keys = grep !/^_/, @keys;
+push @print_keys, shift @print_keys; # OMG &#39;other&#39;
+
+print_csv(@print_keys);
+print_csv(@data{@print_keys});
+
+sub print_csv {
+    print join(&quot;,&quot;, @_) . &quot;&#92;r&#92;n&quot;;
+}
+</pre>
+
+		</div>
+]]></content:encoded>
+
+	<dc:creator>miyagawa</dc:creator>
+	<dc:date>2006-07-08T16:20:38+09:00</dc:date>
+</item>
+<item rdf:about="http://subtech.g.hatena.ne.jp/miyagawa/20060705/1152028676">
+	<title> Plagger</title>
+	<link>http://subtech.g.hatena.ne.jp/miyagawa/20060705/1152028676</link>
+	<description> Lazyweb, I need volunteer(s) for http://plagger.org/trac/ticket/282 http://plagger.org/trac/ticket/318 </description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<p>Lazyweb, I need volunteer(s) for</p>
+			<ul>
+				<li> <a href="http://plagger.org/trac/ticket/282" target="_blank">http://plagger.org/trac/ticket/282</a></li>
+				<li> <a href="http://plagger.org/trac/ticket/318" target="_blank">http://plagger.org/trac/ticket/318</a></li>
+			</ul>
+
+		</div>
+]]></content:encoded>
+
+	<dc:creator>miyagawa</dc:creator>
+	<dc:date>2006-07-05T00:57:56+09:00</dc:date>
+</item>
+<item rdf:about="http://subtech.g.hatena.ne.jp/miyagawa/20060704/1152024502">
+	<title> Gmail</title>
+	<link>http://subtech.g.hatena.ne.jp/miyagawa/20060704/1152024502</link>
+	<description> You are currently using 2488 MB (91%) of your 2740 MB. というわけで Plagger メールを shibuya.pl に転送開始。 </description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<p>You are currently using 2488 MB (91%) of your 2740 MB.</p>
+			<p>というわけで <a class="keyword" href="/keyword/Plagger">Plagger</a> メールを shibuya.pl に転送開始。</p>
+		</div>
+]]></content:encoded>
+
+	<dc:creator>miyagawa</dc:creator>
+	<dc:date>2006-07-04T23:48:22+09:00</dc:date>
+</item>
+<item rdf:about="http://subtech.g.hatena.ne.jp/miyagawa/20060704/1151996123">
+	<title> Consolas</title>
+	<link>http://subtech.g.hatena.ne.jp/miyagawa/20060704/1151996123</link>
+	<description> PuTTY のフォントを vista の Consolas に変更。ClearType でスムージングするとかなりクールだ。同じコードもキレイに見えてくるから不思議。http://en.wikipedia.org/wiki/Consolas </description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<p>PuTTY のフォントを vista の Consolas に変更。ClearType でスムージングするとかなりクールだ。同じコードもキレイに見えてくるから不思議。<a href="http://en.wikipedia.org/wiki/Consolas" target="_blank">http://en.wikipedia.org/wiki/Consolas</a></p>
+		</div>
+]]></content:encoded>
+
+	<dc:creator>miyagawa</dc:creator>
+	<dc:date>2006-07-04T15:55:23+09:00</dc:date>
+</item>
+</rdf:RDF>

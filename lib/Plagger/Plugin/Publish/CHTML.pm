@@ -54,12 +54,28 @@ sub feed {
     foreach my $entry ($feed->entries) {
 	my $entry_id = md5_hex($entry->permalink);
 	$self->write("$publish_path/$entry_id.html",
-		     $self->entry_templatize($feed, $entry));
+		     $self->templatize('chtml_entry.tt', {
+                         conf => $self->conf,
+                         feed => $feed,
+                         entry => $entry,
+                         strip_html => sub {
+                             my $html = shift;
+                             $html =~ s|\s{2,}||og;
+                             $html =~ s|<[bh]r.*?>|\n|ogi;
+                             $html =~ s|<.*?>||og;
+                             $html;
+                         },
+                     }));
+
 	$entry->{feed2entry_link} = $self->id . "/$entry_id.html";
     }
 
-    $self->write("$publish_path.html", 
-		 $self->feed_templatize($feed, $self->earlier($feed_path)),
+    $self->write("$publish_path.html",
+		 $self->templatize('chtml_feed.tt', {
+                     conf => $self->conf,
+                     feed => $feed,
+                     earlier => $self->earlier($feed_path),
+                 }),
 		 "$feed_path/index.html");
 
     $self->add(+{
@@ -75,48 +91,12 @@ sub finalize {
 
     return unless @{$self->feeds};
     $self->write($self->work . '/' . $self->id . '.html', 
-		 $self->index_templatize($self->earlier($self->work)),
+		 $self->templatize('chtml_index.tt', {
+                     conf => $self->conf,
+                     feeds => [ $self->feeds ],
+                     earlier => $self->earlier($self->work),
+                 }),
 		 $self->work . '/index.html');
-}
-
-sub entry_templatize {
-    my($self, $feed, $entry) = @_;
-    $self->templatize('chtml_entry.tt', {
-	conf => $self->conf,
-        feed => $feed,
-        entry => $entry,
-	strip_html => sub {
-	    my $html = shift;
-	    $html =~ s|\s{2,}||og;
-	    $html =~ s|<[bh]r.*?>|\n|ogi;
-	    $html =~ s|<.*?>||og;
-	    $html;
-	}});
-}
-
-sub feed_templatize {
-    my($self, $feed, $earlier) = @_;
-    $self->templatize('chtml_feed.tt', {
-	conf => $self->conf,
-        feed => $feed,
-	earlier => $earlier,
-    });
-}
-
-sub index_templatize {
-    my($self, $earlier) = @_;
-    $self->templatize('chtml_index.tt', {
-	conf => $self->conf,
-        feeds => [ $self->feeds ],
-	earlier => $earlier,
-    });
-}
-
-sub templatize {
-    my $self = shift;
-    my $tt = $self->context->template();
-    $tt->process(shift, shift, \my $out) or $self->context->error($tt->error);
-    $out;
 }
 
 sub write {

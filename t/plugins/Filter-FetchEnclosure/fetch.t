@@ -1,13 +1,20 @@
 use strict;
 use FindBin;
 use File::Path qw(rmtree);
-use Test::More tests => 2;
 
-use Plagger;
-use MIME::Parser;
-use MIME::Lite;
+use t::TestPlagger;
 
-my $tmpdir = "$FindBin::Bin/tmp";
+BEGIN {
+    test_requires('MIME::Parser');
+    test_requires('MIME::Lite');
+    test_requires_network;
+}
+
+plan tests => 2;
+
+our $tmpdir = "$FindBin::Bin/tmp";
+
+my $entity;
 
 no warnings 'redefine';
 local *MIME::Lite::send = sub {
@@ -15,13 +22,19 @@ local *MIME::Lite::send = sub {
 
     my $parser = MIME::Parser->new;
     $parser->output_to_core(1);
-    my $entity = $parser->parse_data($mime->as_string);
-
-    ok $entity->parts(0)->bodyhandle->as_string =~ m!<img src="cid:(.*?)" />!;
-    is $entity->parts(1)->head->get('Content-Id'), "<$1>\n";
+    $entity = $parser->parse_data($mime->as_string);
 };
 
-Plagger->bootstrap(config => \<<"CONFIG");
+sub entity { $entity }
+
+run_eval_expected;
+
+END { rmtree $tmpdir if $tmpdir }
+
+__END__
+
+=== test via Gmail sender
+--- input config entity
 global:
   assets_path: $FindBin::Bin/../../../assets
   log:
@@ -40,12 +53,13 @@ plugins:
   - module: Filter::FindEnclosures
   - module: Filter::FetchEnclosure
     config:
-      dir: $tmpdir
+      dir: $main::tmpdir
 
   - module: Publish::Gmail
     config:
-      mailto: fooba\@localhost
+      mailto: foobar@localhost
       attach_enclosures: 1
-CONFIG
-
-END { rmtree $tmpdir }
+--- expected
+my $entity = $block->input;
+ok $entity->parts(0)->bodyhandle->as_string =~ m!<img src="cid:(.*?)" />!;
+is $entity->parts(1)->head->get('Content-Id'), "<$1>\n";

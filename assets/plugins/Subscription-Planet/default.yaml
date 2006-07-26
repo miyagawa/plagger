@@ -1,0 +1,8 @@
+engines:
+  - http://feeds.technorati.com/feed/posts/tag/{keyword}
+  - http://www.bloglines.com/search?q={keyword}&ql=any&s=f&pop=l&news=m&n=100&format=rss
+  - http://blogsearch.google.com/blogsearch_feeds?hl=en&q={keyword}&scoring=d&ie=utf-8&num=100&output=rss
+  - http://www.feedster.com/search/type/rss/{keyword}
+  - http://www.blogpulse.com/rss?query={keyword}&sort=date&operator=and
+  - http://www.feedster.com/search/type/rss/{keyword}
+  - http://www.bloglines.com/search?q=bcite:{url}&ql=any&s=f&pop=n&news=m&n=100&format=rss

@@ -5,30 +5,32 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="generator" contnet="Plagger [% context.VERSION %]" />
-    <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title %]" href="smartfeed_all.atom" />
-    <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title %]" href="smartfeed_all.rss" />
+    <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title | html %]" href="[% url.atom %]" />
+    <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title | html %]" href="[% url.rss %]" />
+[% IF url.opml -%]
+    <link rel="subscriptions" type="text/x-opml" title="Subscriptions" ref="[% url.opml %]" />
+[% END -%]
+[% IF url.foaf -%]
+    <link rel="meta" type="application/rdf+xml" title="foafroll" href="[% url.foaf %]" />
+[% END -%]
     <link rel="stylesheet" type="text/css" href="css/screen.css" />
     <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
     <link rel="stylesheet" type="text/css" href="css/handheld.css" media="handheld" />
-    [% IF members_list %]
-      <link rel="stylesheet" type="text/css" href="css/screen-members-list.css" />
-    [% END %]
+    <link rel="stylesheet" type="text/css" href="css/screen-members-list.css" />
     <title>[% feed.title %]</title>
   </head>
   <body>
     <div id="feed-title">[% feed.title %]</div>
 
-    [% IF members_list %]
-      <ul id="members-list">
-        [% FOREACH member = members %]
-          <li class="member">
-            <a class="member-link" href="[% member.link | html %]">[% member.title | html %]</a>
-          </li>
-        [% END %]
-      </ul>
-    [% END %]
+    <ul id="members-list">
+      [% FOREACH member = members %]
+        <li class="member">
+          <a class="member-link" href="[% member.link | html %]">[% member.title | html %]</a>
+        </li>
+      [% END %]
+    </ul>
 
-    [% FOREACH entry = feed.entries %]
+    [% FOREACH entry = entries %]
       <div class="entry">
         <div class="entry-header">
           <div class="entry-title">

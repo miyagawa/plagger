@@ -60,7 +60,7 @@ sub store_entry {
   my $feed_title = $args->{feed}->title;
      $feed_title =~ tr/,//d;
   my $subject    = $entry->title || '(no-title)';
-  my $body       = $self->templatize($context, $args);
+  my $body       = $self->templatize('mail.tt', { entry => $args->{entry}, feed => $args->{feed} });
   my $now = Plagger::Date->now(timezone => $context->conf->{timezone});
   $msg = MIME::Lite->new(
     Date    => $now->format('Mail'),
@@ -81,16 +81,6 @@ sub store_entry {
   $msg->add('In-Reply-To',"<".md5_hex($entry->id_safe).'@localhost>');
   store_maildir($self, $context,$msg->as_string());
   $self->{msg} += 1;
-}
-
-sub templatize {
-  my ($self, $context, $args) = @_;
-  my $tt = $context->template();
-  $tt->process( 'mail.tt', {
-    entry => $args->{entry},
-    feed  => $args->{feed},
-  }, \my $out ) or $context->error($tt->error);
-  $out;
 }
 
 sub store_maildir {

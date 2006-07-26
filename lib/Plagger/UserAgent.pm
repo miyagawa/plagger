@@ -24,12 +24,18 @@ sub new {
 sub fetch {
     my($self, $url, $plugin, $opt) = @_;
 
-    URI::Fetch->fetch($url,
+    my $res = URI::Fetch->fetch($url,
         UserAgent => $self,
         $plugin ? (Cache => $plugin->cache) : (),
         ForceResponse => 1,
         ($opt ? %$opt : ()),
     );
+
+    if ($res && $url =~ m!^file://!) {
+        $res->content_type( Plagger::Util::mime_type_of(URI->new($url)) );
+    }
+
+    $res;
 }
 
 sub mirror {

@@ -4,9 +4,17 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="generator" content="Plagger [% context.VERSION %]" />
-  <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title %]" href="smartfeed_all.atom" />
-  <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title %]" href="smartfeed_all.rss" />
-  [% IF style_url %]<link rel="stylesheet" type="text/css" href="[% style_url %]" />[% END %]
+  <link rel="alternate" type="application/atom+xml" title="Atom: [% feed.title | html %]" href="[% url.atom %]" />
+  <link rel="alternate" type="application/rss+xml" title="RSS: [% feed.title | html %]" href="[% url.rss %]" />
+[% IF url.opml -%]
+  <link rel="subscriptions" type="text/x-opml" title="Subscriptions" href="[% url.opml %]" />
+[% END -%]
+[% IF url.foaf -%]
+  <link rel="meta" type="application/rdf+xml" title="foafroll" href="[% url.foaf %]" />
+[% END -%]
+[% FOREACH style = style_url.list -%]
+  <link rel="stylesheet" type="text/css" href="[% style | html %]" />
+[% END %]
   <title>[% feed.title | html %]</title>
 </head>
 [% USE util = Plagger.Util -%]
@@ -23,7 +31,7 @@
         <div id="pagebody-inner" class="pkg">
           <div id="alpha">
             <div id="alpha-inner" class="pkg">
-              [% FOREACH entry = feed.entries %]
+              [% FOREACH entry = entries %]
               <a id="[% entry.id %]"></a>
               <div class="entry" id="entry-[% entry.id %]">
                 <h3 class="entry-header">
@@ -44,7 +52,7 @@
                     </span>
                     <span class="separator">|</span>
                     <a class="permalink" href="[% entry.permalink | html %]">Permalink</a>
-                    [% FOREACH widget = entry.widgerts %]
+                    [% FOREACH widget = entry.widgets %]
                     | [% widget.html(entry) %]
                     [% END %]
                   </p>
@@ -56,7 +64,6 @@
           </div>
           <div id="beta">
             <div id="beta-inner" class="pkg">
-            [% IF members_list %]
               <div class="module">
                 <h2 class="module-header">Subscriptions</h2>
                 <div class="module-content">
@@ -69,7 +76,6 @@
                   </ul>
                 </div>
               </div>
-            [% END %]
               <div class="module-powered module">
                 <div class="module-content">
                 <a href="http://plagger.org/">Powered by Plagger [% context.VERSION %]</a>

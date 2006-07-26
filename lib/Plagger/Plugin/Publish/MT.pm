@@ -30,8 +30,7 @@ sub mt {
 
 sub feed {
     my ($self, $context, $args) = @_;
-    my $body = $context->templatize(
-        $self,
+    my $body = $self->templatize(
         $self->{conf}->{template} || 'mt.tt',
         { feed => $args->{feed} }
     );

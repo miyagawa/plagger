@@ -1,0 +1,11 @@
+engines:
+  - http://www.feedster.jp/search/type/rss/{keyword}
+  - http://blog-search.yahoo.co.jp/rss?p={keyword:euc-jp}
+  - http://blog.goo.ne.jp/search/search.php?status=select&tg=all&st=time&dc=10&dp=all&bu=&ts=all&MT={keyword:euc-jp}&da=all&rss=1
+  - http://www.namaan.net/rss?namaan=NAMA&ty=5&query={keyword}
+  - http://bulkfeeds.net/app/search2.rdf?q={keyword}
+  - http://b.hatena.ne.jp/t/{keyword}?mode=rss&sort=eid&threshold=1
+  - http://d.hatena.ne.jp/keyworddiary/{keyword:euc-jp}?mode=rss
+  - http://www.bloglines.com/search?q={keyword}&s=f&pop=l&news=m&n=100&format=rss&ql=ja
+  - http://blogsearch.google.com/blogsearch_feeds?hl=en&lr=lang_ja&q={keyword}&scoring=d&ie=utf-8&num=100&output=rss
+  - http://www.bloglines.com/search?q=bcite:{url}&ql=ja&s=f&pop=n&news=m&n=100&format=rss

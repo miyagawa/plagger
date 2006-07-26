@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title>foo</title>
+<item>
+<title>&lt;b&gt;Plagger&lt;/b&gt; rocks</title>
+<link>http://plagger.org/</link>
+</item>
+</channel>
+</rss>

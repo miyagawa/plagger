@@ -37,6 +37,7 @@ sub aggregate {
     if ( $Feed::Find::IsFeed{$content_type} || $self->looks_like_feed(\$content) ) {
         $self->handle_feed($url, \$content, $args->{feed});
     } else {
+        $content = Plagger::Util::decode_content($res);
         my @feeds = Feed::Find->find_in_html(\$content, $url);
         if (@feeds) {
             $url = $feeds[0];

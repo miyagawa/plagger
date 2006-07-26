@@ -35,7 +35,7 @@ sub entry {
     my $path = File::Spec->catfile($dir, $file);
     $context->log(info => "writing output to $path");
 
-    my $body = $self->templatize($context, $entry);
+    my $body = $self->templatize('spotlight.tt', { entry => $entry });
 
     open my $out, ">:utf8", $path or $context->error("$path: $!");
     print $out $body;
@@ -65,15 +65,6 @@ sub add_comment {
             $comment,
         ) == 0 or Plagger->context->error("$path: $!");
     }
-}
-
-sub templatize {
-    my($self, $context, $entry) = @_;
-    my $tt = $context->template();
-    $tt->process('spotlight.tt', {
-        entry => $entry,
-    }, \my $out) or $context->error($tt->error);
-    $out;
 }
 
 1;

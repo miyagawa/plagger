@@ -1,32 +1,12 @@
 use strict;
-use Test::More tests => 6;
 use FindBin;
 
-use Plagger;
+use t::TestPlagger;
 
-# cookies: filename
-Plagger->bootstrap(config => \<<CONFIG);
-global:
-  log:
-    level: error
-  user_agent:
-    cookies: $FindBin::Bin/cookies.txt
-plugins:
-  - module: Test::Cookies
-CONFIG
+test_requires('HTTP::Cookies::Mozilla');
 
-# cookies: hash
-Plagger->bootstrap(config => \<<CONFIG);
-global:
-  log:
-    level: error
-  user_agent:
-    cookies:
-      type: Mozilla
-      file: $FindBin::Bin/cookies.txt
-plugins:
-  - module: Test::Cookies
-CONFIG
+plan tests => 6;
+run_eval_expected;
 
 package Plagger::Plugin::Test::Cookies;
 use base qw( Plagger::Plugin );
@@ -55,3 +35,30 @@ sub test {
     );
 }
 
+__END__
+
+=== cookies: filename
+--- input config
+global:
+  log:
+    level: error
+  user_agent:
+    cookies: $FindBin::Bin/cookies.txt
+plugins:
+  - module: Test::Cookies
+--- expected
+1
+
+=== cookies: hash
+--- input config
+global:
+  log:
+    level: error
+  user_agent:
+    cookies:
+      type: Mozilla
+      file: $FindBin::Bin/cookies.txt
+plugins:
+  - module: Test::Cookies
+--- expected
+1

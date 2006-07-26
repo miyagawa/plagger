@@ -16,23 +16,17 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.feed' => \&feed,
         'publish.finalize' => \&finalize,
     );
 }
 
-sub feed {
-    my($self, $context, $args) = @_;
-    unless ($args->{feed}->type =~ /^smartfeed:/) {
-        push @{ $self->{_feeds} }, $args->{feed};
-    }
-}
-
 sub finalize {
     my($self, $context, $args) = @_;
-    my $out = $context->templatize($self, 'opml.tt', {
-        feeds => $self->{_feeds},
+
+    my $out = $self->templatize('opml.tt', {
+        feeds => [ $context->subscription->feeds ],
         now   => Plagger::Date->now,
+        conf  => $self->conf,
     });
 
     my $path = $self->conf->{filename};
@@ -56,6 +50,24 @@ Plagger::Plugin::Publish::OPML - Publish OPML files based on your subcscription
   - module: Publish::OPML
     config:
       filename: /path/to/subscription.opml
+
+=head1 DESCRIPTION
+
+This plugin publishes OPML file using feeds fonnd in the subscription.
+
+=head1 CONFIG
+
+=over 4
+
+=item filename
+
+Filename to save the OPML file. Required.
+
+=item title
+
+Title to be used as OPML head. Optional and defaults to I<Plagger Subscriptions>.
+
+=back
 
 =head1 AUTHOR
 

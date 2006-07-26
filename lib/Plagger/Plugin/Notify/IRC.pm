@@ -38,22 +38,13 @@ sub update {
 
     $context->log(info => "Notifying " . $args->{feed}->title . " to IRC");
 
-    my $body = $self->templatize($context, $args->{feed});
+    my $body = $self->templatize('irc_notify.tt', { feed => $args->{feed} });
     Encode::_utf8_off($body) if Encode::is_utf8($body);
     Encode::from_to($body, 'utf-8', $self->conf->{charset})
         if $self->conf->{charset} && $self->conf->{charset} ne 'utf-8';
     for my $line (split("\n", $body)) {
         $remote->post( 'notify_irc/update', $line );
     }
-}
-
-sub templatize {
-    my($self, $context, $feed) = @_;
-    my $tt = $context->template();
-    $tt->process('irc_notify.tt', {
-        feed => $feed,
-    }, \my $out) or $context->error($tt->error);
-    $out;
 }
 
 1;

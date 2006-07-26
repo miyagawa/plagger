@@ -5,7 +5,7 @@ global:
 
 plugins:
   # Subscribe to a couple of "My Feeds" on the web
-  # They could be either Feeds URL or Blog URL (with AUto-Discovery support)
+  # They could be either Feeds URL or Blog URL (with Auto-Discovery support)
   - module: Subscription::Config
     config:
       feed:
@@ -15,39 +15,13 @@ plugins:
         - http://bulknews.vox.com/
         - http://d.hatena.ne.jp/miyagawa/
 
-  # Create "Smart Feed" with all entries across the feeds, fresher than 7 days old
-  # Add the title "Planet Plagger" to the smartfeed
-  - module: SmartFeed::All
-    rule:
-      module: Fresh
-      duration: 10080 # Seven Days
+  # Load 'Bundle' planet plugins
+  - module: Bundle::Planet
     config:
+      duration: 7 days
       title: Planet Plagger
-
-  # Generate Planet XHTML output out of the smartfeed
-  # to the directory /tmp/planet with sixapart-std "skin"
-  - module: Publish::Planet
-    rule:
-      expression: $args->{feed}->id eq 'smartfeed:all'
-    config:
       dir: /tmp/planet
-      skin: sixapart-std
-      template:
-        members_list: 1
-        style_url: http://bulknews.typepad.com/blog/styles.css
-
-  # Output Atom feed for the smartfeed
-  - module: Publish::Feed
-    rule:
-      expression:  $args->{feed}->id eq 'smartfeed:all'
-    config:
-      dir: /tmp/planet
-
-  # Output RSS feed for the smartfeed
-  - module: Publish::Feed
-    rule:
-      expression:  $args->{feed}->id eq 'smartfeed:all'
-    config:
-      dir: /tmp/planet
-      format: RSS
+      url: http://example.org/planet/
+      theme: sixapart-std
+      stylesheet: http://bulknews.typepad.com/blog/styles.css
 

@@ -50,7 +50,7 @@ sub walk_down {
     my($self, $outline, $context, $depth, $containers) = @_;
 
     if (delete $outline->{opmlvalue}) {
-        my $title = delete $outline->{title};
+        my $title = delete $outline->{title} || delete $outline->{text};
         push @$containers, $title if $title ne 'Subscriptions';
         for my $channel (values %$outline) {
             $self->walk_down($channel, $context, $depth + 1, $containers);
@@ -60,7 +60,7 @@ sub walk_down {
         my $feed = Plagger::Feed->new;
         $feed->url($outline->{xmlUrl});
         $feed->link($outline->{htmlUrl});
-        $feed->title($outline->{title});
+        $feed->title($outline->{title} || $outline->{text});
         $feed->tags($containers);
         $context->subscription->add($feed);
     }

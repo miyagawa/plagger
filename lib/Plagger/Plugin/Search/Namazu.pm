@@ -26,7 +26,7 @@ sub feed {
 	my $path = File::Spec->catfile($dir, $file);
 	$context->log(info => "writing output to $path");
 
-	my $body = $self->templatize($context, { entry => $entry, feed => $args->{feed} });
+	my $body = $self->templatize('namazu.tt', { entry => $entry, feed => $args->{feed} });
 
         # save output as EUC-JP so Namazu can easily handle
 	open my $out, ">:encoding(euc-jp)", $path or $context->error("$path: $!");
@@ -39,16 +39,6 @@ sub feed {
         $time = $now if !$time or $time >= $now;
         utime $time, $time, $path;
     }
-}
-
-sub templatize {
-    my($self, $context, $vars) = @_;
-
-    my $tt = $context->template();
-    $tt->process('namazu.tt', $vars, \my $out)
-        or $context->error($tt->error);
-
-    $out;
 }
 
 sub mknmz {

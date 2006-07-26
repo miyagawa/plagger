@@ -1,3 +1,4 @@
+use strict;
 use inc::Module::Install;
 
 name('Plagger');
@@ -23,15 +24,17 @@ requires('Module::Pluggable::Fast');
 requires('HTML::ResolveLink');
 requires('Date::Parse');
 requires('MIME::Types', 1.16);
+requires('Net::DNS');
 
-requires('XML::Feed', 0.08);
+requires('XML::Feed', 0.09);
 requires('XML::LibXML');
 requires('XML::Atom', 0.19);
 requires('XML::RSS::LibXML', 0.20);
 requires('Encode', 2.10);
 requires('Term::Encoding');
 
-build_requires(Test::More => 0.42);
+build_requires('Test::More', 0.42);
+build_requires('Test::Base', 0.52);
 
 features(
     'Better Encoding detection' => [
@@ -98,10 +101,6 @@ features(
         recommends('POE::Component::IRC'),
         recommends('POE::Component::IKC::Client'),
     ],
-    'Filter::URLBL' => [
-        -default => 0,
-        recommends('Net::DNS'),
-    ],
     'Publish::JavaScript' => [
         -default => 0,
         recommends('Template::Plugin::JavaScript'),
@@ -123,8 +122,7 @@ features(
         recommends('HTML::ResolveLink', 0.02),
     ],
     'Publish::Planet' => [
-        -default => 0,
-        recommends('HTML::Tidy'),
+        -default => 1,
         recommends('HTML::Scrubber'),
         recommends('File::Copy::Recursive'),
     ],
@@ -190,10 +188,6 @@ features(
         -default => 0,
         recommends('Text::Kakasi'),
     ],
-    'Rule::URLBL' => [
-        -default => 0,
-        recommends('Net::DNS'),
-    ],
     'Subscription::LivedoorReader' => [
         -default => 0,
         recommends('JSON::Syck', 0.10),
@@ -226,6 +220,10 @@ features(
     'Notify::Beep' => [
         -default => 0,
         recommends('Audio::Beep'),
+    ],
+    'Bundle::Planet' => [
+        -default => 1,
+        recommends('Time::Duration::Parse'),
     ],
     'Publish::SWF' => [
         -default => 0,
@@ -294,6 +292,8 @@ if ($^O eq 'darwin') {
 }
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
+
+use_test_base;
 
 auto_include;
 auto_install;

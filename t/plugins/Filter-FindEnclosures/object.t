@@ -1,16 +1,18 @@
 use strict;
 use FindBin;
-use Test::More tests => 2;
+use t::TestPlagger;
 
-use Plagger;
+plan tests => 2;
+run_eval_expected;
 
-my $log;
-{ local $SIG{__WARN__} = sub { $log .=  "@_" };
-  Plagger->bootstrap(config => \<<"CONFIG");
+__END__
+
+=== Test 1
+--- input config
 global:
   assets_path: $FindBin::Bin/../../../assets
   log:
-    level: debug
+    level: error
 plugins:
   - module: CustomFeed::Debug
     config:
@@ -34,8 +36,6 @@ plugins:
             </object>
 
   - module: Filter::FindEnclosures
-CONFIG
-}
-
-like $log, qr!Found enclosure http://www\.youtube\.com/v/nqAWmQ8cdWw!;
-like $log, qr!Found enclosure https://hatena\.g\.hatena\.ne\.jp/files/hatena/b9f904875fcd5333\.flv!;
+--- expected
+is $context->update->feeds->[0]->entries->[0]->enclosure->url, 'http://www.youtube.com/v/nqAWmQ8cdWw';
+is $context->update->feeds->[0]->entries->[1]->enclosure->url, 'https://hatena.g.hatena.ne.jp/files/hatena/b9f904875fcd5333.flv';

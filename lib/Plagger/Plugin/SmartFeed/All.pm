@@ -9,6 +9,7 @@ sub feed_init {
     $feed->type('smartfeed');
     $feed->id( $self->conf->{id} || ('smartfeed:all') );
     $feed->title( $self->conf->{title} || "All Entries " );
+    $feed->link( $self->conf->{link} );
 
     $self->{feed} = $feed;
 }

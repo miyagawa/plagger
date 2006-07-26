@@ -38,7 +38,7 @@ sub feed {
 
     my $blog_id = $self->conf->{blog_id} || 1;
     my $title = $self->conf->{title} || $args->{feed}->title;
-    my $body  = $self->templatize($context, $args);
+    my $body  = $self->templatize('mt_widget.tt', $args);
 
     my $trimed_title = substr($title, 0, 10);
        $trimed_title .= '..' if $trimed_title ne $title;
@@ -58,16 +58,6 @@ sub feed {
 
     $tmpl->text($body);
     $tmpl->save or $context->error($tmpl->errstr);
-}
-
-sub templatize {
-    my($self, $context, $args) = @_;
-
-    my $tt = $context->template();
-    $tt->process('mt_widget.tt', $args, \my $out)
-        or $context->error($tt->error);
-
-    $out;
 }
 
 sub finalize {

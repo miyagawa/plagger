@@ -13,6 +13,7 @@ sub register {
 sub aggregate {
     my($self, $context, $args) = @_;
     $context->update->add($args->{feed});
+    return 1;
 }
 
 1;

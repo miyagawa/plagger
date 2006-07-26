@@ -50,7 +50,7 @@ sub finalize {
 sub makeEntryText {
     my($self, $entry, $context) = @_;
     
-    my $entry_text = $context->templatize($self, 'palmdoc.tt', {
+    my $entry_text = $self->templatize('palmdoc.tt', {
         entry => $entry,
         now   => Plagger::Date->now,
     });

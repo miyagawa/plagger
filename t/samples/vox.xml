@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed
+    xmlns="http://www.w3.org/2005/Atom"
+    xmlns:at="http://www.sixapart.com/ns/at"
+    xmlns:icbm="http://postneo.com/icbm"
+    xmlns:rvw="http://purl.org/NET/RVW/0.2/">
+    <title>miyagawa&#39;s blog</title>
+    <link rel="self" type="application/atom+xml" title="miyagawa&#39;s blog (Atom)" href="http://bulknews.vox.com/library/posts/page/1/atom.xml" />
+    <link rel="alternate" type="text/html" title="miyagawa&#39;s blog" href="http://bulknews.vox.com/library/posts/page/1/"/> 
+    <link rel="service.post" type="application/atom+xml" title="miyagawa&#39;s blog" href="http://www.vox.com/atom/svc=post/collection_id=6a00b8ea067a57dece00b8ea071ac51bc0" /> 
+    <link rel="service.subscribe" type="application/atom+xml" title="miyagawa&#39;s blog" href="http://bulknews.vox.com/library/posts/atom.xml" />     
+    <link rel="next" type="application/atom+xml" title="miyagawa&#39;s blog" href="http://bulknews.vox.com/library/posts/page/2/atom.xml" /> 
+    <link rel="last" type="application/atom+xml" title="miyagawa&#39;s blog" href="http://bulknews.vox.com/library/posts/page/8/atom.xml" />  
+    <generator uri="http://www.vox.com/">Vox</generator>
+    <updated>2006-07-15T10:45:20Z</updated> 
+    <author>
+        <name>miyagawa</name>
+        <uri>http://bulknews.vox.com/</uri>
+    </author> 
+    <id>tag:vox.com,2006:6p00b8ea067a57dece/</id>  
+     
+    <entry>
+        <title>Way too HOT</title>   
+        <link rel="alternate" type="text/html" title="Way too HOT" href="http://bulknews.vox.com/library/post/way-too-hot.html" />  
+        <link rel="service.post" type="application/atom+xml" title="Way too HOT" href="http://bulknews.vox.com/library/post/way-too-hot.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="Way too HOT" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251d04798fdb" />          <id>tag:vox.com,2006-07-15:asset-6a00b8ea067a57dece00c2251d04798fdb</id>
+        <published>2006-07-15T08:53:25Z</published>
+        <updated>2006-07-15T10:45:20Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       <div id="degree-switch">
+<p>Tokyo is again getting its craziness to become the hottest place in the world.&#160;Today it&#160;was up to&#160;<a href="http://weather.yahoo.com/forecast/JAXX0085.html">95 F</a>&#160;(or 36 C) in the daytime. Way too hot. </p></div> 
+    
+            </div>
+        </content> 
+    <category term="summer" scheme="http://bulknews.vox.com/tags/summer/" label="summer" /> 
+    <category term="hot" scheme="http://bulknews.vox.com/tags/hot/" label="hot" /> 
+    <category term="tokyo" scheme="http://bulknews.vox.com/tags/tokyo/" label="tokyo" /> 
+    </entry> 
+     
+    <entry>
+        <title>Fireworks in New York</title>   
+        <link rel="alternate" type="text/html" title="Fireworks in New York" href="http://bulknews.vox.com/library/post/fireworks-in-new-york.html" />  
+        <link rel="service.post" type="application/atom+xml" title="Fireworks in New York" href="http://bulknews.vox.com/library/post/fireworks-in-new-york.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="Fireworks in New York" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251cb644604a" />   
+        <link rel="enclosure" href="http://a7.vox.com/download/6a00b8ea067a57dece00c2251cb577549d-flv" type="video/x-flv" length="1209987" />          <id>tag:vox.com,2006-07-11:asset-6a00b8ea067a57dece00c2251cb644604a</id>
+        <published>2006-07-11T06:29:23Z</published>
+        <updated>2006-07-11T06:36:09Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+<div at:enclosure="asset" at:xid="6a00b8ea067a57dece00c2251cb577549d" at:format="large" at:align="center"
+    class="enclosure enclosure-center enclosure-large" >
+<div class="enclosure-inner enclosure-video">
+    <ul class="enclosure-list">
+        <li class="enclosure-item video-asset last">
+            <div class="enclosure-image">
+        
+                
+                    
+                <object width="322" height="258">
+                    <param name="wmode" value="transparent" />
+                    <param name="movie" value="http://static.vox.com/.shared:v0.8.2:comet-us/flash/VideoPlayer.swf" />
+                    <param name="flashvars" value="mediaURL=http://a7.vox.com/6a00b8ea067a57dece00c2251cb577549d-flv&amp;imageURL=http://a7.vox.com/6a00b8ea067a57dece00c2251cb577549d-jpeg&amp;mediaWidth=320&amp;mediaHeight=240" />
+                    
+                    <embed type="application/x-shockwave-flash" wmode="transparent"
+                        width="322" height="258"
+                        src="http://static.vox.com/.shared:v0.8.2:comet-us/flash/VideoPlayer.swf" flashvars="mediaURL=http://a7.vox.com/6a00b8ea067a57dece00c2251cb577549d-flv&amp;imageURL=http://a7.vox.com/6a00b8ea067a57dece00c2251cb577549d-jpeg&amp;mediaWidth=320&amp;mediaHeight=240" />
+                </object>
+                
+
+        
+            </div>
+            <dl class="enclosure-meta">
+                <dt class="enclosure-asset-name"><a href="http://bulknews.vox.com/library/video/6a00b8ea067a57dece00c2251cb577549d.html" title="20060704 351">20060704 351</a></dt>
+            </dl>
+        </li>
+    </ul>
+</div>
+</div><!-- end enclosure -->
+Here&#39;s the video I took on the Ferry. 
+    
+            </div>
+        </content> 
+    <category term="new york" scheme="http://bulknews.vox.com/tags/new+york/" label="new york" /> 
+    <category term="ferry" scheme="http://bulknews.vox.com/tags/ferry/" label="ferry" /> 
+    <category term="fireworks" scheme="http://bulknews.vox.com/tags/fireworks/" label="fireworks" /> 
+    <category term="ny" scheme="http://bulknews.vox.com/tags/ny/" label="ny" /> 
+    <category term="july 4th" scheme="http://bulknews.vox.com/tags/july+4th/" label="july 4th" /> 
+    <category term="independence day" scheme="http://bulknews.vox.com/tags/independence+day/" label="independence day" /> 
+    </entry> 
+     
+    <entry>
+        <title>Westside story</title>   
+        <link rel="alternate" type="text/html" title="Westside story" href="http://bulknews.vox.com/library/post/westside-story.html" />  
+        <link rel="service.post" type="application/atom+xml" title="Westside story" href="http://bulknews.vox.com/library/post/westside-story.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="Westside story" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251cb4cb604a" />   
+        <link rel="enclosure" href="http://a1.vox.com/download/6a00b8ea067a57dece00c2251cb4f18fdb-pi" type="image/jpeg" length="26312" />          <id>tag:vox.com,2006-07-11:asset-6a00b8ea067a57dece00c2251cb4cb604a</id>
+        <published>2006-07-11T04:03:56Z</published>
+        <updated>2006-07-11T04:03:56Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       <p>coming to Japan this fall</p>
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
+<div at:enclosure="asset" at:xid="6a00b8ea067a57dece00c2251cb4f18fdb" at:format="large" at:align="center"
+    class="enclosure enclosure-center enclosure-large" >
+<div class="enclosure-inner enclosure-photo">
+    <ul class="enclosure-list">
+        <li class="enclosure-item photo-asset last">
+            <div class="enclosure-image">
+        
+            
+                <a href="http://bulknews.vox.com/library/photo/6a00b8ea067a57dece00c2251cb4f18fdb.html" title="P506iC0023462373.jpg"><img src="http://a1.vox.com/6a00b8ea067a57dece00c2251cb4f18fdb-320pi" alt="P506iC0023462373.jpg" /></a>
+        
+            </div>
+            <dl class="enclosure-meta">
+                <dt class="enclosure-asset-name"><a href="http://bulknews.vox.com/library/photo/6a00b8ea067a57dece00c2251cb4f18fdb.html" title="P506iC0023462373.jpg">P506iC0023462373.jpg</a></dt>
+            </dl>
+        </li>
+    </ul>
+</div>
+</div><!-- end enclosure -->
+
+ 
+    
+            </div>
+        </content> 
+    <category term="moblog" scheme="http://bulknews.vox.com/tags/moblog/" label="moblog" /> 
+    <category term="tokyo" scheme="http://bulknews.vox.com/tags/tokyo/" label="tokyo" /> 
+    <category term="roppongi" scheme="http://bulknews.vox.com/tags/roppongi/" label="roppongi" /> 
+    <category term="westsidestory" scheme="http://bulknews.vox.com/tags/westsidestory/" label="westsidestory" /> 
+    </entry> 
+     
+    <entry>
+        <title>Materazzi is an idiot</title>   
+        <link rel="alternate" type="text/html" title="Materazzi is an idiot" href="http://bulknews.vox.com/library/post/materazzi-is-an-idiot.html" />  
+        <link rel="service.post" type="application/atom+xml" title="Materazzi is an idiot" href="http://bulknews.vox.com/library/post/materazzi-is-an-idiot.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="Materazzi is an idiot" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251cab768fdb" />            <id>tag:vox.com,2006-07-10:asset-6a00b8ea067a57dece00c2251cab768fdb</id>
+        <published>2006-07-10T09:26:10Z</published>
+        <updated>2006-07-11T01:36:25Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+<div at:enclosure="asset" at:xid="6a00b8ea067a57dece00c2251cab748fdb" at:format="large" at:align="center"
+    class="enclosure enclosure-center enclosure-large" >
+<div class="enclosure-inner enclosure-video">
+    <ul class="enclosure-list">
+        <li class="enclosure-item video-asset last">
+            <div class="enclosure-image">
+        
+                
+                <object width="320" height="258">
+                    <param name="wmode" value="transparent" />
+                    <param name="movie" value="http://www.youtube.com/v/WJPKM5aJGW8" />
+                
+                    <embed type="application/x-shockwave-flash" wmode="transparent"
+                        width="320" height="258"
+                        src="http://www.youtube.com/v/WJPKM5aJGW8" />
+                </object>
+
+        
+            </div>
+            <dl class="enclosure-meta">
+                <dt class="enclosure-asset-name"><a href="http://bulknews.vox.com/library/video/6a00b8ea067a57dece00c2251cab748fdb.html" title="Materazzi">Materazzi</a></dt>
+            </dl>
+        </li>
+    </ul>
+</div>
+</div><!-- end enclosure -->
+He&#39;s an asshole. 
+    
+            </div>
+        </content> 
+    <category term="asshole" scheme="http://bulknews.vox.com/tags/asshole/" label="asshole" /> 
+    <category term="worldcup" scheme="http://bulknews.vox.com/tags/worldcup/" label="worldcup" /> 
+    <category term="football" scheme="http://bulknews.vox.com/tags/football/" label="football" /> 
+    <category term="zidane" scheme="http://bulknews.vox.com/tags/zidane/" label="zidane" /> 
+    <category term="materazzi" scheme="http://bulknews.vox.com/tags/materazzi/" label="materazzi" /> 
+    <category term="zinédine zidane" scheme="http://bulknews.vox.com/tags/zin%C3%A9dine+zidane/" label="zinédine zidane" /> 
+    </entry> 
+     
+    <entry>
+        <title>Johnny Depp</title>   
+        <link rel="alternate" type="text/html" title="Johnny Depp" href="http://bulknews.vox.com/library/post/johnny-depp.html" />  
+        <link rel="service.post" type="application/atom+xml" title="Johnny Depp" href="http://bulknews.vox.com/library/post/johnny-depp.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="Johnny Depp" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251ca6158fdb" />   
+        <link rel="enclosure" href="http://a0.vox.com/download/6a00b8ea067a57dece00c2251d97c08e1d-pi" type="image/jpeg" length="26456" />          <id>tag:vox.com,2006-07-10:asset-6a00b8ea067a57dece00c2251ca6158fdb</id>
+        <published>2006-07-10T04:01:25Z</published>
+        <updated>2006-07-10T04:01:25Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       <p>is here but i cant see</p>
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
+<div at:enclosure="asset" at:xid="6a00b8ea067a57dece00c2251d97c08e1d" at:format="large" at:align="center"
+    class="enclosure enclosure-center enclosure-large" >
+<div class="enclosure-inner enclosure-photo">
+    <ul class="enclosure-list">
+        <li class="enclosure-item photo-asset last">
+            <div class="enclosure-image">
+        
+            
+                <a href="http://bulknews.vox.com/library/photo/6a00b8ea067a57dece00c2251d97c08e1d.html" title="P506iC0023396837.jpg"><img src="http://a0.vox.com/6a00b8ea067a57dece00c2251d97c08e1d-320pi" alt="P506iC0023396837.jpg" /></a>
+        
+            </div>
+            <dl class="enclosure-meta">
+                <dt class="enclosure-asset-name"><a href="http://bulknews.vox.com/library/photo/6a00b8ea067a57dece00c2251d97c08e1d.html" title="P506iC0023396837.jpg">P506iC0023396837.jpg</a></dt>
+            </dl>
+        </li>
+    </ul>
+</div>
+</div><!-- end enclosure -->
+
+ 
+    
+            </div>
+        </content> 
+    <category term="moblog" scheme="http://bulknews.vox.com/tags/moblog/" label="moblog" /> 
+    <category term="johnny depp" scheme="http://bulknews.vox.com/tags/johnny+depp/" label="johnny depp" /> 
+    </entry> 
+     
+    <entry>
+        <title>This is good vs. This is awful</title>   
+        <link rel="alternate" type="text/html" title="This is good vs. This is awful" href="http://bulknews.vox.com/library/post/this-is-good-vs-this-is-awful.html" />  
+        <link rel="service.post" type="application/atom+xml" title="This is good vs. This is awful" href="http://bulknews.vox.com/library/post/this-is-good-vs-this-is-awful.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="This is good vs. This is awful" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251d90098e1d" />          <id>tag:vox.com,2006-07-09:asset-6a00b8ea067a57dece00c2251d90098e1d</id>
+        <published>2006-07-09T05:26:05Z</published>
+        <updated>2006-07-09T16:19:30Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       <p><strong>[this is good]</strong> is&#160;a great feature and it&#39;s funny to see the coincidence with&#160;the funniest tag in Japanese social bookmarking site. </p>
+<p>See posts tagged <a href="http://b.hatena.ne.jp/t/%E3%81%93%E3%82%8C%E3%81%AF%E3%81%B2%E3%81%A9%E3%81%84">これはひどい</a>&#160;(this-is-awful) on Hatena Bookmark. Consider it as del.icio.us/tag/thisisawful or something like that. This page lists blog posts and/or news items which are awful, bad,&#160;stupid and ridiculous.&#160;Especially a&#160;good page to start surfing on the net when you&#39;re bored.</p> 
+    
+            </div>
+        </content> 
+    <category term="tag" scheme="http://bulknews.vox.com/tags/tag/" label="tag" /> 
+    </entry> 
+     
+    <entry>
+        <title>Dashboard Confessional</title>   
+        <link rel="alternate" type="text/html" title="Dashboard Confessional" href="http://bulknews.vox.com/library/post/dashboard-confessional.html" />  
+        <link rel="service.post" type="application/atom+xml" title="Dashboard Confessional" href="http://bulknews.vox.com/library/post/dashboard-confessional.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="Dashboard Confessional" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251c94bd8fdb" />   
+        <link rel="enclosure" href="http://a7.vox.com/download/6a00b8ea067a57dece00c2251d86178e1d-pi" type="image/jpeg" length="37263" />          <id>tag:vox.com,2006-07-08:asset-6a00b8ea067a57dece00c2251c94bd8fdb</id>
+        <published>2006-07-08T05:44:27Z</published>
+        <updated>2006-07-08T06:18:21Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+    
+
+
+
+
+<div at:enclosure="asset" at:xid="6a00b8ea067a57dece00c2251d86178e1d" at:format="medium" at:align="center"
+    class="enclosure enclosure-center enclosure-medium" >
+<div class="enclosure-inner enclosure-audio">
+    <ul class="enclosure-list">
+        <li class="enclosure-item audio-asset last">
+            <div class="enclosure-image">
+        
+            
+                <a href="http://bulknews.vox.com/library/audio/6a00b8ea067a57dece00c2251d86178e1d.html" title="Dusk and Summer"><img src="http://a7.vox.com/6a00b8ea067a57dece00c2251d86178e1d-200pi" alt="Dusk and Summer" /></a>
+        
+            </div>
+            <dl class="enclosure-meta">
+                <dt class="enclosure-asset-name"><a href="http://bulknews.vox.com/library/audio/6a00b8ea067a57dece00c2251d86178e1d.html" title="Dusk and Summer">Dusk and Summer</a></dt>
+                <dd class="enclosure-asset-subtitle">Dashboard Confessional</dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+</div><!-- end enclosure -->
+
+<p>Just downloaded Dashboard Confessional&#39;s new one &quot;Dusk and Summer&quot;&#160;from iTunes Music Store. So far, this album really rocks. Chris Carrabba&#39;s emotional vox (Oh, vox!) still impresses me and the melody is so good.</p>
+<p>Note to myself: Don&#39;t forget to buy the iTunes Music Store gift card when you get to San Francisco next time.</p> 
+    
+            </div>
+        </content> 
+    <category term="music" scheme="http://bulknews.vox.com/tags/music/" label="music" /> 
+    <category term="itunes" scheme="http://bulknews.vox.com/tags/itunes/" label="itunes" /> 
+    <category term="dashboard confessional" scheme="http://bulknews.vox.com/tags/dashboard+confessional/" label="dashboard confessional" /> 
+    </entry> 
+     
+    <entry>
+        <title>ECW</title>   
+        <link rel="alternate" type="text/html" title="ECW" href="http://bulknews.vox.com/library/post/ecw.html" />  
+        <link rel="service.post" type="application/atom+xml" title="ECW" href="http://bulknews.vox.com/library/post/ecw.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="ECW" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251c9633f219" />          <id>tag:vox.com,2006-07-08:asset-6a00b8ea067a57dece00c2251c9633f219</id>
+        <published>2006-07-08T05:40:08Z</published>
+        <updated>2006-07-08T06:09:41Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       <a href="http://www.wwe.com/shows/ecw/">ECW</a> is back as part of&#160;WWE and I just finished watching the 1st episode. I love it. 
+    
+            </div>
+        </content> 
+    <category term="wwe" scheme="http://bulknews.vox.com/tags/wwe/" label="wwe" /> 
+    <category term="ecw" scheme="http://bulknews.vox.com/tags/ecw/" label="ecw" /> 
+    </entry> 
+     
+    <entry>
+        <title>In NY, beer and fireworks</title>   
+        <link rel="alternate" type="text/html" title="In NY, beer and fireworks" href="http://bulknews.vox.com/library/post/in-ny-beer-and-fireworks.html" />  
+        <link rel="service.post" type="application/atom+xml" title="In NY, beer and fireworks" href="http://bulknews.vox.com/library/post/in-ny-beer-and-fireworks.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="In NY, beer and fireworks" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251c7e6e8fdb" />   
+        <link rel="enclosure" href="http://a1.vox.com/download/6a00b8ea067a57dece00c2251d6fe98e1d-pi" type="image/jpeg" length="106998" />          <id>tag:vox.com,2006-07-05:asset-6a00b8ea067a57dece00c2251c7e6e8fdb</id>
+        <published>2006-07-05T06:02:23Z</published>
+        <updated>2006-07-05T06:02:23Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       <p>&#160;</p>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
+<div at:enclosure="asset" at:xid="6a00b8ea067a57dece00c2251d6fe98e1d" at:format="small" at:align="right"
+    class="enclosure enclosure-right enclosure-small" >
+<div class="enclosure-inner enclosure-photo">
+    <ul class="enclosure-list">
+        <li class="enclosure-item photo-asset last">
+            <div class="enclosure-image">
+        
+            
+                <a href="http://bulknews.vox.com/library/photo/6a00b8ea067a57dece00c2251d6fe98e1d.html" title="IMG_7339"><img src="http://a1.vox.com/6a00b8ea067a57dece00c2251d6fe98e1d-120pi" alt="IMG_7339" /></a>
+        
+            </div>
+            <dl class="enclosure-meta">
+                <dt class="enclosure-asset-name"><a href="http://bulknews.vox.com/library/photo/6a00b8ea067a57dece00c2251d6fe98e1d.html" title="IMG_7339">IMG_7339</a></dt>
+            </dl>
+        </li>
+    </ul>
+</div>
+</div><!-- end enclosure -->
+
+<p>In short: Too much beer and so&#160;time consuming&#160;fireworks.</p>
+<p>I moved from Boston Hackathon on July 3rd, taking the Amtrak train. I took Acela Express Business Class and the seat was okay, except the air conditioning was terrible and it freezed me.</p>
+<p>Anyway I arrived NY and went to &quot;The Producers&quot; with my friends in Broadway. The musical was an awesome one and the &quot;gay&quot; director himself is the same guy with the movie version and that was amazing.</p>
+<p>Today I woke up 11am and had a lunch in an Uklaina Restaurant (with Brooklyn Lagger beer). The food was kind of nice, but too much carbo for me. We wandered around the Grand Central to find a sports bar where we can see GER - ITA world cup games, We had a hard time finding it but finally did find it.</p>
+<p>After that we moved to the Macy&#39;s fireworks ferry. The fireworks itself was a nice thing, but too much waiting time before and after the fireworks makes me a little boring. Ferry came back to the ground on 11:30 pm and we got a taxi ride to the little Korian Town and had Son Dofu. Nice dinner.</p> 
+    
+            </div>
+        </content> 
+    <category term="new york" scheme="http://bulknews.vox.com/tags/new+york/" label="new york" /> 
+    <category term="fireworks" scheme="http://bulknews.vox.com/tags/fireworks/" label="fireworks" /> 
+    <category term="ny" scheme="http://bulknews.vox.com/tags/ny/" label="ny" /> 
+    </entry> 
+     
+    <entry>
+        <title>Murakami on the sky</title>   
+        <link rel="alternate" type="text/html" title="Murakami on the sky" href="http://bulknews.vox.com/library/post/murakami-on-the-sky.html" />  
+        <link rel="service.post" type="application/atom+xml" title="Murakami on the sky" href="http://bulknews.vox.com/library/post/murakami-on-the-sky.html#comments" /> 
+        <link rel="service.edit" type="application/atom+xml" title="Murakami on the sky" href="atom/svc=post/asset_id=6a00b8ea067a57dece00c2251c682c549d" />   
+        <link rel="enclosure" href="http://a0.vox.com/download/6a00b8ea067a57dece00c2251c32f88fdb-pi" type="image/jpeg" length="50489" />          <id>tag:vox.com,2006-07-01:asset-6a00b8ea067a57dece00c2251c682c549d</id>
+        <published>2006-07-01T23:26:11Z</published>
+        <updated>2006-07-09T05:19:32Z</updated> 
+        
+        <content type="xhtml" xml:base="http://bulknews.vox.com/">
+            <div xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at">
+    
+       
+ 
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+
+
+
+
+<div at:enclosure="asset" at:xid="6a00b8ea067a57dece00c2251c32f88fdb" at:format="small" at:align="right"
+    class="enclosure enclosure-right enclosure-small" >
+<div class="enclosure-inner enclosure-book">
+    <ul class="enclosure-list">
+        <li class="enclosure-item book-asset last">
+            <div class="enclosure-image">
+        
+            
+                <a href="http://bulknews.vox.com/library/book/6a00b8ea067a57dece00c2251c32f88fdb.html" title="Norwegian Wood (Vintage International Original)"><img src="http://a0.vox.com/6a00b8ea067a57dece00c2251c32f88fdb-120pi" alt="Norwegian Wood (Vintage International Original)" /></a>
+        
+            </div>
+            <dl class="enclosure-meta">
+                <dt class="enclosure-asset-name"><a href="http://bulknews.vox.com/library/book/6a00b8ea067a57dece00c2251c32f88fdb.html" title="Norwegian Wood (Vintage International Original)">Norwegian Wood (Vintage International Original)</a></dt>                <dd class="enclosure-comments comments"><a href="http://bulknews.vox.com/library/book/6a00b8ea067a57dece00c2251c32f88fdb.html#comments" title="Leave a comment">
+                        3 comments
+                    </a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+</div><!-- end enclosure -->
+
+<p>The flight ORD - BOS&#160;was great. Somehow my seat was upgraded to Economy Plus, or looks like the most seats in the cabin were Economy Plus styles. Anyway,&#160;a little more spaces.</p>
+<p>On the flight I read the last half of Murakami&#39;s norwegian wood and got so impressed. This is a very beautiful, sad and yet emotional story. I couldn&#39;t stop falling into tears in the last few chapters.</p>
+<p>It&#39;d be interesting to&#160;re-read them in English. I&#39;m just curious how they translate&#160;the phrase &quot;やれやれ&quot; of the guy in most of Murakami&#39;s works.&#160;He always says &quot;やれやれ&quot; whenever he feels sick or tired of the conversations with girls, or any other&#160;things in the world. Maybe ... &quot;WTF&quot;, &quot;Boo-Hoo&quot; or &quot;Good grief&quot;?&#160;</p> 
+    
+            </div>
+        </content> 
+    <category term="murakami" scheme="http://bulknews.vox.com/tags/murakami/" label="murakami" /> 
+    </entry> 
+</feed>
