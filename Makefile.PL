@@ -230,6 +230,10 @@ features(
         recommends('SWF::Builder'),
         recommends('Text::WrapI18N'),
     ],
+    'Search::KinoSearch' => [
+        -default => 0,
+        recommends('KinoSearch'),
+    ],
 );
 
 if ($^O eq 'darwin') {

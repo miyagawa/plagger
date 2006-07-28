@@ -283,22 +283,29 @@ sub register_hook {
 }
 
 sub run_hook {
-    my($self, $hook, $args, $once) = @_;
+    my($self, $hook, $args, $once, $callback) = @_;
+
+    my @ret;
     for my $action (@{ $self->{hooks}->{$hook} }) {
         my $plugin = $action->{plugin};
         if ( $plugin->rule->dispatch($plugin, $hook, $args) ) {
-            my $done = $action->{callback}->($plugin, $self, $args);
-            return 1 if $once && $done;
+            my $ret = $action->{callback}->($plugin, $self, $args);
+            push @ret, $ret;
+            if ($callback) {
+                $callback->($ret);
+            }
+            return $ret if $once;
+        } else {
+            push @ret, undef;
         }
     }
 
-    # if $once is set, here means not executed = fail
-    return if $once;
+    return @ret;
 }
 
 sub run_hook_once {
-    my($self, $hook, $args) = @_;
-    $self->run_hook($hook, $args, 1);
+    my($self, $hook, $args, $callback) = @_;
+    $self->run_hook($hook, $args, 1, $callback);
 }
 
 sub run {
