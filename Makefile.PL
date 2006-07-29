@@ -234,6 +234,10 @@ features(
         -default => 0,
         recommends('KinoSearch'),
     ],
+    'Filter::Babelfish' => [
+        -default => 0,
+        recommends('WWW::Babelfish'),
+    ],
 );
 
 if ($^O eq 'darwin') {
