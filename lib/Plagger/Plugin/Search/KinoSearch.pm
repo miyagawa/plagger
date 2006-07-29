@@ -25,7 +25,7 @@ sub init {
 
     $self->{indexer} = KinoSearch::InvIndexer->new(
         invindex => $self->conf->{invindex},
-        create   => 1,
+        create   => !-e $self->conf->{invindex},
         analyzer => $self->{analyzer},
     );
 
