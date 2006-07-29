@@ -41,7 +41,7 @@ sub update {
         $context->log(error => "Translation failed: " . $translator->error);
         return;
     }
-    $title_tr = $title . "\n\n" . $title_tr if $self->conf->{prepend_org};
+    $title_tr = $title . "\n\n" . $title_tr if $self->conf->{prepend_orginal};
 
     $args->{entry}->title($title_tr);
 
@@ -58,7 +58,7 @@ sub update {
         $context->log(error => "Translation failed: " . $translator->error);
         return;
     }
-    $body_tr = $body . "\n\n" . $body_tr if $self->conf->{prepend_org};
+    $body_tr = $body . "\n\n" . $body_tr if $self->conf->{prepend_orginal};
 
     $args->{entry}->body($body_tr);
 }
@@ -78,7 +78,7 @@ Plagger::Plugin::Filter::Babelfish - translate via WWW::Babelfish
       source: English
       destination: Japanese
       service: Google
-      prepend_org: 1
+      prepend_orginal: 1
 
 =head1 DESCRIPTION
 
@@ -104,7 +104,7 @@ Defaults to 'English'.
 Which language the translated entry should be.
 Defaults to 'Japanese'.
 
-=item prepend_org
+=item prepend_orginal
 
 When set to 1, prepends original entry body. Defaults to 0.
 
