@@ -2,8 +2,12 @@ package Plagger::Plugin::Filter::Babelfish;
 use strict;
 use base qw( Plagger::Plugin );
 
+our $VERSION = '0.03';
+
 use Plagger::UserAgent;
 use WWW::Babelfish;
+use Digest::MD5 qw(md5_hex);
+use Encode qw(encode_utf8);
 
 sub register {
     my($self, $context) = @_;
@@ -17,8 +21,6 @@ sub update {
     my($self, $context, $args) = @_;
 
     my $service = $self->conf->{service} || 'Babelfish';
-    my $source  = $self->conf->{source}  || 'English';
-    my $destination = $self->conf->{destination} || 'Japanese';
 
     my $ua = Plagger::UserAgent->new;
     my $translator = new WWW::Babelfish(
@@ -30,13 +32,8 @@ sub update {
         return;
     }
 
-    my $title = $args->{entry}->title;
-    my $title_tr = $translator->translate(
-        source => $source,
-        destination => $destination,
-        text => $title,
-        delimiter => "\n\n",
-    );
+    my $title    = $args->{entry}->title;
+    my $title_tr = $self->translate($translator, $title);
     unless (defined $title_tr) {
         $context->log(error => "Translation failed: " . $translator->error);
         return;
@@ -47,13 +44,8 @@ sub update {
 
     sleep 1;
 
-    my $body = $args->{entry}->body;
-    my $body_tr = $translator->translate(
-        source => $source,
-        destination => $destination,
-        text => $body,
-        delimiter => "\n\n",
-    );
+    my $body    = $args->{entry}->body;
+    my $body_tr = $self->translate($translator, $body);
     unless (defined $body_tr) {
         $context->log(error => "Translation failed: " . $translator->error);
         return;
@@ -61,6 +53,28 @@ sub update {
     $body_tr = $body . "\n\n" . $body_tr if $self->conf->{prepend_orginal};
 
     $args->{entry}->body($body_tr);
+}
+
+sub translate {
+    my ($self, $translator, $text) = @_;
+
+    my $source      = $self->conf->{source}      || 'English';
+    my $destination = $self->conf->{destination} || 'Japanese';
+
+    my $key = md5_hex(encode_utf8($text));
+
+    return $self->cache->get_callback(
+        "babelfish:$key",
+        sub {
+            $translator->translate(
+                source => $source,
+                destination => $destination,
+                text => $text,
+                delimiter => "\n\n",
+            );
+        },
+        '3 days'
+    );
 }
 
 1;
