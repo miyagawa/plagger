@@ -102,7 +102,7 @@ sub handle_feed {
     }
 
     $feed ||= Plagger::Feed->new;
-    $feed->title(_u($remote->title));
+    $feed->title(_u($remote->title)) unless defined $feed->title;
     $feed->url($url);
     $feed->link($remote->link);
     $feed->description(_u($remote->tagline)); # xxx should support Atom 1.0
