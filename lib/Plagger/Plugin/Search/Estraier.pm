@@ -9,7 +9,7 @@ sub init {
     my $self = shift;
     $self->SUPER::init(@_);
 
-    $self->conf->{url}      ||= "http://localhost:1978/node/Plagger";
+    $self->conf->{url}      ||= "http://localhost:1978/node/plagger";
     $self->conf->{username} ||= "admin";
     $self->conf->{password} ||= "admin";
     $self->conf->{timeout}  ||= 30;
@@ -26,6 +26,7 @@ sub register {
     $context->register_hook(
         $self,
         'publish.entry' => \&entry,
+        'searcher.search'  => \&search,
     );
 }
 
@@ -51,6 +52,36 @@ sub entry {
     $self->{node}->put_doc($doc) or $context->error("Put failure: " . $self->{node}->status);
 }
 
+sub search {
+    my($self, $context, $args) = @_;
+
+    my $cond = Search::Estraier::Condition->new;
+    $cond->set_phrase( encode_utf8($args->{query}) );
+
+    my $nres = $self->{node}->search($cond, 0);
+    defined $nres or $context->error("search failed: " . $self->{node}->status);
+
+    my $feed = Plagger::Feed->new;
+    $feed->type('search:Estraier');
+    $feed->title("Search: $args->{query}");
+
+    for my $i ( 0 .. $nres->doc_num - 1 ) {
+        my $doc = $nres->get_doc($i);
+        my $entry = Plagger::Entry->new;
+
+        $entry->link( $doc->attr('@uri') );
+        $entry->title( decode_utf8($doc->attr('@title')) );
+        $entry->date( $doc->attr('@cdate') )    if $doc->attr('@cdate');
+        $entry->author( decode_utf8($doc->attr('@author')) ) if $doc->attr('@author');
+        $entry->body( decode_utf8($doc->snippet) );
+
+        $feed->add_entry($entry);
+    }
+
+
+    return $feed;
+}
+
 sub _u {
     my $str = shift;
     Encode::_utf8_off($str);
@@ -69,7 +100,7 @@ Plagger::Plugin::Search::Estraier - Search entries using Hyper Estraier P2P
 
   - module: Search::Estraier
     config:
-      url: http://localhost:1978/node/Plagger
+      url: http://localhost:1978/node/plagger
       username: foobar
       password: p4ssw0rd
 

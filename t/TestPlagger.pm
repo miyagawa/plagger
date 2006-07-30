@@ -2,7 +2,8 @@ package t::TestPlagger;
 use Test::Base -Base;
 use Plagger;
 
-our @EXPORT = qw(test_requires test_requires_network run_eval_expected slurp_file file_contains file_doesnt_contain);
+our @EXPORT = qw(test_requires test_requires_network test_requires_command
+                 run_eval_expected slurp_file file_contains file_doesnt_contain);
 
 sub test_requires() {
     my($mod, $ver) = @_;
@@ -30,6 +31,16 @@ sub test_requires_network {
     unless (has_network) {
         plan skip_all => "Test requires network which is not available now.";
     }
+}
+
+sub test_requires_command {
+    my $command = $self;
+    for my $path (split /:/, $ENV{PATH}) {
+        if (-e File::Spec->catfile($path, $command) && -x _) {
+            return 1;
+        }
+    }
+    plan skip_all => "Test requires '$command' command but it's not found";
 }
 
 sub run_eval_expected {
