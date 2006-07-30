@@ -2,8 +2,6 @@ package Plagger::Plugin::Filter::Babelfish;
 use strict;
 use base qw( Plagger::Plugin );
 
-our $VERSION = '0.03';
-
 use Plagger::UserAgent;
 use WWW::Babelfish;
 use Digest::MD5 qw(md5_hex);
