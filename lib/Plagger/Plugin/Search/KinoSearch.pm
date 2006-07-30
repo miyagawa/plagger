@@ -12,7 +12,6 @@ sub init {
     my $self = shift;
     $self->SUPER::init(@_);
 
-    $self->conf->{language} ||= "en";
     $self->conf->{invindex} ||= $self->cache->path_to('invindex');
 
     # TODO: CJKAnalyzer
@@ -113,6 +112,8 @@ Plagger::Plugin::Search::KinoSearch - Index entries using KinoSearch
 
 =head1 DESCRIPTION
 
+This plugin stores feeds to KinoSearch inverted index. KinoSearch is a
+Lucene loose port to Perl/C.
 
 =head1 AUTHOR
 
