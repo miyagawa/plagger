@@ -36,7 +36,10 @@ sub update {
         $context->log(error => "Translation failed: " . $translator->error);
         return;
     }
-    $title_tr = $title . "\n\n" . $title_tr if $self->conf->{prepend_orginal};
+    if ($self->conf->{prepend_original}) {
+        $title_tr = $title . "\n\n" . $title_tr;
+        $context->log(debug => "prepended original title");
+    }
 
     $args->{entry}->title($title_tr);
 
@@ -48,7 +51,10 @@ sub update {
         $context->log(error => "Translation failed: " . $translator->error);
         return;
     }
-    $body_tr = $body . "\n\n" . $body_tr if $self->conf->{prepend_orginal};
+    if ($self->conf->{prepend_original}) {
+        $body_tr = $body . "\n\n" . $body_tr;
+        $context->log(debug => "prepended original body");
+    }
 
     $args->{entry}->body($body_tr);
 }
@@ -90,7 +96,7 @@ Plagger::Plugin::Filter::Babelfish - translate via WWW::Babelfish
       source: English
       destination: Japanese
       service: Google
-      prepend_orginal: 1
+      prepend_original: 1
 
 =head1 DESCRIPTION
 
@@ -116,7 +122,7 @@ Defaults to 'English'.
 Which language the translated entry should be.
 Defaults to 'Japanese'.
 
-=item prepend_orginal
+=item prepend_original
 
 When set to 1, prepends original entry body. Defaults to 0.
 
