@@ -59,6 +59,11 @@ sub load_plugin_perl {
     (my $pkg = $base) =~ s/\.pl$//;
     my $plugin_class = "Plagger::Plugin::Filter::EntryFullText::Site::$pkg";
 
+    if ($plugin_class->can('new')) {
+        Plagger->context->log(warn => "$plugin_class is already defined. skip compiling code");
+        return $plugin_class->new;
+    }
+
     my $code = join '', <$fh>;
     unless ($code =~ /^\s*package/s) {
         $code = join "\n",
