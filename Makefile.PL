@@ -238,6 +238,14 @@ features(
         -default => 0,
         recommends('WWW::Babelfish'),
     ],
+    'Notify::NetSend' => [
+        -default => 0,
+        recommends('Net::NetSend'),
+    ],
+    'Publish::Excel' => [
+        -default => 0,
+        recommends('Spreadsheet::WriteExcel'),
+    ],
 );
 
 if ($^O eq 'darwin') {
