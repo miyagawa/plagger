@@ -179,6 +179,7 @@ sub new {
 
     # add ^ if handle method starts with http://
     for my $key ( qw(custom_feed_handle handle handle_force) ) {
+        next unless defined $data->{$key};
         $data->{$key} = "^$data->{$key}" if $data->{$key} =~ m!^https?://!;
     }
 

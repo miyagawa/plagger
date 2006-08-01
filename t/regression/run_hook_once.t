@@ -2,6 +2,7 @@ use strict;
 use FindBin;
 use t::TestPlagger;
 
+test_requires_network;
 plan 'no_plan';
 run_eval_expected;
 
