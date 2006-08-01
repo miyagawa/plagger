@@ -290,11 +290,12 @@ sub run_hook {
         my $plugin = $action->{plugin};
         if ( $plugin->rule->dispatch($plugin, $hook, $args) ) {
             my $ret = $action->{callback}->($plugin, $self, $args);
-            push @ret, $ret;
-            if ($callback) {
-                $callback->($ret);
+            $callback->($ret) if $callback;
+            if ($once) {
+                return $ret if defined $ret;
+            } else {
+                push @ret, $ret;
             }
-            return $ret if $once;
         } else {
             push @ret, undef;
         }
