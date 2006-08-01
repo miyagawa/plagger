@@ -1,0 +1,4 @@
+condition: $args->{entry}->link =~ m!^http://www\.namaan\.net/ad_rd\?!
+strip: 1
+
+
