@@ -56,7 +56,7 @@ sub aggregate {
     my %seen;
     my $parser = HTML::TokeParser->new(\$content);
     while (my $token = $parser->get_tag('a')) {
-        next unless $token->[0] eq 'S' || $token->[1]->{href} =~ /$re/;
+        next unless ($token->[1]->{href} || '') =~ /$re/;
 
         my $text = $parser->get_trimmed_text('/a');
         next if !$text || $text eq '[IMG]';
