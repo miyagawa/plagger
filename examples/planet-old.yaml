@@ -20,7 +20,8 @@ plugins:
   - module: SmartFeed::All
     rule:
       module: Fresh
-      duration: 10080 # Seven Days
+      # 10080 minutes == 7 Days 
+      duration: 10080
     config:
       title: Planet Plagger
 
