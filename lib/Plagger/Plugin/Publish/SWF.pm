@@ -42,39 +42,6 @@ sub create_stage {
           BackgroundColor => $bgcolor
     );
 
-    $movie->frame_action(1)->compile( <<AS_END );
-        this.page=0;
-        nextPage();
-        _root.pre_mc._visible=false;
-        function nextPage(){
-            var title_name = 'title_text' + this.page.toString();
-            var entry_name = 'entry_text' + this.page.toString();
-            this[title_name].onEnterFrame=function(){}
-            this[title_name]._alpha=0;
-            this[title_name]._visible=false;
-            this[entry_name].onEnterFrame=function(){}
-            this[entry_name]._alpha=0;
-            this[entry_name]._visible=false;
-
-            this.page++;
-            entry_name = 'entry_text' + this.page.toString();
-            title_name = 'title_text' + this.page.toString();
-            if(!this[entry_name]){
-            this.page=1;
-                entry_name = 'entry_text' + this.page.toString();
-            title_name = 'title_text' + this.page.toString();
-            }
-            this[entry_name].onEnterFrame=function(){
-                this._alpha+=6;
-                this._visible=true;
-            }
-            this[title_name].onEnterFrame=function(){
-                this._alpha+=6;
-                this._visible=true;
-            }
-         }
-AS_END
-
     my $new_mc = $movie->new_movie_clip;
     my $shape = $new_mc->new_shape;
     $shape->fillstyle($bgcolor);
@@ -93,8 +60,79 @@ AS_END
 
     my $page = 0;
     for my $entry ($args->{feed}->entries) {
-        $self->create_page($movie, ++$page, $entry->title, $entry->body_text);
+        $self->create_page($movie, ++$page, $entry->title_text, $entry->body_text);
     }
+
+    $movie->frame_action(1)->compile( <<AS_END );
+        this.page = 0;
+        this.total = $page;
+        nextPage();
+        _root.pre_mc._visible = false;
+        oListener = new Object;
+        oListener.onKeyDown = function () {
+            if(Key.isDown(74)){
+                _root.nextPage();
+            }
+            if(Key.isDown(75)){
+                _root.prePage();
+            }
+        }
+        Key.addListener(oListener);
+        function prePage() {
+            this._hidePage();
+            this.page--;
+            entry_name = 'entry_text' + this.page.toString();
+            title_name = 'title_text' + this.page.toString();
+            if(!this[entry_name]){
+                this.page = this.total;
+                entry_name = 'entry_text' + this.page.toString();
+                title_name = 'title_text' + this.page.toString();
+            }
+            this[entry_name].onEnterFrame = function () {
+                this._alpha += 6;
+                this._visible = true;
+            }
+            this[title_name].onEnterFrame = function () {
+                this._alpha += 6;
+                this._visible = true;
+            }
+            this[title_name].play();
+            this[entry_name].play();
+         }
+         function nextPage() {
+            this._hidePage();
+            this.page++;
+            entry_name = 'entry_text' + this.page.toString();
+            title_name = 'title_text' + this.page.toString();
+            if(!this[entry_name]){
+                this.page = 1;
+                entry_name = 'entry_text' + this.page.toString();
+                title_name = 'title_text' + this.page.toString();
+            }
+            this[entry_name].onEnterFrame = function () {
+                this._alpha += 6;
+                this._visible = true;
+            }
+            this[title_name].onEnterFrame = function () {
+                this._alpha += 6;
+                this._visible = true;
+            }
+            this[title_name].play();
+            this[entry_name].play();
+         }
+        function _hidePage() {
+            var title_name = 'title_text' + this.page.toString();
+            var entry_name = 'entry_text' + this.page.toString();
+            this[title_name].onEnterFrame = function () {}
+            this[title_name]._alpha = 0;
+            this[title_name]._visible = false;
+            this[title_name].stop();
+            this[entry_name].onEnterFrame = function () {}
+            this[entry_name]._alpha = 0;
+            this[entry_name]._visible = false;
+            this[entry_name].stop();
+         }
+AS_END
 
     $movie;
 }
@@ -117,7 +155,7 @@ sub create_page {
 
     my $title_text_mc = $movie->new_movie_clip;
     my $title_ins = $title_text_mc->new_static_text($font);
-    $title_ins->size($title_size)->color($color)->text($title)->place;
+    $title_ins->size($title_size)->color($color)->text(Encode::decode_utf8($title))->place;
     my $title_text_ins = $title_text_mc->place;
     $title_text_ins->on('Load')->compile('this._visible=false;this._alpha=0;');
     $title_text_ins->name($title_name);
@@ -125,7 +163,7 @@ sub create_page {
 
     my $entry_text_mc = $movie->new_movie_clip;
     my $entry_ins = $entry_text_mc->new_static_text($font);
-    $entry_ins->size($body_size)->color($color)->text($body)->place;
+    $entry_ins->size($body_size)->color($color)->text(Encode::decode_utf8($body))->place;
     my $entry_text_ins = $entry_text_mc->place;
     $entry_text_ins->name($entry_name);
     $entry_text_ins->on('Initialize')->compile('this._visible=false;this._alpha=0;');
@@ -139,7 +177,7 @@ sub fold_body {
 
     if (eval { require Text::WrapI18N }) {
         local $Text::WrapI18N::columns = $length;
-        return Encode::decode_utf8( Text::WrapI18N::wrap('', '', Encode::encode_utf8($str)) );
+        return Text::WrapI18N::wrap('', '', Encode::encode_utf8($str));
     } else {
         require Text::Wrap;
         local $Text::Wrap::columns = $length + 1;
@@ -173,6 +211,8 @@ Plagger::Plugin::Publish::SWF - Publish feeds as SWF
 =head1 DESCRIPTION
 
 This plugin creates SWF files which you can be view with Flash Player.
+
+j:next page, k:previous page
 
 =head1 EXAMPLE
 
