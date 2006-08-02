@@ -62,7 +62,8 @@ sub fetch_content {
     my $context = Plagger->context;
     $context->log(info => "Fetch $url");
 
-    my $agent    = Plagger::UserAgent->new;
+    my $agent = Plagger::UserAgent->new;
+       $agent->parse_head(0);
     my $response = $agent->fetch($url, $self);
 
     if ($response->is_error) {
