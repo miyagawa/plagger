@@ -20,3 +20,4 @@ plugins:
 --- expected
 is $context->update->feeds->[0]->title, "Example Feed";
 ok $context->update->feeds->[0]->link;
+ok $context->update->feeds->[0]->entries->[0]->link;
