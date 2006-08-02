@@ -33,8 +33,8 @@ sub test_requires_network {
     }
 }
 
-sub test_requires_command {
-    my $command = $self;
+sub test_requires_command() {
+    my $command = shift;
     for my $path (split /:/, $ENV{PATH}) {
         if (-e File::Spec->catfile($path, $command) && -x _) {
             return 1;
@@ -52,22 +52,20 @@ sub run_eval_expected {
     };
 }
 
-sub slurp_file {
-    my $file = $self;
+sub slurp_file() {
+    my $file = shift;
     open my $fh, $file or return;
     return join '', <$fh>;
 }
 
-sub file_contains {
-    my $file = $self;
-    my($pattern) = @_;
+sub file_contains() {
+    my($file, $pattern) = @_;
 
     like slurp_file($file), $pattern;
 }
 
-sub file_doesnt_contain {
-    my $file = $self;
-    my($pattern) = @_;
+sub file_doesnt_contain() {
+    my($file, $pattern) = @_;
 
     my $content = slurp_file($file) or return fail("$file: $!");
     unlike $content, $pattern;
