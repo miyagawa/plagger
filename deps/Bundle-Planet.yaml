@@ -1,5 +1,11 @@
 name: Bundle::Planet
 author: Tatsuhiko Miyagawa
 default: 1
-depends: 
-  Time::Duration::Parse: 0
+bundles:
+  - Filter::StripTagsFromTitle
+  - Filter::HTMLScrubber
+  - Rule::Fresh
+  - Publish::Planet
+  - Publish::Feed
+  - Publish::OPML
+  - Publish::FOAFRoll

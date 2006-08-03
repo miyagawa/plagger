@@ -58,16 +58,23 @@ sub test_requires_command() {
 }
 
 sub test_plugin_deps() {
-    my $mod = shift || File::Basename::basename($FindBin::Bin);
+    my($mod, $no_warning) = @_;
+    $mod ||= File::Basename::basename($FindBin::Bin);
     $mod =~ s!::!-!g;
 
     my $file = File::Spec->catfile( $BaseDir, "deps", "$mod.yaml" );
     unless (-e $file) {
-        warn "Can't find deps file for $mod";
+        warn "Can't find deps file for $mod" unless $no_warning;
         return;
     }
 
     my $meta = YAML::LoadFile($file);
+
+    for my $plugin (@{ $meta->{bundles} || [] }) {
+        $plugin =~ s/::/-/g;
+        test_plugin_deps($plugin, 1);
+    }
+
     while (my($mod, $ver) = each %{$meta->{depends}}) {
         test_requires($mod, $ver);
     }
