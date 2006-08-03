@@ -4,7 +4,7 @@ use File::Path;
 use t::TestPlagger;
 
 test_requires_network;
-test_requires('Time::Duration::Parse');
+test_plugin_deps;
 
 plan 'no_plan';
 

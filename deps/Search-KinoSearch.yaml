@@ -1,0 +1,4 @@
+name: Search::KinoSearch
+author: Tatsuhiko Miyagawa
+depends: 
+  KinoSearch: 0

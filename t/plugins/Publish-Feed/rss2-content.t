@@ -4,7 +4,7 @@ use File::Spec;
 use t::TestPlagger;
 use XML::Feed;
 
-test_requires('XML::Feed', 0.09);
+test_plugin_deps;
 
 our $output = "$FindBin::Bin/rss.xml";
 run_like 'input', 'expected';

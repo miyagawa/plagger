@@ -1,0 +1,4 @@
+name: Filter::RSSLiberalDateTime
+author: Tatsuhiko Miyagawa
+depends: 
+  Date::Parse: 0

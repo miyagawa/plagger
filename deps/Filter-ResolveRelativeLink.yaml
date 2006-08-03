@@ -1,0 +1,4 @@
+name: Filter::ResolveRelativeLink
+author: Tatsuhiko Miyagawa
+depends: 
+  HTML::ResolveLink: 0.02

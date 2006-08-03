@@ -1,0 +1,4 @@
+name: Publish::2chdat
+author: Tatsuhiko Miyagawa
+depends: 
+  DateTime::Locale: 0

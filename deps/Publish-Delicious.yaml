@@ -1,0 +1,4 @@
+name: Publish::Delicious
+author: Tsutomu Koyacho
+depends: 
+  Net::Delicious: 0

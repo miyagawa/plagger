@@ -1,0 +1,4 @@
+name: Notify::Beep
+author: Tatsuhiko Miyagawa
+depends: 
+  Audio::Beep: 0

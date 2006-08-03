@@ -3,7 +3,7 @@ use FindBin;
 use File::Spec;
 use t::TestPlagger;
 
-test_requires('XMLRPC::Lite');
+test_plugin_deps;
 test_requires_network;
 
 my $rpc;

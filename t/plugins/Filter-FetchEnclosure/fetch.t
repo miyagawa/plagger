@@ -2,11 +2,10 @@ use strict;
 use FindBin;
 use File::Path qw(rmtree);
 
-use t::TestPlagger;
-
 BEGIN {
+    use t::TestPlagger;
+    test_plugin_deps('Publish-Gmail');
     test_requires('MIME::Parser');
-    test_requires('MIME::Lite');
     test_requires_network;
 }
 

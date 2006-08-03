@@ -1,0 +1,4 @@
+name: Notify::NetSend
+author: Jiro Nishiguchi
+depends: 
+  Net::NetSend: 0

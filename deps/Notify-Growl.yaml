@@ -1,0 +1,5 @@
+name: Notify::Growl
+author: kazeburo
+platform: darwin
+depends: 
+  Mac::Growl: 0

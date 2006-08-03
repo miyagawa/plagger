@@ -1,0 +1,4 @@
+name: Publish::Maildir
+author: Nobuhito Sato
+depends: 
+  MIME::Lite: 0

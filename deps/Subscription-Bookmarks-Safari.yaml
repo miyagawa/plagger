@@ -1,0 +1,5 @@
+name: Subscription::Bookmarks::Safari
+author: youpy
+platform: darwin
+depends: 
+  Mac::Tie::PList: 0

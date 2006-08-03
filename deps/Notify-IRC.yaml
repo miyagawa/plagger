@@ -1,0 +1,5 @@
+name: Notify::IRC
+author: Masayoshi Sekimura, Tatsuhiko Miyagawa
+depends: 
+  POE::Component::IRC: 0
+  POE::Component::IKC::Client: 0

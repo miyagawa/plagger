@@ -1,0 +1,4 @@
+name: Search::Estraier
+author: Tatsuhiko Miyagawa
+depends: 
+  Search::Estraier: 0

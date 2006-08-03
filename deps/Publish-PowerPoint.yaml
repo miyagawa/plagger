@@ -1,0 +1,5 @@
+name: Publish::PowerPoint
+author: Kenichi Ishigaki
+platform: MSWin32
+depends: 
+  Win32::PowerPoint: 0

@@ -1,0 +1,5 @@
+name: Notify::Balloon
+author: Tatsuhiko Miyagawa
+platform: MSWin32
+depends: 
+  Win32::Console: 0

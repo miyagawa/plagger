@@ -8,7 +8,7 @@ use LWP::UserAgent;
 
 use t::TestPlagger;
 
-test_requires('Search::Estraier');
+test_plugin_deps;
 test_requires('Tie::File');
 test_requires_command('estmaster');
 

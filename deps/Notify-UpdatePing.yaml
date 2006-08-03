@@ -1,0 +1,4 @@
+name: Notify::UpdatePing
+author: Tatsuhiko Miyagawa
+depends: 
+  XMLRPC::Lite: 0

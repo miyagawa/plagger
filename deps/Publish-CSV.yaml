@@ -1,0 +1,4 @@
+name: Publish::CSV
+author: Naoya Ito E<lt>naoya@bloghackers.netE<gt>
+depends: 
+  Text::CSV_PP: 0

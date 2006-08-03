@@ -1,9 +1,23 @@
 package t::TestPlagger;
+use FindBin;
+use File::Basename;
+use File::Spec;
 use Test::Base -Base;
 use Plagger;
 
-our @EXPORT = qw(test_requires test_requires_network test_requires_command
+our @EXPORT = qw(test_requires test_requires_network test_requires_command test_plugin_deps
                  run_eval_expected slurp_file file_contains file_doesnt_contain);
+
+our $BaseDir;
+{
+    my @path = File::Spec->splitdir($FindBin::Bin);
+    while (my $dir = pop @path) {
+        if ($dir eq 't') {
+            $BaseDir = File::Spec->catfile(@path);
+            last;
+        }
+    }
+}
 
 sub test_requires() {
     my($mod, $ver) = @_;
@@ -41,6 +55,22 @@ sub test_requires_command() {
         }
     }
     plan skip_all => "Test requires '$command' command but it's not found";
+}
+
+sub test_plugin_deps() {
+    my $mod = shift || File::Basename::basename($FindBin::Bin);
+    $mod =~ s!::!-!g;
+
+    my $file = File::Spec->catfile( $BaseDir, "deps", "$mod.yaml" );
+    unless (-e $file) {
+        warn "Can't find deps file for $mod";
+        return;
+    }
+
+    my $meta = YAML::LoadFile($file);
+    while (my($mod, $ver) = each %{$meta->{depends}}) {
+        test_requires($mod, $ver);
+    }
 }
 
 sub run_eval_expected {

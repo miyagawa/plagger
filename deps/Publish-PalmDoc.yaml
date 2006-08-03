@@ -1,0 +1,4 @@
+name: Publish::PalmDoc
+author: Motokazu Sekine (CHEEBOW) @M-Logic, Inc.
+depends: 
+  Palm::PalmDoc: 0

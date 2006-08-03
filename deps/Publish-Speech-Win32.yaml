@@ -1,0 +1,8 @@
+name: Publish::Speech::Win32
+author: Tatsuhiko Miyagawa
+platform: MSWin32
+depends: 
+  Win32::OLE: 0
+  Win32::SAPI4: 0
+  Locale::Country: 0
+  Locale::Language: 0

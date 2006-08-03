@@ -1,0 +1,5 @@
+name: Subscription::OPML
+author: Tatsuhiko Miyagawa
+default: 1
+depends: 
+  XML::OPML: 0

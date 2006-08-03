@@ -1,0 +1,4 @@
+name: Filter::Pipe
+author: Tokuhiro Matsuno, Tatsuhiko Miyagawa
+depends: 
+  IPC::Run: 0

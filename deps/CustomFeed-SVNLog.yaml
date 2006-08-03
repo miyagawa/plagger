@@ -1,0 +1,5 @@
+name: CustomFeed::SVNLog
+author: Michiya Honda <pia@cpan.org>
+depends: 
+  SVN::Core: 0
+  SVN::Client: 0

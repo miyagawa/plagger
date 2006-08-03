@@ -4,7 +4,7 @@ use File::Spec;
 use File::Path;
 use t::TestPlagger;
 
-test_requires('KinoSearch');
+test_plugin_deps;
 
 our $dir = File::Spec->catfile($FindBin::Bin, 'invindex');
 

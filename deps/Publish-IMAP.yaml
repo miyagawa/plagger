@@ -1,0 +1,4 @@
+name: Publish::IMAP
+author: Nobuhito Sato
+depends: 
+  Mail::IMAPClient: 0

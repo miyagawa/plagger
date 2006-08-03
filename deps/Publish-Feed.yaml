@@ -1,0 +1,7 @@
+name: Publish::Feed
+author: Yoshiki Kurihara, Tatsuhiko Miyagawa, Gosuke Miyashita
+default: 1
+depends:
+  XML::Feed: 0.09
+  XML::Atom: 0.20
+

@@ -1,0 +1,4 @@
+name: Subscription::HatenaRSS
+author: Tatsuhiko Miyagawa
+depends: 
+  WWW::Mechanize: 0

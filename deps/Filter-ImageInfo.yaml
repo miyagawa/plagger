@@ -1,0 +1,4 @@
+name: Filter::ImageInfo
+author: Tatsuhiko Miyagawa
+depends: 
+  Image::Info: 0

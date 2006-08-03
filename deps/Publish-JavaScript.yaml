@@ -1,0 +1,4 @@
+name: Publish::JavaScript
+author: Tatsuhiko Miyagawa
+depends: 
+  Template::Plugin::JavaScript: 0

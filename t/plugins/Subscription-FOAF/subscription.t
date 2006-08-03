@@ -2,7 +2,7 @@ use strict;
 use FindBin;
 use t::TestPlagger;
 
-test_requires('XML::FOAF');
+test_plugin_deps;
 plan tests => 1;
 run_eval_expected;
 

@@ -1,0 +1,6 @@
+name: Search::Spotlight
+author: id:youpy
+default: 1
+platform: darwin
+depends: 
+  Mac::Glue: 0

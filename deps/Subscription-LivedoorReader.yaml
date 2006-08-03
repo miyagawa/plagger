@@ -1,0 +1,5 @@
+name: Subscription::LivedoorReader
+author: Tatsuhiko Miyagawa
+depends: 
+  JSON::Syck: 0.1
+  WWW::Mechanize: 0

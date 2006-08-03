@@ -1,0 +1,4 @@
+name: Subscription::PlanetINI
+author: Tatsuhiko Miyagawa
+depends: 
+  Config::INI::Simple: 0

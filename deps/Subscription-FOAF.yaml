@@ -1,0 +1,4 @@
+name: Subscription::FOAF
+author: Ilmari Vacklin <ilmari.vacklin@helsinki.fi>
+depends: 
+  XML::FOAF: 0

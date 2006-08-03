@@ -1,0 +1,4 @@
+name: Subscription::DBI
+author: Franck Cuny
+depends: 
+  DBIx::Class::Schema: 0

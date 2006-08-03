@@ -1,0 +1,5 @@
+name: CustomFeed::FlickrSearch
+author: Casey West, Tatsuhiko Miyagawa
+depends: 
+  Flickr::API: 0
+  DateTime::Format::Epoch: 0

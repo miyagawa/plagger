@@ -1,0 +1,4 @@
+name: Filter::HatenaBookmarkUsersCount
+author: Kazuhiro Osawa, Tatsuhiko Miyagawa
+depends: 
+  XMLRPC::Lite: 0

@@ -1,0 +1,7 @@
+name: Publish::Gmail
+author: Tatsuhiko Miyagawa
+default: 1
+depends: 
+  Mail::Address: 0
+  MIME::Lite: 0
+  Net::SMTP::TLS: 0

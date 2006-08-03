@@ -1,0 +1,6 @@
+name: Publish::Speech::MacOSX
+author: Ryo Okamoto
+platform: darwin
+depends: 
+  Mac::Files: 0
+  Mac::Speech: 0

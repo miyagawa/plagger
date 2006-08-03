@@ -1,0 +1,4 @@
+name: Publish::PDF
+author: Tatsuhiko Miyagawa
+depends: 
+  PDF::FromHTML: 0

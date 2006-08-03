@@ -1,0 +1,4 @@
+name: Filter::TTP
+author: Matsuno Tokuhiro, Tatsuhiko Miyagawa
+depends: 
+  URI::Find: 0

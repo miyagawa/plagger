@@ -1,0 +1,4 @@
+name: Filter::Emoticon
+author: Naoya Ito E<lt>naoya@bloghackers.netE<gt>
+depends: 
+  Text::Emoticon: 0

@@ -1,0 +1,4 @@
+name: Filter::Profanity
+author: Tatsuhiko Miyagawa
+depends: 
+  Regexp::Common::profanity_us: 0

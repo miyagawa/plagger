@@ -1,0 +1,5 @@
+name: Publish::SWF
+author: Akihito Takeda
+depends: 
+  SWF::Builder: 0
+  Text::WrapI18N: 0

@@ -1,0 +1,5 @@
+name: Notify::Eject::mswin32
+author: Kazuhiro Osawa
+platform: MSWin32
+depends: 
+  Win32::MCI::Basic: 0

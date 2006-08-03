@@ -1,0 +1,4 @@
+name: Filter::Romanize
+author: Tatsuhiko Miyagawa
+depends: 
+  Text::Kakasi: 0

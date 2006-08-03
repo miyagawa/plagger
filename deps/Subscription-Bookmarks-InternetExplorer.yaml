@@ -1,0 +1,6 @@
+name: Subscription::Bookmarks::InternetExplorer
+author: Tatsuhiko Miyagawa
+platform: MSWin32
+depends: 
+  Win32::IEFavorites: 0.03
+  Win32::Locale: 0

@@ -1,0 +1,4 @@
+name: Filter::HatenaDiaryKeywordLink
+author: Tokuhiro Matsuno
+depends: 
+  XMLRPC::Lite: 0

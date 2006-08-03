@@ -1,0 +1,4 @@
+name: Publish::Excel
+author: Jiro Nishiguchi
+depends: 
+  Spreadsheet::WriteExcel: 0

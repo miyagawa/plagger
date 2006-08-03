@@ -3,7 +3,7 @@ use FindBin;
 use t::TestPlagger;
 use utf8;
 
-test_requires('WWW::Babelfish');
+test_plugin_deps;
 test_requires_network;
 
 plan tests => 6;

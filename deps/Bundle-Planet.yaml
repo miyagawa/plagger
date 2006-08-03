@@ -1,0 +1,5 @@
+name: Bundle::Planet
+author: Tatsuhiko Miyagawa
+default: 1
+depends: 
+  Time::Duration::Parse: 0

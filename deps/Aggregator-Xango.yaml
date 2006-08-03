@@ -1,0 +1,8 @@
+name: Aggregator::Xango
+author: Daisuke Maki
+depends: 
+  POE: 0
+  Xango: 1.04
+  Cache::FastMmap: 0
+  POE::Component::Client::DNS: 0
+  POE::Component::Client::HTTP: 0

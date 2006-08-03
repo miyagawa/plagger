@@ -33,6 +33,7 @@ requires('XML::RSS::LibXML', 0.20);
 requires('Encode', 2.10);
 requires('Term::Encoding');
 
+build_requires('YAML');
 build_requires('Test::More', 0.42);
 build_requires('Test::Base', 0.52);
 
@@ -61,250 +62,23 @@ features(
     ],
 );
 
-features(
-    'Subscription::Bloglines' => [
-        -default => 1,
-        recommends('WebService::Bloglines', 0.11),
-    ],
-    'Subscription::OPML' => [
-        -default => 1,
-        recommends('XML::OPML'),
-    ],
-    'Publish::Gmail' => [
-        -default => 1,
-        recommends('Mail::Address'),
-        recommends('MIME::Lite'),
-        recommends('Net::SMTP::TLS'),
-    ],
-    'Aggregator::Xango' => [
-        -default => 0,
-        recommends('POE'),
-        recommends('Xango', 1.04), # protect ourselves from my stupidity
-        recommends('Cache::FastMmap'),
-        recommends('POE::Component::Client::DNS'),
-        recommends('POE::Component::Client::HTTP'),
-    ],
-    'CustomFeed::Mixi' => [
-        -default => 0,
-        recommends('WWW::Mixi', 0.46),
-    ],
-    'Publish::PDF' => [
-        -default => 0,
-        recommends('PDF::FromHTML'),
-    ],
-    'Publish::Delicious' => [
-        -default => 0,
-        recommends('Net::Delicious'),
-    ],
-    'Notify::IRC' => [
-        -default => 0,
-        recommends('POE::Component::IRC'),
-        recommends('POE::Component::IKC::Client'),
-    ],
-    'Publish::JavaScript' => [
-        -default => 0,
-        recommends('Template::Plugin::JavaScript'),
-    ],
-    'Subscription::HatenaRSS' => [
-        -default => 0,
-        recommends('WWW::Mechanize'),
-    ],
-    'Filter::HatenaBookmarkUsersCount' => [
-        -default => 0,
-        recommends('XMLRPC::Lite'),
-    ],
-    'Filter::HatenaDiaryKeywordLink' => [
-        -default => 0,
-        recommends('XMLRPC::Lite'),
-    ],
-    'Filter::ResolveRelativeLink' => [
-        -default => 0,
-        recommends('HTML::ResolveLink', 0.02),
-    ],
-    'Publish::Planet' => [
-        -default => 1,
-        recommends('HTML::Scrubber'),
-        recommends('File::Copy::Recursive'),
-    ],
-    'Publish::CSV' => [
-        -default => 0,
-        recommends('Text::CSV_PP'),
-    ],
-    'Filter::HatenaFormat' => [
-        -default => 0,
-        recommends('Text::Hatena'),
-    ],
-    'Publish::MT' => [
-        -default => 0,
-        recommends('Net::MovableType'),
-    ],
-    'CustomFeed::FlickrSearch' => [
-        -default => 0,
-        recommends('Flickr::API'),
-        recommends('DateTime::Format::Epoch'),
-    ],
-    'Filter::ImageInfo' => [
-        -default => 0,
-        recommends('Image::Info'),
-    ],
-    'Filter::Pipe' => [
-        -default => 0,
-        recommends('IPC::Run'),
-    ],
-    'Filter::RSSLiberalDateTime' => [
-        -default => 0,
-        recommends('Date::Parse'),
-    ],
-    'Filter::Emoticon' => [
-        -default => 0,
-        recommends('Text::Emoticon'),
-    ],
-    'Publish::Maildir' => [
-        -default => 0,
-        recommends('MIME::Lite'),
-    ],
-    'Publish::IMAP' => [
-        -default => 0,
-        recommends('Mail::IMAPClient'),
-    ],
-    'Filter::Profanity' => [
-	-default => 0,
-	recommends('Regexp::Common::profanity_us'),
-    ],
-    'Subscription::DBI' => [
-	-default => 0,
-	recommends('DBIx::Class::Schema'),
-    ],
-    'CustomFeed::SVNLog' => [
-	-default => 0,
-	recommends('SVN::Core'),
-	recommends('SVN::Client'),
-    ],
-    'Filter::TTP' => [
-	-default => 0,
-	recommends('URI::Find'),
-    ],
-    'Filter::Romanize' => [
-        -default => 0,
-        recommends('Text::Kakasi'),
-    ],
-    'Subscription::LivedoorReader' => [
-        -default => 0,
-        recommends('JSON::Syck', 0.10),
-        recommends('WWW::Mechanize'),
-    ],
-    'Search::Estraier' => [
-        -default => 0,
-        recommends('Search::Estraier'),
-    ],
-    'Publish::2chdat' => [
-        -default => 0,
-        recommends('DateTime::Locale'),
-    ],
-    'Subscription::PlanetINI' => [
-        -default => 0,
-        recommends('Config::INI::Simple'),
-    ],
-    'Notify::UpdatePing' => [
-        -default => 0,
-        recommends('XMLRPC::Lite'),
-    ],
-    'Publish::PalmDoc' => [
-        -default => 0,
-        recommends('Palm::PalmDoc'),
-    ],
-    'Subscription::FOAF' => [
-        -default => 0,
-        recommends('XML::FOAF'),
-    ],
-    'Notify::Beep' => [
-        -default => 0,
-        recommends('Audio::Beep'),
-    ],
-    'Bundle::Planet' => [
-        -default => 1,
-        recommends('Time::Duration::Parse'),
-    ],
-    'Publish::SWF' => [
-        -default => 0,
-        recommends('SWF::Builder'),
-        recommends('Text::WrapI18N'),
-    ],
-    'Search::KinoSearch' => [
-        -default => 0,
-        recommends('KinoSearch'),
-    ],
-    'Filter::Babelfish' => [
-        -default => 0,
-        recommends('WWW::Babelfish'),
-    ],
-    'Notify::NetSend' => [
-        -default => 0,
-        recommends('Net::NetSend'),
-    ],
-    'Publish::Excel' => [
-        -default => 0,
-        recommends('Spreadsheet::WriteExcel'),
-    ],
-);
+require YAML;
+require DirHandle;
+require File::Spec;
 
-if ($^O eq 'darwin') {
-    features(
-        'Cookie sharing with Safari' => [
-            -default => 0,
-            recommends('HTTP::Cookies::Safari'),
-        ],
-        'Search::Spotlight' => [
-            -default => 1,
-            recommends('Mac::Glue'),
-        ],
-        'Publish::Speech' => [
-            -default => 0,
-            recommends('Mac::Carbon'),
-        ],
-        'Notify::Growl' => [
-            -default => 0,
-            recommends('Mac::Growl'),
-        ],
-        'Subscription::Bookmarks' => [
-            -default => 0,
-            recommends('Mac::Tie::PList'),
-        ],
-    );
+my $dh = DirHandle->new("deps");
+while (my $f = $dh->read) {
+    next unless $f =~ /\.yaml$/;
+    my $meta = YAML::LoadFile( File::Spec->catfile("deps", $f) );
 
-    install_script('bin/spotlight_comment.scpt');
-
-} elsif ($^O eq 'MSWin32') {
-    features(
-        'Cookie sharing with MSIE' => [
-            -default => 0,
-            recommends('HTTP::Cookies::Microsoft'),
-        ],
-        'Publish::Speech' => [
-            -default => 0,
-            recommends('Win32::OLE'),
-            recommends('Win32::SAPI4'),
-            recommends('Locale::Country'),
-            recommends('Locale::Language'),
-        ],
-        'Notify::Eject' => [
-            -default => 0,
-            recommends('Win32::MCI::Basic'),
-        ],
-        'Subscription::Bookmarks' => [
-            -default => 0,
-            recommends('Win32::IEFavorites', 0.03),
-            recommends('Win32::Locale'),
-        ],
-        'Notify::Balloon' => [
-            -default => 0,
-            recommends('Win32::Console'),
-        ],
-        'Publish::PowerPoint' => [
-            -default => 0,
-            recommends('Win32::PowerPoint'),
-        ],
-    );
+    if (!$meta->{platform} || $meta->{platform} eq $^O) {
+        features(
+            $meta->{name}, [
+                -default => $meta->{default},
+                map recommends($_ => $meta->{depends}->{$_}), keys %{$meta->{depends}},
+            ],
+        );
+    }
 }
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
