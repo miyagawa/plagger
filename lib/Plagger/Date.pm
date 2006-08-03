@@ -65,8 +65,14 @@ sub from_epoch {
 
 sub format {
     my($self, $format) = @_;
-    my $module = "DateTime::Format::$format";
-    $module->require or die $@;
+
+    my $module;
+    if (ref $format) {
+        $module = $format;
+    } else {
+        $module = "DateTime::Format::$format";
+        $module->require or die $@;
+    }
 
     $module->format_datetime($self);
 }
