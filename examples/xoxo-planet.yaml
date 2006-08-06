@@ -6,20 +6,11 @@ plugins:
     config:
       url: http://d.hatena.ne.jp/antipop/20050628/1119966355
 
-  # Create SmartFeed with entries Fresher than 7 days old
-  - module: SmartFeed::All
-    rule:
-      module: Fresh
-      duration: 10080 # Seven Days
-    config:
-      title: Planet Perl JP
-
   # Output XHTML to public_html/perl using the default skin
-  - module: Publish::Planet
-    rule:
-      expression: $args->{feed}->id eq 'smartfeed:all'
+  - module: Bundle::Planet
     config:
+      duration: 7 days
+      title: Planet Perl JP
       dir: /home/miyagawa/public_html/perl
-      skin: default
-      template:
-        members_list: 1
+      url: http://example.org/perl/
+      theme: default
