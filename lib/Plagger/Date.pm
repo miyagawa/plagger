@@ -77,4 +77,14 @@ sub format {
     $module->format_datetime($self);
 }
 
+sub set_time_zone {
+    my($self, $tz) = @_;
+    eval {
+        $self->SUPER::set_time_zone($tz);
+    };
+    if ($@) {
+        $self->SUPER::set_time_zone('UTC');
+    }
+}
+
 1;
