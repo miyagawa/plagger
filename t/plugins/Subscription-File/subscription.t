@@ -15,7 +15,7 @@ global:
 plugins:
   - module: Subscription::File
     config:
-      file: $FindBin::Bin/feeds.txt
+      file: file://$FindBin::Bin/feeds.txt
   - module: Aggregator::Null
 --- expected
 my @feeds = map $_->url, $context->subscription->feeds;
