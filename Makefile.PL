@@ -32,6 +32,7 @@ requires('XML::Atom', 0.19);
 requires('XML::RSS::LibXML', 0.20);
 requires('Encode', 2.10);
 requires('Term::Encoding');
+requires('File::HomeDir');
 
 build_requires('YAML');
 build_requires('Test::More', 0.42);
