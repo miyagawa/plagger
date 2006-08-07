@@ -1,7 +1,10 @@
 use strict;
-use Test::More tests => 5;
+use t::TestPlagger;
 use FindBin;
 use File::Spec;
+
+test_plugin_deps('Rule-Deduped');
+plan tests => 5;
 
 use Plagger;
 

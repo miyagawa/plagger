@@ -1,0 +1,5 @@
+name: Rule::Deduped
+author: Tatsuhiko Miyagawa
+default: 1
+depends:
+  DB_File: 0
