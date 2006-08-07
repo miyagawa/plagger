@@ -35,6 +35,7 @@ my $set;
 sub test {
     my($self, $context, $args) = @_;
     if (! $set++) {
+        my $foo = $self->cache->get("foo"); # dummy get call to clear stale cache
         $self->cache->set("foo" => "bar");
         ::is $self->cache->get("foo"), "bar";
     } else {
