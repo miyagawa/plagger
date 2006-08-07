@@ -78,7 +78,7 @@ sub publish_feed {
 
         if ($feed_format eq 'RSS') {
             my $author = 'nobody@example.com';
-            $author .= '(' . $e->author . ')' if $e->author;
+            $author .= ' (' . $e->author . ')' if $e->author;
             $entry->author($author);
         } elsif ($e->author) {
             $entry->author($e->author);
