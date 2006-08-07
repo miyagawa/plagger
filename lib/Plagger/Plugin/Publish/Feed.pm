@@ -50,6 +50,7 @@ sub publish_feed {
     $feed->link($f->link);
     $feed->modified(Plagger::Date->now);
     $feed->generator("Plagger/$Plagger::VERSION");
+    $feed->description($f->description);
 
     if ($feed_format eq 'Atom') {
         $feed->{atom}->id("tag:plagger.org,2006:" . $f->id);
@@ -74,7 +75,13 @@ sub publish_feed {
         $entry->category(join(' ', @{$e->tags}));
         $entry->issued($e->date)   if $e->date;
         $entry->modified($e->date) if $e->date;
-        $entry->author($e->author);
+
+        if ($feed_format eq 'RSS') {
+            $entry->author($e->author . ' <nobody@example.com>');
+        } else {
+            $entry->author($e->author);
+        }
+
         $entry->id("tag:plagger.org,2006:" . $e->id);
 
         if ($e->has_enclosure) {

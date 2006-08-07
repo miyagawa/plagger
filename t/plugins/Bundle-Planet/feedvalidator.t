@@ -13,7 +13,6 @@ unless (-e "$ENV{HOME}/svn/feedvalidator") {
 plan 'no_plan';
 
 our $dir    = "$FindBin::Bin/planet";
-our $output = "$dir/atom.xml";
 
 run_eval_expected;
 
@@ -42,6 +41,9 @@ plugins:
       url: http://planet.plagger.org/
       theme: sixapart-std
       stylesheet: foo.css
+      description: Everything about Foobar
 --- expected
-my $out = `$ENV{HOME}/svn/feedvalidator/src/demo.py $main::output A`;
+my $out = `$ENV{HOME}/svn/feedvalidator/src/demo.py $main::dir/atom.xml A`;
+like $out, qr/No errors or warnings/;
+$out = `$ENV{HOME}/svn/feedvalidator/src/demo.py $main::dir/rss.xml A`;
 like $out, qr/No errors or warnings/;

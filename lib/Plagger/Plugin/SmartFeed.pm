@@ -24,6 +24,7 @@ sub feed_init {
     $feed->id( $self->conf->{id} || ('smartfeed:' . $self->rule->id) );
     $feed->title( $self->conf->{title} || "Entries " . $self->rule->as_title );
     $feed->link( $self->conf->{link} );
+    $feed->description( $self->conf->{description} || $feed->title );
 
     $self->{feed} = $feed;
 }

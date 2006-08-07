@@ -43,6 +43,7 @@ sub register {
         config => {
             title => $self->conf->{title},
             link  => $self->conf->{url},
+            description => $self->conf->{description},
         },
     });
 
@@ -126,6 +127,7 @@ Plagger::Plugin::Bundle::Planet - Bundle package to create Planet site
       theme: sixapart-std
       stylesheet: foo.css
       duration: 7 days
+      description: Everything about Foobar from the Web
 
 =head1 DESCRIPTION
 
@@ -184,6 +186,10 @@ all the entries aggregated. Defaults to I<7 days>.
 =item extra_rule
 
 Additional rule to add to filter entris using SmartFeed::All. Optional and defaults to nothing.
+
+=item description
+
+Description to use in XHTML tagline and Atom/RSS feeds. Optional.
 
 =back
 

@@ -8,8 +8,9 @@ sub feed_init {
     my $feed = Plagger::Feed->new;
     $feed->type('smartfeed');
     $feed->id( $self->conf->{id} || ('smartfeed:all') );
-    $feed->title( $self->conf->{title} || "All Entries " );
+    $feed->title( $self->conf->{title} || "All Entries" );
     $feed->link( $self->conf->{link} );
+    $feed->description( $self->conf->{description} || $feed->title );
 
     $self->{feed} = $feed;
 }
