@@ -76,10 +76,10 @@ sub publish_feed {
         $entry->issued($e->date)   if $e->date;
         $entry->modified($e->date) if $e->date;
 
-        if ($feed_format eq 'RSS') {
-            $entry->author( 'nobody@example.com (' . $e->author . ')' );
-        } else {
-            $entry->author($e->author);
+        if ($entry->author) {
+            $entry->author( $feed_format eq 'RSS'
+                                ? 'nobody@example.com (' . $e->author . ')'
+                                : $e->author );
         }
 
         $entry->id("tag:plagger.org,2006:" . $e->id);
