@@ -50,7 +50,7 @@ sub publish_feed {
     $feed->link($f->link);
     $feed->modified(Plagger::Date->now);
     $feed->generator("Plagger/$Plagger::VERSION");
-    $feed->description($f->description);
+    $feed->description($f->description || '');
 
     if ($feed_format eq 'Atom') {
         $feed->{atom}->id("tag:plagger.org,2006:" . $f->id);
