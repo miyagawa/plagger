@@ -1,7 +1,6 @@
 use strict;
 use t::TestPlagger;
 
-test_requires('WebService::Validator::Feed::W3C');
 test_requires_network;
 test_plugin_deps;
 
