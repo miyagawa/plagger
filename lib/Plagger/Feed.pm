@@ -117,7 +117,7 @@ sub _sort_prioritize {
             $_,                                              # Plagger::Entry for Schwartzian
             _is_same_domain($permalink, $_->source->url),    # permalink and $feed->url is the same domain
             _is_same_domain($permalink, $_->source->link),   # permalink and $feed->link is the same domain
-            ($_->date ? ($now - $_->date->epoch) : 0),        # Older entry date is prioritized
+            ($_->date ? ($now - $_->date->epoch) : 0),       # Older entry date is prioritized
             length($_->body || ''),                          # Prioritize full content feed
         ] } @entries;
 }

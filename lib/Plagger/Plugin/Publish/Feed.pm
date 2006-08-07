@@ -51,17 +51,23 @@ sub publish_feed {
     $feed->modified(Plagger::Date->now);
     $feed->generator("Plagger/$Plagger::VERSION");
 
+    if ($feed_format eq 'Atom') {
+        $feed->{atom}->id("tag:plagger.org,2006:" . $f->id);
+    }
+
     # add entry
     for my $e ($f->entries) {
         my $entry = XML::Feed::Entry->new($feed_format);
         $entry->title($e->title);
         $entry->link($e->link);
         $entry->summary($e->body_text) if defined $e->body;
-        $entry->content($e->body)
+        $entry->content( XML::Feed::Content->new({ body => $e->body, type => 'xhtml' }) )
             if $self->conf->{full_content} && defined $e->body;
         $entry->category(join(' ', @{$e->tags}));
-        $entry->issued($e->date) if $e->date;
+        $entry->issued($e->date)   if $e->date;
+        $entry->modified($e->date) if $e->date;
         $entry->author($e->author);
+        $entry->id("tag:plagger.org,2006:" . $e->id);
 
         if ($e->has_enclosure) {
             for my $enclosure (grep { defined $_->url && !$_->is_inline } $e->enclosures) {
