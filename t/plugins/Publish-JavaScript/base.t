@@ -3,6 +3,8 @@ use FindBin;
 use File::Spec;
 use t::TestPlagger;
 
+test_plugin_deps;
+
 use Digest::MD5;
 
 our $url = "file:///$FindBin::Bin/../../samples/rss-full.xml";

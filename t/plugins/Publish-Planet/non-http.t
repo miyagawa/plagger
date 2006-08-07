@@ -4,6 +4,7 @@ use t::TestPlagger;
 
 our $output = "$FindBin::Bin/index.html";
 
+test_plugin_deps;
 plan tests => 2;
 run_eval_expected;
 

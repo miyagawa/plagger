@@ -5,6 +5,7 @@ use t::TestPlagger;
 
 our $output = "$FindBin::Bin/index.html";
 
+test_plugin_deps;
 run_like 'input', 'expected';
 
 END {
