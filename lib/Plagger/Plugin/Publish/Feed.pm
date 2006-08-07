@@ -77,7 +77,7 @@ sub publish_feed {
         $entry->modified($e->date) if $e->date;
 
         if ($feed_format eq 'RSS') {
-            $entry->author($e->author . ' <nobody@example.com>');
+            $entry->author( 'nobody@example.com (' . $e->author . ')' );
         } else {
             $entry->author($e->author);
         }
