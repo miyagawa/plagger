@@ -3,6 +3,7 @@ use FindBin;
 use File::Path;
 use t::TestPlagger;
 
+test_plugin_deps;
 plan 'no_plan';
 
 our $dir    = "$FindBin::Bin/planet";
