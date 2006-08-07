@@ -61,8 +61,16 @@ sub publish_feed {
         $entry->title($e->title);
         $entry->link($e->link);
         $entry->summary($e->body_text) if defined $e->body;
-        $entry->content( XML::Feed::Content->new({ body => $e->body, type => 'xhtml' }) )
-            if $self->conf->{full_content} && defined $e->body;
+
+        # hack to bypass XML::Feed Atom 0.3 crufts (type="text/html")
+        if ($self->conf->{full_content} && defined $e->body) {
+            if ($feed_format eq 'RSS') {
+                $entry->content($e->body);
+            } else {
+                $entry->{entry}->content($e->body);
+            }
+        }
+
         $entry->category(join(' ', @{$e->tags}));
         $entry->issued($e->date)   if $e->date;
         $entry->modified($e->date) if $e->date;
