@@ -1,0 +1,5 @@
+# upgrade ReutersJP http://today.reuters.co.jp/rss/newsrss.aspx
+author: Masafumi Otsune
+handle: http://today\.reuters\.co\.jp/news/
+extract: <div class="article">.*?<h1>(.*?)</h1>.*?<div class="articleTextSizerFull".*?</div>(.*?)<span id="ArticleBody_NextArticleContainer">
+extract_capture: title body
