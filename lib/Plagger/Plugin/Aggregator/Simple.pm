@@ -162,7 +162,7 @@ sub handle_feed {
                 $entry->add_enclosure($enclosure);
             }
         } elsif ($remote->format eq 'Atom') {
-            for my $link ( grep { $_->rel eq 'enclosure' } $e->{entry}->link ) {
+            for my $link ( grep { defined $_->rel && $_->rel eq 'enclosure' } $e->{entry}->link ) {
                 my $enclosure = Plagger::Enclosure->new;
                 $enclosure->url( URI->new($link->href) );
                 $enclosure->length($link->length);
