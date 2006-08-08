@@ -51,6 +51,7 @@ sub publish_feed {
     $feed->modified(Plagger::Date->now);
     $feed->generator("Plagger/$Plagger::VERSION");
     $feed->description($f->description || '');
+    $feed->author($f->author) if $f->primary_author;
 
     if ($feed_format eq 'Atom') {
         $feed->{atom}->id("tag:plagger.org,2006:" . $f->id);
@@ -80,8 +81,10 @@ sub publish_feed {
             my $author = 'nobody@example.com';
             $author .= ' (' . $e->author . ')' if $e->author;
             $entry->author($author);
-        } elsif ($e->author) {
-            $entry->author($e->author);
+        } else {
+            unless ($feed->author) {
+                $entry->author($e->author || 'nobody');
+            }
         }
 
         $entry->id("tag:plagger.org,2006:" . $e->id);
