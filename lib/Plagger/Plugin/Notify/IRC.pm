@@ -48,7 +48,7 @@ sub update {
     Encode::from_to($body, 'utf-8', $self->conf->{charset})
         if $self->conf->{charset} && $self->conf->{charset} ne 'utf-8';
     for my $line (split("\n", $body)) {
-        $remote->post( 'notify_irc/update', $line );
+        $self->{remote}->post( 'notify_irc/update', $line );
     }
 }
 
