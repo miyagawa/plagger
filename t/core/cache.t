@@ -9,7 +9,7 @@ global:
   log:
     level: error
   cache:
-    expires: 1 second
+    expires: 2 seconds
 plugins:
   - module: Test::Cache
 CONFIG
@@ -35,8 +35,8 @@ my $set;
 sub test {
     my($self, $context, $args) = @_;
     if (! $set++) {
-        my $foo = $self->cache->get("foo"); # dummy get call to clear stale cache
         $self->cache->set("foo" => "bar");
+        sleep 1;
         ::is $self->cache->get("foo"), "bar";
     } else {
         ::isnt $self->cache->get("foo"), "bar";
