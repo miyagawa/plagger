@@ -78,13 +78,16 @@ sub format {
 }
 
 sub set_time_zone {
-    my($self, $tz) = @_;
+    my $self = shift;
+
     eval {
-        $self->SUPER::set_time_zone($tz);
+        $self->SUPER::set_time_zone(@_);
     };
     if ($@) {
         $self->SUPER::set_time_zone('UTC');
     }
+
+    return $self;
 }
 
 1;
