@@ -9,24 +9,25 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.feed' => \&update,
+        'publish.entry' => \&update,
+        'plugin.init'   => \&initialize,
     );
 }
 
-sub update {
+sub initialize {
     my($self, $context, $args) = @_;
 
     my $host = $self->conf->{daemon_host} || 'localhost',
     my $port = $self->conf->{daemon_port} || 9999;
 
-    my $remote = POE::Component::IKC::ClientLite::create_ikc_client(
+    $self->{remote} = POE::Component::IKC::ClientLite::create_ikc_client(
         port    => $port,
         ip      => $host,
         name    => "Plagger$$",
         timeout => 5,
     );
 
-    unless ($remote) {
+    unless ($self->{remote}) {
         my $msg = q{unable to connect to plagger-ircbot process on } 
             . "$host:$port"
             . q{, if you're not running plagger-ircbot, you should be able }
@@ -35,10 +36,14 @@ sub update {
         $context->log( error => $msg );
         return;
     }
+}
 
-    $context->log(info => "Notifying " . $args->{feed}->title . " to IRC");
+sub update {
+    my($self, $context, $args) = @_;
 
-    my $body = $self->templatize('irc_notify.tt', { feed => $args->{feed} });
+    $context->log(info => "Notifying " . $args->{entry}->title . " to IRC");
+
+    my $body = $self->templatize('irc_notify.tt', $args);
     Encode::_utf8_off($body) if Encode::is_utf8($body);
     Encode::from_to($body, 'utf-8', $self->conf->{charset})
         if $self->conf->{charset} && $self->conf->{charset} ne 'utf-8';
