@@ -26,7 +26,7 @@ requires('Date::Parse');
 requires('MIME::Types', 1.16);
 requires('Net::DNS');
 
-requires('XML::Feed', 0.09);
+requires('XML::Feed', 0.11);
 requires('XML::LibXML');
 requires('XML::Atom', 0.19);
 requires('XML::RSS::LibXML', 0.20);
