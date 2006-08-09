@@ -1,5 +1,5 @@
-# nikkeibp ITpro
+# upgrade nikkeibp ITpro http://itpro.nikkeibp.co.jp/
 author: Manabu Ishii
-handle: http://itpro\.nikkeibp\.co\.jp/(?!article/Watcher)
-extract: <H2>(.*?)</H2>.*?<!-- start .*? -->(.*?)<!-- written -->
-extract_capture: title body
+handle: http://itpro\.nikkeibp\.co\.jp/(?!article/COLUMN)
+extract: <div ID="kiji">(.*?)<!-- end (?:記事)?本[体|文] -->
+extract_capture: body
