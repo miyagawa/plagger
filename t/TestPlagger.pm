@@ -18,6 +18,7 @@ our $BaseDir;
             last;
         }
     }
+    $BaseDir =~ s{\\}{/}g; # always use forward slash even on Win32
 }
 
 sub test_requires() {
