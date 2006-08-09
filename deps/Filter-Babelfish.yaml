@@ -3,3 +3,5 @@ author: Kenichi Ishigaki
 depends: 
   WWW::Babelfish: 0
   Locale::Language: 0
+bundles:
+  - Filter::GuessLanguage
