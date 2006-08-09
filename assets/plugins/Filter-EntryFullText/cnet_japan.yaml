@@ -1,6 +1,6 @@
 author: tokuhirom <tokuhirom@cpan.org>
-handle_force: http://(feeds\.feedburner\.jp/cnet|japan\.cnet\.com/news)
-extract: <div class="article_header">.*?(\d{4}/\d\d/\d\d \d\d:\d\d)&nbsp;&nbsp;.*?<div class="leaf_body">(.*)</div>.*?<div class="navi_breadcrum">
+handle_force: http://(?:feeds\.feedburner\.jp/cnet|japan\.cnet\.com/(?:news|column|special|sp|interview))
+extract: <div class="article_header">.*?(\d{4}/\d\d/\d\d \d\d:\d\d)&nbsp;&nbsp;.*?<div class="leaf_body">(.*)</div>.*?<!--h3>トラックバック一覧</h3-->
 extract_capture: date body
 extract_date_format: %Y/%m/%d %H:%M
 
