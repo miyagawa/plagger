@@ -1,0 +1,6 @@
+name: Filter::GuessLanguage
+author: Kenichi Ishigaki
+depends: 
+  Text::Language::Guess: 0
+  Locale::Language: 0
+  Lingua::ZH::HanDetect: 0

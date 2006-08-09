@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml">
+  <title xmlns="http://purl.org/atom/ns#">Guess test</title>
+  <link xmlns="http://purl.org/atom/ns#" rel="alternate" href="http://example.com/mixed_nolang.xml" type="text/html"/>
+  <author xmlns="http://purl.org/atom/ns#">
+    <name xmlns="http://purl.org/atom/ns#">guess tester</name>
+  </author>
+  <entry xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml">
+    <id xmlns="http://purl.org/atom/ns#">1</id>
+    <title xmlns="http://purl.org/atom/ns#">Alice's Adventures in Wonderland</title>
+    <link xmlns="http://purl.org/atom/ns#" rel="alternate" href="http://www.gutenberg.org/dirs/etext91/alice30.txt" type="text/html"/>
+    <author xmlns="http://purl.org/atom/ns#">
+      <name xmlns="http://purl.org/atom/ns#">Lewis Carroll</name>
+    </author>
+    <content xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml" mode="xml" type="text/html">
+      <div xmlns="http://www.w3.org/1999/xhtml"> Alice was beginning to get very tired of sitting by her sister
+on the bank, and of having nothing to do:  once or twice she had
+peeped into the book her sister was reading, but it had no
+pictures or conversations in it, `and what is the use of a book,'
+thought Alice `without pictures or conversation?'
+
+  So she was considering in her own mind (as well as she could,
+for the hot day made her feel very sleepy and stupid), whether
+the pleasure of making a daisy-chain would be worth the trouble
+of getting up and picking the daisies, when suddenly a White
+Rabbit with pink eyes ran close by her.
+
+  There was nothing so VERY remarkable in that; nor did Alice
+think it so VERY much out of the way to hear the Rabbit say to
+itself, `Oh dear!  Oh dear!  I shall be late!'  (when she thought
+it over afterwards, it occurred to her that she ought to have
+wondered at this, but at the time it all seemed quite natural);
+but when the Rabbit actually TOOK A WATCH OUT OF ITS WAISTCOAT-
+POCKET, and looked at it, and then hurried on, Alice started to
+her feet, for it flashed across her mind that she had never
+before seen a rabbit with either a waistcoat-pocket, or a watch to
+take out of it, and burning with curiosity, she ran across the
+field after it, and fortunately was just in time to see it pop
+down a large rabbit-hole under the hedge.
+
+  In another moment down went Alice after it, never once
+considering how in the world she was to get out again.
+
+  The rabbit-hole went straight on like a tunnel for some way,
+and then dipped suddenly down, so suddenly that Alice had not a
+moment to think about stopping herself before she found herself
+falling down a very deep well.
+
+  Either the well was very deep, or she fell very slowly, for she
+had plenty of time as she went down to look about her and to
+wonder what was going to happen next.  First, she tried to look
+down and make out what she was coming to, but it was too dark to
+see anything; then she looked at the sides of the well, and
+noticed that they were filled with cupboards and book-shelves;
+here and there she saw maps and pictures hung upon pegs.  She
+took down a jar from one of the shelves as she passed; it was
+labelled `ORANGE MARMALADE', but to her great disappointment it
+was empty:  she did not like to drop the jar for fear of killing
+somebody, so managed to put it into one of the cupboards as she
+fell past it.
+
+  `Well!' thought Alice to herself, `after such a fall as this, I
+shall think nothing of tumbling down stairs!  How brave they'll
+all think me at home!  Why, I wouldn't say anything about it,
+even if I fell off the top of the house!' (Which was very likely
+true.)
+</div>
+    </content>
+  </entry>
+  <entry xmlns="http://purl.org/atom/ns#">
+    <id xmlns="http://purl.org/atom/ns#">2</id>
+    <title xmlns="http://purl.org/atom/ns#">Also Sprach Zarathustra</title>
+    <link xmlns="http://purl.org/atom/ns#" rel="alternate" href="http://www.gutenberg.org/dirs/etext05/8zara10.txt" type="text/html"/>
+    <author xmlns="http://purl.org/atom/ns#">
+      <name xmlns="http://purl.org/atom/ns#">Friedrich Nietzsche</name>
+    </author>
+    <content xmlns="http://purl.org/atom/ns#" mode="base64" type="text/html">QWxzIFphcmF0aHVzdHJhIGRyZWlzc2lnIEphaHIgYWx0IHdhciwgdmVybGllc3MgZXIgc2VpbmUgSGVpbWF0IHVuZApkZW4gU2VlIHNlaW5lciBIZWltYXQgdW5kIGdpbmcgaW4gZGFzIEdlYmlyZ2UuIEhpZXIgZ2Vub3NzIGVyIHNlaW5lcwpHZWlzdGVzIHVuZCBzZWluZXIgRWluc2Fta2VpdCB1bmQgd3VyZGUgZGVzc2VuIHplaG4gSmFociBuaWNodCBt7uJlLgpFbmRsaWNoIGFiZXIgdmVyd2FuZGVsdGUgc2ljaCBzZWluIEhlcnosIC0gdW5kIGVpbmVzIE1vcmdlbnMgc3RhbmQKZXIgbWl0IGRlciBNb3JnZW5y6/JoZSBhdWYsIHRyYXQgdm9yIGRpZSBTb25uZSBoaW4gdW5kIHNwcmFjaCB6dSBpaHIKYWxzbzoKCiJEdSBncm9zc2VzIEdlc3Rpcm4hIFdhcyB34vBlIGRlaW4gR2zu4WssIHdlbm4gZHUgbmljaHQgRGllIGji8nRlc3QsCndlbGNoZW4gZHUgbGV1Y2h0ZXN0IQoKWmVobiBKYWhyZSBrYW1zdCBkdSBoaWVyIGhlcmF1ZiB6dSBtZWluZXIgSOvmbGU6IGR1IHfu8GRlc3QgZGVpbmVzCkxpY2h0ZXMgdW5kIGRpZXNlcyBXZWdlcyBzYXR0IGdld29yZGVuIHNlaW4sIG9obmUgbWljaCwgbWVpbmVuIEFkbGVyCnVuZCBtZWluZSBTY2hsYW5nZS4KCkFiZXIgd2lyIHdhcnRldGVuIGRlaW5lciBhbiBqZWRlbSBNb3JnZW4sIG5haG1lbiBkaXIgZGVpbmVuIJ7gZXJmbHVzcwphYiB1bmQgc2VnbmV0ZW4gZGljaCBkYWbu8C4KClNpZWhlISBJY2ggYmluIG1laW5lciBXZWlzaGVpdCDu4GVyZHLu8XNpZywgd2llIGRpZSBCaWVuZSwgZGllCmRlcyBIb25pZ3MgenUgdmllbCBnZXNhbW1lbHQgaGF0LCBpY2ggYmVkYXJmIGRlciBI4uxkZSwgZGllIHNpY2gKYXVzc3RyZWNrZW4uCgpJY2ggbevhaHRlIHZlcnNjaGVua2VuIHVuZCBhdXN0aGVpbGVuLCBiaXMgZGllIFdlaXNlbiB1bnRlciBkZW4KTWVuc2NoZW4gd2llZGVyIGVpbm1hbCBpaHJlciBUaG9yaGVpdCB1bmQgZGllIEFybWVuIGVpbm1hbCBpaHJlcwpSZWljaHRodW1zIGZyb2ggZ2V3b3JkZW4gc2luZC4KCkRhenUgbXVzcyBpY2ggaW4gZGllIFRpZWZlIHN0ZWlnZW46IHdpZSBkdSBkZXMgQWJlbmRzIHRodXN0LCB3ZW5uCmR1IGhpbnRlciBkYXMgTWVlciBnZWhzdCB1bmQgbm9jaCBkZXIgVW50ZXJ3ZWx0IExpY2h0IGJyaW5nc3QsIGR1Cu7gZXJyZWljaGVzIEdlc3Rpcm4hCgpJY2ggbXVzcywgZ2xlaWNoIGRpciwgX3VudGVyZ2VoZW5fLCB3aWUgZGllIE1lbnNjaGVuIGVzIG5lbm5lbiwgenUKZGVuZW4gaWNoIGhpbmFiIHdpbGwuCgpTbyBzZWduZSBtaWNoIGRlbm4sIGR1IHJ1aGlnZXMgQXVnZSwgZGFzIG9obmUgTmVpZCBhdWNoIGVpbgphbGx6dWdyb3NzZXMgR2zu4Wsgc2VoZW4ga2FubiEKClNlZ25lIGRlbiBCZWNoZXIsIHdlbGNoZSDu4GVyZmxpZXNzZW4gd2lsbCwgZGFzcyBkYXMgV2Fzc2VyIGdvbGRlbiBhdXMKaWhtIGZsaWVzc2UgdW5kIO7gZXJhbGxoaW4gZGVuIEFiZ2xhbnogZGVpbmVyIFdvbm5lIHRyYWdlIQoKU2llaGUhIERpZXNlciBCZWNoZXIgd2lsbCB3aWVkZXIgbGVlciB3ZXJkZW4sIHVuZCBaYXJhdGh1c3RyYSB3aWxsCndpZWRlciBNZW5zY2ggd2VyZGVuLiIKCi0gQWxzbyBiZWdhbm4gWmFyYXRodXN0cmEncyBVbnRlcmdhbmcuCg==</content>
+  </entry>
+  <entry xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml">
+    <id xmlns="http://purl.org/atom/ns#">3</id>
+    <title xmlns="http://purl.org/atom/ns#">Wagahai wa Neko de aru</title>
+    <link xmlns="http://purl.org/atom/ns#" rel="alternate" href="http://www.aozora.gr.jp/cards/000148/files/789_14547.html" type="text/html"/>
+    <author xmlns="http://purl.org/atom/ns#">
+      <name xmlns="http://purl.org/atom/ns#">Soseki Natsume</name>
+    </author>
+    <content xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml" mode="xml" type="text/html">
+      <div xmlns="http://www.w3.org/1999/xhtml">　吾輩（わがはい）は猫である。名前はまだ無い。
+　どこで生れたかとんと見当（けんとう）がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪（どうあく）な種族であったそうだ。この書生というのは時々我々を捕（つかま）えて煮（に）て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌（てのひら）に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始（みはじめ）であろう。この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶（やかん）だ。その後（ご）猫にもだいぶ逢（あ）ったがこんな片輪（かたわ）には一度も出会（でく）わした事がない。のみならず顔の真中があまりに突起している。そうしてその穴の中から時々ぷうぷうと煙（けむり）を吹く。どうも咽（む）せぽくて実に弱った。これが人間の飲む煙草（たばこ）というものである事はようやくこの頃知った。
+　この書生の掌の裏（うち）でしばらくはよい心持に坐っておったが、しばらくすると非常な速力で運転し始めた。書生が動くのか自分だけが動くのか分らないが無暗（むやみ）に眼が廻る。胸が悪くなる。到底（とうてい）助からないと思っていると、どさりと音がして眼から火が出た。それまでは記憶しているがあとは何の事やらいくら考え出そうとしても分らない。
+　ふと気が付いて見ると書生はいない。たくさんおった兄弟が一疋（ぴき）も見えぬ。肝心（かんじん）の母親さえ姿を隠してしまった。その上今（いま）までの所とは違って無暗（むやみ）に明るい。眼を明いていられぬくらいだ。はてな何でも容子（ようす）がおかしいと、のそのそ這（は）い出して見ると非常に痛い。吾輩は藁（わら）の上から急に笹原の中へ棄てられたのである。
+</div>
+    </content>
+  </entry>
+</feed>

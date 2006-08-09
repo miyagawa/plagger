@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml" xml:lang="ja">
+  <title xmlns="http://purl.org/atom/ns#">Guess test</title>
+  <link xmlns="http://purl.org/atom/ns#" rel="alternate" href="http://example.com/japanese.xml" type="text/html"/>
+  <author xmlns="http://purl.org/atom/ns#">
+    <name xmlns="http://purl.org/atom/ns#">guess tester</name>
+  </author>
+  <entry xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml">
+    <id xmlns="http://purl.org/atom/ns#">1</id>
+    <title xmlns="http://purl.org/atom/ns#">Wagahai wa Neko de aru</title>
+    <link xmlns="http://purl.org/atom/ns#" rel="alternate" href="http://www.aozora.gr.jp/cards/000148/files/789_14547.html" type="text/html"/>
+    <author xmlns="http://purl.org/atom/ns#">
+      <name xmlns="http://purl.org/atom/ns#">Soseki Natsume</name>
+    </author>
+    <content xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml" mode="xml" type="text/html">
+      <div xmlns="http://www.w3.org/1999/xhtml">　吾輩（わがはい）は猫である。名前はまだ無い。
+　どこで生れたかとんと見当（けんとう）がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪（どうあく）な種族であったそうだ。この書生というのは時々我々を捕（つかま）えて煮（に）て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌（てのひら）に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始（みはじめ）であろう。この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶（やかん）だ。その後（ご）猫にもだいぶ逢（あ）ったがこんな片輪（かたわ）には一度も出会（でく）わした事がない。のみならず顔の真中があまりに突起している。そうしてその穴の中から時々ぷうぷうと煙（けむり）を吹く。どうも咽（む）せぽくて実に弱った。これが人間の飲む煙草（たばこ）というものである事はようやくこの頃知った。
+　この書生の掌の裏（うち）でしばらくはよい心持に坐っておったが、しばらくすると非常な速力で運転し始めた。書生が動くのか自分だけが動くのか分らないが無暗（むやみ）に眼が廻る。胸が悪くなる。到底（とうてい）助からないと思っていると、どさりと音がして眼から火が出た。それまでは記憶しているがあとは何の事やらいくら考え出そうとしても分らない。
+　ふと気が付いて見ると書生はいない。たくさんおった兄弟が一疋（ぴき）も見えぬ。肝心（かんじん）の母親さえ姿を隠してしまった。その上今（いま）までの所とは違って無暗（むやみ）に明るい。眼を明いていられぬくらいだ。はてな何でも容子（ようす）がおかしいと、のそのそ這（は）い出して見ると非常に痛い。吾輩は藁（わら）の上から急に笹原の中へ棄てられたのである。
+</div>
+    </content>
+  </entry>
+</feed>
