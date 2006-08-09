@@ -1,0 +1,5 @@
+# upgrade http://www.nikkeibp.co.jp/sj/
+author: Masafumi Otsune
+handle: http://www\.nikkeibp\.co\.jp/sj/
+extract: <!-- 中央：コンテンツ1 -->(.*?)<!-- /中ページ/ -->
+extract_capture: body

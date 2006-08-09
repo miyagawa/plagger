@@ -1,4 +1,5 @@
 # http://www.sankei.co.jp/news/
+author: Masafumi Otsune
 custom_feed_handle: http://www\.sankei\.co\.jp/news/
 custom_feed_follow_link: /\d+/\w+\.htm
 handle: http://www\.sankei\.co\.jp/news/\d+/\w+\.htm

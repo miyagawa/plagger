@@ -1,4 +1,5 @@
 # http://news.livedoor.com/
+author: Masafumi Otsune
 custom_feed_handle: http://news\.livedoor\.com/webapp/journal/.*category
 custom_feed_follow_link: /detail$
 handle: http://news\.livedoor\.com/.*/detail(?:\?rd)?$
