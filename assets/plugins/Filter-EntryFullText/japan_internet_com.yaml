@@ -1,0 +1,5 @@
+# upgrade http://japan.internet.com/rss/rdf/index.rdf
+author: Masafumi Otsune
+handle: http://japan\.internet\.com/\w+/\d{8}/\d+\.html
+extract: <!-+ 記事本文 -+>(.*?)<!-+ 記事本文 END -+>
+extract_capture: body
