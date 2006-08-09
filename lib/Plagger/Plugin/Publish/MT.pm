@@ -40,13 +40,9 @@ sub feed {
             body  => $body,
         );
         my $post = $self->mt->getPost($id);
-        $context->log(
-            info => sprintf(
-                "Successfuly posted: %s",
-                $post->{link},
-            )
-        );
+        $context->log(info => "Successfuly posted: $post->{link}");
     }; if (my $err = $@) {
+        $err = $err->[0] if ref $err && ref $err eq 'ARRAY';
         $context->error($err);
     }
 }
