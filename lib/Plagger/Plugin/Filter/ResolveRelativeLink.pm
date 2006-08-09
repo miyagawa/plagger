@@ -3,7 +3,6 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use HTML::ResolveLink;
-use Text::Diff;
 
 sub register {
     my($self, $context) = @_;
