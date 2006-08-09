@@ -2,3 +2,4 @@ name: Filter::Babelfish
 author: Kenichi Ishigaki
 depends: 
   WWW::Babelfish: 0
+  Locale::Language: 0
