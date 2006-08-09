@@ -7,8 +7,8 @@ sub handle {
 
 sub extract {
     my($self, $args) = @_;
-    my $body = ($args->{content} =~ m!<div class="entry-body(?:-text)?">(.*?)</div>!s)[0];
-    if ($body && ($args->{content} =~ m!<div (?:id="\w+" )?class="entry-more(?:-text)?">(.*?)</div>!s)[0]) {
+    my $body = ($args->{content} =~ m!<div class="entry[_-]body(?:[_-]text)?">(.*?)</div>!s)[0];
+    if ($body && ($args->{content} =~ m!<div (?:id="\w+" )?class="entry[_-]more(?:[_-]text)?">(.*?)</div>!s)[0]) {
         $body .= $1;
     }
     $body;
