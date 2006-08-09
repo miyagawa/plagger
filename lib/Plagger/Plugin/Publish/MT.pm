@@ -6,6 +6,7 @@ use base qw (Plagger::Plugin);
 our $VERSION = 0.01;
 
 use Net::MovableType;
+use SOAP::Transport::HTTP; # need to preload
 
 sub register {
     my ($self, $context) = @_;
@@ -17,6 +18,10 @@ sub register {
 
 sub mt {
     my $self = shift;
+
+    # hack to replace XMLRPC::Lite internal UserAgent class so we can add credentials
+    local $SOAP::Transport::HTTP::Client::USERAGENT_CLASS = "Plagger::UserAgent";
+
     return $self->{mt} if $self->{mt};
     $self->{mt} = Net::MovableType->new($self->conf->{rsd});
     unless (defined $self->{mt}) {

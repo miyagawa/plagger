@@ -6,36 +6,23 @@ use base qw/Plagger::Plugin/;
 use LWP::UserAgent;
 use List::Util qw/first/;
 
-sub new {
-    my $self = shift->SUPER::new(@_);
-
-    $self->inject;
-
-    $self;
+sub register {
+    my($self, $context) = @_;
+    $context->register_hook(
+        $self,
+        'useragent.request' => \&add_credentials,
+    );
 }
 
-sub register {}
+sub add_credentials {
+    my($self, $context, $args) = @_;
 
-sub inject {
-    my $self = shift;
+    my $creds = $self->conf->{credentials} || [ $self->conf ];
 
-    {
-        no warnings 'redefine';
-
-        *LWP::UserAgent::__request__ = \&LWP::UserAgent::request;
-        *LWP::UserAgent::request = sub {
-            my $agent = shift;
-            my $req   = shift;
-
-            my $auth = first { $req->uri =~ /$_/ } keys %{ $self->conf };
-            $auth = $self->conf->{$auth};
-
-            if ( $auth && ($auth->{auth}||'basic') eq 'basic' ) { # todo: other authentication support
-                $req->headers->authorization_basic( $auth->{username}, $auth->{password} );
-            }
-
-            $agent->__request__( $req, @_ );
-        };
+    my $uri = URI->new($args->{url});
+    for my $auth (grep { $_->{host} eq $uri->host_port } @$creds) {
+        $context->log(info => "Adding credential to $auth->{realm} at $auth->{host}");
+        $args->{ua}->credentials($auth->{host}, $auth->{realm}, $auth->{username}, $auth->{password});
     }
 }
 
@@ -51,12 +38,18 @@ Plagger::Plugin::UserAgent::AuthenRequest - Plagger plugin for authen request
 
   - module: UserAgent::AuthenRequest
     config:
-      '^http://example.com/':
-        auth: basic
-        username: username
-        password: password
+      host: example.com:80
+      auth: basic
+      realm: Security Area
+      username: username
+      password: password
 
 =head1 DESCRIPTION
+
+This plugin hooks Plagger::UserAgent fetch method to add username and
+password to authenticated website. Since it hooks Plagger::UserAgent,
+the config will be enabled in all plugins that uses Plagger::UserAgent
+inside, e.g. from Aggregator::Simple to Publish::MT.
 
 =head1 AUTHOR
 
