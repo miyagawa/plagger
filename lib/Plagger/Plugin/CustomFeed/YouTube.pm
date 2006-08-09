@@ -40,7 +40,7 @@ sub aggregate {
     my $page = $self->conf->{page} || 1;
     my $sort = $self->conf->{sort} || 'video_date_uploaded';
     for ( 1 .. $page ){
-        my $res = $ua->mirror("http://youtube.com/results?search=$q&sort=$sort&page=$_" => $file);
+        my $res = $ua->mirror("http://youtube.com/results?search_type=search_videos&search_query=$q&search_sort=$sort&search_category=0&page=$_" => $file);
 
         if($res->is_error){
             $context->log( error => $res->status_line );
@@ -55,7 +55,7 @@ sub aggregate {
             # get title
             m!<div class="vtitle">!
                 and $title_flag = 1;
-            m!<a href="/watch\?v=([^&]+)&search=[^>]+">(.+)</a>!
+            m!<a href="/watch\?v=([^"]+)">(.+)</a>!
                 and do {
                     if($title_flag){
                         $data->{title} = $2;
@@ -63,13 +63,13 @@ sub aggregate {
                         $title_flag = 0;
                     }
                 };
-            m!<img src="(http://[\w-]*static\d+(.[\w-]+)?\.youtube.com/[^">]+/1.jpg)" class="vimg90" />!
+            m!<img src="(http://[\w-]*static\d+(.[\w-]+)?\.youtube.com/[^">]+/[12].jpg)" class="vimg120" />!
                 and $data->{image}->{url} = $1;
             m!<div class="vdesc">(.*)</div>!
                 and $data->{description} = $1;
             m!<div class="vtagLabel">Tags:</div>!
                 and $tag_flag = 1;
-            m!(<a href="/results\?search=.*)!
+            m!(<a href="/results\?search_type=.*)!
                 and do {
                     if($tag_flag){
                         $data->{tags} = $1;
@@ -93,7 +93,7 @@ sub aggregate {
                     $entry->author($data->{author});
 
                     # tags
-                    while( $data->{tags} =~ /<a href="\/results\?search=.*">(.*)<\/a>/gms){
+                    while( $data->{tags} =~ /<a href="\/results\?search_type=[^"]+" class="dg">([^<]+)<\/a>/gms){
                         $entry->add_tag($1);
                     }
 
@@ -166,9 +166,8 @@ Set sort condition. Available condisions are below. Default is video_date_upload
 
   relevance
   video_date_uploaded
-  title_sort
-  n video_view_count
-  rating_sort
+  video_view_count
+  video_avg_rating
 
 =item page
 
