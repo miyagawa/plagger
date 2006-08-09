@@ -1,0 +1,5 @@
+# upgrade http://blog.japan.cnet.com/.*/index.rdf
+author: Masafumi Otsune
+handle: http://blog.japan.cnet.com/\w+/.*\.html$
+extract: <div class="leaf_body">(.*?)<div class="article_footer">
+extract_capture: body
