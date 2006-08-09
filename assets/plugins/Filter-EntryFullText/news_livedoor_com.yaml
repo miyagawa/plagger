@@ -1,0 +1,7 @@
+# http://news.livedoor.com/
+custom_feed_handle: http://news\.livedoor\.com/webapp/journal/.*category
+custom_feed_follow_link: /detail$
+handle: http://news\.livedoor\.com/.*/detail(?:\?rd)?$
+extract: <td valign="top" id="maincont">(.*?)<td>(\d{4}年\d{2}月\d{2}日\d{2}時\d{2}分)</td>
+extract_capture: body date
+extract_date_format: %Y年%m月%d日%H時%M分
