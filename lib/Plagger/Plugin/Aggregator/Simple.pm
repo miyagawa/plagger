@@ -130,7 +130,7 @@ sub handle_feed {
         $entry->author(_u($e->author));
 
         my $category = $e->category;
-           $category = [ $category ] if $category && !ref($category);
+           $category = [ $category ] if $category && (!ref($category) || ref($category) ne 'ARRAY');
         $entry->tags([ map _u($_), @$category ]) if $category;
 
         $entry->date( Plagger::Date->rebless($e->issued) )
