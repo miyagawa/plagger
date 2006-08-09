@@ -2,8 +2,6 @@ use strict;
 use t::TestPlagger;
 
 plan 'no_plan';
-
-filters_delay;
 run_eval_expected_with_capture;
 
 package Plagger::Plugin::Test::Log;

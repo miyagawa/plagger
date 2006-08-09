@@ -92,7 +92,7 @@ sub run_eval_expected {
 }
 
 sub run_eval_expected_with_capture {
-    # run this method with 'filters_delay'
+    filters_delay;
     for my $block (blocks) {
         my $warning;
         $SIG{__WARN__} = sub { $warning .= "@_" };

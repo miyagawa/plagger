@@ -30,7 +30,7 @@ sub inject {
             my $auth = first { $req->uri =~ /$_/ } keys %{ $self->conf };
             $auth = $self->conf->{$auth};
 
-            if ( $auth && $auth->{auth} eq 'basic' ) { # todo: other authentication support
+            if ( $auth && ($auth->{auth}||'basic') eq 'basic' ) { # todo: other authentication support
                 $req->headers->authorization_basic( $auth->{username}, $auth->{password} );
             }
 
