@@ -12,6 +12,7 @@
     <author xmlns="http://purl.org/atom/ns#">
       <name xmlns="http://purl.org/atom/ns#">Lewis Carroll</name>
     </author>
+    <modified>2006-08-09T00:14:52Z</modified>
     <content xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml" mode="xml" type="text/html">
       <div xmlns="http://www.w3.org/1999/xhtml"> Alice was beginning to get very tired of sitting by her sister
 on the bank, and of having nothing to do:  once or twice she had
@@ -74,6 +75,7 @@ true.)
     <author xmlns="http://purl.org/atom/ns#">
       <name xmlns="http://purl.org/atom/ns#">Friedrich Nietzsche</name>
     </author>
+    <modified>2006-08-09T00:14:52Z</modified>
     <content xmlns="http://purl.org/atom/ns#" mode="base64" type="text/html">QWxzIFphcmF0aHVzdHJhIGRyZWlzc2lnIEphaHIgYWx0IHdhciwgdmVybGllc3MgZXIgc2VpbmUgSGVpbWF0IHVuZApkZW4gU2VlIHNlaW5lciBIZWltYXQgdW5kIGdpbmcgaW4gZGFzIEdlYmlyZ2UuIEhpZXIgZ2Vub3NzIGVyIHNlaW5lcwpHZWlzdGVzIHVuZCBzZWluZXIgRWluc2Fta2VpdCB1bmQgd3VyZGUgZGVzc2VuIHplaG4gSmFociBuaWNodCBt7uJlLgpFbmRsaWNoIGFiZXIgdmVyd2FuZGVsdGUgc2ljaCBzZWluIEhlcnosIC0gdW5kIGVpbmVzIE1vcmdlbnMgc3RhbmQKZXIgbWl0IGRlciBNb3JnZW5y6/JoZSBhdWYsIHRyYXQgdm9yIGRpZSBTb25uZSBoaW4gdW5kIHNwcmFjaCB6dSBpaHIKYWxzbzoKCiJEdSBncm9zc2VzIEdlc3Rpcm4hIFdhcyB34vBlIGRlaW4gR2zu4WssIHdlbm4gZHUgbmljaHQgRGllIGji8nRlc3QsCndlbGNoZW4gZHUgbGV1Y2h0ZXN0IQoKWmVobiBKYWhyZSBrYW1zdCBkdSBoaWVyIGhlcmF1ZiB6dSBtZWluZXIgSOvmbGU6IGR1IHfu8GRlc3QgZGVpbmVzCkxpY2h0ZXMgdW5kIGRpZXNlcyBXZWdlcyBzYXR0IGdld29yZGVuIHNlaW4sIG9obmUgbWljaCwgbWVpbmVuIEFkbGVyCnVuZCBtZWluZSBTY2hsYW5nZS4KCkFiZXIgd2lyIHdhcnRldGVuIGRlaW5lciBhbiBqZWRlbSBNb3JnZW4sIG5haG1lbiBkaXIgZGVpbmVuIJ7gZXJmbHVzcwphYiB1bmQgc2VnbmV0ZW4gZGljaCBkYWbu8C4KClNpZWhlISBJY2ggYmluIG1laW5lciBXZWlzaGVpdCDu4GVyZHLu8XNpZywgd2llIGRpZSBCaWVuZSwgZGllCmRlcyBIb25pZ3MgenUgdmllbCBnZXNhbW1lbHQgaGF0LCBpY2ggYmVkYXJmIGRlciBI4uxkZSwgZGllIHNpY2gKYXVzc3RyZWNrZW4uCgpJY2ggbevhaHRlIHZlcnNjaGVua2VuIHVuZCBhdXN0aGVpbGVuLCBiaXMgZGllIFdlaXNlbiB1bnRlciBkZW4KTWVuc2NoZW4gd2llZGVyIGVpbm1hbCBpaHJlciBUaG9yaGVpdCB1bmQgZGllIEFybWVuIGVpbm1hbCBpaHJlcwpSZWljaHRodW1zIGZyb2ggZ2V3b3JkZW4gc2luZC4KCkRhenUgbXVzcyBpY2ggaW4gZGllIFRpZWZlIHN0ZWlnZW46IHdpZSBkdSBkZXMgQWJlbmRzIHRodXN0LCB3ZW5uCmR1IGhpbnRlciBkYXMgTWVlciBnZWhzdCB1bmQgbm9jaCBkZXIgVW50ZXJ3ZWx0IExpY2h0IGJyaW5nc3QsIGR1Cu7gZXJyZWljaGVzIEdlc3Rpcm4hCgpJY2ggbXVzcywgZ2xlaWNoIGRpciwgX3VudGVyZ2VoZW5fLCB3aWUgZGllIE1lbnNjaGVuIGVzIG5lbm5lbiwgenUKZGVuZW4gaWNoIGhpbmFiIHdpbGwuCgpTbyBzZWduZSBtaWNoIGRlbm4sIGR1IHJ1aGlnZXMgQXVnZSwgZGFzIG9obmUgTmVpZCBhdWNoIGVpbgphbGx6dWdyb3NzZXMgR2zu4Wsgc2VoZW4ga2FubiEKClNlZ25lIGRlbiBCZWNoZXIsIHdlbGNoZSDu4GVyZmxpZXNzZW4gd2lsbCwgZGFzcyBkYXMgV2Fzc2VyIGdvbGRlbiBhdXMKaWhtIGZsaWVzc2UgdW5kIO7gZXJhbGxoaW4gZGVuIEFiZ2xhbnogZGVpbmVyIFdvbm5lIHRyYWdlIQoKU2llaGUhIERpZXNlciBCZWNoZXIgd2lsbCB3aWVkZXIgbGVlciB3ZXJkZW4sIHVuZCBaYXJhdGh1c3RyYSB3aWxsCndpZWRlciBNZW5zY2ggd2VyZGVuLiIKCi0gQWxzbyBiZWdhbm4gWmFyYXRodXN0cmEncyBVbnRlcmdhbmcuCg==</content>
   </entry>
   <entry xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml">
@@ -83,6 +85,7 @@ true.)
     <author xmlns="http://purl.org/atom/ns#">
       <name xmlns="http://purl.org/atom/ns#">Soseki Natsume</name>
     </author>
+    <modified>2006-08-09T00:14:52Z</modified>
     <content xmlns="http://purl.org/atom/ns#" xmlns:default="http://www.w3.org/1999/xhtml" mode="xml" type="text/html">
       <div xmlns="http://www.w3.org/1999/xhtml">　吾輩（わがはい）は猫である。名前はまだ無い。
 　どこで生れたかとんと見当（けんとう）がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪（どうあく）な種族であったそうだ。この書生というのは時々我々を捕（つかま）えて煮（に）て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌（てのひら）に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始（みはじめ）であろう。この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶（やかん）だ。その後（ご）猫にもだいぶ逢（あ）ったがこんな片輪（かたわ）には一度も出会（でく）わした事がない。のみならず顔の真中があまりに突起している。そうしてその穴の中から時々ぷうぷうと煙（けむり）を吹く。どうも咽（む）せぽくて実に弱った。これが人間の飲む煙草（たばこ）というものである事はようやくこの頃知った。
