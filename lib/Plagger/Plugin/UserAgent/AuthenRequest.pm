@@ -10,7 +10,7 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'useragent.request' => \&add_credentials,
+        'useragent.init' => \&add_credentials,
     );
 }
 
@@ -19,8 +19,7 @@ sub add_credentials {
 
     my $creds = $self->conf->{credentials} || [ $self->conf ];
 
-    my $uri = URI->new($args->{url});
-    for my $auth (grep { $_->{host} eq $uri->host_port } @$creds) {
+    for my $auth (@$creds) {
         $context->log(info => "Adding credential to $auth->{realm} at $auth->{host}");
         $args->{ua}->credentials($auth->{host}, $auth->{realm}, $auth->{username}, $auth->{password});
     }

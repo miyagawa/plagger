@@ -18,6 +18,8 @@ sub new {
     $self->timeout( $conf->{timeout} || 15 );
     $self->env_proxy();
 
+    Plagger->context->run_hook('useragent.init', { ua => $self });
+
     $self;
 }
 
