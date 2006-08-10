@@ -133,6 +133,14 @@ sub handle_feed {
            $category = [ $category ] if $category && (!ref($category) || ref($category) ne 'ARRAY');
         $entry->tags([ map _u($_), @$category ]) if $category;
 
+        # XXX XML::Feed doesn't support extracting atom:category yet
+        if ($remote->format eq 'Atom' && $e->{entry}->can('categories')) {
+            my @categories = $e->{entry}->categories;
+            for my $cat (@categories) {
+                $entry->add_tag( $cat->label || $cat->term );
+            }
+        }
+
         $entry->date( Plagger::Date->rebless($e->issued) )
             if eval { $e->issued };
 

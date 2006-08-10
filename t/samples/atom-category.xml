@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Content Considered Harmful Atom Feed</title><id>http://blog.jrock.us/</id><link href="http://blog.jrock.us/feeds/category/Catalyst/xml" rel="self"/><link href="http://blog.jrock.us/"/><subtitle type="html">This is Jonathan Rockway&#39;s Blog, quite possibily the best blog ever.
+Or something.
+</subtitle><generator uri="http://www.jrock.us/" version="0.01_01">AngerWhale</generator><updated>2006-08-10T02:43:00Z</updated><entry><title>Catalyst + Cache</title><author><name>Jonathan T. Rockway</name><email>jon@jrock.us</email></author><id>urn:guid:8D9B9CBE-27DB-11DB-B6C2-F007B8516AA5</id><link href="http://blog.jrock.us/articles/Catalyst%20+%20Cache.pod"/><category term="Catalyst" scheme="http://blog.jrock.us/categories/"/><updated>2006-08-09T19:07:58Z</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="pod">
+<p>I recently posted this to the <cite>Template::Toolkit</cite> mailing list, but
+the moderator rejected it for some reason.  (Probably because <code>&lt;jon-perl-list-templates AT jrock.us&gt;</code> is the address that's
+subscribed, not <code>&lt;jon AT jrock.us&gt;</code>.)</p>
+<p>Anyway, here it is.  I will expand on this further with actual
+measurements, but this will have to do for now.</p>
+<h4 id="Original_Message">Original Message</h4>
+<div id="Original_Message_CONTENT">
+<p><i>Thank you, you raise a good point that I had not fully considered.  My
+goal is to display a dynamically generated page, but where most of the
+&quot;dynamic&quot; content is actually static for a period amount of time.
+(Take a news page, for example, where the list of news stories updates
+once an hour.)</i></p>
+
+</div>
+<h4 id="My_Reply">My Reply</h4>
+<div id="My_Reply_CONTENT">
+<p>I have a similar problem with my blogging software.  Most of the content
+is static, and it's kind of a waste to regenerate everything every time
+someone views the page.  My solution to this problem is to use a
+<cite>Cache::FastMmap</cite> object to store the formatted HTML content of each post,
+keyed on the source material's MD5sum (and filetype, for reasons not
+relevant to this discussion  :) </p>
+<p>This results in a nice speedup, since certain HTML filters are slow
+(OO.org document -&gt; HTML, for example).</p>
+<p>I also cache full pages, after they've been assembled by TT, keyed on
+the md5sum of each included article and some metadata (comment count,
+tags, etc.)  The end result is a 5-20x speed up.  With Catalyst's
+embedded server, I can do about 5 requests per second without cache, but
+it goes up to about 40-50 requests/second with the cache.  So obviously
+a speedup.  (And I'm still not doing a very good job, this was just a 20
+minute hack!)</p>
+<p>For the gory details, check out the code here:</p>
+<p><a href="http://www.jrock.us/trac/blog_software/browser/lib/Blog/Controller/Root.pm#L105">http://www.jrock.us/trac/blog_software/browser/lib/Blog/Controller/Root.pm#L105</a>
+(page cache)</p>
+<p>and:
+<a href="http://www.jrock.us/trac/blog_software/browser/lib/Blog/Model/Filesystem/Item.pm#L355">http://www.jrock.us/trac/blog_software/browser/lib/Blog/Model/Filesystem/Item.pm#L355</a>
+(object cache)</p>
+
+
+
+
+<p>Another caching strategy is to set dynamic pages to be cachable for say,
+10 seconds, and then letting Apache's mod_cache (experimental in 2.2.3,
+but it works for me) do the hard work.  Your application gets hit once
+every ten seconds to refresh Apache's cache, but all the end-user
+requests are handled by serving from Apache's memory cache.  With
+mpm_worker, it's *super fast*, and a 10 second update delay isn't bad.</p>
+<p>If your application is really slow, this will let you increase your
+slashdot resistance factor (as I call it) enormously.  A quick ab
+against some cached content gave me a requests/per second rate of
+1638... much better than whatever your app would do by itself.</p>
+<p>And you don't really lose much by taking this approach, other than a 10
+second delay with your articles going live... but 10 seconds is nothing
+if you're getting 1500 requests per second and handling it with an old
+PIII  :) </p>
+<p>If this info is useful to anyone else, let me know (off-list) and I'll
+write up a more detailed article about it  :) </p>
+
+</div>
+</div></div></content></entry><entry><title>Quantum Physics and the Template Toolkit</title><author><name>Jonathan T. Rockway</name><email>jon@jrock.us</email></author><id>urn:guid:BB054AF0-2601-11DB-9738-946FBD312859</id><link href="http://blog.jrock.us/articles/Quantum%20Physics%20and%20the%20Template%20Toolkit.pod"/><category term="Catalyst" scheme="http://blog.jrock.us/categories/"/><category term="Programming" scheme="http://blog.jrock.us/categories/"/><updated>2006-08-07T10:44:20Z</updated><content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="pod">
+<p>As a programmer, you probably don't spend a lot of time thinking about
+the similarities between programming and quantum physics.  Fortunately
+for us Perl users, some people <i>do</i> spend a lot of time thinking
+about physics, and they even wrap up the results in
+<a href="http://search.cpan.org">CPAN</a> modules for us!</p>
+<p>One such module is <cite>Quantum::Superpositions</cite>, which let me easily add
+some nice functionality to my <a href="http://www.jrock.us/trac/blog_software">blog software</a> the other day.  </p>
+<p>As you can see (if you're looking at this article on my blog, not in
+an RSS reader), I have a list of tags to the left of my main content.
+If you click one, it shows you a list of articles that have been
+tagged with that tag.  If you select more than one tag, you get this
+intersection of the two sets (tag1 AND tag2).</p>
+<p>That's nice, but I like to use the left navigation bar to show the
+user where he is <i>in addition to</i> letting him move somewhere else.
+To do this, I bold the current location, and remove the link.  That
+way, the user won't try to visit the page he's already looking at.
+This is pretty simple to implement for things like the &quot;home page&quot; or
+the &quot;archives&quot;.  You just check the current page, and if the link
+you're about to print out matches, make it bold instead.  That logic
+looks something like this:</p>
+<pre>     [% FOREACH category = categories %]
+        [% IF category == current_category %]
+	   &lt;b&gt;[% category %]&lt;/b&gt;
+        [% ELSE %]
+              [% category %]
+        [% END %]
+     [% END %]
+
+</pre>
+<p>Simple, and it provides excellent visual cues as to what the user is
+looking at.</p>
+<p>The problem with tags, though, is that an article can have lots of
+them.  The technique above doesn't work there; you need to do a search
+for each tag.  Not a show stopper, but do you really want to do array
+searches inside the Template Toolkit?  No!</p>
+<p>And this is where <cite>Quantum::Superpositions</cite> comes to the rescue.  In
+quantum physics, almost nothing is &quot;certain&quot; -- you can't tell with
+100% certainty both where a particle is and what its velocity is.
+The state of an individual particle is in sort of a flux until you
+observe, and when you observe, a tangible state comes into existence.</p>
+<p>How does this help with tags?  By thinking of the set of all tags as a
+cloud of particles, we can apply the same principle.  We don't care
+what all the tags are until we look at them.</p>
+<p>So how do we do this in perl?  Let's see an example:</p>
+<p>In my
+<a href="http://www.jrock.us/trac/blog_software/browser/lib/Blog/Controller/Tags.pm#L96">Tags.pm</a>
+Controller, I use the <code>any</code> method from <code>Quantum::Superpositions</code> to
+collapse the list of tags into a scalar:</p>
+<pre>   $c-&gt;stash-&gt;{article_tags} = any(@tags);
+
+</pre>
+<p>Then inside my <a href="http://www.jrock.us/trac/blog_software/browser/root/navbox.tt#L40">Template Toolkit View</a>, I &quot;observe&quot; the state as
+necessary (with the <code>==</code> operator):</p>
+<pre>     [% FOREACH tag = all_tags %]
+        [% IF tag == article_tags %]
+	   &lt;b&gt;[% tag %]&lt;/b&gt;
+        [% ELSE %]
+              [% tag %]
+        [% END %]
+     [% END %]
+
+</pre>
+<p>As you can see, this is exactly the same as what we did when we only
+had one possible value.  If you think about it, it's really the same
+thing.  You just needed to think more about physics :)</p>
+<p>Anyway, take a look at this in action:</p>
+<p><a href="http://blog.jrock.us/tags/%E3%83%A2%E3%83%BC%E5%A8%98%E3%80%82/music">http://blog.jrock.us/tags/%E3%83%A2%E3%83%BC%E5%A8%98%E3%80%82/music</a></p>
+<p>And then add some cool navigation features to your Catalyst app!
+</p>
+
+
+</div></div></content></entry></feed>
