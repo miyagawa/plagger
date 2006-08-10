@@ -16,3 +16,5 @@ plugins:
 --- expected
 is_deeply scalar $context->update->feeds->[0]->entries->[0]->tags, [ 'Catalyst' ];
 is_deeply scalar $context->update->feeds->[0]->entries->[1]->tags, [ 'Catalyst', 'Programming' ];
+is $context->update->feeds->[0]->entries->[0]->date->epoch, 1155150478;
+
