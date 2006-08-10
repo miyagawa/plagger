@@ -2,12 +2,15 @@ use t::TestPlagger;
 
 test_requires('XML::Atom', 0.20);
 plan 'no_plan';
-run_eval_expected_with_capture;
+run_eval_expected;
 
 __END__
 
 === Atom 1.0 with categories
 --- input config
+global:
+  log:
+    level: error
 plugins:
   - module: Subscription::Config
     config:
