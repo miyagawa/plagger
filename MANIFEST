@@ -12,6 +12,7 @@ assets/plugins/Filter-EntryFullText/atmarkit.yaml
 assets/plugins/Filter-EntryFullText/barks.yaml
 assets/plugins/Filter-EntryFullText/bbc.yaml
 assets/plugins/Filter-EntryFullText/blog_goo_ne_jp.yaml
+assets/plugins/Filter-EntryFullText/blog_japan_cnet_com.yaml
 assets/plugins/Filter-EntryFullText/blog_pasonatech_co_jp.yaml
 assets/plugins/Filter-EntryFullText/blog_tech.rikunabi_next.yaml
 assets/plugins/Filter-EntryFullText/bounce.yaml
@@ -23,6 +24,7 @@ assets/plugins/Filter-EntryFullText/chuspo_dragons.yaml
 assets/plugins/Filter-EntryFullText/cnet_japan.yaml
 assets/plugins/Filter-EntryFullText/cnn.yaml
 assets/plugins/Filter-EntryFullText/computerworld_jp.yaml
+assets/plugins/Filter-EntryFullText/cookpad.yaml
 assets/plugins/Filter-EntryFullText/daily_sports.yaml
 assets/plugins/Filter-EntryFullText/debian_administration_org.yaml
 assets/plugins/Filter-EntryFullText/distrowatch.yaml
@@ -40,6 +42,8 @@ assets/plugins/Filter-EntryFullText/impress.yaml
 assets/plugins/Filter-EntryFullText/indiesmusic_com.yaml
 assets/plugins/Filter-EntryFullText/itmedia.yaml
 assets/plugins/Filter-EntryFullText/itpro_nikkeibp.yaml
+assets/plugins/Filter-EntryFullText/itpro_nikkeibp_column.yaml
+assets/plugins/Filter-EntryFullText/japan_internet_com.yaml
 assets/plugins/Filter-EntryFullText/japan_zdnet_com.yaml
 assets/plugins/Filter-EntryFullText/juno.yaml
 assets/plugins/Filter-EntryFullText/kyodo.yaml
@@ -56,6 +60,7 @@ assets/plugins/Filter-EntryFullText/mtv-music.yaml
 assets/plugins/Filter-EntryFullText/mycom_journal.yaml
 assets/plugins/Filter-EntryFullText/netkeiba.yaml
 assets/plugins/Filter-EntryFullText/news_com.yaml
+assets/plugins/Filter-EntryFullText/news_livedoor_com.yaml
 assets/plugins/Filter-EntryFullText/newsforge.yaml
 assets/plugins/Filter-EntryFullText/nikkansports.yaml
 assets/plugins/Filter-EntryFullText/nikkei.yaml
@@ -71,7 +76,9 @@ assets/plugins/Filter-EntryFullText/pya.yaml
 assets/plugins/Filter-EntryFullText/qwik.yaml
 assets/plugins/Filter-EntryFullText/rbbtoday_com.yaml
 assets/plugins/Filter-EntryFullText/reuters.yaml
+assets/plugins/Filter-EntryFullText/reuters_co_jp.yaml
 assets/plugins/Filter-EntryFullText/ryukyushimpo.yaml
+assets/plugins/Filter-EntryFullText/sankei_co_jp.yaml
 assets/plugins/Filter-EntryFullText/sanspo.yaml
 assets/plugins/Filter-EntryFullText/sarusarudiary.pl
 assets/plugins/Filter-EntryFullText/sciam.yaml
@@ -95,6 +102,7 @@ assets/plugins/Filter-EntryFullText/wired_com.yaml
 assets/plugins/Filter-EntryFullText/wordpress.pl
 assets/plugins/Filter-EntryFullText/worldtimes.yaml
 assets/plugins/Filter-EntryFullText/www_nikkeibp.yaml
+assets/plugins/Filter-EntryFullText/www_nikkeibp_co_jp_sj.yaml
 assets/plugins/Filter-EntryFullText/yakult.yaml
 assets/plugins/Filter-EntryFullText/yaplog.yaml
 assets/plugins/Filter-EntryFullText/yomiuri.yaml
@@ -176,6 +184,7 @@ deps/CustomFeed-Mixi.yaml
 deps/CustomFeed-SVNLog.yaml
 deps/Filter-Babelfish.yaml
 deps/Filter-Emoticon.yaml
+deps/Filter-GuessLanguage.yaml
 deps/Filter-HatenaBookmarkUsersCount.yaml
 deps/Filter-HatenaDiaryKeywordLink.yaml
 deps/Filter-HatenaFormat.yaml
@@ -211,6 +220,7 @@ deps/Publish-PowerPoint.yaml
 deps/Publish-Speech-MacOSX.yaml
 deps/Publish-Speech-Win32.yaml
 deps/Publish-SWF.yaml
+deps/Rule-Deduped.yaml
 deps/Rule-Fresh.yaml
 deps/Search-Estraier.yaml
 deps/Search-KinoSearch.yaml
@@ -317,6 +327,7 @@ lib/Plagger/Plugin/Filter/FetchEnclosure/Wget.pm
 lib/Plagger/Plugin/Filter/FetchEnclosure/Xango.pm
 lib/Plagger/Plugin/Filter/FindEnclosures.pm
 lib/Plagger/Plugin/Filter/FloatingDateTime.pm
+lib/Plagger/Plugin/Filter/GuessLanguage.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkUsersCount.pm
 lib/Plagger/Plugin/Filter/HatenaDiaryKeywordLink.pm
@@ -421,6 +432,7 @@ lib/Plagger/Plugin/Subscription/Planet.pm
 lib/Plagger/Plugin/Subscription/PlanetINI.pm
 lib/Plagger/Plugin/Subscription/XOXO.pm
 lib/Plagger/Plugin/Subscription/XPath.pm
+lib/Plagger/Plugin/UserAgent/AuthenRequest.pm
 lib/Plagger/Plugin/Widget/BloglinesSubscription.pm
 lib/Plagger/Plugin/Widget/BulkfeedsSpamReport.pm
 lib/Plagger/Plugin/Widget/Delicious.pm
@@ -453,16 +465,26 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
+t/samples/atom-category.xml
 t/samples/atom10-example.xml
 t/samples/babelfish.xml
 t/samples/delicious.xml
 t/samples/googlevideo.xml
+t/samples/guess-language/english.xml
+t/samples/guess-language/english_nolang.xml
+t/samples/guess-language/german.xml
+t/samples/guess-language/german_nolang.xml
+t/samples/guess-language/japanese.xml
+t/samples/guess-language/japanese_nolang.xml
+t/samples/guess-language/mixed.xml
+t/samples/guess-language/mixed_nolang.xml
 t/samples/hatenafotolife.rdf
 t/samples/monkey.rss
 t/samples/nasty.xml
 t/samples/non-http-link.xml
 t/samples/photocast.rss
 t/samples/rss-full.xml
+t/samples/rss2sample.xml
 t/samples/tags-in-title.xml
 t/samples/vox.xml
 t/TestPlagger.pm
