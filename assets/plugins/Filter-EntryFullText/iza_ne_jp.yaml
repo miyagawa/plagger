@@ -1,0 +1,5 @@
+# upgrade http://www.iza.ne.jp/rss/index.html
+author: Masafumi Otsune
+handle: http://www\.iza\.ne\.jp/news/newsarticle/
+extract: (<p class="txt_news">.*?)</div>.*?<div id="Nw02">
+extract_capture: body
