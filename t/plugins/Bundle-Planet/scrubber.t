@@ -19,10 +19,6 @@ __END__
 
 === Test bundle
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -44,10 +40,6 @@ unlike $block->input, qr!<style>blah blah</style>!;
 
 === allow style attribute
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:

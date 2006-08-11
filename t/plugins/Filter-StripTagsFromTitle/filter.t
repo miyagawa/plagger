@@ -8,9 +8,6 @@ run_eval_expected;
 __END__
 === Test without StripTagsFromTitle
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -21,9 +18,6 @@ is $context->update->feeds->[0]->entries->[0]->title, '<b>Plagger</b> rocks';
 
 === Test with StripTagsFromTitle
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

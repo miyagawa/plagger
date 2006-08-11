@@ -21,9 +21,6 @@ __END__
 
 === Atom 1.0 validation
 --- input config output_file
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

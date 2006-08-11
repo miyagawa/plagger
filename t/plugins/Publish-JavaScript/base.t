@@ -20,10 +20,6 @@ __END__
 
 === Test
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:

@@ -9,10 +9,6 @@ __END__
 
 === Test 1
 --- input config
-global:
-  assets_path: $FindBin::Bin/../../../assets
-  log:
-    level: error
 plugins:
   - module: CustomFeed::Debug
     config:

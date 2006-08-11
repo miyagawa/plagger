@@ -9,9 +9,6 @@ __END__
 
 === test file
 --- input config 
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::File
     config:

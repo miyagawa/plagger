@@ -9,9 +9,6 @@ __END__
 
 === Test one
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Feed
     config:

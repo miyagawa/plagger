@@ -77,9 +77,6 @@ __END__
 
 === Search
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -104,9 +101,6 @@ is $feed->count, 0, 'No match';
 
 === Second run ... make sure it's not clobbered
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

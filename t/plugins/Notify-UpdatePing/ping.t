@@ -27,9 +27,6 @@ __END__
 
 === Test 1
 --- input config rpc
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

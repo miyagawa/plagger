@@ -24,10 +24,6 @@ __END__
 
 === Test Atom 1.0 feed validity
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:

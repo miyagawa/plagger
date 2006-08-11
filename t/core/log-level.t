@@ -19,8 +19,11 @@ package main;
 
 __END__
 
-=== default log level is debug
+=== log level is debug
 --- input config
+global:
+  log:
+    level: debug
 plugins:
   - module: Test::Log
 --- expected

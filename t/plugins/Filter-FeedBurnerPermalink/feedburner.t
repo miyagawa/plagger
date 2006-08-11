@@ -3,20 +3,15 @@ use t::TestPlagger;
 
 test_requires_network;
 plan 'no_plan';
-
-my $log;
-$SIG{__WARN__} = sub { $log .= "@_" };
-sub log { $log }
-
-run_eval_expected;
+run_eval_expected_with_capture;
 
 __END__
 
 === sixapart.com feed
---- input config log
+--- input config
 global:
   log:
-#    level: error
+    level: info
 plugins:
   - module: Subscription::Config
     config:
@@ -25,5 +20,4 @@ plugins:
 
   - module: Filter::FeedBurnerPermalink
 --- expected
-my $log = $block->input;
-like $log, qr/Permalink rewritten to/;
+like $warning, qr/Permalink rewritten to/;

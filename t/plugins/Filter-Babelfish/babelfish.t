@@ -16,8 +16,6 @@ __END__
 global:
   cache:
     class: Plagger::Cache::Null
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -32,8 +30,6 @@ is $context->update->feeds->[0]->entries->[0]->body, '犬';
 global:
   cache:
     class: Plagger::Cache::Null
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -54,8 +50,6 @@ like $context->update->feeds->[0]->entries->[0]->body, qr/[dD]og/;
 global:
   cache:
     class: Plagger::Cache::Null
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -76,8 +70,6 @@ like $context->update->feeds->[0]->entries->[0]->body, qr/犬.*[dD]og/s;
 global:
   cache:
     class: Plagger::Cache::Null
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

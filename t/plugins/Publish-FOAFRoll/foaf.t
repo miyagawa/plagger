@@ -19,10 +19,6 @@ __END__
 
 === FOAF roll
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:

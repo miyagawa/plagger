@@ -16,10 +16,6 @@ __END__
 
 === generator testing
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -37,10 +33,6 @@ plugins:
 
 === Testing styles
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -61,10 +53,6 @@ plugins:
 
 === Testing skin (backward compatiblity)
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -85,10 +73,6 @@ plugins:
 
 === Testing styles (backward compatibility)
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -109,10 +93,6 @@ plugins:
 
 === Testing styles with 2 CSSes
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -135,10 +115,6 @@ plugins:
 
 === Testing styles with base URLs
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -163,10 +139,6 @@ plugins:
 
 === Testing widgets
 --- input config output_file
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:

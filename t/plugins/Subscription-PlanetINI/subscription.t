@@ -9,9 +9,6 @@ run_eval_expected;
 __END__
 === testing config.ini
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::PlanetINI
     config:

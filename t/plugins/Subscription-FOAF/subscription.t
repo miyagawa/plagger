@@ -9,9 +9,6 @@ run_eval_expected;
 __END__
 === Test FOAF
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::FOAF
     config:

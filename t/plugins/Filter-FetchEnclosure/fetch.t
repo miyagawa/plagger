@@ -34,10 +34,6 @@ __END__
 
 === test via Gmail sender
 --- input config entity
-global:
-  assets_path: $FindBin::Bin/../../../assets
-  log:
-    level: error
 plugins:
   - module: CustomFeed::Debug
     config:

@@ -19,9 +19,6 @@ __END__
 
 === Atom 1.0 generation
 --- input config output_file
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

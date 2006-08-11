@@ -128,10 +128,14 @@ package t::TestPlagger::Filter;
 use Test::Base::Filter -base;
 
 sub config {
-    my $config = shift;
-    $config =~ s/(?<!\\)(\$[\w\:]+)/$1/eeg;
-    $config =~ s/\\\$/\$/g;
-    Plagger->bootstrap(config => YAML::Load($config));
+    my $yaml = shift;
+    $yaml =~ s/(?<!\\)(\$[\w\:]+)/$1/eeg;
+    $yaml =~ s/\\\$/\$/g;
+
+    my $config = YAML::Load($yaml);
+    $config->{global}->{log}->{level} ||= 'error';
+    $config->{global}->{assets_path}  ||= File::Spec->catfile($t::TestPlagger::BaseDir, 'assets');
+    Plagger->bootstrap(config => $config);
 }
 
 sub output_file {

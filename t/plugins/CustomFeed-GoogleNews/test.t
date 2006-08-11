@@ -11,9 +11,6 @@ __END__
 
 === Test Google News live
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

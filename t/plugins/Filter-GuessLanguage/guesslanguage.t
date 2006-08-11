@@ -13,9 +13,6 @@ run_eval_expected;
 __END__
 === English atom feed with xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -29,9 +26,6 @@ is $context->update->feeds->[0]->language, 'en';
 
 === English atom feed without xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -45,9 +39,6 @@ is $context->update->feeds->[0]->language, 'en';
 
 === German atom feed with xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -61,9 +52,6 @@ is $context->update->feeds->[0]->language, 'de';
 
 === German atom feed without xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -77,9 +65,6 @@ is $context->update->feeds->[0]->language, 'de';
 
 === Japanese atom feed with xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -93,9 +78,6 @@ is $context->update->feeds->[0]->language, 'ja';
 
 === Japanese atom feed without xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -109,9 +91,6 @@ is $context->update->feeds->[0]->language, 'ja';
 
 === Mixed atom feed with xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
@@ -127,9 +106,6 @@ is $context->update->feeds->[0]->entries->[2]->{language}, 'ja';
 
 === Mixed atom feed without xml:lang
 --- input config
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:

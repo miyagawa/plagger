@@ -21,10 +21,6 @@ __END__
 
 === Test bundle
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:
@@ -59,10 +55,6 @@ file_contains("$main::dir/foafroll.xml", qr!<rdfs:seeAlso rdf:resource="http://p
 
 === Test bundle
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Config
     config:

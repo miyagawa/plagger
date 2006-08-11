@@ -11,10 +11,6 @@ __END__
 
 === Test simple keyword
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Planet
     config:
@@ -25,10 +21,6 @@ is $context->subscription->feeds->[0]->url, 'http://feeds.technorati.com/feed/po
 
 === Test keyword with space in it
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Planet
     config:
@@ -39,10 +31,6 @@ is $context->subscription->feeds->[0]->url, 'http://feeds.technorati.com/feed/po
 
 === Test multibyte keyword
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Planet
     config:
@@ -53,10 +41,6 @@ is $context->subscription->feeds->[0]->url, 'http://feeds.technorati.com/feed/po
 
 === Test keyword and URL
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Planet
     config:
@@ -68,10 +52,6 @@ is $context->subscription->feeds->[-1]->url, "http://www.bloglines.com/search?q=
 
 === Test lang=ja
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Planet
     config:
@@ -83,10 +63,6 @@ is $context->subscription->feeds->[0]->url, "http://www.feedster.jp/search/type/
 
 === Test lang=ja with euc-jp
 --- input config
-global:
-  log:
-    level: error
-  assets_path: $FindBin::Bin/../../../assets
 plugins:
   - module: Subscription::Planet
     config:

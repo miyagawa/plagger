@@ -8,6 +8,9 @@ __END__
 
 === Without auth
 --- input config
+global:
+  log:
+    level: debug
 plugins:
   - module: Subscription::Config
     config:
@@ -18,6 +21,9 @@ like $warning, qr/401 Authorization Required/;
 
 === With auth
 --- input config
+global:
+  log:
+    level: debug
 plugins:
   - module: Subscription::Config
     config:
@@ -35,6 +41,9 @@ like $warning, qr!200: http://irisresearch!;
 
 === With auth as list
 --- input config
+global:
+  log:
+    level: debug
 plugins:
   - module: Subscription::Config
     config:

@@ -19,9 +19,6 @@ __END__
 
 === RSS 2.0 config
 --- input config output_file
-global:
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
