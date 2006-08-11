@@ -95,8 +95,10 @@ sub run_eval_expected_with_capture {
     filters_delay;
     for my $block (blocks) {
         my $warning;
-        $SIG{__WARN__} = sub { $warning .= "@_" };
-        $block->run_filters;
+        {
+            $SIG{__WARN__} = sub { $warning .= "@_" };
+            $block->run_filters;
+        }
         my $context = $block->input;
         eval $block->expected;
         fail $@ if $@;
