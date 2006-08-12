@@ -1,5 +1,5 @@
 # upgrade http://autopage.teacup.com/
 author: Masafumi Otsune
-handle: http://\w+\.ap\.teacup\.com/\w+/\d\.html
+handle: http://\w+\.ap\.teacup\.com/\w+/\d+\.html
 extract: (<div class="postbody">.*?)<div class="postcommtb">
 extract_capture: body
