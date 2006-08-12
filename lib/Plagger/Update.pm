@@ -30,6 +30,11 @@ sub feeds {
     wantarray ? @{ $self->{feeds} } : $self->{feeds};
 }
 
+sub count {
+    my $self = shift;
+    scalar @{ $self->{feeds} };
+}
+
 sub feeds_by_tag {
     my($self, $tag) = @_;
     my @feeds = @{ $self->{by_tags}->{$tag} || [] };

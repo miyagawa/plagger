@@ -6,28 +6,23 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'update.entry.fixup' => \&entry,
-        'update.fixup' => \&fixup,
+        'update.feed.fixup' => \&break,
     );
 }
 
-sub entry {
+sub break {
     my($self, $context, $args) = @_;
 
-    my $feed = $args->{feed}->clone;
-    $feed->clear_entries;
-    $feed->add_entry($args->{entry});
-    $feed->title($args->{entry}->title)
-        if $self->conf->{use_entry_title};
+    for my $entry ($args->{feed}->entries) {
+        my $feed = $args->{feed}->clone;
+        $feed->clear_entries;
+        $feed->add_entry($entry);
+        $feed->title($entry->title)
+            if $self->conf->{use_entry_title};
+        $context->update->add($feed);
+    }
 
-    push @{$self->{feeds}}, $feed;
-}
-
-sub fixup {
-    my($self, $context, $args) = @_;
-
-    $context->update->{feeds} = $self->{feeds}
-        if $self->{feeds};
+    $context->update->delete_feed($args->{feed});
 }
 
 1;
