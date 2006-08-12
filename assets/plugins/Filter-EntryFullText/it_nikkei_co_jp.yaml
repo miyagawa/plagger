@@ -1,0 +1,8 @@
+# http://it.nikkei.co.jp/
+author: Masafumi Otsune
+custom_feed_handle: http://it\.nikkei\.co\.jp/
+custom_feed_follow_link: http://rd\.nikkei\.co\.jp/it/newslist\.aspx/gennavi/u=http://it\.nikkei\.co\.jp/\w+/news/index\.aspx
+handle: http://it\.nikkei\.co\.jp/\w+/news/index\.aspx\?n=
+extract: <span class="date">更新：(?:\d{4}年)?(\d{1,2}月\d{1,2}日 \d{2}:\d{2})</span>.*?(<p class="article"><!-- FJZONE START NAME="HONBUN" -->.*?<!-- FJZONE END NAME="HONBUN" --></p>)
+extract_capture: date body
+extract_date_format: %m月%d日 %H:%M
