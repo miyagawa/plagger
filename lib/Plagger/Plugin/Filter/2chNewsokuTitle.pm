@@ -2,11 +2,6 @@ package Plagger::Plugin::Filter::2chNewsokuTitle;
 use strict;
 use base qw( Plagger::Plugin );
 
-use encoding 'utf-8';
-use Encode;
-use Plagger::UserAgent;
-use URI;
-
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
