@@ -10,7 +10,7 @@ sub feed_init {
     $feed->id( $self->conf->{id} || ('smartfeed:all') );
     $feed->title( $self->conf->{title} || "All Entries" );
     $feed->link( $self->conf->{link} );
-    $feed->description( $self->conf->{description} || $feed->title );
+    $feed->description( $self->conf->{description} ) if $self->conf->{description};
 
     $self->{feed} = $feed;
 }
