@@ -2,7 +2,7 @@
 <html><head><title>[% conf.title | html %]</title></head>
 <body>
 [% conf.title | html %]<br>
-[% modified.format('Mail') %] updated.<br>
+updated on: [% modified.format('Mail') %]<br>
 <hr size="1">
 [% FOREACH feed = feeds -%]
 &gt;<a href="[% feed.feed_link | html %]">[% feed.title %]</a>([% feed.count %])<br>
