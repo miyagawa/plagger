@@ -43,7 +43,7 @@ sub fetch {
 sub request {
     my $self = shift;
     my($req) = @_;
-    Plagger->context->run_hook('useragent.request', { ua => $self, url => $req->uri });
+    Plagger->context->run_hook('useragent.request', { ua => $self, url => $req->uri, req => $req });
     $self->SUPER::request(@_);
 }
 

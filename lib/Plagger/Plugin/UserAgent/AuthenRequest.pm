@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use base qw/Plagger::Plugin/;
 
-use LWP::UserAgent;
 use List::Util qw/first/;
 
 sub register {
