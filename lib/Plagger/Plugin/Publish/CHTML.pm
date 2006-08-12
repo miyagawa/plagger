@@ -75,6 +75,7 @@ sub feed {
                      conf => $self->conf,
                      feed => $feed,
                      earlier => $self->earlier($feed_path),
+                     modified => (Plagger::Date->now),
                  }),
 		 "$feed_path/index.html");
 
