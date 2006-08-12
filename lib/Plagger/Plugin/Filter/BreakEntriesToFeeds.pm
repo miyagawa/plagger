@@ -19,6 +19,8 @@ sub entry {
     $feed->add_entry($args->{entry});
     $feed->title($args->{entry}->title)
         if $self->conf->{use_entry_title};
+    $feed->title($feed->title_text . ' ' . $args->{entry}->author)
+        if $self->conf->{add_entry_author};
 
     push @{$self->{feeds}}, $feed;
 }
@@ -56,6 +58,10 @@ entries, with Publish::Gmail plugin.
 =item use_entry_title
 
 Use entry's title as a newly genrated feed title. Defaults to 0.
+
+=item add_entry_author
+
+Add entry's author as a newly genrated feed title. Defaults to 0.
 
 =back
 
