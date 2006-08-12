@@ -21,6 +21,10 @@ sub create {
         Plagger->context->log(debug => "$conf->{file} => $impl");
         $impl->require or Plagger->context->error("Error loading $impl: $@");
 
+        if ($conf->{file} && !-e $conf->{file}) {
+            Plagger->context->log(warn => "$conf->{file}: $!");
+        }
+
         $impl->new(%$conf);
     };
 }
