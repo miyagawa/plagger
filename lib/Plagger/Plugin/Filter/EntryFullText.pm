@@ -29,6 +29,7 @@ sub init {
     $self->load_plugins();
 
     $self->{ua} = Plagger::UserAgent->new;
+    $self->{ua}->parse_head(0);
 }
 
 sub load_plugins {
