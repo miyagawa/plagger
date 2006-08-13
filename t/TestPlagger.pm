@@ -126,15 +126,19 @@ sub file_doesnt_contain() {
 
 package t::TestPlagger::Filter;
 use Test::Base::Filter -base;
+use File::Temp ();
 
 sub config {
     my $yaml = shift;
     $yaml =~ s/(?<!\\)(\$[\w\:]+)/$1/eeg;
     $yaml =~ s/\\\$/\$/g;
 
+    # set sane defaults for testing
     my $config = YAML::Load($yaml);
-    $config->{global}->{log}->{level} ||= 'error';
-    $config->{global}->{assets_path}  ||= File::Spec->catfile($t::TestPlagger::BaseDir, 'assets');
+    $config->{global}->{log}->{level}  ||= 'error';
+    $config->{global}->{assets_path}   ||= File::Spec->catfile($t::TestPlagger::BaseDir, 'assets');
+    $config->{global}->{cache}->{base} ||= File::Temp::tempdir(CLEANUP => 1);
+
     Plagger->bootstrap(config => $config);
 }
 
