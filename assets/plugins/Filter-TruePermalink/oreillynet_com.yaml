@@ -1,3 +1,3 @@
 author: Masafumi Otsune
-match: \.(oreillynet|(linux|mac|windows)devcenter|perl|onlamp|onjava|xml)\.com/.+\.html\?
+match: \.(oreillynet|(linux|mac|windows)devcenter|perl|onlamp|onjava|xml|makezine)\.com/.+\.html\?
 rewrite: s/\.html\?.*$/.html/
