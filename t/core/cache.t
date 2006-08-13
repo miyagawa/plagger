@@ -9,13 +9,13 @@ global:
   log:
     level: error
   cache:
-    expires: 2 seconds
+    expires: 5 seconds
 plugins:
   - module: Test::Cache
 CONFIG
 
 Plagger->bootstrap(config => \$config);
-sleep 2;
+sleep 6;
 Plagger->bootstrap(config => \$config);
 
 package Plagger::Plugin::Test::Cache;
@@ -36,7 +36,6 @@ sub test {
     my($self, $context, $args) = @_;
     if (! $set++) {
         $self->cache->set("foo" => "bar");
-        sleep 1;
         ::is $self->cache->get("foo"), "bar";
     } else {
         ::isnt $self->cache->get("foo"), "bar";
