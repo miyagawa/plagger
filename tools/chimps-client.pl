@@ -38,6 +38,7 @@ sub get_revision {
     return
         extract_revision('svk info', qr/Mirrored From: .*Rev\. (\d+)/) ||
         extract_revision('svn info', qr/Revision: (\d+)/) ||
+        extract_svn_revision('.svn/entries') ||
        'unknown';
 }
 
@@ -46,4 +47,13 @@ sub extract_revision {
     my $out = qx($command) or return;
     $out =~ /$re/;
     return $1;
+}
+
+sub extract_svn_revision {
+    my $file = shift;
+    open my($fh), $file or return;
+    while (<$fh>) {
+        /revision="(\d+)"/ and return $1;
+    }
+    return;
 }
