@@ -97,7 +97,7 @@ sub run_eval_expected_with_capture {
     for my $block (blocks) {
         my $warning;
         {
-            $SIG{__WARN__} = sub { $warning .= "@_" };
+            local $SIG{__WARN__} = sub { $warning .= "@_" };
             $block->run_filters;
         }
         my $context = $block->input;

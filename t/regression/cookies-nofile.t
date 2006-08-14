@@ -20,5 +20,7 @@ plugins:
     rule:
       expression: Plagger::UserAgent->new;
 --- expected
-like $warning, qr/Cookies\.plist: No such file/;
+open my $fh, "/tmp/xxxxxxxx";
+my $no_such_file = $!;
+like $warning, qr/Cookies\.plist: $no_such_file/
 
