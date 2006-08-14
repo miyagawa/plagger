@@ -13,7 +13,7 @@ our $output = $FindBin::Bin . "/" . Digest::MD5::md5_hex($url) . ".js";
 run_like 'input' => 'expected';
 
 END {
-    unlink $output if -e $output;
+    unlink $output if $output && -e $output;
 }
 
 __END__
