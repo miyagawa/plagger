@@ -4,10 +4,9 @@ use File::Spec;
 use t::TestPlagger;
 use XML::Feed;
 
-test_plugin_deps;
-
 our $output = "$FindBin::Bin/atom.xml";
 
+test_plugin_deps;
 plan tests => 2;
 run_eval_expected;
 

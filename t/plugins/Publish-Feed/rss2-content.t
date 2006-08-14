@@ -4,9 +4,9 @@ use File::Spec;
 use t::TestPlagger;
 use XML::Feed;
 
-test_plugin_deps;
-
 our $output = "$FindBin::Bin/rss.xml";
+
+test_plugin_deps;
 run_like 'input', 'expected';
 
 END {
