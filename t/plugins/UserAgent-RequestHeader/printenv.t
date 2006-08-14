@@ -7,7 +7,7 @@ run_eval_expected;
 
 __END__
 
-=== Test rt.cpan.org
+=== Test printenv
 --- input config
 global:
   cache:
@@ -15,17 +15,17 @@ global:
 plugins:
   - module: CustomFeed::Debug
     config:
-      title: RT CPAN
+      title: printenv
       entry:
-        - title: rt.cpan.org
-          link: http://rt.cpan.org/
+        - title: printenv
+          link: http://commonground.mines.edu/printenv.cgi
   - module: Filter::EntryFullText
     config:
       store_html_on_failure: 1
 --- expected
-like $context->update->feeds->[0]->entries->[0]->body, qr!<span class="left">Login</span>!;
+unlike $context->update->feeds->[0]->entries->[0]->body, qr!ACCEPT_LANGUAGE!;
 
-=== Test rt.cpan.org with Accept-Language: ja
+=== Test printenv with Accept-Language: ja
 --- input config
 global:
   cache:
@@ -33,10 +33,10 @@ global:
 plugins:
   - module: CustomFeed::Debug
     config:
-      title: RT CPAN
+      title: printenv
       entry:
-        - title: rt.cpan.org
-          link: http://rt.cpan.org/
+        - title: printenv
+          link: http://commonground.mines.edu/printenv.cgi
   - module: Filter::EntryFullText
     config:
       store_html_on_failure: 1
@@ -44,9 +44,9 @@ plugins:
     config:
       Accept-Language: ja
 --- expected
-like $context->update->feeds->[0]->entries->[0]->body, qr!<span class="left">ログイン</span>!;
+like $context->update->feeds->[0]->entries->[0]->body, qr!<TD>HTTP_ACCEPT_LANGUAGE</TD><TD>ja</TD>!;
 
-=== Test rt.cpan.org with Accept-Language: ja and rule
+=== Test printenv with Accept-Language: ja and rule
 --- input config
 global:
   cache:
@@ -54,10 +54,10 @@ global:
 plugins:
   - module: CustomFeed::Debug
     config:
-      title: RT CPAN
+      title: printenv
       entry:
-        - title: rt.cpan.org
-          link: http://rt.cpan.org/
+        - title: printenv
+          link: http://commonground.mines.edu/printenv.cgi
   - module: Filter::EntryFullText
     config:
       store_html_on_failure: 1
@@ -65,6 +65,6 @@ plugins:
     config:
       Accept-Language: ja
     rule:
-      expression: \$args->{url}->host eq 'rt.cpan.org'
+      expression: \$args->{url}->host eq 'commonground.mines.edu'
 --- expected
-like $context->update->feeds->[0]->entries->[0]->body, qr!<span class="left">ログイン</span>!;
+like $context->update->feeds->[0]->entries->[0]->body, qr!<TD>HTTP_ACCEPT_LANGUAGE</TD><TD>ja</TD>!
