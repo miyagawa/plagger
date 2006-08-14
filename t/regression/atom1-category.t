@@ -15,7 +15,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/atom-category.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/atom-category.xml
 --- expected
 is_deeply scalar $context->update->feeds->[0]->entries->[0]->tags, [ 'Catalyst' ];
 is_deeply scalar $context->update->feeds->[0]->entries->[1]->tags, [ 'Catalyst', 'Programming' ];

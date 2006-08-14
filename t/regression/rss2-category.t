@@ -15,7 +15,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss2sample.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss2sample.xml
 --- expected
 is $context->update->feeds->[0]->entries->[0]->tags->[0], 'News';
 

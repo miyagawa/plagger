@@ -3,22 +3,23 @@ use FindBin;
 use File::Basename;
 use File::Spec;
 use Test::Base -Base;
+use URI::Escape ();
 use Plagger;
 
 our @EXPORT = qw(test_requires test_requires_network test_requires_command test_plugin_deps
                  run_eval_expected run_eval_expected_with_capture
                  slurp_file file_contains file_doesnt_contain);
 
-our $BaseDir;
+our($BaseDir, $BaseDirURI);
 {
     my @path = File::Spec->splitdir($FindBin::Bin);
     while (my $dir = pop @path) {
         if ($dir eq 't') {
             $BaseDir = File::Spec->catfile(@path);
+            $BaseDirURI = join "/", map URI::Escape::uri_escape($_), @path;
             last;
         }
     }
-    $BaseDir =~ s{\\}{/}g; # always use forward slash even on Win32
 }
 
 sub test_requires() {

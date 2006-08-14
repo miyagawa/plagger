@@ -12,8 +12,8 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
-        - file://$t::TestPlagger::BaseDir/t/samples/atom-category.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/atom-category.xml
   - module: Filter::BreakEntriesToFeeds
 --- expected
 is $context->update->count, 7;
@@ -30,8 +30,8 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
-        - file://$t::TestPlagger::BaseDir/t/samples/atom-category.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/atom-category.xml
   - module: Filter::BreakEntriesToFeeds
     config:
       use_entry_title: 1
@@ -47,8 +47,8 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
-        - file://$t::TestPlagger::BaseDir/t/samples/atom-category.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/atom-category.xml
   - module: Filter::BreakEntriesToFeeds
     rule:
       expression: \$args->{feed}->link !~ /hatena/
