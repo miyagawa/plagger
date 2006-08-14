@@ -32,7 +32,7 @@ plugins:
       dir: $FindBin::Bin
       filename: atom.xml
 --- expected
-local $ENV{LANGUAGE};
+local $ENV{LANGUAGE} = 'en';
 my $out = `$ENV{HOME}/svn/feedvalidator/src/demo.py $main::output A`;
 like $out, qr/No errors or warnings/;
 

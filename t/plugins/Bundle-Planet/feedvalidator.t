@@ -39,7 +39,7 @@ plugins:
       stylesheet: foo.css
       description: Everything about Foobar
 --- expected
-local $ENV{LANGUAGE};
+local $ENV{LANGUAGE} = 'en';
 my $out = `$ENV{HOME}/svn/feedvalidator/src/demo.py $main::dir/atom.xml A`;
 like $out, qr/No errors or warnings/;
 $out = `$ENV{HOME}/svn/feedvalidator/src/demo.py $main::dir/rss.xml A`;
