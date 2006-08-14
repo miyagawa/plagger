@@ -2,6 +2,7 @@ package Plagger::Plugin::Subscription::Config;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Encode;
 use Plagger::Tag;
 
 sub register {
@@ -23,6 +24,10 @@ sub load {
         if (!ref($config)) {
             $config = { url => $config };
         }
+
+        # file:// URL doesn't work with UTF-8 flag on Win32
+        Encode::_utf8_off($config->{url});
+
         my $feed = Plagger::Feed->new;
         $feed->url($config->{url}) or $context->error("Feed URL is missing");
         $feed->link($config->{link})   if $config->{link};
