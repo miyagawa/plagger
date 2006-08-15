@@ -23,7 +23,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/vox.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/vox.xml
   - module: Search::KinoSearch
     config:
       invindex: $main::dir
@@ -49,7 +49,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Search::KinoSearch
     config:
       invindex: $main::dir
