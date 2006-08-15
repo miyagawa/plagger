@@ -2,7 +2,7 @@ use strict;
 use FindBin;
 use t::TestPlagger;
 
-test_requires('Date::Parse');
+test_plugin_deps('Filter::RSSLiberalDateTime');
 
 plan tests => 3;
 run_eval_expected;
@@ -23,8 +23,8 @@ plugins:
   - module: Filter::RSSLiberalDateTime
 --- expected
 my @feeds = $context->update->feeds;
-is( ($feeds[0]->entries)[0]->enclosures->[0]->url, 'http://web.mac.com/mrakes/iPhoto/photocast_test/1C8C5C8D-651D-4990-B6DD-DF11D515213C.jpg' );
-is( ($feeds[0]->entries)[0]->enclosures->[0]->type, 'image/jpeg' );
-is( ($feeds[0]->entries)[0]->icon->{url}, 'http://web.mac.com/mrakes/iPhoto/photocast_test/1C8C5C8D-651D-4990-B6DD-DF11D515213C.jpg?transform=medium' );
+is $feeds[0]->entries->[0]->enclosures->[0]->url, 'http://web.mac.com/mrakes/iPhoto/photocast_test/1C8C5C8D-651D-4990-B6DD-DF11D515213C.jpg';
+is $feeds[0]->entries->[0]->enclosures->[0]->type, 'image/jpeg';
+is $feeds[0]->entries->[0]->icon->{url}, 'http://web.mac.com/mrakes/iPhoto/photocast_test/1C8C5C8D-651D-4990-B6DD-DF11D515213C.jpg?transform=medium';
 
 
