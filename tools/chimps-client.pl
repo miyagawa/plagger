@@ -6,6 +6,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use Config;
+use File::Spec;
 use Test::Chimps::Client;
 use Test::TAP::Model::Visual;
 
@@ -36,17 +37,25 @@ if (! $status) {
 
 sub get_revision {
     return
-        extract_revision('svk info', qr/Mirrored From: .*Rev\. (\d+)/) ||
-        extract_revision('svn info', qr/Revision: (\d+)/) ||
+        extract_revision('svk', 'svk info', qr/Mirrored From: .*Rev\. (\d+)/) ||
+        extract_revision('svn', 'svn info', qr/Revision: (\d+)/) ||
         extract_svn_revision('.svn/entries') ||
        'unknown';
 }
 
 sub extract_revision {
-    my($command, $re) = @_;
+    my($cmd, $command, $re) = @_;
+
+    return unless has_command($cmd);
+
     my $out = qx($command) or return;
     $out =~ /$re/;
     return $1;
+}
+
+sub has_command {
+    my $cmd = shift;
+    grep { -e File::Spec->catfile($_, $cmd) } split /:/, $ENV{PATH};
 }
 
 sub extract_svn_revision {
