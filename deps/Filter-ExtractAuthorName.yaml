@@ -1,0 +1,4 @@
+name: Filter::ExtractAuthorName
+author: Tatsuhiko Miyagawa
+depends: 
+  Email::Address: 0

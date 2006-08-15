@@ -185,7 +185,7 @@ sub handle_feed {
         my $media_ns = "http://search.yahoo.com/mrss";
         my $media = $e->{entry}->{$media_ns}->{group} || $e->{entry};
         my $content = $media->{$media_ns}->{content} || [];
-           $content = [ $content ] unless ref $content;
+           $content = [ $content ] unless ref $content && ref $content eq 'ARRAY';
 
         for my $media_content (@{$content}) {
             my $enclosure = Plagger::Enclosure->new;
