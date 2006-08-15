@@ -62,13 +62,8 @@ sub init_estmaster {
 
 END {
     if ($dir && -e $dir) {
-        my $pidfile = File::Spec->catfile($dir, '_pid');
-        open my $fh, $pidfile or die "$pidfile: $!";
-        chomp(my $pid = <$fh>);
-        if ($pid) {
-            diag("shutting down estmaster <pid:$pid>");
-            kill 1, $pid;
-        }
+        diag("shutting down estmaster");
+        system('estmaster', 'stop', $dir);
         rmtree $dir;
     }
 }
