@@ -1,5 +1,5 @@
 # http://www.juno.co.uk/
 author: youpy
 handle: http://www.juno.co.uk/products/
-extract: <h3>(.*?)</h3>.*(<div id="productdataimage1">.*?</div>.*?<div id="tracklistcontainer">.*?</div>)
+extract: <title>(.*?)</title>.*(<div id="productdataimage1">.*?</div>.*?<div id="tracklistcontainer">.*?</div>)
 extract_capture: title body
