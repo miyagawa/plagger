@@ -129,10 +129,16 @@ package t::TestPlagger::Filter;
 use Test::Base::Filter -base;
 use File::Temp ();
 
+sub interpolate {
+    my $stuff = shift;
+    $stuff =~ s/(?<!\\)(\$[\w\:]+)/$1/eeg;
+    $stuff =~ s/\\\$/\$/g;
+    $stuff;
+}
+
 sub config {
     my $yaml = shift;
-    $yaml =~ s/(?<!\\)(\$[\w\:]+)/$1/eeg;
-    $yaml =~ s/\\\$/\$/g;
+    $yaml = $self->interpolate($yaml);
 
     # set sane defaults for testing
     my $config = YAML::Load($yaml);

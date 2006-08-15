@@ -1,0 +1,9 @@
+define_recipes:
+  foo:
+    module: Foo::Bar
+    config:
+      bar: baz
+  bar:
+    module: Baz::Bar
+    config:
+      baz: zzzz
