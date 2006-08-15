@@ -30,4 +30,3 @@ plugins:
       password: p4ssword
     rule:
       expression: $args->{feed}->id eq 'smartfeed:all'
-
