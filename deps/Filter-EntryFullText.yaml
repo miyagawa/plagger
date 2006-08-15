@@ -1,0 +1,4 @@
+name: Filter::EntryFullText
+author: Tatsuhiko Miyagawa
+depends: 
+  HTML::ResolveLink: 0
