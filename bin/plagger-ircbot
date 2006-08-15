@@ -2,6 +2,7 @@
 use warnings;
 use strict;
 
+use Plagger;
 use FindBin;
 use Getopt::Long;
 use List::Util qw(first);
@@ -24,6 +25,10 @@ Getopt::Long::Configure("bundling"); # allows -c
 msg "loading configuration $path";
 
 my $config_yaml = YAML::LoadFile($path);
+
+# temp hack to allow include/recipes
+Plagger::load_include(undef, $config_yaml);
+Plagger::load_recipes(undef, $config_yaml);
 my $plugin = first { $_->{module} eq 'Notify::IRC' } @{ $config_yaml->{plugins} }
     or die "Can't find Notify::IRC config in $path";
 
