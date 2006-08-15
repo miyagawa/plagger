@@ -3,21 +3,25 @@ use warnings;
 use strict;
 use File::Path;
 use File::Temp qw(tempdir);
+use LWP::Simple;
 use YAML;
 
 our $repo = "http://svn.bulknews.net/repos/plagger";
 our $file = "$ENV{HOME}/.plagger-smoke.yml";
 
 my $config  = eval { YAML::LoadFile($file) } || {};
-my $current = get_current($repo);
+my $current = get_current($repo) or die "Can't get Revision from $repo";
 
 $config->{revision} ||= $current - 1;
 
-while ($config->{revision}++ <= $current) {
+my $run;
+while (++$config->{revision} <= $current) {
     run_chimps($config->{revision});
+    $run++;
 }
 
-YAML::DumpFile($file, $config);
+$config->{revision} = $current;
+YAML::DumpFile($file, $config) if $run;
 
 sub run_chimps {
     my $revision = shift;
@@ -42,4 +46,11 @@ sub run_chimps {
 
     chdir "..";
     rmtree("$workdir/$checkout");
+}
+
+sub get_current {
+    my $repo = shift;
+    my $html = LWP::Simple::get($repo);
+    $html =~ /Revision (\d+):/ and return $1;
+    return;
 }
