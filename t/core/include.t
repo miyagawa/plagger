@@ -5,11 +5,12 @@ plan 'no_plan';
 
 run {
     my $block = shift;
-    my $config = YAML::Load($block->input);
 
-    my $context = bless {}, 'Plagger';
-    $context->load_include($config);
-    $context->load_recipes($config);
+    my $loader = Plagger::ConfigLoader->new;
+    my $config = $loader->load(\$block->input);
+
+    $loader->load_include($config);
+    $loader->load_recipes($config);
 
     # no need to compare these things
     delete $config->{recipes};

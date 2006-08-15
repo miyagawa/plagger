@@ -18,6 +18,7 @@ __PACKAGE__->mk_accessors( qw(conf update subscription plugins_path cache) );
 
 use Plagger::Cache;
 use Plagger::CacheProxy;
+use Plagger::ConfigLoader;
 use Plagger::Date;
 use Plagger::Entry;
 use Plagger::Feed;
@@ -39,19 +40,10 @@ sub bootstrap {
         rewrite_tasks => []
     }, $class;
 
-    my $config;
-    if (-e $opt{config} && -r _) {
-        $config = YAML::LoadFile($opt{config});
-        $self->{config_path} = $opt{config};
-    } elsif (ref($opt{config}) && ref($opt{config}) eq 'SCALAR') {
-        $config = YAML::Load(${$opt{config}});
-    } elsif (ref($opt{config}) && ref($opt{config}) eq 'HASH') {
-        $config = Storable::dclone($opt{config});
-    } else {
-        croak "Plagger->bootstrap: $opt{config}: $!";
-    }
+    my $loader = Plagger::ConfigLoader->new;
+    my $config = $loader->load($opt{config});
 
-    $self->load_include($config);
+    $loader->load_include($config);
     $self->{conf} = $config->{global};
     $self->{conf}->{log} ||= { level => 'debug' };
 
@@ -62,7 +54,7 @@ sub bootstrap {
     no warnings 'redefine';
     local *Plagger::context = sub { $self };
 
-    $self->load_recipes($config);
+    $loader->load_recipes($config);
     $self->load_cache($opt{config});
     $self->load_plugins(@{ $config->{plugins} || [] });
     $self->rewrite_config if @{ $self->{rewrite_tasks} };
@@ -108,45 +100,6 @@ sub rewrite_config {
         close $fh;
 
         $self->log(info => "Rewrote $count password(s) and saved to $self->{config_path}");
-    }
-}
-
-sub load_include {
-    my($self, $config) = @_;
-
-    return unless $config->{include};
-    for (@{ $config->{include} }) {
-        my $include = YAML::LoadFile($_);
-
-        for my $key (keys %{ $include }) {
-            my $add = $include->{$key};
-            unless ($config->{$key}) {
-                $config->{$key} = $add;
-                next;
-            }
-            if (ref($config->{$key}) eq 'HASH') {
-                next unless ref($add) eq 'HASH';
-                for (keys %{ $include->{$key} }) {
-                    $config->{$key}->{$_} = $include->{$key}->{$_};
-                }
-            } elsif (ref($include->{$key}) eq 'ARRAY') {
-                $add = [ $add ] unless ref($add) eq 'ARRAY';
-                push(@{ $config->{$key} }, @{ $include->{$key} });
-            } elsif ($add) {
-                $config->{$key} = $add;
-            }
-        }
-    }
-}
-
-sub load_recipes {
-    my($self, $config) = @_;
-
-    for (@{ $config->{recipes} }) {
-        $self->error("no such recipe to $_") unless $config->{define_recipes}->{$_};
-        my $plugin = $config->{define_recipes}->{$_};
-        $plugin = [ $plugin ] unless ref($plugin) eq 'ARRAY';
-        push(@{ $config->{plugins} }, @{ $plugin });
     }
 }
 
