@@ -78,7 +78,7 @@ sub test_plugin_deps() {
         test_plugin_deps($plugin, 1);
     }
 
-    while (my($mod, $ver) = each %{$meta->{depends}}) {
+    while (my($mod, $ver) = each %{$meta->{depends} || {}}) {
         test_requires($mod, $ver);
     }
 }
