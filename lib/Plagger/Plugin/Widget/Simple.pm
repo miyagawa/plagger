@@ -11,7 +11,28 @@ sub register {
     $context->register_hook(
         $self,
         'publish.entry.fixup' => \&add,
+        'plugin.init'         => \&initialize,
     );
+}
+
+sub initialize {
+    my($self, $context, $args) = @_;
+
+    if (my $name = $self->conf->{widget}) {
+        my $found;
+        $self->load_assets(
+            File::Find::Rule->name("$name.yaml"),
+            sub {
+                my $data = YAML::LoadFile(shift);
+                $self->{conf} = { %{$self->{conf}}, %$data };
+                $found++;
+            },
+        );
+
+        unless ($found) {
+            $context->log(error => "Can't find widget for $name");
+        }
+    }
 }
 
 sub add {
@@ -31,28 +52,46 @@ sub new { bless {}, shift }
 sub feed { shift->{feed} }
 sub plugin { shift->{plugin} }
 
+sub value {
+    my($self, $string, $args) = @_;
+
+    if ($string =~ /\$/) { # DWIM
+        $string = eval $string;
+        Plagger->context->log(error => $@) if $@;
+        utf8::encode($string) if utf8::is_utf8($string);
+    }
+
+    $string;
+}
+
 sub html {
     my($self, $entry) = @_;
     my $uri = URI->new($self->plugin->conf->{link});
 
     my $args = { entry => $entry, feed => $self->{feed} };
 
+    if (my $append = $self->plugin->conf->{append}) {
+        $uri->path( $uri->path . $self->value($append, $args) );
+    }
+
     if (my $query = $self->plugin->conf->{query}) {
-        my @query = map {
-            if ($query->{$_} =~ /\$/) { # DWIM
-                $query->{$_} = eval $query->{$_};
-                Plagger->context->log(error => $@) if $@;
-            }
-            ($_ => $query->{$_});
-        } sort keys %$query;
-        $uri->query_form(@query);
+        if (ref $query) {
+            my @query = map {
+                ($_ => $self->value($query->{$_}, $args));
+            } sort keys %$query;
+            $uri->query_form(@query);
+        } else {
+            $query = $self->value($query, $args);
+            $uri->query($query);
+        }
     }
 
     my $url = HTML::Entities::encode($uri->as_string);
 
     my $content;
-    if ($self->plugin->conf->{content_dynamic}) {
-        $content = $self->plugin->templatize(\$self->plugin->conf->{content_dynamic}, $args);
+    if (my $template = $self->plugin->conf->{content_dynamic}) {
+        chomp $template;
+        $content = $self->plugin->templatize(\$template, $args);
     } else {
         $content = $self->plugin->conf->{content};
     }

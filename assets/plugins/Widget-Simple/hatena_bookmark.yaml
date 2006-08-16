@@ -1,0 +1,3 @@
+link: http://b.hatena.ne.jp/append
+query: $args->{entry}->permalink
+content: <img src="http://b.hatena.ne.jp/images/append.gif" alt="Post to Hatena Bookmark" style="border:0;vertical-align:middle" />

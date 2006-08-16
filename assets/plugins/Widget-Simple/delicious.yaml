@@ -1,0 +1,5 @@
+link: http://del.icio.us/post
+query:
+  url:   $args->{entry}->permalink
+  title: $args->{entry}->title
+content: <img src="http://del.icio.us/static/img/delicious.small.gif" alt="del.icio.us it!" style="border:0;vertical-align:middle" />

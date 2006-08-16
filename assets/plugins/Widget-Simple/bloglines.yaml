@@ -1,0 +1,4 @@
+link: http://www.bloglines.com/modsub
+query:
+  subid: $args->{feed}->meta->{bloglines_subid}
+content: <img src="http://www.bloglines.com/images/favicon.gif" alt="Edit Bloglines Subscription" style="border:0;vertical-align:middle" />
