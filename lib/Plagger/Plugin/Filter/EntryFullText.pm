@@ -233,9 +233,11 @@ sub extract {
     my($self, $args) = @_;
     my $data;
 
-    if (my @match = $args->{content} =~ /$self->{extract}/s) {
-        my @capture = split /\s+/, $self->{extract_capture};
-        @{$data}{@capture} = @match;
+    if ($self->{extract}) {
+	if (my @match = $args->{content} =~ /$self->{extract}/s) {
+	    my @capture = split /\s+/, $self->{extract_capture};
+	    @{$data}{@capture} = @match;
+	}
     }
 
     if ($self->{extract_xpath}) {
