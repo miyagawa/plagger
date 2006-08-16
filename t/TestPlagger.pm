@@ -36,17 +36,20 @@ sub test_requires() {
     }
 }
 
-sub has_network {
+sub has_network() {
+    my $host = shift;
     return if $ENV{NO_NETWORK};
 
     require IO::Socket::INET;
-    my $conn = IO::Socket::INET->new("www.google.com:80");
+    my $conn = IO::Socket::INET->new(PeerAddr => $host, Timeout => 10);
     defined $conn;
 }
 
-sub test_requires_network {
-    unless (has_network) {
-        plan skip_all => "Test requires network which is not available now.";
+sub test_requires_network() {
+    my $host = shift || 'www.google.com:80';
+
+    unless (has_network($host)) {
+        plan skip_all => "Test requires network($host) which is not available now.";
     }
 }
 

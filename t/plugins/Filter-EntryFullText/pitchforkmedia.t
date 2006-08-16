@@ -2,7 +2,7 @@ use t::TestPlagger;
 
 test_plugin_deps;
 test_requires 'HTML::TreeBuilder::XPath', 0;
-test_requires_network;
+test_requires_network 'www.pitchforkmedia.com:80';
 
 plan 'no_plan';
 run_eval_expected;
