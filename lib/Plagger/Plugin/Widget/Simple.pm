@@ -90,7 +90,6 @@ sub html {
 
     my $content;
     if (my $template = $self->plugin->conf->{content_dynamic}) {
-        chomp $template;
         $content = $self->plugin->templatize(\$template, $args);
     } else {
         $content = $self->plugin->conf->{content};
