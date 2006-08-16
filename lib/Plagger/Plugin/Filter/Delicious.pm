@@ -55,7 +55,13 @@ sub update {
         $delicious_users =
             ( $res->content =~ m#<h4[^>]*>[^<>]*this url has been saved by\D+(\d+)#s )[0];
     }
+    $args->{entry}->meta->{delicious_rate} = rate_of_color($delicious_users);
     $args->{entry}->meta->{delicious_users} = $delicious_users;
+}
+
+sub rate_of_color {
+    my $n = shift;
+    int(log($n) / log(0.82) + 100);
 }
 
 1;
