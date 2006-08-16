@@ -18,8 +18,11 @@ sub update {
     my($self, $context, $args) = @_;
 
     # xxx need cache & interval
-    sleep 1;
-    my $url  = 'http://del.icio.us/rss/url/' . md5_hex($args->{entry}->permalink);
+    my $interval = $self->conf->{interval} || 1;
+    sleep $interval;
+
+    my $md5  = md5_hex($args->{entry}->permalink);
+    my $url  = "http://del.icio.us/rss/url/$md5";
     my $feed = XML::Feed->parse( URI->new($url) );
 
     unless ($feed) {
@@ -36,7 +39,23 @@ sub update {
         }
     }
 
-    $args->{entry}->meta->{delicious_users} = $feed->entries;
+    my $delicious_users = $feed->entries;
+    if ($delicious_users >= 30 && $self->conf->{scrape_big_numbers}) {
+        sleep $interval;
+
+        my $url = "http://del.icio.us/url/$md5";
+        my $ua  = Plagger::UserAgent->new;
+        my $res = $ua->fetch($url);
+
+        if ($res->is_error) {
+            $context->log(warn => "Fetch error $url: " . $res->http_response->message);
+            return;
+        }
+
+        $delicious_users =
+            ( $res->content =~ m#<h4[^>]*>[^<>]*this url has been saved by\D+(\d+)#s )[0];
+    }
+    $args->{entry}->meta->{delicious_users} = $delicious_users;
 }
 
 1;
