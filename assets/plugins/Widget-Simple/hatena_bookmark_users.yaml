@@ -1,6 +1,3 @@
 link: http://b.hatena.ne.jp/entry/
 append: my $p = $args->{entry}->permalink; $p =~ s/#/%23/; $p
-content_dynamic: |
-  [%- SET permalink = entry.permalink; 
-      CALL permalink.replace('#', '%23') -%]
-  <img src="http://b.hatena.ne.jp/entry/image/normal/[% permalink %]" style="border:0;vertical-align:middle" />
+content_dynamic: <img src="http://b.hatena.ne.jp/entry/image/normal/[% entry.permalink.replace('#', '%23') %]" style="border:0;vertical-align:middle" />
