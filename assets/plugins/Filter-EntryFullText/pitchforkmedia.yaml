@@ -2,4 +2,4 @@
 author: youpy
 handle: http://.*pitchforkmedia\.com/article/
 extract_xpath:
-  body: //div[contains(@class, "_item")]
+  body: //div[@class="column_content"]
