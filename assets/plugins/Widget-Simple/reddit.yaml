@@ -1,0 +1,5 @@
+link: http://reddit.com/submit
+query:
+  url: $args->{entry}->permalink
+  title: $args->{entry}->title
+content: <img src="http://reddit.com/static/spreddit/reddithead4.gif" alt="Save to Reddit" style="border:0;vertical-align:middle" />

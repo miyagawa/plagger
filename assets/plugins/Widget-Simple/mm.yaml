@@ -1,0 +1,4 @@
+link: http://1470.net/mm/memo_form.html
+query:
+  url: $args->{entry}->permalink
+content: <img src="http://1470.net/img/mm_icon.gif" alt="Post to MM/Memo" style="border:0;vertical-align:middle" />

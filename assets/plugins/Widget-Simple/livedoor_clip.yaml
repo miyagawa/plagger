@@ -1,0 +1,5 @@
+link: http://clip.livedoor.com/clip/add
+query:
+  link:  $args->{entry}->permalink
+  title: $args->{entry}->title
+content: <img src="http://clip.livedoor.com/img/icon/add.gif" alt="マイクリップに追加する" style="border:0;vertical-align:middle" />
