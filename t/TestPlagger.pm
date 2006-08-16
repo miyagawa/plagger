@@ -41,7 +41,7 @@ sub has_network() {
     return if $ENV{NO_NETWORK};
 
     require IO::Socket::INET;
-    my $conn = IO::Socket::INET->new(PeerAddr => $host, Timeout => 10);
+    my $conn = IO::Socket::INET->new(PeerAddr => $host, Timeout => 15);
     defined $conn;
 }
 

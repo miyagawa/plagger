@@ -116,7 +116,10 @@ sub filter {
 
     # NoNetwork: don't connect for 3 hours
     my $res = $self->{ua}->fetch( $args->{entry}->permalink, $self, { NoNetwork => 60 * 60 * 3 } );
-    return if !$res->status && $res->is_error;
+    if (!$res->status && $res->is_error) {
+        $self->log(debug => "Fetch " . $args->{entry}->permalink . " failed");
+        return;
+    }
 
     $args->{content} = decode_content($res);
 
