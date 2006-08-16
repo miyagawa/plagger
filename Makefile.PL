@@ -76,7 +76,7 @@ while (my $f = $dh->read) {
         features(
             $meta->{name}, [
                 -default => $meta->{default},
-                map recommends($_ => $meta->{depends}->{$_}), keys %{$meta->{depends}},
+                map recommends($_ => $meta->{depends}->{$_}), keys %{$meta->{depends} || {}},
             ],
         );
     }
