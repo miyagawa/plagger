@@ -1,0 +1,4 @@
+link: http://del.icio.us/url
+query:
+  url: $args->{entry}->permalink
+content_dynamic: <span style="background-color:rgb(100%,[% entry.meta.delicious_rate %]%,[% entry.meta.delicious_rate %]%)">saved by [% entry.meta.delicious_users %] [% IF entry.meta.delicious_users > 1 %]people[% ELSE %]person[% END %]</span>
