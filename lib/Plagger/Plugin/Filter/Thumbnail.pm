@@ -7,6 +7,7 @@ sub register {
     $context->register_hook(
         $self,
         'update.feed.fixup'  => \&feed,
+        'update.entry.fixup' => \&entry,
     );
 }
 
@@ -17,17 +18,27 @@ sub feed {
     return if $args->{feed}->image;
 
     $context->log(info => "Add thumbnail as image to " . $args->{feed}->link);
-    $args->{feed}->image( $self->build_image($args->{feed}) );
+    $args->{feed}->image( $self->build_image($args->{feed}->title, $args->{feed}->link) );
+}
+
+sub entry {
+    my($self, $context, $args) = @_;
+
+    # do nothing if there's already entry icon
+    return if $args->{entry}->icon;
+
+    $context->log(info => "Add thumbnail as image to " . $args->{entry}->permalink);
+    $args->{feed}->image( $self->build_image($args->{entry}->title, $args->{entry}->permalink) );
 }
 
 sub build_image {
-    my($self, $feed) = @_;
+    my($self, $title, $link) = @_;
 
     # TODO: use other serivces here
     return {
-        url    => "http://img.simpleapi.net/small/" . $feed->link,
-        title  => $feed->title,
-        link   => $feed->link,
+        url    => "http://img.simpleapi.net/small/" . $link,
+        title  => $title,
+        link   => $link,
         width  => 128,
         height => 128,
     };
