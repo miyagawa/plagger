@@ -11,6 +11,8 @@ use Test::Chimps::Client;
 use Test::TAP::Model::Visual;
 
 chdir "$FindBin::Bin/..";
+check_dependencies();
+
 my @tests = map glob, qw(t/*.t t/*/*.t t/*/*/*.t);
 my $start = time;
 my $model = Test::TAP::Model::Visual->new_with_tests(@tests);
@@ -65,4 +67,14 @@ sub extract_svn_revision {
         /revision="(\d+)"/ and return $1;
     }
     return;
+}
+
+sub check_dependencies {
+    warn "Checking dependencies ...\n";
+    my $out = `$Config{perlpath} Makefile.PL --default`;
+
+    if ($out =~ /Dependencies will be installed/) {
+        die "You need to install dependencies first.\n";
+    }
+    warn "Done.\n";
 }
