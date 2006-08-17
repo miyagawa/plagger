@@ -5,33 +5,35 @@ use warnings;
 use FindBin;
 chdir "$FindBin::Bin/..";
 
-use YAML;
-
-my $deps = check_dependencies();
-print Dump $deps;
+check_dependencies();
 
 sub check_dependencies {
-    my %deps;
-
     # hack Module::Install to collect requires/recommends
     $INC{"inc/Module/Install.pm"} = __PACKAGE__;
 
     package Makefile;
     no warnings 'once';
     *tests = *name = *all_from = *features = *tests = *use_test_base =
-    *auto_include = *auto_install = *install_script = *WriteAll = sub { };
+    *auto_include = *auto_install = *install_script = *WriteAll = *include_deps = sub { };
 
-    *requires = *recommends = *build_requires = sub {
-        my $module = shift;
-        eval qq{ require $module };
-        if ($@) {
-            $deps{$module} = 'missing';
-        } else {
-            $deps{$module} = $module->VERSION;
-        }
-    };
+    *requires = *build_requires = ::check_module(1);
+    *recommends = ::check_module(0);
 
     do "Makefile.PL";
+}
 
-    return \%deps;
+sub check_module {
+    my $required = shift;
+
+    return sub {
+        my $module = shift;
+        my $ver    = shift;
+        eval ($ver ? qq{ use $module $ver } : qq{ use $module });
+        if ($@) {
+            print "$module: missing" . ($required ? ' (required)' : '');
+        } else {
+            print "$module: " . (defined $module->VERSION ? $module->VERSION : 'undef');
+        }
+        print "\n";
+    };
 }
