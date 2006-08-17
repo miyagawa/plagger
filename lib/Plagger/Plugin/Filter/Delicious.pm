@@ -61,6 +61,7 @@ sub update {
 
 sub rate_of_color {
     my $n = shift;
+    return 100 unless $n;
     int(log($n) / log(0.82) + 100);
 }
 
