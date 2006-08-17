@@ -146,7 +146,7 @@ sub config {
 
     # set sane defaults for testing
     my $config = YAML::Load($yaml);
-    $config->{global}->{log}->{level}  ||= 'error';
+    $config->{global}->{log}->{level}  ||= 'error' unless $ENV{TEST_VERBOSE};
     $config->{global}->{assets_path}   ||= File::Spec->catfile($t::TestPlagger::BaseDir, 'assets');
     $config->{global}->{cache}->{base} ||= File::Temp::tempdir(CLEANUP => 1);
 
