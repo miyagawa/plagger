@@ -13,8 +13,8 @@ test_requires('Tie::File');
 test_requires_command('estmaster');
 
 my $ver = `estconfig --version`;
-if ($ver =~ /^1\.3/) {
-    plan skip_all => "This test doesn't work with 1.3.x yet: $ver";
+if ($ver =~ /^1\.3/ && $^O eq 'freebsd') {
+    plan skip_all => "This test doesn't work with 1.3.x on FreeBSD: $ver";
 }
 
 our $dir = File::Spec->catfile($FindBin::Bin, 'estdb');
