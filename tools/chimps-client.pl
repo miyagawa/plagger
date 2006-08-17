@@ -71,10 +71,10 @@ sub extract_svn_revision {
 
 sub check_dependencies {
     warn "Checking dependencies ...\n";
-    my $out = `$Config{perlpath} Makefile.PL --default`;
+    my $out = `tools/check-dependencies.pl`;
 
-    if ($out =~ /Dependencies will be installed/) {
-        die "You need to install dependencies first.\n";
+    if (my @missing = $out =~ /^(.*missing \(required\))$/mg) {
+        die "You need to install dependencies first.\n", join("\n", @missing) . "\n";
     }
     warn "Done.\n";
 }

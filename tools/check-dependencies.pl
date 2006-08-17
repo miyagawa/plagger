@@ -30,7 +30,7 @@ sub check_module {
         my $ver    = shift;
         eval ($ver ? qq{ use $module $ver } : qq{ use $module });
         if ($@) {
-            print "$module: missing" . ($required ? ' (required)' : '');
+            print "$module: missing" . ($required ? " (required)" : '');
         } else {
             print "$module: " . (defined $module->VERSION ? $module->VERSION : 'undef');
         }
