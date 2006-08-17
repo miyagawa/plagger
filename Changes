@@ -1,5 +1,38 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.8 (2006/08/18) ==
+
+=== Core ===
+
+ * More fixes to Chimps client to deal with dependencies
+ * Win32 fix to $t::TestPlagger::BaseDirURI
+ * Deal with Unicode filenames on Win32
+ * DWIM config filter for t::TestPlagger
+ * Cookies parser warns if cookie file is not found (reported by otsune)
+ * Fix to t/core/cache.t for more time interval (charsbar)
+ * More tests to more plugins!
+ * Set cache base to File::Temp::tempdir in tests
+ * Bump up XML::Feed requirement to 0.12
+ * refactored include/recipes handler to Plagger::ConfigLoader so bin/* scripts can use
+ * Fixed Aggregator::Simple bug to deal with single MediaRSS element in Flickr feeds
+ * Added tools/plugin-start.pl to start a new plugin module
+ * test_requires_network() now can take an argument host to test (youpy)
+ * Update include_deps in Makefile.PL to include YAML dependencies
+
+=== New Plugins ===
+
+ * UserAgent::RequestHeader: Add arbitary HTTP request header based on URL (miyagawa)
+ * Filter::ExtractAuthorName: Extract author name from RFC 2822 address in RSS 2.0 (miyagawa)
+ * Widget::Simple: config based simple Widget creator (miyagawa)
+
+=== Plugin Updates ===
+
+ * Publish::CHTML: Insert generated time in HTML (otsune)
+ * Filter::BreakEntriesToFeeds: Support rules (suggested by otsune)
+ * Search::Estraier: use "estmaster stop". Work with estmaster 1.3.x config files (reported by youpy)
+ * Filter::Delicious: scrape big users count (taro)
+ * Filter::Thumbnail: Add 'set_per_entry' config
+
 == 0.7.7 (2006/08/10) ==
 
 === Core ===
