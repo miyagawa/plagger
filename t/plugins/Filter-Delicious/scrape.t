@@ -13,13 +13,15 @@ __END__
 global:
   cache:
     class: Plagger::Cache::Null
+  user_agent:
+    timeout: 30
 plugins:
   - module: CustomFeed::Debug
     config:
       title: foo
       entry:
         - title: bar
-          link: http://del.icio.us/
+          link: http://bentrecords.blogspot.com/
   - module: Filter::Delicious
     config:
       scrape_big_numbers: 1

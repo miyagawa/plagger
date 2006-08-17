@@ -25,10 +25,8 @@ sub update {
 
     $self->log(info => "Going to fetch $url");
 
-    my $ua = Plagger::UserAgent->new;
-       $ua->timeout(30);
-
-    my $res  = $ua->fetch($url);
+    my $ua  = Plagger::UserAgent->new;
+    my $res = $ua->fetch($url);
 
     if ($res->is_error) {
         $self->log(error => "Fetch URL $url failed.");
