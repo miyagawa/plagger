@@ -12,6 +12,11 @@ test_plugin_deps;
 test_requires('Tie::File');
 test_requires_command('estmaster');
 
+my $ver = `estconfig --version`;
+if ($ver =~ /^1\.3/) {
+    plan skip_all => "This test doesn't work with 1.3.x yet: $ver";
+}
+
 our $dir = File::Spec->catfile($FindBin::Bin, 'estdb');
 our $port;
 
@@ -37,9 +42,15 @@ sub init_estmaster {
 
     # inline edit via Tie::File
     tie my @conf, 'Tie::File', File::Spec->catfile($dir, '_conf') or die "_conf: $!";
-    $conf[1] =~ s/portnum: .*/portnum: $port/
-        or die "line 2 doesn't match with /portnum:/ $conf[1]";
+    my $done;
+    for my $line (@conf) {
+        $line =~ s/portnum: .*/portnum: $port/ and $done = 1;
+    }
     untie @conf;
+
+    unless ($done) {
+        die "_conf file doesn't have portnum:";
+    }
 
     # start estmaster in background
     system('estmaster', 'start', '-bg', $dir);
