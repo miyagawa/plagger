@@ -21,7 +21,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Widget::Simple
     config:
       link: http://www.example.com/
@@ -35,7 +35,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Widget::Simple
     config:
       link: http://www.example.com/add
@@ -52,7 +52,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Widget::Simple
     config:
       link: http://www.example.com/
@@ -66,7 +66,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Widget::Simple
     config:
       widget: delicious
@@ -79,7 +79,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Widget::Simple
     config:
       widget: hatena_bookmark
@@ -92,7 +92,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Widget::Simple
     config:
       widget: hatena_bookmark_users
