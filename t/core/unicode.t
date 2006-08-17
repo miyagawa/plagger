@@ -12,7 +12,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
 --- expected
 ok utf8::is_utf8( $context->update->feeds->[0]->title );
 ok utf8::is_utf8( $context->update->feeds->[0]->description );
