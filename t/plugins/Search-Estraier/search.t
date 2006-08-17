@@ -87,7 +87,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/vox.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/vox.xml
   - module: Search::Estraier
     config:
       url: http://localhost:$main::port/node/plagger
@@ -111,7 +111,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Search::Estraier
     config:
       url: http://localhost:$main::port/node/plagger
