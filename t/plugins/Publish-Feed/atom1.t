@@ -29,8 +29,7 @@ plugins:
       dir: $FindBin::Bin
       filename: atom.xml
 --- expected
-my $feed = XML::Atom::Feed->new($main::output);
+open my $fh, $main::output or fail "$main::output: $!";
+my $feed = XML::Atom::Feed->new($fh);
 is $feed->version, '1.0';
 is $feed->title, 'Bulknews::Subtech';
-
-
