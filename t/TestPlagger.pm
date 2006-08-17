@@ -1,4 +1,5 @@
 package t::TestPlagger;
+use Config;
 use FindBin;
 use File::Basename;
 use File::Spec;
@@ -55,7 +56,7 @@ sub test_requires_network() {
 
 sub test_requires_command() {
     my $command = shift;
-    for my $path (split /:/, $ENV{PATH}) {
+    for my $path (split /$Config::Config{path_sep}/, $ENV{PATH}) {
         if (-e File::Spec->catfile($path, $command) && -x _) {
             return 1;
         }
