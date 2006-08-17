@@ -40,7 +40,9 @@ sub initialize {
     if (my $conf = $self->conf->{pop3}) {
         require Net::POP3;
         my $pop = Net::POP3->new($conf->{host});
-        if ($pop->login($conf->{username}, $conf->{password})) {
+        if ($pop->apop($conf->{username}, $conf->{password})) {
+            $context->log(info => 'APOP login succeed');
+        } elsif ($pop->login($conf->{username}, $conf->{password})) {
             $context->log(info => 'POP3 login succeed');
         } else {
             $context->log(error => 'POP3 login error');
