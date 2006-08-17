@@ -35,6 +35,8 @@ requires('Term::Encoding');
 requires('File::HomeDir');
 
 build_requires('YAML');
+include_deps('YAML');
+
 build_requires('Test::More', 0.42);
 build_requires('Test::Base', 0.52);
 
