@@ -71,7 +71,7 @@ sub extract_svn_revision {
 
 sub check_dependencies {
     warn "Checking dependencies ...\n";
-    my $out = `tools/check-dependencies.pl`;
+    my $out = `$Config{perlpath} tools/check-dependencies.pl`;
 
     if (my @missing = $out =~ /^(.*missing \(required\))$/mg) {
         die "You need to install dependencies first.\n", join("\n", @missing) . "\n";
