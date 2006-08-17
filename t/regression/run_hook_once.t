@@ -10,17 +10,13 @@ __END__
 
 === EFT -> CFS
 --- input config
-global:
-  assets_path: $FindBin::Bin/../../assets
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
       feed:
         - url: http://www.asahi.com/
           meta:
-            follow_link: national/update/
+            follow_link: politics/update/
   - module: Filter::EntryFullText
   - module: CustomFeed::Simple
 --- expected
@@ -28,10 +24,6 @@ ok $context->update->feeds->[0]->entries->[0]->body;
 
 === CFS => EFT
 --- input config
-global:
-  assets_path: $FindBin::Bin/../../assets
-  log:
-    level: error
 plugins:
   - module: Subscription::Config
     config:
