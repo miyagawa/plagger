@@ -3,7 +3,7 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use Digest::MD5 qw(md5_hex);
-use URI;
+use Plagger::UserAgent;
 use XML::Feed;
 
 sub register {
@@ -17,13 +17,25 @@ sub register {
 sub update {
     my($self, $context, $args) = @_;
 
-    # xxx need cache & interval
     my $interval = $self->conf->{interval} || 1;
     sleep $interval;
 
     my $md5  = md5_hex($args->{entry}->permalink);
     my $url  = "http://del.icio.us/rss/url/$md5";
-    my $feed = XML::Feed->parse( URI->new($url) );
+
+    $self->log(info => "Going to fetch $url");
+
+    my $ua = Plagger::UserAgent->new;
+       $ua->timeout(30);
+
+    my $res  = $ua->fetch($url);
+
+    if ($res->is_error) {
+        $self->log(error => "Fetch URL $url failed.");
+        return;
+    }
+
+    my $feed = XML::Feed->parse(\$res->content);
 
     unless ($feed) {
         $context->log(warn => "Feed error $url: " . XML::Feed->errstr);
@@ -41,10 +53,10 @@ sub update {
 
     my $delicious_users = $feed->entries;
     if ($delicious_users >= 30 && $self->conf->{scrape_big_numbers}) {
+        my $url = "http://del.icio.us/url/$md5";
+        $self->log(info => "users count is more than 30. Trying to scrape from $url.");
         sleep $interval;
 
-        my $url = "http://del.icio.us/url/$md5";
-        my $ua  = Plagger::UserAgent->new;
         my $res = $ua->fetch($url);
 
         if ($res->is_error) {
@@ -57,6 +69,7 @@ sub update {
     }
     $args->{entry}->meta->{delicious_rate} = rate_of_color($delicious_users);
     $args->{entry}->meta->{delicious_users} = $delicious_users;
+    $self->log(info => "set delicious_users to $delicious_users");
 }
 
 sub rate_of_color {
