@@ -20,7 +20,7 @@ my $config = eval { YAML::LoadFile($file) } || {};
 my $save;
 $config->{author} ||= do {
     $save++;
-    prompt("Your name: ", '-tty');
+    prompt("Your name: ", -tty);
 };
 
 write_plugin_files($module, $config->{author});
@@ -45,6 +45,11 @@ sub write_plugin_files {
 
 sub write_file {
     my($path, $template, $vars) = @_;
+
+    if (-e $path) {
+        my $ans = prompt("$path exists. Override? [yN] ", -tty, -yes_no, -default => 'n');
+        return if $ans !~ /[Yy]/;
+    }
 
     my $dir = File::Basename::dirname($path);
     unless (-e $dir) {
