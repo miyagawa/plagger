@@ -14,7 +14,7 @@ our @EXPORT = qw(test_requires test_requires_network test_requires_command test_
 our($BaseDir, $BaseDirURI);
 {
     my @path = File::Spec->splitdir($FindBin::Bin);
-    while (my $dir = pop @path) {
+    while (defined(my $dir = pop @path)) {
         if ($dir eq 't') {
             $BaseDir = File::Spec->catfile(@path);
             $BaseDirURI = join "/", map URI::Escape::uri_escape($_), @path;
