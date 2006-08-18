@@ -324,7 +324,6 @@ lib/Plagger/Plugin/CustomFeed/PerlMonks.pm
 lib/Plagger/Plugin/CustomFeed/POP3.pm
 lib/Plagger/Plugin/CustomFeed/Simple.pm
 lib/Plagger/Plugin/CustomFeed/SVNLog.pm
-lib/Plagger/Plugin/CustomFeed/Yahoo360JP.pm
 lib/Plagger/Plugin/CustomFeed/YouTube.pm
 lib/Plagger/Plugin/Filter/2chNewsokuTitle.pm
 lib/Plagger/Plugin/Filter/2chRSSContent.pm
