@@ -256,7 +256,11 @@ sub extract {
 
         for my $capture (keys %{$self->{extract_xpath}}) {
             my @children = $tree->findnodes($self->{extract_xpath}->{$capture});
-            $data->{$capture} = $children[0]->as_HTML;
+            if (@children) {
+                $data->{$capture} = $children[0]->as_HTML;
+            } else {
+                Plagger->context->log(error => "Can't find node matching $self->{extract_xpath}->{$capture}");
+            }
         }
     }
 
