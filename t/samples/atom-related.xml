@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed version="0.3" 
+      xmlns="http://purl.org/atom/ns#"
+	  xmlns:dc="http://purl.org/dc/elements/1.1/"
+	  xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"
+      xml:lang="ja">
+  <title>miyagawaのブックマーク</title>
+  <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/" />
+  <link rel="service.post" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/post" title="miyagawaのブックマーク" />
+  
+  
+  <link rel="next" type="application/atom+xml" href="http://b.hatena.ne.jp/miyagawa/atomfeed?of=15" />
+  
+  
+  <modified>2006-08-19 12:09:19</modified>
+  <author>
+    <name>miyagawa</name>
+  </author>
+  <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa</id>
+  <generator url="http://b.hatena.ne.jp/" version="0.1">Hatena::Bookmark</generator>
+  
+  <openSearch:totalResults>3252</openSearch:totalResults>
+  <openSearch:startIndex>1</openSearch:startIndex>
+  <openSearch:itemsPerPage>15</openSearch:itemsPerPage>
+  
+  
+  <entry>
+    <title>Piece of a Puzzle - Weblog    - P::P::Publish::MixiDiary </title>
+	<link rel="related" type="text/html" href="http://xcezx.net/blog/development/plagger-plugin-publish-mixidiary.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060819#2575911" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2575911" title="Piece of a Puzzle - Weblog    - P::P::Publish::MixiDiary " />
+    <issued>2006-08-19T12:09:19+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2575911</id>
+	<summary type="text/plain"></summary>
+	
+	<dc:subject>plagger</dc:subject>
+	
+  </entry>
+  
+  <entry>
+    <title>Journal of brian_d_foy (44)</title>
+	<link rel="related" type="text/html" href="http://use.perl.org/~brian_d_foy/journal/30689" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060819#2574496" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2574496" title="Journal of brian_d_foy (44)" />
+    <issued>2006-08-19T04:11:13+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2574496</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>qootas.org/blog - Six Apart KK Tech Blog is comming soon</title>
+	<link rel="related" type="text/html" href="http://qootas.org/blog/archives/2006/08/six_apart_kk_tech_blog.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060819#2573649" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2573649" title="qootas.org/blog - Six Apart KK Tech Blog is comming soon" />
+    <issued>2006-08-19T00:33:16+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2573649</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>夕刊フジBLOG - Ｗｅｂ２．０＝無料ＨＰで何でもできる時代</title>
+	<link rel="related" type="text/html" href="http://www.yukan-fuji.com/archives/2006/08/post_6621.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060819#2571717" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2571717" title="夕刊フジBLOG - Ｗｅｂ２．０＝無料ＨＰで何でもできる時代" />
+    <issued>2006-08-19T00:32:29+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2571717</id>
+	<summary type="text/plain"> ちょｗｗｗ</summary>
+	
+  </entry>
+  
+  <entry>
+    <title>AutoHotkeyを流行らせるページ</title>
+	<link rel="related" type="text/html" href="http://lukewarm.s101.xrea.com/" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060819#128235" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/128235" title="AutoHotkeyを流行らせるページ" />
+    <issued>2006-08-19T00:30:07+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-128235</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>AutoHotkey - Free Mouse and Keyboard Macro Program with Hotkeys and AutoText</title>
+	<link rel="related" type="text/html" href="http://www.autohotkey.com/" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060819#424731" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/424731" title="AutoHotkey - Free Mouse and Keyboard Macro Program with Hotkeys and AutoText" />
+    <issued>2006-08-19T00:29:58+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-424731</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>Six Apart - 技術情報提供ブログ: ローカライズ技術の解説</title>
+	<link rel="related" type="text/html" href="http://www.sixapart.jp/pronet/developers/plugin/l10n.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2573300" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2573300" title="Six Apart - 技術情報提供ブログ: ローカライズ技術の解説" />
+    <issued>2006-08-18T23:34:58+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2573300</id>
+	<summary type="text/plain"></summary>
+	
+	<dc:subject>mt</dc:subject>
+	
+  </entry>
+  
+  <entry>
+    <title>Hey, That&#39;s Pretty Jifty, er, Nifty - O&#39;Reilly ONLamp Blog</title>
+	<link rel="related" type="text/html" href="http://www.oreillynet.com/onlamp/blog/2006/08/hey_thats_pretty_jifty_er_nift.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2567285" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2567285" title="Hey, That&#39;s Pretty Jifty, er, Nifty - O&#39;Reilly ONLamp Blog" />
+    <issued>2006-08-18T23:30:32+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2567285</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>Uno, dos, tres, quatro!: Publish::JSON Plaggerで自分のblogの人気エントリを表示の別解</title>
+	<link rel="related" type="text/html" href="http://blog.33rpm.jp/technology/plagger-publish-json.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2571800" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2571800" title="Uno, dos, tres, quatro!: Publish::JSON Plaggerで自分のblogの人気エントリを表示の別解" />
+    <issued>2006-08-18T21:45:52+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2571800</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>痛いニュース(ﾉ∀`):「&quot;半熟ゆで卵&quot;は半熟でない」とクレーム記事書いたら販売業者がコメント</title>
+	<link rel="related" type="text/html" href="http://blog.livedoor.jp/dqnplus/archives/768676.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2569068" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2569068" title="痛いニュース(ﾉ∀`):「&quot;半熟ゆで卵&quot;は半熟でない」とクレーム記事書いたら販売業者がコメント" />
+    <issued>2006-08-18T19:24:42+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2569068</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>ZERO START / 株式会社ゼロスタートコミュニケーションズ</title>
+	<link rel="related" type="text/html" href="http://zero-start.jp/seminor_20060905.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2571546" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2571546" title="ZERO START / 株式会社ゼロスタートコミュニケーションズ" />
+    <issued>2006-08-18T19:02:02+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2571546</id>
+	<summary type="text/plain"> ちょｗｗｗ</summary>
+	
+  </entry>
+  
+  <entry>
+    <title>米Boeing、機内ネット接続サービス「Connexion by Boeing」から撤退 (MYCOMジャーナル)</title>
+	<link rel="related" type="text/html" href="http://journal.mycom.co.jp/news/2006/08/18/100.html" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2568963" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2568963" title="米Boeing、機内ネット接続サービス「Connexion by Boeing」から撤退 (MYCOMジャーナル)" />
+    <issued>2006-08-18T17:13:07+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2568963</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>スラッシュドット ジャパン | Connexion by Boeingサービス終了へ</title>
+	<link rel="related" type="text/html" href="http://slashdot.jp/article.pl?sid=06/08/18/0449254" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2569823" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2569823" title="スラッシュドット ジャパン | Connexion by Boeingサービス終了へ" />
+    <issued>2006-08-18T17:08:00+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2569823</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>naoyaのはてなダイアリー - WEB DB PRESS vol.34</title>
+	<link rel="related" type="text/html" href="http://d.hatena.ne.jp/naoya/20060818/1155873566" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2570092" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2570092" title="naoyaのはてなダイアリー - WEB DB PRESS vol.34" />
+    <issued>2006-08-18T16:56:15+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2570092</id>
+	<summary type="text/plain"></summary>
+	
+  </entry>
+  
+  <entry>
+    <title>TechCrunch Japanese アーカイブ  Dapper利用でどんなサイトのAPIも自在にクリエート</title>
+	<link rel="related" type="text/html" href="http://jp.techcrunch.com/archives/create-an-api-for-any-site-with-dapper/" />
+    <link rel="alternate" type="text/html" href="http://b.hatena.ne.jp/miyagawa/20060818#2567966" />
+    <link rel="service.edit" type="application/x.atom+xml" href="http://b.hatena.ne.jp/atom/edit/2567966" title="TechCrunch Japanese アーカイブ  Dapper利用でどんなサイトのAPIも自在にクリエート" />
+    <issued>2006-08-18T16:30:43+09:00</issued>
+    <author>
+      <name>miyagawa</name>
+    </author>
+    <id>tag:hatena.ne.jp,2005-2006:bookmark-miyagawa-2567966</id>
+	<summary type="text/plain"> plagger competitive</summary>
+	
+  </entry>
+  
+</feed>

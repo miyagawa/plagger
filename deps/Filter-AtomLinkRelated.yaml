@@ -1,0 +1,4 @@
+name: Filter-AtomLinkRelated
+author: Tatsuhiko Miyagawa
+depends:
+  List::Util: 0
