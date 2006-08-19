@@ -11,6 +11,9 @@ __END__
 
 === Test kojii.net XPath
 --- input config
+global:
+  cache:
+    class: Plagger::Cache::Null
 plugins:
   - module: CustomFeed::Debug
     config:
@@ -20,5 +23,5 @@ plugins:
           link:  http://www.kojii.net/opinion/col051003.html
   - module: Filter::EntryFullText
 --- expected
-unlike $context->update->feeds->[0]->entries->[0]->body, qr/&#x\d+;/;
+unlike $context->update->feeds->[0]->entries->[0]->body, qr/&#\d+;/;
 
