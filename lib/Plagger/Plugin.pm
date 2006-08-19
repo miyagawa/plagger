@@ -102,9 +102,16 @@ sub plugin_id {
 
 sub assets_dir {
     my $self = shift;
-
     my $context = Plagger->context;
-    my $assets_base = $context->conf->{assets_path} || File::Spec->catfile($FindBin::Bin, "assets");
+
+    if ($self->conf->{assets_path}) {
+        return $self->conf->{assets_path}; # look at config:assets_path first
+    }
+
+    my $assets_base =
+        $context->conf->{assets_path} ||              # or global:assets_path
+        File::Spec->catfile($FindBin::Bin, "assets"); # or "assets" under plagger script
+
     return File::Spec->catfile(
         $assets_base, "plugins", $self->class_id,
     );
@@ -132,7 +139,7 @@ sub templatize {
     my $context = Plagger->context;
     $vars->{context} ||= $context;
 
-    my $template = Plagger::Template->new($context, $self->class_id);
+    my $template = Plagger::Template->new($context, $self);
     $template->process($file, $vars, \my $out) or $context->error($template->error);
 
     $out;
