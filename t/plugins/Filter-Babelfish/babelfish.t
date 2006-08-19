@@ -23,7 +23,9 @@ plugins:
         - file://$FindBin::Bin/../../samples/babelfish.xml
 --- expected
 is $context->update->feeds->[0]->entries->[0]->title, '猫';
+sleep(1);
 is $context->update->feeds->[0]->entries->[0]->body, '犬';
+sleep(1);
 
 === Test with Babelfish
 --- input config
@@ -43,7 +45,9 @@ plugins:
       prepend_original: 0
 --- expected
 like $context->update->feeds->[0]->entries->[0]->title, qr/[cC]at/;
+sleep(1);
 like $context->update->feeds->[0]->entries->[0]->body, qr/[dD]og/;
+sleep(1);
 
 === Test with prepend_original
 --- input config
@@ -63,7 +67,9 @@ plugins:
       prepend_original: 1
 --- expected
 like $context->update->feeds->[0]->entries->[0]->title, qr/猫.*[cC]at/s;
+sleep(1);
 like $context->update->feeds->[0]->entries->[0]->body, qr/犬.*[dD]og/s;
+sleep(1);
 
 === Test with Babelfish w GuessLanguage
 --- input config
@@ -83,5 +89,6 @@ plugins:
       prepend_original: 0
 --- expected
 like $context->update->feeds->[0]->entries->[0]->title, qr/[cC]at/;
+sleep(1);
 like $context->update->feeds->[0]->entries->[0]->body, qr/[dD]og/;
 
