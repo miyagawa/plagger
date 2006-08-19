@@ -1,0 +1,4 @@
+link: http://www.google.com/search
+query:
+  q: $args->{feed}->link
+content_dynamic: <img src="http://www.pagerankon.com/smerankcheck.php?site=[% feed.link %]&s=style7" border="0" alt="Google PageRank">
