@@ -3,12 +3,14 @@ use t::TestPlagger;
 
 test_plugin_deps;
 plan tests => 3;
+
+diag "This test will raise warnings due to XML::OPML internal, but it's harmless";
 run_eval_expected;
 
 __END__
 
 === test file
---- input config 
+--- input config
 plugins:
   - module: Subscription::OPML
     config:
