@@ -3,7 +3,7 @@ use t::TestPlagger;
 
 test_requires_network 'subtech.g.hatena.ne.jp:80';
 
-plan tests => 1;
+plan tests => 6;
 run_eval_expected;
 
 __END__
