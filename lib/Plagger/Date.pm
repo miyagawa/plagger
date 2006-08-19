@@ -90,4 +90,9 @@ sub set_time_zone {
     return $self;
 }
 
+sub serialize {
+    my $self = shift;
+    $self->format('W3CDTF');
+}
+
 1;

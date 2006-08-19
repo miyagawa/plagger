@@ -8,6 +8,7 @@ __PACKAGE__->mk_date_accessors(qw( updated ));
 use Digest::MD5 qw(md5_hex);
 use URI;
 use Plagger::Util;
+use Scalar::Util qw(blessed);
 
 sub new {
     my $class = shift;
