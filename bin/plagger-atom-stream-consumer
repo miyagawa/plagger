@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Encode;
+use FindBin;
+use Getopt::Long;
+use List::Util qw(first);
+
+use lib File::Spec->catdir($FindBin::Bin, '..', 'lib');
+use Plagger;
+use XML::Atom::Stream;
+
+my $path = "$FindBin::Bin/../config.yaml";
+GetOptions("--config=s", \$path);
+Getopt::Long::Configure("bundling"); # allows -c
+
+my $context = Plagger->new(config => $path);
+$context->run_hook('plugin.init');
+
+$XML::Atom::ForceUnicode  = 1;
+
+my $url = shift || "http://updates.sixapart.com/atom-stream.xml";
+
+my $client = XML::Atom::Stream->new(
+    callback  => \&callback,
+    reconnect => 1,
+    debug     => 1,
+);
+$client->connect($url);
+
+$context->run_hook('plugin.finalize');
+
+sub callback {
+    my $atom = shift;
+
+    # TODO: make convenience method to convert XML::Atom::Feed to Plagger::Feed
+    my $feed = Plagger::Feed->new;
+    $feed->title($atom->title);
+
+    my $link = first { !defined $_->rel || $_->rel eq 'alternate' } $atom->link;
+    $feed->link($link->href) if $link;
+    $feed->description($atom->tagline);
+    $feed->language($atom->language);
+    $feed->author($atom->author->name) if $atom->author;
+    $feed->updated($atom->modified);
+    $feed->source_xml($atom->as_xml);
+    $feed->id($atom->id);
+
+    for my $e ($atom->entries) {
+        my $entry = Plagger::Entry->new;
+        $entry->title($e->title);
+        $entry->author($e->author->name) if $e->author;
+        for my $cat ($e->categories) {
+            $entry->add_tag($cat->label || $cat->term);
+        }
+        $entry->date($e->published || $e->updated);
+
+        my $link = first { !defined $_->rel || $_->rel eq 'alternate' } $e->link;
+        $entry->link($link->href) if $link;
+        $entry->feed_link($feed->link);
+        $entry->id($e->id);
+
+        my $body = $e->content ? $e->content->body :
+                   $e->summary ? $e->summary->body : undef;
+        $entry->body($body) if $body;
+
+        $feed->add_entry($entry);
+    }
+
+    $context->update->add($feed);
+    $context->do_run_with_feeds;
+
+    $context->clear_session;
+}

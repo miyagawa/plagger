@@ -93,10 +93,7 @@ plugins:
     config:
       url: http://localhost:$main::port/node/plagger
 --- expected
-# xxx this is clumsy
-no warnings 'redefine';
-*Plagger::context = sub { $context };
-
+Plagger->set_context($context);
 my $feed;
 $context->run_hook('searcher.search', { query => "murakami" }, 0, sub { $feed = $_[0] });
 ok $feed, 'I got feed';
@@ -117,11 +114,8 @@ plugins:
     config:
       url: http://localhost:$main::port/node/plagger
 --- expected
+Plagger->set_context($context);
 ok -e $main::dir, 'invindex exists';
-
-# xxx this is clumsy
-no warnings 'redefine';
-*Plagger::context = sub { $context };
 
 my $feed;
 $context->run_hook('searcher.search', { query => "murakami" }, 0, sub { $feed = $_[0] });

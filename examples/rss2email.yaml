@@ -1,0 +1,19 @@
+# Fetch RSS and send HTML emails for each feed
+
+global:
+  # Set timezone to your local one
+  timezone: Asia/Tokyo
+  # this make logger logs important information
+  log:
+    level: info
+
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+        - http://bulknews.typepad.com/blog/
+
+  # Send HTML email to your Gmail account using external SMTP server
+  - module: Publish::Gmail
+    config:
+      mailto:   example@gmail.com

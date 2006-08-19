@@ -26,9 +26,11 @@ use Plagger::Subscription;
 use Plagger::Template;
 use Plagger::Update;
 
-sub context { undef }
+my $context;
+sub context     { $context }
+sub set_context { $context = $_[1] }
 
-sub bootstrap {
+sub new {
     my($class, %opt) = @_;
 
     my $self = bless {
@@ -51,16 +53,27 @@ sub bootstrap {
         $self->{conf}->{log}->{encoding} ||= Term::Encoding::get_encoding();
     }
 
-    no warnings 'redefine';
-    local *Plagger::context = sub { $self };
+    Plagger->set_context($self);
 
     $loader->load_recipes($config);
     $self->load_cache($opt{config});
     $self->load_plugins(@{ $config->{plugins} || [] });
     $self->rewrite_config if @{ $self->{rewrite_tasks} };
-    $self->run();
 
     $self;
+}
+
+sub bootstrap {
+    my $class = shift;
+    my $self = $class->new(@_);
+    $self->run();
+    $self;
+}
+
+sub clear_session {
+    my $self = shift;
+    $self->{update}       = Plagger::Update->new;
+    $self->{subscription} = Plagger::Subscription->new;
 }
 
 sub add_rewrite_task {
@@ -290,6 +303,25 @@ sub run {
     }
 
     $self->run_hook('aggregator.finalize');
+    $self->do_run_with_feeds;
+    $self->run_hook('plugin.finalize');
+
+    Plagger->set_context(undef);
+    $self;
+}
+
+sub run_with_feeds {
+    my $self = shift;
+    $self->run_hook('plugin.init');
+    $self->do_run_with_feeds;
+    $self->run_hook('plugin.finalize');
+
+    Plagger->set_context(undef);
+    $self;
+}
+
+sub do_run_with_feeds {
+    my $self = shift;
 
     for my $feed ($self->update->feeds) {
         for my $entry ($feed->entries) {
@@ -323,6 +355,19 @@ sub run {
     }
 
     $self->run_hook('publish.finalize');
+}
+
+sub search {
+    my($self, $query) = @_;
+
+    Plagger->set_context($self);
+    $self->run_hook('plugin.init');
+
+    my @feeds;
+    $context->run_hook('searcher.search', { query => $query }, 0, sub { push @feeds, $_[0] });
+
+    Plagger->set_context(undef);
+    return @feeds;
 }
 
 sub log {

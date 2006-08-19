@@ -28,9 +28,11 @@ sub load {
 sub load_include {
     my($self, $config) = @_;
 
-    return unless $config->{include};
-    for (@{ $config->{include} }) {
-        my $include = YAML::LoadFile($_);
+    my $includes = $config->{include} or return;
+    $includes = [ $includes ] unless ref $includes;
+
+    for my $file (@$includes) {
+        my $include = YAML::LoadFile($file);
 
         for my $key (keys %{ $include }) {
             my $add = $include->{$key};

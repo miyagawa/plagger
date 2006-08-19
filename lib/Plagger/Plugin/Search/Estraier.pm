@@ -79,7 +79,6 @@ sub search {
         $feed->add_entry($entry);
     }
 
-
     return $feed;
 }
 

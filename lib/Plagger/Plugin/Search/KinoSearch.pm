@@ -8,9 +8,19 @@ use KinoSearch::InvIndexer;
 use KinoSearch::Searcher;
 use KinoSearch::Analysis::PolyAnalyzer;
 
-sub init {
-    my $self = shift;
-    $self->SUPER::init(@_);
+sub register {
+    my($self, $context) = @_;
+    $context->register_hook(
+        $self,
+        'publish.entry'    => \&entry,
+        'plugin.init'      => \&initialize,
+        'plugin.finalize'  => \&finalize,
+        'searcher.search'  => \&search,
+    );
+}
+
+sub initialize {
+    my($self, $context, $args) = @_;
 
     $self->conf->{invindex} ||= $self->cache->path_to('invindex');
 
@@ -33,16 +43,6 @@ sub init {
     $self->{indexer}->spec_field( name => 'body' );
     $self->{indexer}->spec_field( name => 'date' );
     $self->{indexer}->spec_field( name => 'author' );
-}
-
-sub register {
-    my($self, $context) = @_;
-    $context->register_hook(
-        $self,
-        'publish.entry'    => \&entry,
-        'publish.finalize' => \&finalize,
-        'searcher.search'  => \&search,
-    );
 }
 
 sub entry {
