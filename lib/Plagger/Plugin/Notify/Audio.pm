@@ -2,6 +2,8 @@ package Plagger::Plugin::Notify::Audio;
 use strict;
 use base qw( Plagger::Plugin );
 
+use MP3::Info;
+
 sub init {
     my $self = shift;
     $self->SUPER::init(@_);
@@ -44,9 +46,12 @@ sub finalize {
         return $self->play($self->conf->{filename});
     }
 
-    for my $enclosures (@{$self->{enclosures}}) {
-        $self->log(info => "Play " . $enclosure->local_path);
-        $self->play($enclosure->local_path);
+    for my $enclosure (@{$self->{enclosures}}) {
+        # XXX this should be a separate plugin to handle MP4/WAV/ogg as well!
+        my $info   = eval { MP3::Info->new($enclosure->local_path) };
+        my $length = $info ? $info->secs : undef;
+        $self->log(info => "Play " . $enclosure->local_path . ($length ? " for $length seconds" : ""));
+        $self->play($enclosure->local_path, $length);
     }
 }
 

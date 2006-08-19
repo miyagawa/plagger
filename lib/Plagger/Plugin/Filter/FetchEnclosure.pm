@@ -2,6 +2,7 @@ package Plagger::Plugin::Filter::FetchEnclosure;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Cwd;
 use File::Spec;
 use File::Path;
 
@@ -18,6 +19,11 @@ sub init {
     $self->SUPER::init(@_);
 
     defined $self->conf->{dir} or Plagger->context->error("config 'dir' is not set.");
+    # XXX make it Plagger::Util function
+    if ($self->conf->{dir} =~ /^[a-zA-Z]/ && $self->conf->{dir} !~ /:/) {
+        $self->conf->{dir} = File::Spec->catfile( Cwd::cwd, $self->conf->{dir} );
+    }
+    
     unless (-e $self->conf->{dir} && -d _) {
         Plagger->context->log(warn => $self->conf->{dir} . " does not exist. Creating");
         mkpath $self->conf->{dir};
@@ -35,7 +41,9 @@ sub filter {
             mkdir $feed_dir, 0777;
         }
 
-        my $path = File::Spec->catfile($feed_dir, $enclosure->filename);
+        my $filename = $enclosure->filename;
+        Encode::_utf8_off($filename);
+        my $path = File::Spec->catfile($feed_dir, $filename);
         $context->log(info => "fetch " . $enclosure->url . " to " . $path);
 
         my $request = HTTP::Request->new(GET => $enclosure->url);
