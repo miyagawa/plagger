@@ -2,8 +2,6 @@ package Plagger::Plugin::Filter::POPFile;
 use strict;
 use base qw( Plagger::Plugin );
 
-our $VERSION = '0.03_04';
-
 use XMLRPC::Lite;
 use File::Temp ();
 use Encode;

@@ -2,8 +2,6 @@ package Plagger::Plugin::Filter::SpamAssassin;
 use strict;
 use base qw( Plagger::Plugin );
 
-our $VERSION = '0.02';
-
 use Mail::SpamAssassin;
 use MIME::Lite;
 use Encode;

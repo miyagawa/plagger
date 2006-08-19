@@ -3,8 +3,6 @@ package Plagger::Plugin::Publish::PowerPoint;
 use strict;
 use base qw( Plagger::Plugin );
 
-our $VERSION = '0.01_01';
-
 use Win32::PowerPoint;
 use Encode;
 use File::Path;

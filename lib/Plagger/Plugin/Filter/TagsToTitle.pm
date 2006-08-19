@@ -2,8 +2,6 @@ package Plagger::Plugin::Filter::TagsToTitle;
 use strict;
 use base qw( Plagger::Plugin );
 
-our $VERSION = '0.01_01';
-
 sub register {
     my ($self, $context) = @_;
     $context->register_hook(
