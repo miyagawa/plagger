@@ -1,3 +1,4 @@
+use strict;
 use t::TestPlagger;
 use utf8;
 
