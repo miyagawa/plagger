@@ -111,6 +111,8 @@ sub handle_feed {
     $feed->language($remote->language);
     $feed->author(_u($remote->author));
     $feed->updated($remote->modified);
+
+    Encode::_utf8_on($$xml_ref);
     $feed->source_xml($$xml_ref);
 
     if ($remote->format eq 'Atom') {

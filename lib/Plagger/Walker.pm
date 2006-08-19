@@ -83,7 +83,7 @@ sub serialize {
         }
         return wantarray ? @retval : $retval[0];
     };
-    $curry->($stuff);
+    $curry->($stuff->clone);
 }
 
 1;

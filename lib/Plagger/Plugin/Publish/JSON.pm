@@ -22,13 +22,15 @@ sub feed {
     $context->log(info => "writing output to $path");
 
     local $JSON::Syck::ImplicitUnicode = 1;
-    my $body = JSON::Syck::Dump(Plagger::Walker->serialize($args->{feed}->clone));
+    my $body = JSON::Syck::Dump(Plagger::Walker->serialize($args->{feed}));
 
     if (my $var = $self->conf->{varname}) {
         $body = "var $var = $body;";
     } elsif (my $jsonp = $self->conf->{jsonp}) {
         $body = "$jsonp($body)";
     }
+
+    $context->log(info => "Serializing " . $args->{feed}->id . " to $path");
 
     open my $out, ">:utf8", $path or $context->error("$path: $!");
     print $out $body;

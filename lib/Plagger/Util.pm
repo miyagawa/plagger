@@ -1,7 +1,7 @@
 package Plagger::Util;
 use strict;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri mime_type_of );
+our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri mime_type_of filename_for );
 
 use Encode ();
 use List::Util qw(min);
@@ -158,6 +158,30 @@ sub encode_xml {
     my $stuff = shift;
     $stuff =~ s/($entities_re)/$entities{$1}/g;
     $stuff;
+}
+
+my %formats = (
+    'u' => sub { my $s = $_[0]->url;  $s =~ s!^https?://!!; $s },
+    'l' => sub { my $s = $_[0]->link; $s =~ s!^https?://!!; $s },
+    't' => sub { $_[0]->title },
+    'i' => sub { $_[0]->id },
+);
+
+my $format_re = qr/%(u|l|t|i)/;
+
+sub filename_for {
+    my($feed, $file) = @_;
+    $file =~ s{$format_re}{
+        safe_filename($formats{$1}->($feed))
+    }egx;
+    $file;
+}
+
+sub safe_filename {
+    my($path) = @_;
+    $path =~ s![^\w\s]+!_!g;
+    $path =~ s!\s+!_!g;
+    $path;
 }
 
 1;

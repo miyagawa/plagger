@@ -1,6 +1,7 @@
 use strict;
 use t::TestPlagger;
 
+test_requires_network('del.icio.us:80');
 test_plugin_deps;
 plan 'no_plan';
 run_eval_expected;
