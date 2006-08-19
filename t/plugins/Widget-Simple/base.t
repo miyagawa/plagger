@@ -7,8 +7,7 @@ plan 'no_plan';
 run {
     my $block = shift;
     my $context = $block->input;
-    no warnings 'redefine';
-    local *Plagger::context = sub { $context }; # xxx
+    Plagger->set_context($context);
     my $entry = $context->update->feeds->[0]->entries->[0];
     is $entry->widgets->[0]->html($entry), $block->expected, $block->name;
 }
