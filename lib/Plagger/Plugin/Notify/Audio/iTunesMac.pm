@@ -5,7 +5,7 @@ use base qw( Plagger::Plugin::Notify::Audio);
 use Mac::iTunes;
 
 sub play {
-    my($self, $filename) = @_;
+    my($self, $filename, $length) = @_;
 
     my $playlist = ref $self;
     my $itunes = Mac::iTunes->controller;
@@ -13,6 +13,7 @@ sub play {
     $itunes->delete_playlist($playlist);
     $itunes->add_track($filename, $playlist);
     $itunes->play_track(1, $playlist);
+    sleep $length;
 }
 
 1;
