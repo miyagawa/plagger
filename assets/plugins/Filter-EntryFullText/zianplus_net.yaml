@@ -1,7 +1,7 @@
 # CustomFeed http://www.zianplus.net/cgi-bin/vote+/list.cgi
 author: Masafumi Otsune
 custom_feed_handle: http://www\.zianplus\.net/cgi\-bin/vote\+/
-custom_feed_follow_link: \./htm/\d+\.html
+custom_feed_follow_link: /htm/\d+\.html
 handle: http://www\.zianplus\.net/cgi\-bin/vote\+/htm/\d+\.html
 extract: <TITLE>(.*?)\s</TITLE>.*?<HR><PRE><FONT SIZE=3>(.*?)<FORM METHOD="POST"
 extract_capture: title body
