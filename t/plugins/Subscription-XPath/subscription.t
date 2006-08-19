@@ -9,9 +9,10 @@ __END__
 === test file
 --- input config 
 plugins:
-  - module: Subscription::XOXO
+  - module: Subscription::XPath
     config:
       url: file://$t::TestPlagger::BaseDirURI/t/samples/xoxo.html
+      xpath: //ul[@class="xoxo" or @class="subscriptionlist"]//a
   - module: Aggregator::Null
 --- expected
 my @feeds = map $_->url, $context->subscription->feeds;
