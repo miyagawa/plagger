@@ -1,10 +1,21 @@
 package Plagger::Plugin::Publish::JSON;
 use strict;
-use base qw( Plagger::Plugin::Publish::JavaScript );
+use base qw( Plagger::Plugin );
 
 use File::Spec;
 use JSON::Syck;
 use Plagger::Walker;
+use Plagger::Util;
+
+sub init {
+    my $self = shift;
+    $self->SUPER::init(@_);
+
+    my $dir = $self->conf->{dir};
+    unless (-e $dir && -d _) {
+        mkdir $dir, 0755 or Plagger->context->error("mkdir $dir: $!");
+    }
+}
 
 sub register {
     my($self, $context) = @_;
@@ -17,7 +28,7 @@ sub register {
 sub feed {
     my($self, $context, $args) = @_;
 
-    my $file = $self->gen_filename($args->{feed}, $self->conf->{filename} || '%i.json');
+    my $file = Plagger::Util::filename_for($args->{feed}, $self->conf->{filename} || '%i.json');
     my $path = File::Spec->catfile($self->conf->{dir}, $file);
     $context->log(info => "writing output to $path");
 
