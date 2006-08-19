@@ -11,6 +11,7 @@ use t::TestPlagger;
 test_plugin_deps;
 test_requires('Tie::File');
 test_requires_command('estmaster');
+test_requires_command('estconfig');
 
 my $ver = `estconfig --version`;
 if ($ver =~ /^1\.3/ && $^O eq 'freebsd') {
