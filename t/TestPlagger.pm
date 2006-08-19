@@ -76,9 +76,6 @@ sub test_plugin_deps() {
     }
 
     my $meta = YAML::LoadFile($file);
-    if ($meta->{platform} && $meta->{platform} ne $^O) {
-        plan skip_all => "Test requires '$meta->{platform}'";
-    }
 
     for my $plugin (@{ $meta->{bundles} || [] }) {
         $plugin =~ s/::/-/g;
