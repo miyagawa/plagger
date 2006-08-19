@@ -1,0 +1,4 @@
+name: Subscription::XOXO
+author: Tatsuhiko Miyagawa
+bundles:
+  - Subscription::XPath

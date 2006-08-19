@@ -1,0 +1,4 @@
+name: Subscription::XPath
+author: youpy
+depends:
+  HTML::TreeBuilder::XPath: 0

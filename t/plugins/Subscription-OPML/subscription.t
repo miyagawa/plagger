@@ -1,6 +1,7 @@
 use strict;
 use t::TestPlagger;
 
+test_plugin_deps;
 plan tests => 3;
 run_eval_expected;
 
