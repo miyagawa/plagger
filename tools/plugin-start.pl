@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use IO::Prompt;
+use ExtUtils::MakeMaker;
 use File::Basename;
 use File::Path;
 use YAML;
@@ -47,7 +47,7 @@ sub write_file {
     my($path, $template, $vars) = @_;
 
     if (-e $path) {
-        my $ans = prompt("$path exists. Override? [yN] ", -yes_no, -default => 'n');
+        my $ans = prompt("$path exists. Override? [yN] ", 'n');
         return if $ans !~ /[Yy]/;
     }
 
