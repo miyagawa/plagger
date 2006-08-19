@@ -15,7 +15,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDir/t/samples/rss-20.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-20.xml
   - module: Filter::ExtractAuthorName
 --- expected
 is $context->update->feeds->[0]->author, 'Dave Winer';
