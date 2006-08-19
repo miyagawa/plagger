@@ -1,0 +1,9 @@
+# http://www\.kojii\.net/
+author: Masafumi Otsune
+custom_feed_handle: http://www\.kojii\.net/\w+/index.html
+custom_feed_follow_link: /\w+/\w+\d+\.html$
+handle: http://www\.kojii\.net/\w+/\w+\d+\.html$
+extract_xpath:
+#  title: /html/head//title
+  body: /html/body//table
+#extract_after_hook: $data->{title} =~ s|</?TITLE>||ig   

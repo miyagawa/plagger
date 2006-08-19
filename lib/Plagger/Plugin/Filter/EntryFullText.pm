@@ -232,6 +232,12 @@ sub handle {
         ? $args->{entry}->permalink =~ /$self->{handle}/ : 0;
 }
 
+sub xml_escape {
+    for my $x (@_) {
+        $x = Plagger::Util::encode_xml($x);
+    }
+}
+
 sub extract {
     my($self, $args) = @_;
     my $data;
@@ -257,7 +263,9 @@ sub extract {
         for my $capture (keys %{$self->{extract_xpath}}) {
             my @children = $tree->findnodes($self->{extract_xpath}->{$capture});
             if (@children) {
-                $data->{$capture} = $children[0]->as_HTML;
+                no warnings 'redefine';
+                local *HTML::Element::_xml_escape = \&xml_escape;
+                $data->{$capture} = $children[0]->as_XML;
             } else {
                 Plagger->context->log(error => "Can't find node matching $self->{extract_xpath}->{$capture}");
             }

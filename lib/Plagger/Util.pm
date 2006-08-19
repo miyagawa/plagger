@@ -23,8 +23,6 @@ BEGIN {
     }
 }
 
-
-
 sub strip_html {
     my $html = shift;
     $html =~ s/<[^>]*>//g;
@@ -145,6 +143,21 @@ sub mime_type_of {
 
     return unless $ext;
     return $mimetypes->mimeTypeOf($ext);
+}
+
+my %entities = (
+    '&' => '&amp;',
+    '<' => '&lt;',
+    '>' => '&gt;',
+    "'" => '&quot;',
+);
+
+my $entities_re = join '|', keys %entities;
+
+sub encode_xml {
+    my $stuff = shift;
+    $stuff =~ s/($entities_re)/$entities{$1}/g;
+    $stuff;
 }
 
 1;
