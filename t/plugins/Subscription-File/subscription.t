@@ -1,7 +1,7 @@
 use strict;
-use FindBin;
 use t::TestPlagger;
 
+test_plugin_deps
 plan tests => 1;
 run_eval_expected;
 
@@ -12,7 +12,7 @@ __END__
 plugins:
   - module: Subscription::File
     config:
-      file: file://$FindBin::Bin/feeds.txt
+      file: file://$t::TestPlagger::BaseDirURI/t/samples/feeds.txt
   - module: Aggregator::Null
 --- expected
 my @feeds = map $_->url, $context->subscription->feeds;

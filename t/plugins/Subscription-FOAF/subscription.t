@@ -1,5 +1,4 @@
 use strict;
-use FindBin;
 use t::TestPlagger;
 
 test_plugin_deps;
@@ -12,7 +11,7 @@ __END__
 plugins:
   - module: Subscription::FOAF
     config:
-      url: file:///$FindBin::Bin/sample.foaf
+      url: file://$t::TestPlagger::BaseDirURI/t/samples/sample.foaf
   - module: Aggregator::Null
 --- expected
 my @feeds = map $_->url, $context->subscription->feeds;

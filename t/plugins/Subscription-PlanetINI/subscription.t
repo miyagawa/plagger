@@ -2,7 +2,6 @@ use strict;
 use t::TestPlagger;
 
 test_plugin_deps;
-
 plan tests => 1;
 run_eval_expected;
 
@@ -12,7 +11,7 @@ __END__
 plugins:
   - module: Subscription::PlanetINI
     config:
-      path: $FindBin::Bin/config.ini
+      path: $t::TestPlagger::BaseDirURI/t/samples/config.ini
   - module: Aggregator::Null
 --- expected
 my @feeds = map $_->url, $context->subscription->feeds;
