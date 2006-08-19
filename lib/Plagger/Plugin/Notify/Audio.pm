@@ -1,6 +1,6 @@
 package Plagger::Plugin::Notify::Audio;
 use strict;
-use base qw( Plagger::Plugin::Notify::Eject );
+use base qw( Plagger::Plugin );
 
 sub init {
     my $self = shift;
@@ -10,18 +10,34 @@ sub init {
     my $class  = 'Plagger::Plugin::Notify::Audio::' . $player;
     eval "require $class;";
     if ($@) {
-        Plagger->context->error("Notify plugin doesn't run on your platform $player");
+        Plagger->context->error("Notify plugin doesn't run on your platform $player: $@");
     }
     bless $self, $class;
 }
 
-sub eject {
-    my($self, $context, $args) = @_;
-    $self->play($context, $self->conf->{filename});
+sub register {
+    my($self, $context) = @_;
+    $context->register_hook(
+        $self,
+        'publish.feed' => \&update,
+        'publish.finalize' => \&finalize,
+    );
+    $self->{count} = 0;
 }
 
-sub play {
+sub update {
     my($self, $context, $args) = @_;
+    $self->{count}++ if $args->{feed}->count;
+}
+
+sub finalize {
+    my($self, $context, $args) = @_;
+    $self->play($self->conf->{filename}) if $self->{count};
+}
+
+
+sub play {
+    my($self, $filename) = @_;
     $self->log(warn => "Subclass should override this");
 }
 
@@ -49,6 +65,22 @@ This plugin plays audio file when you've got feed updates.
 =item filename
 
 Audio filename to play. Required.
+
+=back
+
+=head1 TODO
+
+=over 4
+
+=item *
+
+Configurable audio name per feed.
+
+=item *
+
+Play enclosures?
+
+=back
 
 =head1 AUTHOR
 
