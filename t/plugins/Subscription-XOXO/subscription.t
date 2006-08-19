@@ -12,7 +12,7 @@ __END__
 plugins:
   - module: Subscription::XOXO
     config:
-      url: file:///$FindBin::Bin/feeds.html
+      url: file://$t::TestPlagger::BaseDirURI/t/samples/xoxo.html
   - module: Aggregator::Null
 --- expected
 my @feeds = map $_->url, $context->subscription->feeds;
