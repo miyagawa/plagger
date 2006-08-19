@@ -423,7 +423,7 @@ sub template {
     my $self = shift;
     $self->log(error => "\$context->template is DEPRECATED NOW. use \$plugin->templatize()");
     my $plugin = shift || (caller)[0];
-    Plagger::Template->new($self, $plugin->class_id);
+    Plagger::Template->new($self, $plugin);
 }
 
 sub templatize {
