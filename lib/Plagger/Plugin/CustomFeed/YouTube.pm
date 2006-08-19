@@ -65,8 +65,8 @@ sub aggregate {
                 };
             m!<img src="(http://[\w-]*static\d+(.[\w-]+)?\.youtube.com/[^">]+/[12].jpg)" class="vimg120" />!
                 and $data->{image}->{url} = $1;
-            m!<div class="vdesc">(.*)</div>!
-                and $data->{description} = $1;
+            m!<div class="vdesc">!
+                and $data->{description} = <$fh>;
             m!<div class="vtagLabel">Tags:</div>!
                 and $tag_flag = 1;
             m!(<a href="/results\?search_type=.*)!
