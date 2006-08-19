@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.1">
+<head>
+    <title>Sample Subscriptions</title>
+    <dateCreated></dateCreated>
+    <ownerName></ownerName>
+</head>
+<body>
+    <outline title="blog.bulknews.net" text="blog.bulknews.net" htmlUrl="http://blog.bulknews.net/mt/" type="rss" xmlUrl="http://blog.bulknews.net/mt/index.rdf" />
+</body>
+</opml>
