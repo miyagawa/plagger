@@ -42,7 +42,7 @@ sub finalize {
     my($self, $context, $args) = @_;
 
     if ($self->{count}) {
-        $self->log(info => "Play $self->conf->{filename}");
+        $self->log(info => "Play " . $self->conf->{filename});
         return $self->play($self->conf->{filename});
     }
 
