@@ -27,7 +27,7 @@ __END__
 plugins:
   - module: Test::AssetsPath
 --- expected
-like $warning, qr!plugins/Test-AssetsPath!;
+like $warning, qr!plugins[/\\]Test-AssetsPath!;
 
 === Test plugin:assets_path
 --- input config
