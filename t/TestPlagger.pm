@@ -33,7 +33,12 @@ sub test_requires() {
     }
 
     if ($@) {
-        plan skip_all => "$@";
+        if ($@ =~ /^Can't locate/) {
+            plan skip_all => "Test requires module '$mod' but it's not found";
+        }
+        else {
+            plan skip_all => "$@";
+        }
     }
 }
 
@@ -76,6 +81,10 @@ sub test_plugin_deps() {
     }
 
     my $meta = YAML::LoadFile($file);
+
+    if ($meta->{platform} && $meta->{platform} ne $^O) {
+        plan skip_all => "Test requires to be run on '$meta->{platform}'";
+    }
 
     for my $plugin (@{ $meta->{bundles} || [] }) {
         $plugin =~ s/::/-/g;
