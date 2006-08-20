@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Encode;
+use Encode ();
 use FindBin;
 use Getopt::Long;
 
@@ -14,17 +14,36 @@ GetOptions("--config=s", \$path);
 Getopt::Long::Configure("bundling"); # allows -c
 
 my $context = Plagger->new(config => $path);
-my $query = Encode::decode_utf8($ARGV[0]);
+my $query = decode($ARGV[0]);
 
 my @feeds = $context->search($query);
 
 my $feed = $feeds[0];
-binmode STDOUT, ":utf8";
-print "Search for '$query': ", $feed->count, " entries found.\n\n";
+binmode STDOUT, ":utf8" unless $context->conf->{log}->{encoding};
+exit unless $feed;
+print "Search for '" . encode($query) . "': ", $feed->count , " entries found.\n\n";
 
 for my $entry ($feed->entries) {
-    print $entry->title, $entry->author ? "(by " . $entry->author . ")" : '', "\n";
-    print $entry->body; # summary
+    print encode($entry->title), $entry->author ? "(by " . encode($entry->author) . ")" : '', "\n";
+    print encode($entry->body); # summary
     print $entry->permalink, "\n";
 }
 
+sub decode {
+    my $str = shift;
+    if ($context->conf->{log}->{encoding}) {
+        $str = Encode::decode($context->conf->{log}->{encoding}, $str);
+    } else {
+        $str = Encode::decode_utf8($str);
+    }
+    return $str;
+}
+
+sub encode {
+    my $str = shift;
+    if ($context->conf->{log}->{encoding}) {
+        $str = Encode::decode_utf8($str) unless utf8::is_utf8($str);
+        $str = Encode::encode($context->conf->{log}->{encoding}, $str);
+    }
+    return $str;
+}
