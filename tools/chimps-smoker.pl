@@ -26,9 +26,7 @@ while (++$config->{revision} <= $current) {
 $config->{revision} = $current;
 YAML::DumpFile($file, $config) if $run;
 
-END {
-    unlink $lockdir if -e $lockdir;
-}
+rmdir $lockdir if -e $lockdir;
 
 sub run_chimps {
     my $revision = shift;
