@@ -15,7 +15,7 @@ sub new {
 sub decode_utf8 {
     my($self, $stuff) = @_;
     $self = $self->new( apply_keys => 1 ) unless ref $self;
-    $self->apply(sub { $_[0] = Encode::decode_utf8($_[0]) unless utf8::is_utf8($_[0]) })->($stuff);
+    $self->apply(sub { utf8::decode($_[0]) unless utf8::is_utf8($_[0]) })->($stuff);
 }
 
 sub apply($&;@) {
