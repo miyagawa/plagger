@@ -1,0 +1,5 @@
+name: Subscription::Bookmarks::Mozilla
+author: youpy
+bundles:
+  - Subscription::XPath
+
