@@ -20,7 +20,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/non-http-link.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/non-http-link.xml
   - module: SmartFeed::All
   - module: Publish::Planet
     rule:

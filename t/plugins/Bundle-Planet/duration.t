@@ -23,7 +23,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/nasty.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/nasty.xml
   - module: Bundle::Planet
     config:
       dir: $main::dir

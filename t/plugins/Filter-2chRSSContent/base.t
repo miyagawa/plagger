@@ -13,7 +13,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/top10news.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/top10news.xml
 
   - module: Filter::2chRSSContent
 --- expected

@@ -7,7 +7,7 @@ test_plugin_deps;
 
 use Digest::MD5;
 
-our $url = "file:///$FindBin::Bin/../../samples/rss-full.xml";
+our $url = "file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml";
 our $output = $FindBin::Bin . "/" . Digest::MD5::md5_hex($url) . ".js";
 
 run_like 'input' => 'expected';

@@ -20,7 +20,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/delicious.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/delicious.xml
   - module: SmartFeed::All
   - module: Publish::Planet
     rule:
@@ -37,7 +37,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/delicious.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/delicious.xml
   - module: SmartFeed::All
   - module: Publish::Planet
     rule:
@@ -57,7 +57,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/delicious.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/delicious.xml
   - module: SmartFeed::All
   - module: Publish::Planet
     rule:
@@ -77,7 +77,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/delicious.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/delicious.xml
   - module: SmartFeed::All
   - module: Publish::Planet
     rule:
@@ -97,7 +97,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/delicious.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/delicious.xml
   - module: SmartFeed::All
   - module: Publish::Planet
     rule:
@@ -119,7 +119,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/delicious.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/delicious.xml
   - module: SmartFeed::All
   - module: Publish::Planet
     rule:
@@ -143,7 +143,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/delicious.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/delicious.xml
   - module: Widget::Delicious
     config:
       username: miyagawa

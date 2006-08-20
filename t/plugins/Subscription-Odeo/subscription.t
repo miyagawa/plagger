@@ -5,6 +5,7 @@ test_requires_network 'www.odeo.com:80';
 
 test_plugin_deps;
 plan tests => 4;
+diag "This test will raise warnings due to XML::OPML internal, but it's harmless";
 run_eval_expected;
 
 __END__

@@ -4,6 +4,7 @@ use t::TestPlagger;
 use utf8;
 
 test_plugin_deps;
+plan skip_all => 'The site it tries to test is unreliable.' unless $ENV{TEST_UNRELIABLE_NETWORK};
 test_requires_network;
 
 plan tests => 8;
