@@ -4,7 +4,7 @@ use base qw( Plagger::Plugin );
 
 use Plagger::Util;
 use URI;
-use XML::OPML;
+use XML::LibXML::SAX;
 
 our $HAS_LIBERAL;
 BEGIN {
@@ -39,32 +39,62 @@ sub load_opml {
         $xml = $doc->toString;
     }
 
-    my $opml = XML::OPML->new;
-    $opml->parse($xml);
-    for my $outline (@{ $opml->outline }) {
-        $self->walk_down($outline, $context, 0, []);
-    }
+    my $handler = Plagger::Plugin::Subscription::OPML::SAXHandler->new(
+        callback => sub { $context->subscription->add(@_) },
+    );
+
+    my $parser  = XML::LibXML::SAX->new(Handler => $handler);
+       $parser->parse_string($xml);
 }
 
-sub walk_down {
-    my($self, $outline, $context, $depth, $containers) = @_;
+package Plagger::Plugin::Subscription::OPML::SAXHandler;
+use base qw( XML::SAX::Base );
 
-    if (delete $outline->{opmlvalue}) {
-        my $title = delete $outline->{title} || delete $outline->{text};
-        push @$containers, $title if $title ne 'Subscriptions';
-        for my $channel (values %$outline) {
-            $self->walk_down($channel, $context, $depth + 1, $containers);
+sub new {
+    my $class = shift;
+    bless { @_ }, $class;
+}
+
+sub start_element {
+    my $self = shift;
+    my($ref) = @_;
+
+    if ($ref->{LocalName} eq 'outline') {
+        if (_attr($ref, 'htmlUrl', 'xmlUrl')) {
+            my $feed = Plagger::Feed->new;
+            $feed->url(_attr($ref, 'xmlUrl'));
+            $feed->link(_attr($ref, 'htmlUrl'));
+            $feed->title(_attr($ref, 'title', 'text'));
+            $feed->tags([ grep { defined && $_ ne 'Subscriptions' } @{$self->{containers}} ]);
+            $self->{callback}->($feed);
+        } else {
+            my $tag = _attr($ref, 'title', 'text');
+            push @{$self->{containers}}, $tag;
         }
-        pop @$containers if $title ne 'Subscriptions';
-    } else {
-        my $feed = Plagger::Feed->new;
-        $feed->url($outline->{xmlUrl});
-        $feed->link($outline->{htmlUrl});
-        $feed->title($outline->{title} || $outline->{text});
-        $feed->tags([ @$containers ]);
-        $context->subscription->add($feed);
     }
 }
+
+sub end_element {
+    my $self = shift;
+    my($ref) = @_;
+
+    if ($ref->{LocalName} eq 'outline') {
+        pop @{$self->{containers}};
+    }
+}
+
+sub _attr {
+    my($ref, @attr) = @_;
+
+    for my $attr (@attr) {
+        return $ref->{Attributes}->{"{}$attr"}->{Value}
+            if defined $ref->{Attributes}->{"{}$attr"};
+    }
+
+    return;
+}
+
+package Plagger::Plugin::Subscription::OPML;
 
 1;
 
@@ -92,6 +122,6 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<XML::OPML>
+L<Plagger>, L<XML::LibXML::SAX>
 
 =cut

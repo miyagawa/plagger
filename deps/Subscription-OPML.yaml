@@ -2,4 +2,4 @@ name: Subscription::OPML
 author: Tatsuhiko Miyagawa
 default: 1
 depends: 
-  XML::OPML: 0
+  XML::LibXML::SAX: 0

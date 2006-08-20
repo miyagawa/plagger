@@ -3,8 +3,6 @@ use t::TestPlagger;
 
 test_plugin_deps;
 plan 'no_plan';
-
-diag "This test will raise warnings due to XML::OPML internal, but it's harmless";
 run_eval_expected;
 
 __END__
@@ -40,4 +38,3 @@ is $feeds[1]->url, "http://subtech.g.hatena.ne.jp/miyagawa/rss";
 is $feeds[1]->link, "http://subtech.g.hatena.ne.jp/miyagawa/";
 is $feeds[1]->title, "Bulknews::Subtech";
 is_deeply $feeds[1]->tags, [ 'Bar', 'Baz' ];
-
