@@ -6,6 +6,9 @@ use File::Temp qw(tempdir);
 use LWP::Simple;
 use YAML;
 
+our $lockdir = "$ENV{HOME}/.plagger-smoke.lock";
+mkdir $lockdir, 0777 or die "Other process is running!\n";
+
 our $repo = "http://svn.bulknews.net/repos/plagger";
 our $file = "$ENV{HOME}/.plagger-smoke.yml";
 
@@ -22,6 +25,10 @@ while (++$config->{revision} <= $current) {
 
 $config->{revision} = $current;
 YAML::DumpFile($file, $config) if $run;
+
+END {
+    unlink $lockdir if -e $lockdir;
+}
 
 sub run_chimps {
     my $revision = shift;
