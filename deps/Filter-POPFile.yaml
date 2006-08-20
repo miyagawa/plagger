@@ -1,0 +1,4 @@
+name: Filter-POPFile
+author: Ishigaki Kenichi
+depends:
+  XMLRPC::Lite: 0
