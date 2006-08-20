@@ -387,9 +387,9 @@ sub log {
     }
 
     chomp($msg);
-    if ($self->{log}->{encoding}) {
+    if ($self->conf->{log}->{encoding}) {
         $msg = Encode::decode_utf8($msg) unless utf8::is_utf8($msg);
-        $msg = Encode::encode($self->{log}->{encoding}, $msg);
+        $msg = Encode::encode($self->conf->{log}->{encoding}, $msg);
     }
     warn "$caller [$level] $msg\n";
 }
