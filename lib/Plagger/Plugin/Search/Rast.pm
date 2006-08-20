@@ -2,7 +2,7 @@ package Plagger::Plugin::Search::Rast;
 use strict;
 use base qw( Plagger::Plugin );
 
-use Encode;
+use Encode ();
 use POSIX;
 use Rast;
 
@@ -10,8 +10,9 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.feed' => \&feed,
+        'publish.feed'     => \&feed,
         'publish.finalize' => \&finalize,
+        'searcher.search'  => \&search,
     );
 }
 
@@ -94,13 +95,13 @@ sub feed {
 	my $options = [ 
 			$feed->link, 
 			$entry->permalink, 
-			$self->convert($entry->title) || '', 
-			$self->convert($entry->author) || '', 
+			$self->encode($entry->title) || '', 
+			$self->encode($entry->author) || '', 
 			POSIX::strftime('%Y-%m-%dT%H:%M:%S', localtime($time)),
-			$self->convert(join(' ', @{ $entry->tags }))
+			$self->encode(join(' ', @{ $entry->tags }))
 			];
 
-	my $text = $self->convert($entry->text);
+	my $text = $self->encode($entry->text);
 	unless ($result->hit_count) {
 	    my $id = $rast->register($text, $options);
 	    $context->log(info => "add new docid = $id: " . $entry->permalink);
@@ -112,16 +113,47 @@ sub feed {
     }
 }
 
-sub convert {
+sub encode {
     my ($self, $str) = @_;
     utf8::decode($str) unless utf8::is_utf8($str);
-    return encode($self->{encode}, $str);
+    return Encode::encode($self->{encode}, $str);
+}
+
+sub decode {
+    my ($self, $str) = @_;
+    return Encode::decode($self->{encode}, $str);
 }
 
 sub finalize {
     my($self, $context) = @_;
     return unless $self->{rast};
     $self->{rast}->close;
+}
+
+sub search {
+    my($self, $context, $args) = @_;
+
+    my $result = $self->{rast}->search($self->encode($args->{query}), {
+        need_summary => 1,
+        properties => [qw/feedlink permalink title author/],
+    });
+
+    my $feed = Plagger::Feed->new;
+    $feed->type('search:Rast');
+    $feed->title("Search: $args->{query}");
+
+    while (my $row = $result->fetch) {
+        my $entry = Plagger::Entry->new;
+
+        $entry->link($row->{properties}->[0]);
+        $entry->permalink($row->{properties}->[1]);
+        $entry->title($self->decode($row->{properties}->[2])); 
+        $entry->author($self->decode($row->{properties}->[3])) ;
+        $entry->body($self->decode($row->{summary}));
+        $feed->add_entry($entry);
+    }
+
+    return $feed;
 }
 
 1;
