@@ -1,0 +1,5 @@
+name: Filter-SpamAssassin
+author: Ishigaki Kenichi
+depends:
+  Mail::SpamAssassin: 0
+  MIME::Lite: 0
