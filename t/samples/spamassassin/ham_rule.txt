@@ -1,0 +1,2 @@
+score NO_RELAYS      0.00
+score NO_RECEIVED    0.00

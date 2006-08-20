@@ -31,14 +31,16 @@ sub filter {
     my $tag   = $self->conf->{spam_tag} || 'spam';
 
     # create a pseudo mail header to skip some of the sa's default tests
-    my $status = $sa->check_message_text(
-        MIME::Lite->new(
-            From    => 'plagger@localhost',
-            To      => 'plagger@localhost',
-            Subject => encode('MIME-Header', $entry->title_text),
-            Data    => $entry->body_text,
-        )->as_string
-    );
+
+    my $mail  = MIME::Lite->new(
+        From       => 'plagger@localhost',
+        To         => 'plagger@localhost',
+        Subject    => encode('MIME-Header', $entry->title_text),
+        'X-Mailer' => 'plagger',
+        Data       => $entry->body_text,
+    )->as_string;
+
+    my $status = $sa->check_message_text( $mail );
 
     if ($status->is_spam) {
         $context->log(debug => "spam found");
@@ -64,9 +66,7 @@ Plagger::Plugin::Filter::SpamAssassin - Find spam entries
       spam_tag: spam
       new:
         local_tests_only: 1
-        config_text:
-          - score NO_RELAYS       0.0
-          - score NO_RECEIVED     0.0
+        site_rules_filename: some_rule.cf
 
 =head1 CONFIG
 

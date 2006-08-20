@@ -1,0 +1,2 @@
+score NO_RELAYS      9.00
+score NO_RECEIVED    9.00
