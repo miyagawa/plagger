@@ -6,6 +6,7 @@ use Plagger::UserAgent;
 use Plagger::Util;
 use URI;
 use URI::QueryParam;
+use XML::LibXML;
 
 sub register {
     my($self, $context) = @_;
