@@ -19,10 +19,11 @@ plugins:
           body: Yet Another Perl Hacker ;-)
   - module: Filter::Emoticon
     config:
-      driver: MSN
+      driver: GoogleTalk
     option:
       strict: 1
       xhtml: 0
 --- expected
 ok 1, $block->name;
-is $context->update->feeds->[0]->entries->[0]->body, 'Yet Another Perl Hacker <img src="http://example.com/emo/regular_smile.gif" />'
+is $context->update->feeds->[0]->entries->[0]->body, 'Yet Another Perl Hacker <img src="http://mail.google.com/mail/help/images/screenshots/chat/wink_nose.gif" />'
+

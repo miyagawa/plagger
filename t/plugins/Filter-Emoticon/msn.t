@@ -2,7 +2,7 @@ use strict;
 use t::TestPlagger;
 
 test_plugin_deps;
-test_requires('Text::Emoticon::MSN');
+test_requires('Text::Emoticon::MSN', 0.03);
 plan 'no_plan';
 run_eval_expected;
 
