@@ -3,7 +3,7 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use URI;
-use XML::Feed;
+use Plagger::UserAgent;
 
 sub register {
     my($self, $context) = @_;
@@ -20,11 +20,14 @@ sub load {
     my $threadlists = ref($self->conf->{url}) ? $self->conf->{url} : [ $self->conf->{url} ]
         or $context->error('ThreadList url is missing');
 
+    my $agent = Plagger::UserAgent->new;
+
     for my $threadlist (@$threadlists) {
-	my $remote = XML::Feed->parse(URI->new($threadlist)) or $context->error("feed parse error $threadlist");
+	my $remote = eval { $agent->fetch_parse($threadlist) }
+            or $context->error("feed parse error: $@");
 	for my $r ($remote->entries) {
 	    $context->log(info => "thread: ". $r->link);
-	    
+
 	    my $feed = Plagger::Feed->new;
 	    $feed->url($r->link);
 	    $feed->link($r->link);
