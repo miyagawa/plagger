@@ -1,6 +1,7 @@
 use strict;
 use t::TestPlagger;
 
+test_plugin_deps('Subscription::Bookmarks::Mozilla');
 plan tests => 4;
 run_eval_expected;
 
