@@ -53,6 +53,7 @@ sub has_network() {
 
 sub test_requires_network() {
     my $host = shift || 'www.google.com:80';
+       $host .= ":80" if $host !~ /:/;
 
     unless (has_network($host)) {
         plan skip_all => "Test requires network($host) which is not available now.";
