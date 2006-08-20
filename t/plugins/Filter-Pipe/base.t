@@ -19,7 +19,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
 
   - module: Filter::Pipe
     config:
@@ -39,7 +39,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../../samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
 
   - module: Filter::Pipe
     config:
