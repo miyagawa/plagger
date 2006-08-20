@@ -96,6 +96,7 @@ sub finalize {
                      conf => $self->conf,
                      feeds => [ $self->feeds ],
                      earlier => $self->earlier($self->work),
+                     modified => (Plagger::Date->now),
                  }),
 		 $self->work . '/index.html');
 }
