@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<?xml-stylesheet href="rss.css" type="text/css"?>
+<rdf:RDF xmlns="http://purl.org/rss/1.0/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="ja-JP">
+	<channel rdf:about="http://tdiary.ishinao.net/index.rdf">
+	<title>いしなお!</title>
+	<link>http://tdiary.ishinao.net/</link>
+	<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/" />
+	<description></description>
+	<dc:creator>ishinao</dc:creator>
+
+	<dc:rights>Copyright 2006 ishinao &lt;ishinao@ishinao.net&gt;, copyright of comments by respective authors</dc:rights>
+	<items><rdf:Seq>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20050906.html#c06"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060819.html#p03"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060819.html#p02"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060819.html#p01"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060818.html#p01"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060817.html#p01"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060628.html#c102"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060628.html#c101"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060814.html#p02"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060814.html#p01"/>
+
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060628.html#c99"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060628.html#c98"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060807.html#p01"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060628.html#c97"/>
+<rdf:li rdf:resource="http://tdiary.ishinao.net/20060628.html#c96"/>
+</rdf:Seq></items>
+</channel>
+<item rdf:about="http://tdiary.ishinao.net/20050906.html#c06">
+<link>http://tdiary.ishinao.net/20050906.html#c06</link>
+<dc:date>2006-08-19T22:25:24+09:00</dc:date>
+<title>2005-09-06のツッコミ[6] (麻生)</title>
+<dc:creator>麻生</dc:creator>
+<description>『ブログで小説！』というブログを作成している者です。一時期、特許..</description>
+
+<content:encoded><![CDATA[『ブログで小説！』というブログを作成している者です。一時期、特許法を少々齧り、著作権法は隣の芝生として眺めていた、という者です。あくまで素人で、可能であれば、抱えこんだ疑問をとくために、お力をお借りできればとお願いに参りました。失礼の段は、お許しください。]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060819.html#p03">
+<link>http://tdiary.ishinao.net/20060819.html#p03</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060819.html#p03" />
+<dc:date>2006-08-19T22:07:02+09:00</dc:date>
+<title>PHP 6のUnicodeサポート</title>
+<dc:creator>ishinao</dc:creator>
+<dc:subject>PHP</dc:subject>
+<dc:subject>UNICODE</dc:subject>
+<description>昼飯の時に「たぶんバイナリ文字列とUTF文字列という二つの文字列型が追加されて、文字列処理関数は型を見て処理を振り分けるんじゃない？」と100％想像で言ってしまったんで、気になってPHP6-devのソースを見てみた。 zend_variables.cの switch (Z_TYPE_P(zvalue) ~IS_CONSTANT_INDEX) { case IS_CONSTANT: { TSRMLS_FETCH(); if (UG(unicode)) goto dtor_unicode; } case IS_STRING: CHECK_ZVAL_STRING_REL(zvalue); free(Z_STRVAL_P(zvalue)); break; case IS_UNICODE: dtor_unicode: CHECK_ZVAL_..</description>
+
+<content:encoded><![CDATA[<h3>PHP 6のUnicodeサポート</h3><p>
+昼飯の時に「たぶんバイナリ文字列とUTF文字列という二つの文字列型が追加されて、文字列処理関数は型を見て処理を振り分けるんじゃない？」と100％想像で言ってしまったんで、気になってPHP6-devのソースを見てみた。</p>
+<p>zend_variables.cの</p>
+<pre>
+   switch (Z_TYPE_P(zvalue) &amp; ~IS_CONSTANT_INDEX) {
+       case IS_CONSTANT: {
+           TSRMLS_FETCH();
+
+           if (UG(unicode)) goto dtor_unicode;
+       }
+       case IS_STRING:
+           CHECK_ZVAL_STRING_REL(zvalue);
+           free(Z_STRVAL_P(zvalue));
+           break;
+       case IS_UNICODE:
+dtor_unicode:
+           CHECK_ZVAL_UNICODE_REL(zvalue);
+           free(Z_USTRVAL_P(zvalue));
+           break;
+       case IS_ARRAY:
+       case IS_CONSTANT_ARRAY:
+       case IS_OBJECT:
+       case IS_RESOURCE:
+           zend_error(E_CORE_ERROR, "Internal zval's can't be arrays, objects or resources");
+           break;
+       case IS_LONG:
+       case IS_DOUBLE:
+       case IS_BOOL:
+       case IS_NULL:
+       default:
+           break;
+   }
+</pre>
+<p>あたりを見ると、やっぱり従来型のバイナリ文字列とUNICODE文字列の二つの文字列型になるみたいだね。で、各文字列処理関数ではzend_builtin_functions.cから適当に抜き出した、</p>
+<pre>
+ZEND_NAMED_FUNCTION(zend_if_strlen)
+{
+   zval **str;
+
+   if (ZEND_NUM_ARGS() != 1 || zend_get_parameters_ex(1, &amp;str) == FAILURE) {
+       ZEND_WRONG_PARAM_COUNT();
+   }
+
+   switch (Z_TYPE_PP(str)) {
+       case IS_UNICODE:
+           RETVAL_LONG(u_countChar32(Z_USTRVAL_PP(str), Z_USTRLEN_PP(str)));
+           break;
+
+       case IS_STRING:
+           RETVAL_LONG(Z_STRLEN_PP(str));
+           break;
+
+       default:
+           convert_to_text_ex(str);
+           RETVAL_LONG(Z_UNILEN_PP(str));
+           break;
+   }
+}
+</pre>
+<p>みたいな感じで、やっぱりUNICODE文字列かどうかで単純に処理を振り分けているみたい。UNICODE文字列とバイナリ文字列が入り交じった状態の比較とか、文字列結合とかがどうなるかまでは追ってない。</p>
+<p><a href="http://tdiary.ishinao.net/20060819.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060819.html#p02">
+<link>http://tdiary.ishinao.net/20060819.html#p02</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060819.html#p02" />
+<dc:date>2006-08-19T22:06:12+09:00</dc:date>
+<title>そういや</title>
+<dc:creator>ishinao</dc:creator>
+<dc:subject>PHP</dc:subject>
+<dc:subject>Zend Framework</dc:subject>
+<dc:subject>Oracle</dc:subject>
+
+<description>Zend FrameworkがOracleにいつ対応するのか質問していた人がいたけど、現時点でもZend_Dbに..</description>
+<content:encoded><![CDATA[<h3>そういや</h3><p>
+Zend FrameworkがOracleにいつ対応するのか質問していた人がいたけど、現時点でもZend_DbにはZend_Db_Adapter_Oracleとか入っているけど、これがちゃんと動かないってことなのかな？　PDO OracleドライバーもすでにPHP 5.1.4とかには入っているはずだけど、Zend_Db_Adapter_Oracleがあるから、わざわざZend_Db_Adapter_Pdo_Oracleの方は作られないんじゃないかなー。</p>
+<p><a href="http://tdiary.ishinao.net/20060819.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060819.html#p01">
+<link>http://tdiary.ishinao.net/20060819.html#p01</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060819.html#p01" />
+<dc:date>2006-08-19T22:06:12+09:00</dc:date>
+<title>PHPカンファレンス2006</title>
+<dc:creator>ishinao</dc:creator>
+<dc:subject>PHP</dc:subject>
+<dc:subject>Zend Framework</dc:subject>
+
+<description>フレームワークのパネルでZendの回し者になってきました。ネタはいろいろ用意してあったけど、話の流れでほとんど言う暇なかったな。 最後のZeev氏のプレゼンが終わるまでいたんだけど、懇親会までの待ち時間の間に、眠くて吐き気がしてきたんで、懇親会には出ずに帰ってきてしまいました。挨拶できなかった方々すみません。 そういやZeev氏がプレゼンの最後の方で出していた、ZActiveRecord（今はZend_Db_Table）とかZMail（今はZend_Mail）とかZSearch（今はZend_Search_Lucene）とかは、Zend Framework 0.1.1が発表される以前のちょー..</description>
+<content:encoded><![CDATA[<h3><a href="http://www.php.gr.jp/seminar/20060819/">PHPカンファレンス2006</a></h3><p>
+フレームワークのパネルでZendの回し者になってきました。ネタはいろいろ用意してあったけど、話の流れでほとんど言う暇なかったな。</p>
+<p>最後のZeev氏のプレゼンが終わるまでいたんだけど、懇親会までの待ち時間の間に、眠くて吐き気がしてきたんで、懇親会には出ずに帰ってきてしまいました。挨拶できなかった方々すみません。</p>
+<p>そういやZeev氏がプレゼンの最後の方で出していた、ZActiveRecord（今はZend_Db_Table）とかZMail（今はZend_Mail）とかZSearch（今はZend_Search_Lucene）とかは、Zend Framework 0.1.1が発表される以前のちょー古い仕様で、そこで使われていたサンプルコードは現状のZend Frameworkのコンポーネントとは全然違っているんで、あれは信用しないように。っつーか、いったいZeev氏はいつのプレゼン資料を使い回しているんだ？　あれを見てちょっとげんなりした。</p>
+<p>一応事前に準備しておいたネタ帳は以下のような感じ。</p>
+<ul>
+<li>[各フレームワーク] 現状<ul>
+<li>Preview 0.1.5が7/10に出た。</li>
+<li>高機能な（RoRやSymfonyのような）フレームワークとしてはまだ足りないが、基本的なコンポーネントは一通りそろっている。</li>
+<li>Zend Studioとかと連携しての開発支援系は考えているらしい（昨日のセミナーネタ）。Widgetとか言っていたけど、詳細不明。</li>
+<li>完成度は、コア部分は実用レベル。流行りもの系（フィードとかWebサービスとか）はまだビミョー。実際に使う人が増えないと、この辺の品質は上がらないんじゃないかな。たぶん開発者もテストケースとかは書いているけど、アプリケーション風の使い方はしていないように思う（結構基本的なところでダメだったりするし）。</li>
+</ul></li>
+<li>[各フレームワーク] 今後<ul>
+<li>一応今年中には正式版1.0.0が出るらしい。今年9、10月あたりという説もある。まだコンポーネントが足りてない気がするけど……。</li>
+<li>開発の様子は、SubversionレポジトリやMLを見ている限りでは、ちょっと停滞気味かも。がんがん新しいコードが追加されている感じはない。</li>
+<li>proposalはいろいろ出ている。</li>
+<li>バグ管理とかドキュメント管理とかの仕組みも、ようやく安定してきた（それまではいろんなツールをとっかえひっかえ状態だった）。</li>
+<li>PEARが5〜6対応を推し進める方向に向かっているようなので、そちらとのバランスを取らないとリソースの無駄遣いになりそう。と思ったんだけど、PEARとZend Frameworkは全然別物だし、品質とか知財の関係とかで、PEARのような既存のライブラリをZend Frameworkが取り込むことはないそうだ（昨日のセミナー）。</li>
+</ul></li>
+<li>[meta] PHPフレームワークは普及するのか？そもそもフレームワークを使う価値はあるか？<ul>
+<li>基本的に、フレームワークの考え方自体はあらゆるシーンで使える。フレームワークは先人の知恵がコード化されたもの。</li>
+<li>実際の制作物にフレームワークを使うかどうかは、ケースバイケース。ただし、環境さえうまく整えることができるならば、かなり小規模なケースでもフレームワークを採用するメリットが得られる。逆に環境が用意できない場合は、フレームワーク的な考え方だけを利用するか、あるいは小規模な自作フレームワークもどきを使うなどもあり。</li>
+</ul></li>
+<li>[meta] フレームワークの選択基準<ul>
+<li>フレームワークを知らない人は、何でもいいからWebアプリケーションフレームワークの考え方を身につけた方がいい。ある程度メジャーならばなんでもいい。</li>
+<li>実用レベルでの採用を考えると、コードの品質、採用実績、将来性、環境、パフォーマンスあたりが検討材料となる。</li>
+<li>うちの場合は、PHP5への完全移行を決め、それに伴い環境的にPHP5にフル対応しているものを選択し、その中で将来性、コードの品質を重視してZend Frameworkを選んだ。</li>
+<li>コードの品質というのは、PHPのライブラリでは、バグの少なさよりも、いざというときにソースを読んで自分で対応（修正）しやすいかどうかが重要。もちろんバギーすぎるのは困るが、ドキュメントも実績も十分ではないPHPのライブラリでは、自分のコードと同程度にライブラリのコードを追う必要がある。</li>
+<li>そういう意味では、コード規模がまだ小さく、きちんとした規約に基づいて書かれ、異常系処理が例外ベースで統一されたZend Frameworkが、相対的にベストだった。</li>
+<li>現時点だけで言うと、他のフレームワークの方が便利なことが多いとは思う。</li>
+</ul></li>
+<li>[各フレームワーク] バージョンアップ...どう？<ul>
+<li>まったく不明。まだそのあたり（運用後のフレームワークのバージョンアップ対応）まで考えるレベルまで来ていない。</li>
+<li>ただ、設計的に各コンポーネントの結合度が比較的低く、インターフェースもきれいな設計のものが多いので、比較的未来は明るいんじゃなかろうか。</li>
+</ul></li>
+<li>[各フレームワーク] アプリにどこまで食い込むか？(コアonly or CMS方面へ...)<ul>
+<li>現状では、アプリケーションレイヤーよりのフレームワークというよりは、独立したライブラリレイヤーのフレームワークといった位置づけ。というか、疎結合で部分的に他のライブラリと差し替えて使えるように設計してある（昨日のセミナー）そうだ。</li>
+<li>ただし、ZAppのようなアプリケーションフレームワーク的な方向のものもproposalとしては出てきているし、Zend自体もZend Studioと組み合わせての開発支援は考えているみたいなんで、Rails的なアプローチではなく、たぶんマイクロソフトがVisualStudioでやっているようなアプローチに近い支援機能がくるんじゃないかなー。</li>
+<li>ちなみにうちで作っている<a href="http://trac.ishinao.net/webxp/wiki">WEBXP</a>というフレームワークも、Zend Frameworkのコンポーネントを組み合わせてアプリケーションレイヤーよりの作業を効率化するための仕組み。Zend Frameworkは、フレームワーク on フレームワーク的なものを作るのに向いている。</li>
+</ul></li>
+</ul>
+<p>他にも現地でパネルが始まるまでの間にいろいろ追記したんだけど、W-ZERO3[es]が熱暴走して追記した分が失われてしまった。Zend Frameworkを選択した理由とか、他のフレームワークと比較しての特徴とか、いろいろ書いていたんだけど。</p>
+<p><a href="http://tdiary.ishinao.net/20060819.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060818.html#p01">
+<link>http://tdiary.ishinao.net/20060818.html#p01</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060818.html#p01" />
+<dc:date>2006-08-18T19:34:32+09:00</dc:date>
+<title>Zend Frameworkの方向性</title>
+<dc:creator>ishinao</dc:creator>
+<dc:subject>PHP</dc:subject>
+<dc:subject>Zend Framework</dc:subject>
+
+<description>今日のZendのセミナーでZend CTOのZeev Suraski氏の発言のうち、Zend Frameworkに関する部分を思い出しつつ書いておく。 （PHP本体と同様に）とにかくシンプルさがポリシー 使いやすい、エラーが出にくい、互換性が高い、メンテナンス性が高い よく使われる機能（20％）だけに注力 それ以外は拡張性で対応 使いたい機能だけ使えばいい 他のライブラリなどと一緒に使えるようにする よそのフレームワーク（PHP用のものも、それ以外も）は、アイディアレベルではチェックして、良いものは取り込む コードレベルでは..</description>
+<content:encoded><![CDATA[<h3>Zend Frameworkの方向性</h3><p>
+今日のZendのセミナーでZend CTOのZeev Suraski氏の発言のうち、Zend Frameworkに関する部分を思い出しつつ書いておく。</p>
+<ul>
+<li>（PHP本体と同様に）とにかくシンプルさがポリシー<ul>
+<li>使いやすい、エラーが出にくい、互換性が高い、メンテナンス性が高い</li>
+</ul></li>
+<li>よく使われる機能（20％）だけに注力<ul>
+<li>それ以外は拡張性で対応</li>
+</ul></li>
+<li>使いたい機能だけ使えばいい<ul>
+<li>他のライブラリなどと一緒に使えるようにする</li>
+</ul></li>
+<li>よそのフレームワーク（PHP用のものも、それ以外も）は、アイディアレベルではチェックして、良いものは取り込む<ul>
+<li>コードレベルでは他のフレームワークやライブラリのものは絶対取り込まない<ul>
+<li>高品質を保証する</li>
+<li>知財の問題を回避する</li>
+</ul></li>
+</ul></li>
+<li>利用例まで含めたドキュメント作成にも力を入れている</li>
+<li>高品質で必要なコンポーネントのみで構成される<ul>
+<li>PEARのような幅広いライブラリレポジトリとは違う</li>
+<li>将来的にはZend Coreの一部を構成するらしい</li>
+</ul></li>
+<li>追加予定の機能<ul>
+<li>Ajaxとイベントモデル → たぶんAjax（クライアントサイドのロジック）からの通知をPHP（サーバーサイド）でイベントとして処理する仕組みだろうな。</li>
+<li>JSON、Widget → ってなんなのかいまいち分からないけど、WidgetってのはZend Studioとかでもサポートするとかいっていたし、上記と含めてビジュアルコンポーネントっぽいものなのか？</li>
+</ul></li>
+<li>スケジュール<ul>
+<li>今年中には1.0.0を出す予定（他の人は9〜10月と言ってたけど、本人は言ってなかった気がする）</li>
+<li>現時点でも品質は保証するが、APIレベルでの互換性は保証できないので、今から使う人はそのあたりを自己責任で</li>
+</ul></li>
+</ul>
+<p>PEARとは全然違うんだと強く言っていた。「疎結合のフレームワーク＋流行りの機能は取り込むよ」というZend FrameworkとPEARの違いって、使う側からすると大して変わらない（俺的には、PHP5フル対応という点が一番大きな違い）んだけど、作る側（特に企業名を出して）からしたら同じに見て欲しくないってことかな。</p>
+<p>ただ、ユニットテストしているから品質が高いと繰り返していたけど、そういうもんでもないよなー、実際。まあPEARよりも品質を気にしているのは分かるけど。</p>
+<p>そういやPEARのことはいつもは「ピア」と読んでるんだけど、質問するときには<a href="http://pear.php.net/manual/ja/introduction.php">正しい発音</a>通り「ペア」といってみたのに、他の人はみんな「ピア」に近い発音をしていた気がするな。</p>
+<p><a href="http://tdiary.ishinao.net/20060818.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060817.html#p01">
+<link>http://tdiary.ishinao.net/20060817.html#p01</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060817.html#p01" />
+<dc:date>2006-08-17T18:37:47+09:00</dc:date>
+<title>18:15〜18:30までサーバーが止まっていました</title>
+<dc:creator>ishinao</dc:creator>
+<dc:subject>1470.net</dc:subject>
+<dc:subject>障害情報</dc:subject>
+
+<description>フロントに立てたpoundの動いているサーバーが刺さってしまい、18:15くら..</description>
+<content:encoded><![CDATA[<h3>18:15〜18:30までサーバーが止まっていました</h3><p>
+フロントに立てたpoundの動いているサーバーが刺さってしまい、18:15くらいから先ほどまで1470.net関連のサービスが停止していました。申し訳ありません。</p>
+<p>それにしても、このpoundを動かしているサーバーはそろそろやばそうだなー。サーバーを切り替えることを本格的に考えてみるべきだろうか。</p>
+<p><a href="http://tdiary.ishinao.net/20060817.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060628.html#c102">
+<link>http://tdiary.ishinao.net/20060628.html#c102</link>
+<dc:date>2006-08-17T01:12:49+09:00</dc:date>
+<title>2006-06-28のツッコミ[102] (ishinao)</title>
+<dc:creator>ishinao</dc:creator>
+<description>yoshiさん..</description>
+<content:encoded><![CDATA[yoshiさんのデータをインポートしました。]]></content:encoded>
+</item>
+
+<item rdf:about="http://tdiary.ishinao.net/20060628.html#c101">
+<link>http://tdiary.ishinao.net/20060628.html#c101</link>
+<dc:date>2006-08-16T21:09:27+09:00</dc:date>
+<title>2006-06-28のツッコミ[101] (yoshi)</title>
+<dc:creator>yoshi</dc:creator>
+<description>便利に使わせて頂いています。 MM/Memo..</description>
+<content:encoded><![CDATA[便利に使わせて頂いています。
+<br>MM/Memoデータのインポートをお願いします。m(__)m
+<br>
+<br>MM/MemoのID:669
+<br>next ID:yoshi
+<br>
+<br>です。よろしくお願いします。]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060814.html#p02">
+<link>http://tdiary.ishinao.net/20060814.html#p02</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060814.html#p02" />
+
+<dc:date>2006-08-14T14:08:39+09:00</dc:date>
+<title>Zend_Db_TableでdescribeTableを使う場合と使わない場合のベンチマーク</title>
+<dc:creator>ishinao</dc:creator>
+<dc:subject>PHP</dc:subject>
+<dc:subject>Zend Framework</dc:subject>
+<dc:subject>Zend_Db_Table</dc:subject>
+<description>Zend_Db_Tableで、毎回describeTableでテーブル情報を取得する場合と、class定義にあらかじめテーブル情報を記述しておいた場合の、速度比較。 サンプルテーブル定義 CREATE TABLE memo ( id int(11) NOT NULL auto_increment, user_id int(11) NOT NULL default '0', title varchar(255) NOT NULL default '', rgdt datetime NOT NULL default '0000-00-00 00:00:00', updt datetime NOT NULL default '0000-00-00 00:00:00', PRIMARY KEY (id), ) サンプルコード $db = /* デフォルトDB..</description>
+<content:encoded><![CDATA[<h3>Zend_Db_TableでdescribeTableを使う場合と使わない場合のベンチマーク</h3><p>
+Zend_Db_Tableで、毎回describeTableでテーブル情報を取得する場合と、class定義にあらかじめテーブル情報を記述しておいた場合の、速度比較。</p>
+<h4>サンプルテーブル定義</h4>
+<pre>
+CREATE TABLE memo (
+ id int(11) NOT NULL auto_increment,
+ user_id int(11) NOT NULL default '0',
+ title varchar(255) NOT NULL default '',
+ rgdt datetime NOT NULL default '0000-00-00 00:00:00',
+ updt datetime NOT NULL default '0000-00-00 00:00:00',
+ PRIMARY KEY  (id),
+)
+</pre>
+<h4>サンプルコード</h4>
+<pre>
+$db = /* デフォルトDBアダプター */;
+Zend_Db_Table::setDefaultAdapter($db);
+
+// 標準のZend_Db_Table
+class Memo extends Zend_Db_Table {}
+
+// テーブル情報をあらかじめクラス定義で記述
+class Memo2 extends Zend_Db_Table {
+   protected $_name = 'memo';
+   protected $_cols = array(
+       'id' =&gt; 'id',
+       'user_id' =&gt; 'userId',
+       'title' =&gt; 'title',
+       'rgdt' =&gt; 'rgdt',
+       'updt' =&gt; 'updt',
+   );
+}
+
+// シリアライズしてファイルに保存したテーブル情報を利用 
+class Memo3 extends Zend_Db_Table {
+   public function __construct()
+   {
+       $serializedColumns = './columns.txt';
+       $this-&gt;_cols = unserialize(file_get_contents($serializedColumns));
+       parent::__construct();
+   }
+}
+
+$start = microtime(true);
+for ($i = 0; $i &lt; 1000; $i ++) {
+    $table = new Memo();
+}
+$end = microtime(true);
+echo 'Memo: ' . ($end - $start) . "\n";
+
+$start = microtime(true);
+for ($i = 0; $i &lt; 1000; $i ++) {
+    $table = new Memo2();
+}
+$end = microtime(true);
+echo 'Memo2: ' . ($end - $start) . "\n";
+
+$start = microtime(true);
+for ($i = 0; $i &lt; 1000; $i ++) {
+   $table = new Memo3();
+}
+$end = microtime(true);
+echo 'Memo3: ' . ($end - $start) . "\n";
+</pre>
+<h4>結果（3回分）</h4>
+<pre>
+Memo: 3.4024510383606
+Memo2: 0.2038938999176
+Memo3: 0.67136812210083
+</pre>
+<pre>
+Memo: 3.6163651943207
+Memo2: 0.20920920372009
+Memo3: 0.87713384628296
+</pre>
+<pre>
+Memo: 3.3675861358643
+Memo2: 0.20081806182861
+Memo3: 0.63753986358643
+</pre>
+<p><a href="http://tdiary.ishinao.net/20060814.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060814.html#p01">
+
+<link>http://tdiary.ishinao.net/20060814.html#p01</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060814.html#p01" />
+<dc:date>2006-08-14T13:46:39+09:00</dc:date>
+<title>RSS経由で取得したタイトルをURI情報として利用する場合</title>
+<dc:creator>ishinao</dc:creator>
+<dc:subject>1470.net</dc:subject>
+<dc:subject>URI</dc:subject>
+<dc:subject>RSS</dc:subject>
+<description>従来、RSS経由で取得したタイトルなどの情報を、そのままURI..</description>
+
+<content:encoded><![CDATA[<h3>RSS経由で取得したタイトルをURI情報として利用する場合</h3><p>
+従来、RSS経由で取得したタイトルなどの情報を、そのままURI情報として利用していましたが、ノイズがあまりにも多いようなので、RSSのURLとアイテムのURLのホスト名が一致する場合のみ、RSS経由の情報をURIなどに利用するように変更しました。</p>
+<p><a href="http://tdiary.ishinao.net/20060814.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060628.html#c99">
+<link>http://tdiary.ishinao.net/20060628.html#c99</link>
+<dc:date>2006-08-09T00:39:57+09:00</dc:date>
+<title>2006-06-28のツッコミ[99] (ishinao)</title>
+<dc:creator>ishinao</dc:creator>
+<description>jisさんの..</description>
+<content:encoded><![CDATA[jisさんのデータをインポートしました。]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060628.html#c98">
+<link>http://tdiary.ishinao.net/20060628.html#c98</link>
+
+<dc:date>2006-08-08T01:52:37+09:00</dc:date>
+<title>2006-06-28のツッコミ[98] (jis)</title>
+<dc:creator>jis</dc:creator>
+<description>お世話になってます。 デ..</description>
+<content:encoded><![CDATA[お世話になってます。
+<br>データのインポートをお願いします。 
+<br>
+<br>MM/memo ID: 92
+<br>next ID: jis]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060807.html#p01">
+<link>http://tdiary.ishinao.net/20060807.html#p01</link>
+<xhtml:link xhtml:rel="alternate" xhtml:media="handheld" xhtml:type="text/html" xhtml:href="http://tdiary.ishinao.net/20060807.html#p01" />
+<dc:date>2006-08-07T15:48:38+09:00</dc:date>
+<title>spammerな感じの人が元気にメモを投稿しているけど</title>
+
+<dc:creator>ishinao</dc:creator>
+<dc:subject>1470.net</dc:subject>
+<dc:subject>spam</dc:subject>
+<description>どうしようかなー。削除するのは簡単なんだけど、ひとまず何をやるつもりなのか、しばらく様子を見ておこう。はてなの方のアカウントが先に無効になったりするかな？ マルチアカウントでばりばり投稿したりしない限りは、別に消さなくてもいいかなーと思っているんだけど、大量のマルチアカウントはさすがにうざいしなー。 ちなみに、HTTP_USER_AGENTにAlexa Toolbarとか出ているあたり、いかにもそういう方面で飯を食っている人って感じだ。 spam用に自動取得したっぽいアカウント一覧 apple5001sweet apple5002sweet apple5003sweet apple5004swe..</description>
+<content:encoded><![CDATA[<h3>spammerな感じの人が元気にメモを投稿しているけど</h3><p>
+どうしようかなー。削除するのは簡単なんだけど、ひとまず何をやるつもりなのか、しばらく様子を見ておこう。はてなの方のアカウントが先に無効になったりするかな？</p>
+<p>マルチアカウントでばりばり投稿したりしない限りは、別に消さなくてもいいかなーと思っているんだけど、大量のマルチアカウントはさすがにうざいしなー。</p>
+<p>ちなみに、HTTP_USER_AGENTにAlexa Toolbarとか出ているあたり、いかにもそういう方面で飯を食っている人って感じだ。</p>
+<h4>spam用に自動取得したっぽいアカウント一覧</h4>
+<p>apple5001sweet
+apple5002sweet
+apple5003sweet
+apple5004sweet
+apple5005sweet
+apple5006sweet
+apple5007sweet
+apple5008sweet
+apple5009sweet
+apple5010sweet
+egg5011sweet
+egg5012sweet
+egg5013sweet
+egg5014sweet
+egg5015sweet
+egg5016sweet
+egg5017sweet
+egg5018sweet
+jdkfnaf840
+johyywrph3
+jflnfowjr378
+ggdnwgri8027
+ktogqiwti95829 
+glejpqrh72
+hgoti4woi9y0
+nlghwkehjfut673
+thfrlghr0p06jd
+ghhsjrjlu26496
+i3otywkrjg
+gkerhtpey
+kjirdlofi839tke
+fo3u4joth5i
+sjfjg3uykfor
+yoejeu3pru
+yoyyp897r9
+hro2gti4i2
+jldnwo2u56of
+kjdi3ojojwir
+hi5u0utofji
+jyo6kifhk
+gljpskdt3o
+kgkpdmwi80
+nwiry4ih2y5b
+i6mjeoe4g
+nhgitjew1
+itj4ofj2jyp65
+j79y39jf0
+ju6032jf
+jw94756ufki0
+jtej3o47ut
+ghjo3u8njg
+j5igonjflrh
+kjrnhelwo5o3y4 
+gkthjlrhu7ti7o
+fkrbt35o6urn970
+jtkt8i06u3y
+jfhek3696
+jirege6294
+johrky36469
+jfehe954hglrh
+ghekjr3996i
+rhjritp935
+joeh370th
+tmjpo3y5mj
+hgo0tjep3
+jfjt385
+jgjrl303y
+j3ugjrhlryi9y
+hkebhelto9y
+jgklbrl720n
+jfkrbelk0u
+jele2029jo0
+mjro392yt72
+kgej730io
+mrldi54hridh90
+fs4hd64vfiwsg
+high2000low
+dokodemo55
+fhuebl87sgju
+lajow57839
+woi8999cb
+dowcbksa8
+sjuhasu982r5 
+zcxv87a
+sk8dh7rt6sf4
+sga6dhj4eoy8
+aksj133dhw
+tekuteku123po
+weoi837264
+gjro98bn
+world9999wlfh
+cat22dog11sdu
+aoshd76234hb
+s6fugh947fhvo
+s7fj38fyj29ryb
+asug231g0y78u
+g4y6u8kj9lt3ad2
+db37jgy4947alo
+uniextra129873
+aiyt2736sdhfg10
+awawawa6555g
+fhy2938hgdiuw
+asiyg37rg58yj7
+qiwu3323gvhas3
+piropiro101010
+d64ht8hj69r
+d4f5g6h7j89k9
+ko8976hg54td
+aqwsugd328746
+w4e5r6t7y8u8
+asidu2376sdhgf
+oity87kj87hyhh7
+sonnnani293846 
+power8787jcdh
+t5y6u7i8o9i8u7
+woeofuhdbf56r4
+aq1sw2de3rf4t
+gt5hy6ju7ki8lo9
+asiudg76dufhg8
+asd6g7h8h89j
+qopqop068068
+s2f5j7l8j5d2
+sodiasiugd655
+austfd387465h
+as6fy8jy9k80g
+o9i8u7y6t5r4dd
+gdhfgr764hdfg
+asiuy23765ahs
+s5d6f7g7h8
+flash8080rush
+school2837
+q728eh35rhfg
+qw87yweuhy9
+asd_ouhas344
+as623g9th0ppp
+porepore6868
+aq37fhsi8eq
+m9n8b7ytfq
+super28376shgdf
+i1j1taji1asd1
+do9068cdo
+zwmnzwmn37
+uth74h63g_0e 
+asuh7gf83nc2
+s35inmwp49u
+l95ngu36_38fn
+rtyry37t7ugn
+bvbv65hgb7
+ikdomwiesd10
+ikdomwiesd11
+ikdomwiesd12
+ikdomwiesd13
+ikdomwiesd14
+ikdomwiesd15
+ikdomwiesd16
+ikdomwiesd17
+ikdomwiesd18
+ikdomwiesd19
+ukkkigzass54
+ukkkigzass55
+ukkkigzass56
+ukkkigzass57
+ukkkigzass58
+ukkkigzass59
+ukkkigzass60
+ukkkigzass61
+ukkkigzass62
+ukkkigzass63
+blackblack0728
+deunfhh3481
+uyyhsxx344i
+zawuwssn18
+nvhfgklx854 
+mxhfuyeut6
+lseetfhdy56
+mcnxsye645k
+uryerurhfje5
+oii2lsiekoe
+pjieirtutir84
+etryfjdkvmf5
+mcddddjx65
+kiujfnghdfy
+cvbmvky65i
+ddedsweer12
+dffghh1235h
+isksdyefhanx
+ieutueye2346
+siuethw234mc
+sewcxdarsf43
+ofkhiyjh876
+okimnbhg65e3
+ujdhfnfmv76
+etrfyfhdbd56
+lkweret52639
+opytrye464
+qweqw8762
+cndhey567we
+sweqrsy55221
+cmdjfarw2387
+mznceyq425
+dfeei446720
+wieufiekd219
+woiexjhe2334 
+oiuqqkx262dh
+mwdhjki16286
+yrujj87919djw
+lks11333ksud73
+wecjks7c3nf92
+u73nc6whr5
+c7s8ejx4ee
+w7d5vg7c43
+ls347de8
+l2s9dek7r355
+iwe88823dddd
+etwoio343258n
+wieueudueb
+iwje2833873
+vyruy36576iyi
+x223445558n
+jieo287hjj76
+qqaawwss0001
+qqaawwss0002
+qqaawwss0003
+qqaawwss0004
+qqaawwss0005
+qqaawwss0006
+qqaawwss0007
+qqaawwss0008
+qqaawwss0009
+qqaawwss0010
+wwsseedd0001 
+wwsseedd0002
+wwsseedd0003
+wwsseedd0004
+augjf93847
+sidjr84758
+flgkt98473
+dhtik94637
+sigkr64758
+sigur84736
+ghuth99987
+seirn56565
+ghjfu47567
+thfur66657
+vbght85746
+vbfhg74352
+qwert74636
+kijuh76453
+hhjfh34563
+poiuy78639
+yturi88876
+urhfy56471
+udhrn74633
+vbcnf63471
+lkfjr09876
+erydb54356
+rtfgv43621
+cvdfe55555
+xvdcf34627
+yhfbg09340
+unfhg66866
+cbvgf64536
+asdfg93847
+hjgkh12121
+qwhjo74377
+tytyr55575
+bnmmn96789
+rvvbf77412
+mkjio78654
+lpoik97534
+cvfhr34534
+ifkrj47583
+cbvhf76384
+vjguti99999
+ksjrm39845
+cjfnr87364
+akdir39485
+fjfjf94949
+kglto99874
+poium43562
+ifmrj38475
+jfhgu77771
+porjt84637
+dlrkt84950
+aaskk94857
+plfor93847
+forkt93748
+okfir84958
+ckfit94857
+aisurj39485
+fjrut87634 
+sifir88888
+sssir87485
+sifun83746
+aisur47364
+hwlorje4i9dg
+qwiyg763jhs
+ksieudfyy37cjnw
+lslsslsl1344lsi
+zzowuueksl5</p>
+<h4>上記アカウントの人が投稿したURI一覧</h4>
+<p>（後で書く）</p>
+<p><a href="http://tdiary.ishinao.net/20060807.html#c">ツッコミを入れる</a></p>]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060628.html#c97">
+<link>http://tdiary.ishinao.net/20060628.html#c97</link>
+<dc:date>2006-08-07T07:40:24+09:00</dc:date>
+<title>2006-06-28のツッコミ[97] (ishinao)</title>
+
+<dc:creator>ishinao</dc:creator>
+<description>koabeさん..</description>
+<content:encoded><![CDATA[koabeさんのデータをインポートしました。]]></content:encoded>
+</item>
+<item rdf:about="http://tdiary.ishinao.net/20060628.html#c96">
+<link>http://tdiary.ishinao.net/20060628.html#c96</link>
+<dc:date>2006-08-06T12:51:13+09:00</dc:date>
+<title>2006-06-28のツッコミ[96] (koabe)</title>
+<dc:creator>koabe</dc:creator>
+<description>便利に使わせていただいています。..</description>
+
+<content:encoded><![CDATA[便利に使わせていただいています。ありがとうございます。
+<br>データのインポートをお願いします。
+<br>MM/memo ID: 678
+<br>next ID: koabe
+<br>]]></content:encoded>
+</item>
+</rdf:RDF>
