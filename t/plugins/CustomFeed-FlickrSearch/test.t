@@ -2,7 +2,7 @@ use strict;
 use t::TestPlagger;
 
 test_requires_network;
-
+test_plugin_deps;
 plan 'no_plan';
 
 run_eval_expected;

@@ -2,6 +2,7 @@ use strict;
 use t::TestPlagger;
 
 test_requires_network 'svn.bulknews.net:80';
+test_plugin_deps;
 plan 'no_plan';
 
 run_eval_expected;
