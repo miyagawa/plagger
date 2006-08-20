@@ -2,6 +2,7 @@ use strict;
 use t::TestPlagger;
 
 test_plugin_deps;
+test_requires('Text::Emoticon::GoogleTalk');
 plan 'no_plan';
 run_eval_expected;
 

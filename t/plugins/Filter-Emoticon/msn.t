@@ -2,6 +2,7 @@ use strict;
 use t::TestPlagger;
 
 test_plugin_deps;
+test_requires('Text::Emoticon::MSN');
 plan 'no_plan';
 run_eval_expected;
 
@@ -18,10 +19,10 @@ plugins:
           body: hello :)
   - module: Filter::Emoticon
     config:
-      driver: Yahoo
+      driver: MSN
     option:
       strict: 1
       xhtml: 0
 --- expected
 ok 1, $block->name;
-is $context->update->feeds->[0]->entries->[0]->body, 'hello <img src="http://us.i1.yimg.com/us.yimg.com/i/mesg/emoticons6/1.gif" />'
+is $context->update->feeds->[0]->entries->[0]->body, 'hello <img src="http://messenger.msn.com/Resource/emoticons/regular_smile.gif" />';
