@@ -2,14 +2,16 @@ package Plagger::UserAgent;
 use strict;
 use base qw( LWP::UserAgent );
 
+use Carp;
 use Plagger::Cookies;
+use Plagger::FeedParser;
 use URI::Fetch 0.06;
 
 sub new {
     my $class = shift;
     my $self  = $class->SUPER::new(@_);
 
-    my $conf = Plagger->context->conf->{user_agent};
+    my $conf = Plagger->context ? Plagger->context->conf->{user_agent} : {};
     if ($conf->{cookies}) {
         $self->cookie_jar( Plagger::Cookies->create($conf->{cookies}) );
     }
@@ -18,7 +20,9 @@ sub new {
     $self->timeout( $conf->{timeout} || 15 );
     $self->env_proxy();
 
-    Plagger->context->run_hook('useragent.init', { ua => $self });
+    if (Plagger->context) {
+        Plagger->context->run_hook('useragent.init', { ua => $self });
+    }
 
     $self;
 }
@@ -43,7 +47,9 @@ sub fetch {
 sub request {
     my $self = shift;
     my($req) = @_;
-    Plagger->context->run_hook('useragent.request', { ua => $self, url => $req->uri, req => $req });
+    if (Plagger->context) {
+        Plagger->context->run_hook('useragent.request', { ua => $self, url => $req->uri, req => $req });
+    }
     $self->SUPER::request(@_);
 }
 
@@ -100,6 +106,40 @@ sub mirror {
         unlink($tmpfile);
     }
     return $response;
+}
+
+sub find_parse {
+    my($self, $url) = @_;
+    $url = URI->new($url) unless ref $url;
+
+    $self->parse_head(0);
+    my $response = $self->fetch($url);
+    if ($response->is_error) {
+        Carp::croak("Error fetching $url: ", $response->http_status);
+    }
+
+    my $feed_url = Plagger::FeedParser->discover($response);
+    if ($url eq $feed_url) {
+        return Plagger::FeedParser->parse(\$response->content);
+    } elsif ($feed_url) {
+        return $self->fetch_parse($feed_url);
+    } else {
+        Carp::croak("Can't find feed from $url");
+    }
+}
+
+sub fetch_parse {
+    my($self, $url) = @_;
+    $url = URI->new($url) unless ref $url;
+
+    $self->parse_head(0);
+
+    my $response = $self->fetch($url);
+    if ($response->is_error) {
+        Carp::croak("Error fetching $url: ", $response->http_status);
+    }
+
+    Plagger::FeedParser->parse(\$response->content);
 }
 
 1;

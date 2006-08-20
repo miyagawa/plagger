@@ -2,10 +2,8 @@ package Plagger::Plugin::Filter::HatenaBookmarkTag;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Plagger::UserAgent;
 use URI;
-use XML::Feed;
-
-$XML::Feed::RSS::PREFERRED_PARSER = 'XML::RSS::LibXML';
 
 sub register {
     my($self, $context) = @_;
@@ -19,11 +17,12 @@ sub update {
     my($self, $context, $args) = @_;
 
     # xxx need cache & interval
+    my $agent = Plagger::UserAgent->new;
     my $url  = 'http://b.hatena.ne.jp/entry/rss/' . $args->{entry}->permalink;
-    my $feed = XML::Feed->parse( URI->new($url) );
+    my $feed = eval { $agent->fetch_parse( URI->new($url) ) };
 
-    unless ($feed) {
-        $context->log(warn => "Feed error $url: " . XML::Feed->errstr);
+    if ($@) {
+        $context->log(error => "Feed error $url: $@");
         return;
     }
 

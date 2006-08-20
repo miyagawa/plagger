@@ -4,14 +4,11 @@ use base qw( Plagger::Plugin );
 
 use Feed::Find;
 use Plagger::Enclosure;
+use Plagger::FeedParser;
 use Plagger::UserAgent;
 use List::Util qw(first);
 use UNIVERSAL::require;
 use URI;
-use XML::Feed;
-use XML::Feed::RSS;
-
-$XML::Feed::RSS::PREFERRED_PARSER = first { $_->require } qw( XML::RSS::Liberal XML::RSS::LibXML XML::RSS );
 
 sub register {
     my($self, $context) = @_;
@@ -33,27 +30,17 @@ sub aggregate {
 
     $content_type =~ s/;.*$//; # strip charset= cruft
 
-    my $content = $res->content;
-    if ( $Feed::Find::IsFeed{$content_type} || $self->looks_like_feed(\$content) ) {
-        $self->handle_feed($url, \$content, $args->{feed});
+    my $feed_url = Plagger::FeedParser->discover($res);
+    if ($url eq $feed_url) {
+        $self->handle_feed($url, \$res->content, $args->{feed});
+    } elsif ($feed_url) {
+        $res = $self->fetch_content($feed_url) or return;
+        $self->handle_feed($feed_url, \$res->content, $args->{feed});
     } else {
-        $content = Plagger::Util::decode_content($res);
-        my @feeds = Feed::Find->find_in_html(\$content, $url);
-        if (@feeds) {
-            $url = $feeds[0];
-            $res = $self->fetch_content($url) or return;
-            $self->handle_feed($url, \$res->content, $args->{feed});
-        } else {
-            return;
-        }
+        return;
     }
 
     return 1;
-}
-
-sub looks_like_feed {
-    my($self, $content_ref) = @_;
-    $$content_ref =~ m!<rss |<rdf:RDF\s+.*?xmlns="http://purl\.org/rss|<feed\s+xmlns="!s;
 }
 
 sub fetch_content {
@@ -63,7 +50,6 @@ sub fetch_content {
     $context->log(info => "Fetch $url");
 
     my $agent = Plagger::UserAgent->new;
-       $agent->parse_head(0);
     my $response = $agent->fetch($url, $self);
 
     if ($response->is_error) {
@@ -87,19 +73,9 @@ sub handle_feed {
     my $args = { content => $$xml_ref };
     $context->run_hook('aggregator.filter.feed', $args);
 
-    # override XML::LibXML with Liberal
-    my $sweeper; # XML::Liberal >= 0.13
-
-    eval { require XML::Liberal };
-    if (!$@ && $XML::Liberal::VERSION >= 0.10) {
-        $sweeper = XML::Liberal->globally_override('LibXML');
-    }
-
-    local $XML::Atom::ForceUnicode = 1;
-    my $remote = eval { XML::Feed->parse(\$args->{content}) };
-
-    unless ($remote) {
-        $context->log(error => "Parsing $url failed. " . ($@ || XML::Feed->errstr));
+    my $remote = eval { Plagger::FeedParser->parse(\$args->{content}) };
+    if ($@) {
+        $context->log(error => "Parser $url failed: $@");
         return;
     }
 
