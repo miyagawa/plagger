@@ -1,6 +1,7 @@
 package Plagger::ConfigLoader;
 use strict;
 use Carp;
+use Plagger::Walker;
 
 sub new {
     my $class = shift;
@@ -20,6 +21,10 @@ sub load {
         $config = Storable::dclone($stuff);
     } else {
         croak "Plagger::ConfigLoader->load: $stuff: $!";
+    }
+
+    unless ($config->{global} && $config->{global}->{no_decode_utf8}) {
+        Plagger::Walker->decode_utf8($config);
     }
 
     return $config;

@@ -8,9 +8,6 @@ use URI::Escape;
 sub load {
     my($self, $context) = @_;
 
-    my $keyword = $self->conf->{keyword};
-       $keyword = [ $keyword ] unless ref $keyword;
-
     my $lang = $self->conf->{lang} || 'default';
     $lang = [ $lang ] unless ref $lang;
 
@@ -23,27 +20,27 @@ sub load {
         },
     );
 
-    for my $kw (@$keyword) {
-	for my $site (@{ $self->{engines} }) {
-	    my $site_url = $site; # copy
+    for my $site (@{ $self->{engines} }) {
+        my $site_url = $site; # copy
 
-            # use eval ... die to skip if there's no url/keyword
-            eval {
-                $site_url =~ s{{([\w\-\:]+)}}{
-                    my($key, $encoding) = split /:/, $1;
+        # use eval ... die to skip if there's no url/keyword
+        eval {
+            $site_url =~ s{{([\w\-\:]+)}}{
+                my($key, $encoding) = split /:/, $1;
 
-                    my $data = $self->conf->{$key} or die "$key is not there";
-                    if ($encoding && $encoding ne 'utf-8') {
-                        Encode::from_to($data, "utf-8" => $encoding);
-                    }
+                my $data = $self->conf->{$key} or die "$key is not there";
+                if ($encoding && $encoding ne 'utf-8') {
+                    $data = Encode::encode($encoding, $data);
+                } else {
+                    $data = Encode::encode_utf8($data);
+                }
 
-                    my $chunk = URI::Escape::uri_escape($data);
-                    $chunk =~ s/%20/+/g; # hack
-                    $chunk;
-                }eg;
-                push @{$self->conf->{feed}}, { url => $site_url }
-            };
-	}
+                my $chunk = URI::Escape::uri_escape($data);
+                $chunk =~ s/%20/+/g; # hack
+                $chunk;
+            }eg;
+            push @{$self->conf->{feed}}, { url => $site_url }
+        };
     }
 
     $self->SUPER::load($context);

@@ -1,6 +1,6 @@
 use strict;
-use t::TestPlagger;
 use utf8;
+use t::TestPlagger;
 
 test_plugin_deps;
 plan 'no_plan';

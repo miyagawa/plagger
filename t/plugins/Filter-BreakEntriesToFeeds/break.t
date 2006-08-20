@@ -1,5 +1,5 @@
-use t::TestPlagger;
 use utf8;
+use t::TestPlagger;
 
 plan 'no_plan';
 run_eval_expected;

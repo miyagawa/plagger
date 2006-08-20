@@ -1,5 +1,4 @@
 use t::TestPlagger;
-use utf8;
 
 test_plugin_deps('Filter-EntryFullText', 1);
 plan 'no_plan';
