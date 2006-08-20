@@ -1,0 +1,4 @@
+link: http://technorati.jp/search/search.html
+query:
+  query: $args->{entry}->permalink
+content: <img src="http://technorati.jp/favicon.ico" border="0" alt="Technorati Search" style="border:0;vertical-align:middle" />
