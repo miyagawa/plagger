@@ -1,9 +1,5 @@
 use strict;
-use FindBin;
-use File::Spec;
 use t::TestPlagger;
-
-our $output = "$FindBin::Bin/rss.xml";
 
 test_plugin_deps;
 plan 'no_plan';
