@@ -245,6 +245,7 @@ sub extract {
     if ($self->{extract}) {
 	if (my @match = $args->{content} =~ /$self->{extract}/s) {
 	    my @capture = split /\s+/, $self->{extract_capture};
+            @capture = ('body') unless @capture;
 	    @{$data}{@capture} = @match;
 	}
     }
