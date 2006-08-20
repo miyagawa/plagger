@@ -3,6 +3,7 @@ use t::TestPlagger;
 
 test_requires_network 'b.hatena.ne.jp:80';
 
+test_plugin_deps;
 plan 'no_plan';
 run_eval_expected;
 
