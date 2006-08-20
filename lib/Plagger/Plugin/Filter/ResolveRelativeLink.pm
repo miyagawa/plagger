@@ -26,7 +26,7 @@ sub filter {
     my $html = $resolver->resolve($entry->body);
 
     if (my $count = $resolver->resolved_count) {
-        $context->log(info => "Resolved $count link(s) in " . $entry->permalink);
+        $context->log(info => "Resolved $count link(s) in $base");
         $entry->body($html);
     }
 }

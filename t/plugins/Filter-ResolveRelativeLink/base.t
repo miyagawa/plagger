@@ -17,6 +17,21 @@ plugins:
       entry:
         - title: bar
           body: <a href="/foo/bar">Plagger</a> is a pluggable aggregator
+          link: http://plagger.org/
+  - module: Filter::ResolveRelativeLink
+--- expected
+is $context->update->feeds->[0]->entries->[0]->body, '<a href="http://plagger.org/foo/bar">Plagger</a> is a pluggable aggregator'
+
+=== resolve with feed link
+--- input config
+plugins:
+  - module: CustomFeed::Debug
+    config:
+      title: foo
+      link: http://www.example.com/show/foo
+      entry:
+        - title: bar
+          body: <a href="/foo/bar">Plagger</a> is a pluggable aggregator
   - module: Filter::ResolveRelativeLink
 --- expected
 is $context->update->feeds->[0]->entries->[0]->body, '<a href="http://www.example.com/foo/bar">Plagger</a> is a pluggable aggregator'
