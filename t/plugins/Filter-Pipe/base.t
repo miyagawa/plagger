@@ -1,10 +1,10 @@
 use strict;
 use t::TestPlagger;
 use File::Spec;
-use Encode::Detect::Detector;
 
 test_plugin_deps;
 test_requires_command('tee');
+test_requires('Encode::Detect::Detector');
 
 our $tmp = File::Spec->catdir($ENV{TEMP} || $ENV{TMP} || '/tmp',  $$ . time);
 
