@@ -31,5 +31,7 @@ plugins:
   - module: Publish::CHTML
     config:
       work: $FindBin::Bin/tmp
+      title: Boofy
 --- expected
 file_contains($main::output, qr{<!DOCTYPE HTML PUBLIC "-//W3C//DTD Compact HTML 1.0 Draft//EN">});
+file_contains($main::output, qr{<title>Boofy</title>});
