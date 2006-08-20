@@ -43,7 +43,7 @@ sub aggregate {
         my $res = $ua->mirror("http://youtube.com/results?search_type=search_videos&search_query=$q&search_sort=$sort&search_category=0&page=$_" => $file);
 
         if($res->is_error){
-            $context->log( error => $res->status_line );
+            $context->log( error => $res->status );
             return;
         }
 
@@ -102,7 +102,7 @@ sub aggregate {
                         "item-" . $entry->link, sub {
                             my $res = $ua->fetch($entry->link);
                             if ($res->is_error){
-                                $context->log( error => $res->status_line );
+                                $context->log( error => $res->status );
                                 return;
                             }
                             my $url;
