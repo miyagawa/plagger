@@ -1,4 +1,4 @@
 name: Filter::HatenaKeywordTag
-author: SHIBATA Hiroshi
+author: Yuichi Tateno (id:secondlife)
 depends:
   Hatena::Keyword: 0
