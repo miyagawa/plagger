@@ -1,0 +1,4 @@
+name: Subscription::Odeo
+author: Tatsuhiko Miyagawa
+bundles:
+  - Subscription::OPML

@@ -3,6 +3,7 @@ use t::TestPlagger;
 
 test_requires_network 'www.odeo.com:80';
 
+test_plugin_deps;
 plan tests => 4;
 run_eval_expected;
 
