@@ -2,10 +2,10 @@ use strict;
 use t::TestPlagger;
 
 test_plugin_deps;
+plan skip_all => 'The site it tries to test is unreliable.' unless $ENV{TEST_UNRELIABLE_NETWORK};
 test_requires_network;
-plan 'no_plan';
 
-sleep 3; # to avoid throttle
+plan 'no_plan';
 run_eval_expected;
 
 __END__

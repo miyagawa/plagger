@@ -1,6 +1,7 @@
 use strict;
 use t::TestPlagger;
 
+plan skip_all => 'The site it tries to test is unreliable.' unless $ENV{TEST_UNRELIABLE_NETWORK};
 test_requires_network 'www.youtube.com:80';
 
 plan 'no_plan';
