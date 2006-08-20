@@ -1,0 +1,5 @@
+name: Filter::URLBL
+author: Tatsuhiko Miyagawa
+depends: 
+  Net::DNS::Resolver: 0
+  URI::Find: 0
