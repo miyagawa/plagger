@@ -59,7 +59,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/tags-in-title.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/tags-in-title.xml
   - module: Bundle::Planet
     config:
       dir: $main::dir

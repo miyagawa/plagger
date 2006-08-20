@@ -21,7 +21,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/babelfish.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/babelfish.xml
 --- expected
 is $context->update->feeds->[0]->entries->[0]->title, '猫';
 sleep(1);
@@ -37,7 +37,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/babelfish.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/babelfish.xml
   - module: Filter::Babelfish
     config:
       source: Japanese
@@ -59,7 +59,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/babelfish.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/babelfish.xml
   - module: Filter::Babelfish
     config:
       source: Japanese
@@ -81,7 +81,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/babelfish.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/babelfish.xml
   - module: Filter::Babelfish
     config:
 #      source: Japanese

@@ -21,7 +21,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/rss2sample.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss2sample.xml
   - module: Notify::Beep
     config:
       music: "g' f bes' c8 f d4 c8 f d4 bes c g f2"

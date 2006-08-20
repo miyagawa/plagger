@@ -27,7 +27,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/rss2sample.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss2sample.xml
   - module: Notify::Eject
 --- expected
 like $warning, qr/eject ok/;

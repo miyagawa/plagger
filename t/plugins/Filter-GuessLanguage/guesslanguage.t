@@ -16,7 +16,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/english.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/english.xml
   - module: Filter::GuessLanguage
     config:
       target: feed
@@ -29,7 +29,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/english_nolang.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/english_nolang.xml
   - module: Filter::GuessLanguage
     config:
       target: feed
@@ -42,7 +42,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/german.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/german.xml
   - module: Filter::GuessLanguage
     config:
       target: feed
@@ -55,7 +55,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/german_nolang.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/german_nolang.xml
   - module: Filter::GuessLanguage
     config:
       target: feed
@@ -68,7 +68,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/japanese.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/japanese.xml
   - module: Filter::GuessLanguage
     config:
       target: feed
@@ -81,7 +81,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/japanese_nolang.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/japanese_nolang.xml
   - module: Filter::GuessLanguage
     config:
       target: feed
@@ -94,7 +94,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/mixed.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/mixed.xml
   - module: Filter::GuessLanguage
     config:
       target: both
@@ -109,7 +109,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../../samples/guess-language/mixed_nolang.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/guess-language/mixed_nolang.xml
   - module: Filter::GuessLanguage
     config:
       target: both
