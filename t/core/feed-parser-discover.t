@@ -20,21 +20,21 @@ __END__
 
 === Straight Feed URL
 --- input
-http://d.hatena.ne.jp/miyagawa/rss
+http://feeds.feedburner.com/bulknews
 --- expected
-http://d.hatena.ne.jp/miyagawa/rss
+http://feeds.feedburner.com/bulknews
 
-=== Straight Feed URL RSS2
+=== Straight Feed TypePad
 --- input
-http://d.hatena.ne.jp/miyagawa/rss2
+http://bulknews.typepad.com/blog/atom.xml
 --- expected
-http://d.hatena.ne.jp/miyagawa/rss2
+http://bulknews.typepad.com/blog/atom.xml
 
 === Auto-Disocvery
 --- input
-http://d.hatena.ne.jp/miyagawa/
+http://subtech.g.hatena.ne.jp/miyagawa/
 --- expected
-http://d.hatena.ne.jp/miyagawa/rss
+http://subtech.g.hatena.ne.jp/miyagawa/rss2
 
 === No RSS Auto-Discovery
 --- input

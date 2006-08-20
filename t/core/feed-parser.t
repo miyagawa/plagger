@@ -18,18 +18,12 @@ __END__
 
 === Straight Feed URL
 --- input
-http://d.hatena.ne.jp/miyagawa/rss
+http://subtech.g.hatena.ne.jp/miyagawa/rss
 --- expected
-miyagawaの日記
-
-=== Straight Feed URL RSS2
---- input
-http://d.hatena.ne.jp/miyagawa/rss2
---- expected
-miyagawaの日記
+Bulknews::Subtech
 
 === Auto-Discovery
 --- input
-http://d.hatena.ne.jp/miyagawa/
+http://blog.bulknews.net/mt/
 --- expected
-miyagawaの日記
+blog.bulknews.net
