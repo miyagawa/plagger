@@ -2,6 +2,7 @@ use strict;
 use t::TestPlagger;
 
 test_requires_network 'd.hatena.ne.jp:80';
+test_plugin_deps;
 
 plan tests => 6;
 run_eval_expected;
