@@ -7,7 +7,7 @@ run_eval_expected;
 
 __END__
 
-=== Loading Filter::eedFlareStripper
+=== Loading Filter::FeedFlareStripper
 --- input config
 plugins:
   - module: CustomFeed::Debug
