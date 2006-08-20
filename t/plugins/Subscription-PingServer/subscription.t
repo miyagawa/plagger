@@ -1,7 +1,7 @@
 use strict;
 use t::TestPlagger;
 
-test_requires_network 'd.hatena.ne.jp:80';
+test_requires_network 'blog.goo.ne.jp:80';
 test_plugin_deps;
 
 plan tests => 6;
@@ -16,7 +16,7 @@ plugins:
     config:
       fetch_items: 20
       servers:
-        - url: http://d.hatena.ne.jp/changes.xml
+        - url: http://blog.goo.ne.jp/index.php?fid=freshEntryChangesXml
   - module: Aggregator::Null
 --- expected
 ok $context->subscription->feeds->[0]->url;
