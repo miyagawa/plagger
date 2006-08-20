@@ -16,7 +16,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file:///$FindBin::Bin/../samples/rss-full.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
 --- expected
 is $context->subscription->feeds->[0]->title, "Bulknews::Subtech";
 
@@ -29,7 +29,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - url: file:///$FindBin::Bin/../samples/rss-full.xml
+        - url: file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
           title: Foo
 --- expected
 is $context->subscription->feeds->[0]->title, "Foo";

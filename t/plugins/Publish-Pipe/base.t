@@ -3,7 +3,7 @@ use FindBin;
 use File::Spec;
 use t::TestPlagger;
 
-our $url = "file:///$FindBin::Bin/../../samples/rss-full.xml";
+our $url = "file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml";
 our $output = $FindBin::Bin . "/output.txt";
 
 test_requires_command 'sed';
