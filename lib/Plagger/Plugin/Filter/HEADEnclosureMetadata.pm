@@ -2,6 +2,7 @@ package Plagger::Plugin::Filter::HEADEnclosureMetadata;
 use strict;
 use base qw( Plagger::Plugin );
 
+use File::Basename;
 use Plagger::UserAgent;
 
 sub register {
@@ -62,7 +63,7 @@ sub fetch_metadata {
     return {
         'length' => _header($res, 'Content-Length'),
         'type'   => _header($res, 'Content-Type'),
-        'filename' => _filename($res),
+        'filename' => scalar _filename($res),
     };
 }
 
@@ -76,9 +77,9 @@ sub _header {
 
 sub _filename {
     my $res = shift;
-    my $value = $res->header('Content-Disposition');
+    my $value = $res->header('Content-Disposition') or return;
 
-    my $filename = ( $value =~ /; filename=(\S*)/ )[0] or return undef;
+    my $filename = ( $value =~ /; filename=(\S*)/ )[0] or return;
     $filename =~ s/^"(.*?)"$/$1/;
     $filename;
 }
