@@ -18,7 +18,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../samples/photocast.rss
+        - file://$t::TestPlagger::BaseDirURI/t/samples/photocast.rss
   # OMG Apple Photocast has invalida pubDate formats ... fix it.
   - module: Filter::RSSLiberalDateTime
 --- expected

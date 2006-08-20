@@ -20,7 +20,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../samples/vox.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/vox.xml
   - module: Publish::Feed
     config:
       dir: $FindBin::Bin

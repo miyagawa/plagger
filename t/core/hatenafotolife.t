@@ -17,7 +17,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../samples/hatenafotolife.rdf
+        - file://$t::TestPlagger::BaseDirURI/t/samples/hatenafotolife.rdf
 
 --- expected
 my @feeds = $context->update->feeds;

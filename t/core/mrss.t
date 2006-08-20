@@ -17,8 +17,8 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../samples/monkey.rss
-        - file://$FindBin::Bin/../samples/googlevideo.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/monkey.rss
+        - file://$t::TestPlagger::BaseDirURI/t/samples/googlevideo.xml
 --- expected
 my @feeds = $context->update->feeds;
 

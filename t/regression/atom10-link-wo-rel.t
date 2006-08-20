@@ -16,7 +16,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$FindBin::Bin/../samples/atom10-example.xml
+        - file://$t::TestPlagger::BaseDirURI/t/samples/atom10-example.xml
 --- expected
 is $context->update->feeds->[0]->title, "Example Feed";
 ok $context->update->feeds->[0]->link;
