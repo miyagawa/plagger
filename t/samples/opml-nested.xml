@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.1">
+<head>
+    <title>Sample Subscriptions</title>
+    <dateCreated></dateCreated>
+    <ownerName></ownerName>
+</head>
+<body>
+    <outline title="Subscriptions">
+      <outline title="Foo">
+        <outline title="blog.bulknews.net" text="blog.bulknews.net" htmlUrl="http://blog.bulknews.net/mt/" type="rss" xmlUrl="http://blog.bulknews.net/mt/index.rdf" />
+      </outline>
+      <outline title="Bar">
+        <outline title="Baz">
+          <outline title="Bulknews::Subtech" text="Bulknews::Subtech" htmlUrl="http://subtech.g.hatena.ne.jp/miyagawa/" type="rss" xmlUrl="http://subtech.g.hatena.ne.jp/miyagawa/rss" />
+        </outline>
+      </outline>
+    </outline>
+</body>
+</opml>
