@@ -1,0 +1,4 @@
+name: Filter::HatenaKeywordTag
+author: SHIBATA Hiroshi
+depends:
+  Hatena::Keyword: 0
