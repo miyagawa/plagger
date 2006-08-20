@@ -34,6 +34,13 @@ sub aggregate {
         my $entry = Plagger::Entry->new;
         $entry->$_($entry_conf->{$_}) for keys %$entry_conf;
         $feed->add_entry($entry);
+
+        # enclosure
+        for my $enclosure_conf ( @{ $entry_conf->{enclosure} } ){
+            my $enclosure = Plagger::Enclosure->new;
+            $enclosure->$_($enclosure_conf->{$_}) for keys %$enclosure_conf;
+            $entry->add_enclosure($enclosure);
+        }
     }
 
     $context->update->add($feed);
@@ -60,6 +67,10 @@ Plagger::Plugin::CustomFeed::Debug - Feed in config.yaml
         - title: 'Second Entry'
           link: 'http://localhost/2'
           body: 'Good Bye! :P'
+          enclosure:
+            - url: http://localhost/debug.flv
+              filename: debug.flv
+              type: video/x-flv
 
 =head1 DESCRIPTION
 
