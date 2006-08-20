@@ -31,8 +31,8 @@ sub filter {
 # http://cvs.sourceforge.net/viewcvs.py/tdiary/plugin/makerss.rb?rev=1.37
 our $FeedMagic = <<'MAGIC';
 ^<\?xml version="1.0" encoding=".*?"\?>
-<\?xml-stylesheet href="rss\.css" type="text/css"\?>
-<rdf:RDF xmlns="http://purl\.org/rss/1\.0/" xmlns:rdf="http://www\.w3\.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl\.org/dc/elements/1\.1/" xmlns:content="http://purl\.org/rss/1\.0/modules/content/" xml:lang=".*?">
+<\?xml-stylesheet href=".*?\.css" type="text/css"\?>
+<rdf:RDF xmlns="http://purl\.org/rss/1\.0/" xmlns:rdf="http://www\.w3\.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl\.org/dc/elements/1\.1/" xmlns:content="http://purl\.org/rss/1\.0/modules/content/" xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang=".*?">
 MAGIC
 
 sub tdiary_magic {
