@@ -1,0 +1,4 @@
+name: Filter::Markdown
+author: Nobuhito Sato
+depends: 
+  Text::Markdown: 0
