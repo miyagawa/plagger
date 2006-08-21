@@ -2,5 +2,5 @@ link: http://www.digg.com/submit
 query:
   phase: 2
   url:   $args->{entry}->permalink
-content: <img src="http://digg.com/favicon.ico" alt="digg this story" style="border:0;vertical-align:middle" />
+content: <img src="http://www.diigo.com/images/digg_16x16.gif" alt="digg this story" style="border:0;vertical-align:middle" />
 
