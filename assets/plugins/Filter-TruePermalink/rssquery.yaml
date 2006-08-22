@@ -1,0 +1,4 @@
+author: Tatsuhiko Miyagawa
+rewrite: s/\?(?:atom|rss|rssall)$//
+
+
