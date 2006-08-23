@@ -97,7 +97,7 @@ sub handle_feed {
     }
 
     if ($remote->format =~ /^RSS/) {
-        $feed->image( $remote->{rss}->image )
+        $feed->image( \%{$remote->{rss}->image} )
             if $remote->{rss}->image;
     } elsif ($remote->format eq 'Atom') {
         $feed->image({ url => $remote->{atom}->logo })
@@ -157,6 +157,11 @@ sub handle_feed {
                 $enclosure->auto_set_type($link->type);
                 $entry->add_enclosure($enclosure);
             }
+        }
+
+        # entry image support
+        if ($remote->format =~ /^RSS / and my $img = $e->{entry}->{image}) {
+            $entry->icon(\%$img);
         }
 
         # TODO: move MediaRSS, Hatena, iTunes and those specific parser to be subclassed

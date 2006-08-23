@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:ldWeather="http://weather.livedoor.com/ns/rss/2.0">
+<channel>
+<title>東京都 - 東京の天気 - livedoor 天気情報</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss</link>
+<description>[ 東京都の天気概況 ] 東京地方では、今夜遅くにかけて雷の発生するおそれがあります。落雷や突風に注意して下さい。
+
+本州付近は、日本海の高気圧に緩やかに覆われています。
+現在、...</description>
+<lastBuildDate>Wed, 23 Aug 2006 17:00:00 +0900</lastBuildDate>
+
+<author>livedoor Weather Team.</author>
+<language>ja</language>
+<category>天気情報</category>
+<generator>http://weather.livedoor.com/</generator>
+<copyright>Copyright (C) 1996-2006 livedoor Co.,Ltd. All rights reserved.</copyright>
+<image>
+<title>livedoor 天気情報</title>
+<link>http://weather.livedoor.com</link>
+<url>http://image.weather.livedoor.com/img/cmn/livedoor.gif</url>
+<width>118</width>
+<height>26</height>
+</image>
+<ldWeather:provider name="（株）ハレックス" link="http://www.halex.co.jp/halexbrain/weather/" />
+<ldWeather:provider name="日本気象協会" link="http://tenki.jp/" />
+<ldWeather:notes link="http://weather.livedoor.com/weather_hacks/forum.html">livedoor 天気情報 Weather Hacks での疑問点などは http://weather.livedoor.com/weather_hacks/forum.html で質問してみましょう！</ldWeather:notes>
+
+<ldWeather:lwws id="63" />
+<item>
+  <title>[ PR ] ブログで東京都のお天気を簡単ゲット！</title>
+  <link>http://weather.livedoor.com/weather_hacks/plugin.html?pref=13</link>
+  <category>PR</category>
+  <description>
+livedoor 天気情報「Weather Hacks」では一般のブロガーの皆さん向けにブログでお天気を表示できる、お天気プラグインを公開しました。使い方はとってもカンタン！手順に沿って作成したHTMLソースを自分のブログに貼り付けるだけです！
+  </description>
+  <image>
+    <title>お天気プラグイン - livedoor 天気情報</title>
+    <link>http://weather.livedoor.com/weather_hacks/plugin.html?pref=13</link>
+    <url>http://image.weather.livedoor.com/img/weather_hacks/news_title.gif</url>
+    <width>151</width>
+    <height>50</height>
+  </image>  <pubDate>Tue, 22 Aug 2006 08:00:00 +0900</pubDate>
+</item>
+
+<item>
+<title>[ 23日（水）の天気 ] 東京 - 曇り - 最高気温31℃ - 8月23日(水)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060823</link>
+<category>天気予報</category>
+<day>Wednesday</day>
+<image>
+<title>曇り</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060823</link>
+<url>http://image.weather.livedoor.com/img/icon/8.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>23日（水）の天気は曇り、最高気温は31℃ 最低気温は26℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+<item>
+<title>[ 24日（木）の天気 ] 東京 - 曇り - 最高気温32℃ - 8月24日(木)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060824</link>
+<category>天気予報</category>
+<day>Thursday</day>
+<image>
+<title>曇り</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060824</link>
+<url>http://image.weather.livedoor.com/img/icon/8.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>24日（木）の天気は曇り、最高気温は32℃ 最低気温は26℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+
+
+<item>
+<title>[ 25日（金）の天気 ] 東京 - 曇時々晴 - 最高気温32℃ - 8月25日(金)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060825</link>
+<category>天気予報</category>
+<day>Friday</day>
+<image>
+<title>曇時々晴</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060825</link>
+<url>http://image.weather.livedoor.com/img/icon/9.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>25日（金）の天気は曇時々晴、最高気温は32℃ 最低気温は27℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+<item>
+<title>[ 26日（土）の天気 ] 東京 - 曇時々晴 - 最高気温31℃ - 8月26日(土)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060826</link>
+<category>天気予報</category>
+<day>Saturday</day>
+<image>
+<title>曇時々晴</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060826</link>
+<url>http://image.weather.livedoor.com/img/icon/9.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>26日（土）の天気は曇時々晴、最高気温は31℃ 最低気温は25℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+<item>
+<title>[ 27日（日）の天気 ] 東京 - 曇時々晴 - 最高気温30℃ - 8月27日(日)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060827</link>
+<category>天気予報</category>
+<day>Sunday</day>
+<image>
+<title>曇時々晴</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060827</link>
+<url>http://image.weather.livedoor.com/img/icon/9.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>27日（日）の天気は曇時々晴、最高気温は30℃ 最低気温は24℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+<item>
+<title>[ 28日（月）の天気 ] 東京 - 曇時々晴 - 最高気温30℃ - 8月28日(月)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060828</link>
+<category>天気予報</category>
+<day>Monday</day>
+<image>
+<title>曇時々晴</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060828</link>
+<url>http://image.weather.livedoor.com/img/icon/9.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>28日（月）の天気は曇時々晴、最高気温は30℃ 最低気温は23℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+<item>
+<title>[ 29日（火）の天気 ] 東京 - 曇り - 最高気温30℃ - 8月29日(火)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060829</link>
+<category>天気予報</category>
+<day>Tuesday</day>
+<image>
+<title>曇り</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060829</link>
+<url>http://image.weather.livedoor.com/img/icon/8.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>29日（火）の天気は曇り、最高気温は30℃ 最低気温は24℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+<item>
+<title>[ 30日（水）の天気 ] 東京 - 曇り - 最高気温30℃ - 8月30日(水)</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060830</link>
+<category>天気予報</category>
+<day>Wednesday</day>
+<image>
+<title>曇り</title>
+<link>http://weather.livedoor.com/area/13/63.html?r=rss20060830</link>
+<url>http://image.weather.livedoor.com/img/icon/8.gif</url>
+<width>50</width>
+<height>31</height>
+</image>
+<description>30日（水）の天気は曇り、最高気温は30℃ 最低気温は24℃でしょう。</description>
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+</item>
+
+
+<pubDate>Wed, 23 Aug 2006 17:00:00 +0900</pubDate>
+<guid isPermaLink="true">http://weather.livedoor.com/area/13/63.html?r=rss</guid>
+</channel>
+</rss>
