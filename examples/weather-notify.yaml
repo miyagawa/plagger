@@ -1,0 +1,21 @@
+# check Tokyo's weather forecast on weather.livedoor.com
+# If the forecast says it rains, notify me via Email
+
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+        - http://weather.livedoor.com/forecast/rss/13/63.xml
+
+  # HACK: Grabs 2nd entry from livedoor Weather feed
+  - module: Filter::Rule
+    rule:
+      expression: ++$::index == 2
+
+  - module: Publish::Gmail
+    rule:
+      expression: $args->{feed}->entries->[0]->title =~ /雨/
+    config:
+      mailto: you@example.com
+
+
