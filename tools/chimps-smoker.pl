@@ -8,6 +8,7 @@ use YAML;
 
 our $lockdir = "$ENV{HOME}/.plagger-smoke.lock";
 mkdir $lockdir, 0777 or die "Other process is running!\n";
+our $run  = 1;
 
 our $repo = "http://svn.bulknews.net/repos/plagger";
 our $trac = "http://plagger.org/trac";
@@ -28,7 +29,7 @@ while (++$config->{revision} <= $current) {
 $config->{revision} = $current;
 YAML::DumpFile($file, $config) if $run;
 
-rmdir $lockdir if -e $lockdir;
+END { rmdir $lockdir if $run && -e $lockdir };
 
 sub run_chimps {
     my($revision, $branch) = @_;
