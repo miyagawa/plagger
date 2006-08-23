@@ -1,0 +1,3 @@
+link:  http://1470.net/feed/
+append: $args->{entry}->permalink
+content: <img src="http://1470.net/img/icon.gif" alt="blogmap!" style="border:0;vertical-align:middle" />

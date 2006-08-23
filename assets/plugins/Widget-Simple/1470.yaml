@@ -1,0 +1,4 @@
+link:  http://1470.net/tools/bookmark
+query: 
+  url: $args->{entry}->permalink
+content: <img src="http://1470.net/img/icon.gif" alt="memo!" style="border:0;vertical-align:middle" />
