@@ -10,6 +10,7 @@ our $lockdir = "$ENV{HOME}/.plagger-smoke.lock";
 mkdir $lockdir, 0777 or die "Other process is running!\n";
 
 our $repo = "http://svn.bulknews.net/repos/plagger";
+our $trac = "http://plagger.org/trac";
 our $file = "$ENV{HOME}/.plagger-smoke.yml";
 
 my $config  = eval { YAML::LoadFile($file) } || {};
@@ -19,7 +20,8 @@ $config->{revision} ||= $current - 1;
 
 my $run;
 while (++$config->{revision} <= $current) {
-    run_chimps($config->{revision});
+    my $branch = get_branch($config->{revision});
+    run_chimps($config->{revision}, $branch);
     $run++;
 }
 
@@ -29,7 +31,7 @@ YAML::DumpFile($file, $config) if $run;
 rmdir $lockdir if -e $lockdir;
 
 sub run_chimps {
-    my $revision = shift;
+    my($revision, $branch) = @_;
 
     my $workdir  = tempdir(CLEANUP => 1);
     my $checkout = "plagger-r$revision";
@@ -41,7 +43,7 @@ sub run_chimps {
     }
 
     delete $ENV{LANG}; # svn doesn't grok LANG=ja_JP.UTF-8
-    system("svn co -r $revision $repo/trunk/plagger $checkout");
+    system("svn co -r $revision $repo/$branch/plagger $checkout");
     chdir $checkout;
 
     system("perl Makefile.PL --skip");
@@ -59,4 +61,11 @@ sub get_current {
     my $html = LWP::Simple::get($repo);
     $html =~ /Revision (\d+):/ and return $1;
     return;
+}
+
+sub get_branch {
+    my $revision = shift;
+    my $diff = LWP::Simple::get("$trac/changeset/$revision?format=diff");
+    $diff =~ m!^Index: (branches/[^/]+|trunk)/! or return $1;
+    return "trunk";
 }
