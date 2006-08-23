@@ -1,2 +1,1 @@
-[%- SET title = feed.title || '(no-title)' -%]
-[% feed.title_text %]: [% entry.title_text %] - [% entry.link %][% IF entry.author %] by [% entry.author %][% END %]
+[% IF feed.title %][% feed.title_text %]: [% END %][% entry.title_text %][% IF entry.author %] (03[% entry.author %])[% END %] - 14[% entry.permalink %]
