@@ -1,4 +1,4 @@
-# check Tokyo's weather forecast on weather.livedoor.com
+# check Tokyo weather forecast on weather.livedoor.com
 # If the forecast says it rains, notify me via Email
 
 plugins:
@@ -7,7 +7,7 @@ plugins:
       feed:
         - http://weather.livedoor.com/forecast/rss/13/63.xml
 
-  # HACK: Grabs 2nd entry from livedoor Weather feed
+  # HACK: Grab the 2nd entry from livedoor Weather feed
   - module: Filter::Rule
     rule:
       expression: ++$::index == 2
