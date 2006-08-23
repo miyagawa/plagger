@@ -42,6 +42,8 @@ sub run_chimps {
         die "$workdir/$checkout exists. Remove it first";
     }
 
+    warn "Testing r$revision on $branch\n";
+
     delete $ENV{LANG}; # svn doesn't grok LANG=ja_JP.UTF-8
     system("svn co -r $revision $repo/$branch/plagger $checkout");
     chdir $checkout;
