@@ -11,6 +11,7 @@ use URI::QueryParam;
 sub init {
     my $self = shift;
     $self->SUPER::init(@_);
+    $self->conf->{follow_redirect} = 1 unless exists $self->conf->{follow_redirect};
     $self->load_plugins;
 }
 
@@ -31,7 +32,7 @@ sub load_plugin {
     Plagger->context->log(debug => "loading $file");
     my $data = YAML::LoadFile($file);
     if (ref($data) eq 'ARRAY') {
-        push @{$self->{redirectors}}, { follow_link => "^(?:" . join("|", @$data) . ")" };
+        # redirectors.yaml ... make it backward compatible to ignore
     } else {
         push @{$self->{plugins}}, $data;
     }
@@ -98,17 +99,12 @@ sub rewrite_link {
         }
     }
 
-    unless ($count) {
-        for my $red (@{ $self->{redirectors} }) {
-            next unless $red->{follow_link};
-            if ($link =~ /$red->{follow_link}/i) {
-                my $url = $self->follow_redirect($link);
-                if ($url && $url ne $link) {
-                    $count++;
-                    $rewritten = $url;
-                    last;
-                }
-            }
+    # No match to known sites. Try redirect by issuing GET
+    if (!$count && $self->conf->{follow_redirect}) {
+        my $url = $self->follow_redirect($link);
+        if ($url && $url ne $link) {
+            $count++;
+            $rewritten = $url;
         }
     }
 
@@ -126,6 +122,7 @@ sub follow_redirect {
     my $url = $self->cache->get_callback(
         "redirector:$link",
         sub {
+            Plagger->context->log(debug => "Issuing GET to $link to follow redirects");
             my $ua  = Plagger::UserAgent->new;
             my $res = $ua->simple_request( HTTP::Request->new(GET => $link) );
             if ($res->is_redirect) {
@@ -136,7 +133,7 @@ sub follow_redirect {
         '1 day',
     );
 
-    Plagger->context->log(debug => "Resolving redirection of $link: $url") if $url;
+    Plagger->context->log(debug => "Resolved redirection of $link => $url") if $url;
 
     return $url;
 }
@@ -163,6 +160,17 @@ this plugin.
 This plugin rewrites I<permalink> attribute of C<$entry>, while
 keeping I<link> as is. If C<$entry> has enclosures, this plugin also
 tries to rewrite url of them.
+
+=head1 CONFIG
+
+=over 4
+
+=item follow_redirect
+
+If set to 1, this plugin issues GET request to entry permalinks to see
+if the server returns 301 or 302 redirect to other URL. Defaults to 1.
+
+=back
 
 =head1 PATTERN FILES
 
