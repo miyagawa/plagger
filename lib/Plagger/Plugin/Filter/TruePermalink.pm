@@ -18,24 +18,19 @@ sub init {
 sub load_plugins {
     my $self = shift;
 
-    my $dir = $self->assets_dir;
-    my $dh = DirHandle->new($dir) or Plagger->context->error("$dir: $!");
-    for my $file (grep -f $_->[0] && $_->[1] =~ /\.yaml$/,
-                  map [ File::Spec->catfile($dir, $_), $_ ], sort $dh->read) {
-        $self->load_plugin(@$file);
-    }
-}
-
-sub load_plugin {
-    my($self, $file, $base) = @_;
-
-    Plagger->context->log(debug => "loading $file");
-    my $data = YAML::LoadFile($file);
-    if (ref($data) eq 'ARRAY') {
-        # redirectors.yaml ... make it backward compatible to ignore
-    } else {
-        push @{$self->{plugins}}, $data;
-    }
+    $self->load_assets(
+        File::Find::Rule->name('*.yaml'),
+        sub {
+            my $file = shift;
+            Plagger->context->log(debug => "loading $file");
+            my $data = YAML::LoadFile($file);
+            if (ref($data) eq 'ARRAY') {
+                # redirectors.yaml ... make it backward compatible to ignore
+            } else {
+                push @{$self->{plugins}}, $data;
+            }
+        },
+    );
 }
 
 sub register {
@@ -128,7 +123,7 @@ sub follow_redirect {
             if ($res->is_redirect) {
                 return $res->header('Location');
             }
-            return;
+            return '';
         },
         '1 day',
     );
