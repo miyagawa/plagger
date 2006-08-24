@@ -119,7 +119,9 @@ sub follow_redirect {
         sub {
             Plagger->context->log(debug => "Issuing GET to $link to follow redirects");
             my $ua  = Plagger::UserAgent->new;
-            my $res = $ua->simple_request( HTTP::Request->new(GET => $link) );
+
+            # don't care about content body ... immediately die
+            my $res = $ua->simple_request( HTTP::Request->new(GET => $link), sub { die } );
             if ($res->is_redirect) {
                 return $res->header('Location');
             }
