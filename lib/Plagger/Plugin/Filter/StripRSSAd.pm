@@ -9,8 +9,8 @@ sub init {
     $self->SUPER::init(@_);
     Plagger->context->autoload_plugin('Filter::BloglinesContentNormalize');
 
-    $self->load_assets('*.yaml',      sub { $self->load_yaml(@_) });
-    $self->load_assets(qr/^[\w\-]+$/, sub { $self->load_regexp(@_)});
+    $self->load_assets('*.yaml', sub { $self->load_yaml(@_) });
+    $self->load_assets('*.pat',  sub { $self->load_regexp(@_)});
 }
 
 sub load_regexp {
