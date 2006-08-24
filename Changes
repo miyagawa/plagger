@@ -1,5 +1,50 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.9 (2006/08/24) ==
+
+=== Core ===
+
+ * Fixed BaseDirURI logic to allow empty dirname on Mac OSX (Yappo)
+ * Added tests to lots of plugins thanks to Testathoners
+ * Added Plagger::Walker util class to serialize feed data
+ * Merged from hackathon-mt branch. Added Plagger->set_context method
+ * Split bootstrap into new() and run() to be used in persisten programs
+ * Added $context->search() stub to get Plagger::Feed object from Search::* backends
+ * Added bin/plagger-search prototype CLI
+ * Added bin/plagger-atom-stream-consumer, very experimental AtomStream consumer
+ * Updated Plagger::Template->new() parameter
+ * assets_path: can now be localized per plugins using config:assets_path
+ * lots of fixes to tests so it can work on Windows
+ * decode config.yaml as UTF-8 automatically before run, unless you specify global:no_decode_utf8=1
+ * chimps-client: create lock dir to avoid double excecution
+ * Split feed parsing logic from Aggregator::Simple to Plagger::FeedParser so plugins can use. 
+ * Added $ua->fetch_parse($feed) and $ua->find_parse($url)
+ * Fixed misusage of Term::Encoding (Yappo)
+ * Support entry level image in RSS 0.91 and 2.0
+
+
+=== New Plugins ===
+
+ * Publish::JSON: Serialize feed to JSON (miyagawa)
+ * Publish::Serializer: Dump feed to various format using Data::Serializer (naoya, miyagawa)
+ * Notify::Audio: Play sound files when feed comes. Support playing enclosure files as well (miyagawa, youpy)
+
+=== Plugins Updates ===
+
+ * Publish::Gmail: support APOP authentication in POP before SMTP
+ * Filter::Delicious: use Plagger::UA for caching.
+ * CustomFeed::Yahoo360JP: removed from the distro since no one is using it and it's broken
+ * Widget::Simple: Added lots of widgets (hsbt, jiro, drawnboy)
+ * Filter::EntryFullText: Fixed XHTML numeric entities issue when using XPath (spotted by otsune)
+ * Filter::2chRSSContent: Strip AD entry
+ * CustomFeed::YouTube: fix regexp to get page content (mizzy)
+ * Subscription::OPML: Fixed bug where containers are not correctly loaded because of array reference
+ * Subscriptoin::OPML: Ditch XML::OPML and rewrite OPML parser using XML::LibXML::SAX
+ * Filter::EntryFullText: extract_capture defaults to 'body' (suggested by otsune)
+ * Search::Rast: implemented searcher.search API (Yappo)
+ * Filter::TruePermalink: Fixed ref=rss YAML. Removed redirectors.yaml and instead introduced 'follow_redirect' config (default: 1)
+ * Notify::IRC: use color code scheme to colorize feed title and author (#movabletype)
+
 == 0.7.8 (2006/08/18) ==
 
 === Core ===
