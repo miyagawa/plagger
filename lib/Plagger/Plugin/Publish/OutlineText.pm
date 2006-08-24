@@ -34,7 +34,7 @@ sub finalize {
         $out .= '.' . $feed->title . "\n";
 
         foreach my $entry (@{ $feed->entries }) {
-            $out .= '..' . $entry->title . "\n";
+            $out .= '..' . ($entry->title || '') . "\n";
 
             my $body = $entry->body_text;
             $body =~ s/^\./ \./g;
