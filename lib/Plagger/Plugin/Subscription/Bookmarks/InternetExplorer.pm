@@ -1,4 +1,5 @@
 package Plagger::Plugin::Subscription::Bookmarks::InternetExplorer;
+use strict;
 use base qw( Plagger::Plugin::Subscription::Bookmarks );
 
 use Encode;

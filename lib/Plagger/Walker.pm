@@ -18,7 +18,7 @@ sub decode_utf8 {
     $self->apply(sub { utf8::decode($_[0]) unless utf8::is_utf8($_[0]) })->($stuff);
 }
 
-sub apply($&;@) {
+sub apply($&;@) { ## no critic
     my $self = shift;
     my $code = shift;
     my $keyapp = $self->{apply_keys} ?

@@ -56,7 +56,7 @@ sub load_plugin {
 sub load_plugin_perl {
     my($self, $file, $base) = @_;
 
-    open my $fh, $file or Plagger->context->error("$file: $!");
+    open my $fh, '<', $file or Plagger->context->error("$file: $!");
     (my $pkg = $base) =~ s/\.pl$//;
     my $plugin_class = "Plagger::Plugin::Filter::EntryFullText::Site::$pkg";
 

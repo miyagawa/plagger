@@ -70,7 +70,7 @@ sub fetch_metadata {
 sub _header {
     my($res, $header) = @_;
 
-    my $value = $res->header($header) or return undef;
+    my $value = $res->header($header) or return undef; ## no critic
     $value =~ s/;.*?$//;
     $value;
 }

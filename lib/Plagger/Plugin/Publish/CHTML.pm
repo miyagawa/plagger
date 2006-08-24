@@ -120,11 +120,11 @@ sub earlier {
     my ($self, $path) = @_;
     my $earlier;
     my $file = "$path/earlier";
-    if (open my $in, $file) {
+    if (open my $in, '<', $file) {
 	$earlier = <$in>;
 	close $in;
     }
-    open my $out, ">$file" or $self->context->error("$file: $!");
+    open my $out, ">", $file or $self->context->error("$file: $!");
     print $out $self->id;
     close $out;
     $earlier;

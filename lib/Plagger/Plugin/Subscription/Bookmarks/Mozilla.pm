@@ -1,4 +1,5 @@
 package Plagger::Plugin::Subscription::Bookmarks::Mozilla;
+use strict;
 use base qw( Plagger::Plugin::Subscription::XPath );
 
 use URI::file;

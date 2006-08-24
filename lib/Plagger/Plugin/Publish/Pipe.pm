@@ -14,8 +14,8 @@ sub register {
 
 sub feed {
     my($self, $context, $args) = @_;
-    
-    open my $out, "|" . $self->conf->{command} or $context->error("Can't open pipe: $!");
+
+    open my $out, "|" . $self->conf->{command} or $context->error("Can't open pipe: $!"); ## no critic
     $context->log(info => "Publishing to " . $self->conf->{command});
     for my $entry ($args->{feed}->entries) {
 	print $out $self->convert($entry->title) . "\n";

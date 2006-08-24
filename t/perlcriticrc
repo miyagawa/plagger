@@ -1,0 +1,9 @@
+# for mkdir $dir, 0777
+[-ValuesAndExpressions::ProhibitLeadingZeros]
+
+# we do eval $asset_pl a lot
+[-BuiltinFunctions::ProhibitStringyEval]
+
+# no strict 'refs'
+[TestingAndDebugging::ProhibitNoStrict]
+allow = refs

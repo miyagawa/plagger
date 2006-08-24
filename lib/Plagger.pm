@@ -90,7 +90,7 @@ sub rewrite_config {
         return;
     }
 
-    open my $fh, $self->{config_path} or $self->error("$self->{config_path}: $!");
+    open my $fh, '<', $self->{config_path} or $self->error("$self->{config_path}: $!");
     my $data = join '', <$fh>;
     close $fh;
 
@@ -186,7 +186,7 @@ sub add_plugin_path {
 sub extract_package {
     my($self, $file) = @_;
 
-    open my $fh, $file or die "$file: $!";
+    open my $fh, '<', $file or die "$file: $!";
     while (<$fh>) {
         /^package (Plagger::Plugin::.*?);/ and return $1;
     }

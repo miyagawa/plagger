@@ -1,4 +1,5 @@
 package Plagger::Plugin::Subscription::Bookmarks::Safari;
+use strict;
 use base qw( Plagger::Plugin::Subscription::Bookmarks );
 
 use Mac::Tie::PList;

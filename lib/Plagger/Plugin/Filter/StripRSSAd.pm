@@ -37,7 +37,7 @@ sub load_pattern {
 sub load_regexp {
     my($self, $file, $base) = @_;
 
-    open my $fh, $file or Plagger->context->error("$file: $!");
+    open my $fh, '<', $file or Plagger->context->error("$file: $!");
     my $re = join '', <$fh>;
     chomp($re);
 
