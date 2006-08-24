@@ -1,6 +1,6 @@
 sub handle {
     my($self, $args) = @_;
-    $args->{entry}->permalink =~ m!article\.pl\?sid=\d\d/\d\d/\d\d/\d+!;
+    $args->{entry}->permalink =~ m!article\.pl\?sid=\d\d/\d\d/\d\d/\d+|/[^/]+/journal/\d+!;
 }
 
 sub extract {
