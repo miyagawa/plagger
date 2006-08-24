@@ -19,7 +19,7 @@ sub load_plugins {
     my $self = shift;
 
     $self->load_assets(
-        File::Find::Rule->name('*.yaml'),
+        '*.yaml',
         sub {
             my $file = shift;
             Plagger->context->log(debug => "loading $file");

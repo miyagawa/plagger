@@ -21,7 +21,7 @@ sub initialize {
     if (my $name = $self->conf->{widget}) {
         my $found;
         $self->load_assets(
-            File::Find::Rule->name("$name.yaml"),
+            "$name.yaml",
             sub {
                 my $data = YAML::LoadFile(shift);
                 $self->{conf} = { %{$self->{conf}}, %$data };

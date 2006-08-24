@@ -23,5 +23,6 @@ plugins:
           link:  http://www.kojii.net/opinion/col051003.html
   - module: Filter::EntryFullText
 --- expected
+ok $context->update->feeds->[0]->entries->[0]->body;
 unlike $context->update->feeds->[0]->entries->[0]->body, qr/&#\d+;/;
 

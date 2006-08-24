@@ -36,25 +36,14 @@ sub load_plugins {
     my $self = shift;
     my $context = Plagger->context;
 
-    my $dir = $self->assets_dir;
-    my $dh = DirHandle->new($dir) or $context->error("$dir: $!");
-    for my $file (grep -f $_->[0] && $_->[0] =~ /\.(?:pl|yaml)$/,
-                  map [ File::Spec->catfile($dir, $_), $_ ], sort $dh->read) {
-        $self->load_plugin(@$file);
-    }
-}
-
-sub load_plugin {
-    my($self, $file, $base) = @_;
-
-    Plagger->context->log(debug => "loading $file");
-
-    my $load_method = $file =~ /\.pl$/ ? 'load_plugin_perl' : 'load_plugin_yaml';
-    push @{ $self->{plugins} }, $self->$load_method($file, $base);
+    $self->load_assets('*.yaml', sub { $self->load_plugin_yaml(@_) });
+    $self->load_assets('*.pl',   sub { $self->load_plugin_perl(@_) });
 }
 
 sub load_plugin_perl {
     my($self, $file, $base) = @_;
+
+    Plagger->context->log(debug => "Load plugin $file");
 
     open my $fh, '<', $file or Plagger->context->error("$file: $!");
     (my $pkg = $base) =~ s/\.pl$//;
@@ -79,15 +68,17 @@ sub load_plugin_perl {
     eval $code;
     Plagger->context->error($@) if $@;
 
-    return $plugin_class->new;
+    push @{ $self->{plugins} }, return $plugin_class->new;
 }
 
 sub load_plugin_yaml {
     my($self, $file, $base) = @_;
+
+    Plagger->context->log(debug => "Load YAML $file");
     my @data = YAML::LoadFile($file);
 
-    return map { Plagger::Plugin::Filter::EntryFullText::YAML->new($_, $base) }
-        @data;
+    push @{ $self->{plugins} },
+        map { Plagger::Plugin::Filter::EntryFullText::YAML->new($_, $base) } @data;
 }
 
 sub handle {
