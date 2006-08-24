@@ -68,7 +68,7 @@ sub load_plugin_perl {
     eval $code;
     Plagger->context->error($@) if $@;
 
-    push @{ $self->{plugins} }, return $plugin_class->new;
+    push @{ $self->{plugins} }, $plugin_class->new;
 }
 
 sub load_plugin_yaml {
