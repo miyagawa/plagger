@@ -1,4 +1,4 @@
-condition: $args->{entry}->link =~ m!^http://www\.pheedo\.jp/click\.phdo\?z=\w+&a=\w+&unq=\w+!
+condition: $args->{entry}->link =~ m!^http://www\.pheedo\.jp/click\.phdo\?(?:a=[\w\/]+|z=\w+&a=\w+&unq=\w+)! && $args->{entry}->title =~ m!^AD:!
 strip: 1
 
 
