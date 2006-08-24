@@ -89,7 +89,6 @@ tests 't/*.t t/*/*.t t/*/*/*.t';
 use_test_base;
 
 auto_include;
-auto_install;
 install_script('plagger');
 install_script('bin/plagger-ircbot');
 WriteAll;
