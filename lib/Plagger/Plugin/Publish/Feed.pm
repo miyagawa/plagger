@@ -61,7 +61,7 @@ sub publish_feed {
     for my $e ($f->entries) {
         my $entry = XML::Feed::Entry->new($feed_format);
         $entry->title($e->title);
-        $entry->link($e->link);
+        $entry->link($e->permalink);
         $entry->summary($e->body_text) if defined $e->body;
 
         # hack to bypass XML::Feed Atom 0.3 crufts (type="text/html")
