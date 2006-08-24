@@ -8,34 +8,14 @@ sub init {
     my $self = shift;
     $self->SUPER::init(@_);
     Plagger->context->autoload_plugin('Filter::BloglinesContentNormalize');
-    $self->load_patterns();
-}
 
-sub load_patterns {
-    my $self = shift;
-
-    my $dir = $self->assets_dir;
-    my $dh = DirHandle->new($dir) or Plagger->context->error("$dir: $!");
-    for my $file (grep -f $_->[0] && $_->[1] =~ /^[\w\-\.]+$/,
-                  map [ File::Spec->catfile($dir, $_), $_ ], sort $dh->read) {
-        $self->load_pattern(@$file);
-    }
-}
-
-sub load_pattern {
-    my($self, $file, $base) = @_;
-
-    Plagger->context->log(debug => "loading $file");
-
-    if ($file =~ /\.yaml$/) {
-        $self->load_yaml($file, $base);
-    } else {
-        $self->load_regexp($file, $base);
-    }
+    $self->load_assets('*.yaml',      sub { $self->load_yaml(@_) });
+    $self->load_assets(qr/^[\w\-]+$/, sub { $self->load_regexp(@_)});
 }
 
 sub load_regexp {
     my($self, $file, $base) = @_;
+    Plagger->context->log(debug => "Load regexp $file");
 
     open my $fh, '<', $file or Plagger->context->error("$file: $!");
     my $re = join '', <$fh>;
@@ -46,6 +26,7 @@ sub load_regexp {
 
 sub load_yaml {
     my($self, $file, $base) = @_;
+    Plagger->context->log(debug => "Load YAML $file");
 
     my $pattern = eval { YAML::LoadFile($file) }
         or Plagger->context->error("$file: $@");

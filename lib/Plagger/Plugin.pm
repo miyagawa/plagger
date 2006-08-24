@@ -12,6 +12,7 @@ use Plagger::Rules;
 use FindBin;
 use File::Find::Rule ();
 use File::Spec;
+use Scalar::Util qw(blessed);
 
 sub new {
     my($class, $opt) = @_;
@@ -148,7 +149,7 @@ sub templatize {
 sub load_assets {
     my($self, $rule, $callback) = @_;
 
-    unless (ref($rule)) {
+    unless (blessed($rule) && $rule->isa('File::Find::Rule')) {
         $rule = File::Find::Rule->name($rule);
     }
 
