@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<?xml-stylesheet href="/sample/rssxsl" type="text/xsl" media="screen"?>
+
+
+<rdf:RDF
+	xmlns="http://purl.org/rss/1.0/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xml:lang="ja">
+<channel rdf:about="http://d.hatena.ne.jp/sample/rss">
+	<title>sampleの日記</title>
+	<link>http://d.hatena.ne.jp/sample/</link>
+	<description>sampleの日記</description>
+	
+	<image rdf:resource="http://d.hatena.ne.jp/images/diary/s/sample/sample_m.gif"/>
+	
+	<dc:creator>sample</dc:creator>
+	<dc:date>2006-08-22T20:55:24+09:00</dc:date>
+	<items>
+	<rdf:Seq>
+		<rdf:li rdf:resource="http://d.hatena.ne.jp/sample/20040820"/>
+		<rdf:li rdf:resource="http://d.hatena.ne.jp/sample/20040820#p1"/>
+		<rdf:li rdf:resource="http://d.hatena.ne.jp/sample/20040820#foto"/>
+	</rdf:Seq>
+	</items>
+</channel>
+
+
+<image rdf:about="http://d.hatena.ne.jp/images/diary/s/sample/sample_m.gif">
+  <title>sampleの日記</title>
+  <link>http://d.hatena.ne.jp/sample/</link>
+  <url>http://d.hatena.ne.jp/images/diary/s/sample/sample_m.gif</url>  
+</image>
+
+
+<item rdf:about="http://d.hatena.ne.jp/sample/20040820">
+	<title>今日のできごと</title>
+	<link>http://d.hatena.ne.jp/sample/20040820</link>
+	<description> 駅前でお買い物。 そのあとしなもんのお散歩。 </description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<p>駅前でお買い物。</p>
+			<p>そのあとしなもんのお散歩。</p>
+		</div>
+]]></content:encoded>
+	<dc:creator>sample</dc:creator>
+	<dc:date>2004-08-20</dc:date>
+</item>
+<item rdf:about="http://d.hatena.ne.jp/sample/20040820#p1">
+	<title>今日の買い物</title>
+	<link>http://d.hatena.ne.jp/sample/20040820#p1</link>
+	<description> りんご みかん はてなダイアリーの本も買いました はてなダイアリーガイドブック―ウェブログでつながる新しいコミュニティ 作者: 水野貴明, はてな 出版社/メーカー: 毎日コミュニケーションズ 発売日: 2004/05 メディア: 単行本 </description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<ul>
+				<li>りんご</li>
+				<li>みかん</li>
+			</ul>
+			<p>はてなダイアリーの<span style="color:#0000FF;">本</span>も買いました</p>
+			<div class="hatena-asin-detail">
+				<a href="http://d.hatena.ne.jp/asin/4839914982"><img src="http://images-jp.amazon.com/images/P/4839914982.09.MZZZZZZZ.jpg" class="hatena-asin-detail-image" alt="はてなダイアリーガイドブック―ウェブログでつながる新しいコミュニティ" title="はてなダイアリーガイドブック―ウェブログでつながる新しいコミュニティ"></a>
+				<div class="hatena-asin-detail-info">
+					<p class="hatena-asin-detail-title"><a href="http://d.hatena.ne.jp/asin/4839914982">はてなダイアリーガイドブック―ウェブログでつながる新しいコミュニティ</a></p>
+					<ul>
+						<li><span class="hatena-asin-detail-label">作者:</span> <a href="http://d.hatena.ne.jp/keyword/%bf%e5%cc%ee%b5%ae%cc%c0" class="keyword">水野貴明</a>, <a href="http://d.hatena.ne.jp/keyword/%a4%cf%a4%c6%a4%ca" class="keyword">はてな</a></li>
+						<li><span class="hatena-asin-detail-label">出版社/メーカー:</span> <a href="http://d.hatena.ne.jp/keyword/%cb%e8%c6%fc%a5%b3%a5%df%a5%e5%a5%cb%a5%b1%a1%bc%a5%b7%a5%e7%a5%f3%a5%ba" class="keyword">毎日コミュニケーションズ</a></li>
+						<li><span class="hatena-asin-detail-label">発売日:</span> 2004/05</li>
+						<li><span class="hatena-asin-detail-label">メディア:</span> 単行本</li>
+					</ul>
+				</div>
+				<div class="hatena-asin-detail-foot"></div>
+			</div>
+
+		</div>
+]]></content:encoded>
+	<dc:creator>sample</dc:creator>
+	<dc:date>2004-08-20</dc:date>
+</item>
+<item rdf:about="http://d.hatena.ne.jp/sample/20040820#foto">
+	<title>記念撮影をしたよ</title>
+	<link>http://d.hatena.ne.jp/sample/20040820#foto</link>
+	<description> みんなの写真。 これは前のお正月。 </description>
+
+	<content:encoded><![CDATA[
+		<div class="section">
+			<p>みんなの写真。</p>
+			<p><a href="http://f.hatena.ne.jp/jkondo/20060202130555" target="_blank"><img src="http://f.hatena.ne.jp/images/fotolife/j/jkondo/20060202/20060202130555.jpg" alt="f:id:jkondo:20060202130555j:image:w300" title="f:id:jkondo:20060202130555j:image:w300" class="hatena-fotolife" width="300"></a></p>
+			<p>これは前のお正月。</p>
+			<p><a href="http://f.hatena.ne.jp/jkondo/20050112143838" target="_blank"><img src="http://f.hatena.ne.jp/images/fotolife/j/jkondo/20050112/20050112143838.jpg" alt="f:id:jkondo:20050112143838j:image:w300" title="f:id:jkondo:20050112143838j:image:w300" class="hatena-fotolife" width="300"></a></p>
+		</div>
+]]></content:encoded>
+	<dc:creator>sample</dc:creator>
+	<dc:date>2004-08-20</dc:date>
+</item>
+</rdf:RDF>
