@@ -1,0 +1,4 @@
+author: Tatsuhiko Miyagawa
+match: http://groups\.google\.co\.jp/group/
+rewrite: s!http://groups\.google\.co\.jp/group/([^/]+/msg/\w+)!http://groups\.google\.com/group/$1!
+
