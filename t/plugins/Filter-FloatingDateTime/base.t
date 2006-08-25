@@ -19,6 +19,6 @@ plugins:
   - module: Filter::FloatingDateTime
 --- expected
 ok 1, $block->name;
-ok ref $context->update->feeds->[0]->entries->[0]->date;
-is ref $context->update->feeds->[0]->entries->[0]->date, 'Plagger::Date';
+isa_ok $context->update->feeds->[0]->entries->[0]->date, 'Plagger::Date';
 is $context->update->feeds->[0]->entries->[0]->date->time_zone->is_floating, '0';
+is $context->update->feeds->[0]->entries->[0]->date->serialize, '2004-08-20T00:00:00-05:00';
