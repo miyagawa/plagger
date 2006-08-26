@@ -181,7 +181,7 @@ sub has_enclosure_mime_type {
     my($self, $url, $type) = @_;
 
     my $mime = $type ? MIME::Type->new(type => $type) : Plagger::Util::mime_type_of( URI->new($url) );
-    $mime && $mime->mediaType =~ m!^(?:audio|video|image)$!;
+    Plagger::Util::mime_is_enclosure($mime);
 }
 
 package Plagger::Plugin::Filter::FindEnclosures::Site;

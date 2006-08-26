@@ -1,7 +1,7 @@
 package Plagger::Util;
 use strict;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri mime_type_of filename_for );
+our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri mime_type_of filename_for mime_is_enclosure );
 
 use Encode ();
 use List::Util qw(min);
@@ -144,6 +144,12 @@ sub mime_type_of {
 
     return unless $ext;
     return $mimetypes->mimeTypeOf($ext);
+}
+
+sub mime_is_enclosure {
+    my $mime = shift;
+    return unless $mime;
+    $mime->mediaType =~ m!^(?:audio|video|image)$! || $mime->type eq 'application/ogg';
 }
 
 my %entities = (
