@@ -139,7 +139,7 @@ sub mime_type_of {
     my $ext = shift;
 
     if (UNIVERSAL::isa($ext, 'URI')) {
-        $ext = ( $ext->path =~ /\.(\w+)/ )[0];
+        $ext = ( $ext->path =~ /\.(\w+)$/ )[0];
     }
 
     return unless $ext;
