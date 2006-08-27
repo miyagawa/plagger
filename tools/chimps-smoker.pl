@@ -69,6 +69,6 @@ sub get_current {
 sub get_branch {
     my $revision = shift;
     my $diff = LWP::Simple::get("$trac/changeset/$revision?format=diff");
-    $diff =~ m!^Index: (branches/[^/]+|trunk)/! or return $1;
+    $diff =~ m!^Index: (branches/[^/]+|trunk)/! and return $1;
     return "trunk";
 }
