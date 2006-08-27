@@ -42,7 +42,7 @@ build_requires('Test::Base', 0.52);
 
 features(
     'Better Encoding detection' => [
-        -default => 1,
+        -default => 0,
         recommends('Encode::Detect'),
     ],
     'POD Testing' => [
