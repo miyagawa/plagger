@@ -28,7 +28,7 @@ requires('Net::DNS');
 
 requires('XML::Feed', 0.12);
 requires('XML::LibXML');
-requires('XML::Atom', 0.19);
+requires('XML::Atom', 0.23);
 requires('XML::RSS::LibXML', 0.20);
 requires('Encode', 2.10);
 requires('Term::Encoding');
@@ -56,7 +56,7 @@ features(
     ],
     'Liberal XML parsing' => [
         -default => 1,
-        recommends('XML::Liberal', 0.13),
+        recommends('XML::Liberal', 0.14),
         recommends('XML::RSS::Liberal'),
     ],
     'XPath support in Subscription and Feed Upgrader' => [
