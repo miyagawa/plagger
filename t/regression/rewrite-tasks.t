@@ -7,6 +7,9 @@ plan tests => 1;
 my($fh, $filename) = tempfile();
 
 print $fh <<CONF;
+global:
+  log:
+    level: error
 plugins:
   - module: CustomFeed::Simple
     config:
