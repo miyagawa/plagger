@@ -1,5 +1,28 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.10 (2006/08/29) ==
+
+=== Core ===
+
+ * Added Test::Perl::Critic test
+ * Fixed 2 args open to 3 args to follow PBP
+ * Added video/mp4 MIME type to mime_type_of
+ * Fixed bug in mime_type_of in extracting mp3 from "foo.bar.mp3"
+ * Refactored enclosure detection code to Util. Added ogg to known list by hardcoding
+ * bumped up XML::Atom and XML::Liberal requirement
+ * tools/chimp-smoker: fixed bug in get_branch
+ * Encode::Detect is no more recommended module by default
+ * Fixed ConfigLoader bug that it doesn't do rewrite_config correctly (by charsbar)
+ 
+=== Plugins Updates ===
+
+ * Filter::TruePermalink: refactored assets loading code. Store redirection result even if it's empty
+ * Fitler::TruePermalink: Don't handle HTTP response body when it checks redirection, to skip huge files like mp3
+ * Filter::EntryFullText: refactored assets loading code.
+ * Fitler::StripRSSAd: refactored assets loading code. Renamed pattern files to .pat
+ * Filter::StripRSSAd: Added slashdot.jp and pheedo.jp handler
+ * Publish::Feed: use permalink to set to entry link
+
 == 0.7.9 (2006/08/24) ==
 
 === Core ===

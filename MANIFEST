@@ -124,6 +124,7 @@ assets/plugins/Filter-StripRSSAd/google_adsense2.pat
 assets/plugins/Filter-StripRSSAd/namaan_ad.yaml
 assets/plugins/Filter-StripRSSAd/pheedo.pat
 assets/plugins/Filter-StripRSSAd/pheedo_jp.pat
+assets/plugins/Filter-StripRSSAd/pheedo_jp2.pat
 assets/plugins/Filter-StripRSSAd/pheedo_jp_ad_entry.yaml
 assets/plugins/Filter-StripRSSAd/plaza_rakuten.pat
 assets/plugins/Filter-StripRSSAd/rssad_jp.pat
@@ -132,6 +133,7 @@ assets/plugins/Filter-StripRSSAd/valueclick.pat
 assets/plugins/Filter-TruePermalink/2chrss.yaml
 assets/plugins/Filter-TruePermalink/blogpeople.yaml
 assets/plugins/Filter-TruePermalink/cnet_podcast.yaml
+assets/plugins/Filter-TruePermalink/google_groups.yaml
 assets/plugins/Filter-TruePermalink/imenu.yaml
 assets/plugins/Filter-TruePermalink/joltmark.yaml
 assets/plugins/Filter-TruePermalink/msn-mainichi.yaml
@@ -212,6 +214,7 @@ deps/Filter-Emoticon.yaml
 deps/Filter-EntryFullText.yaml
 deps/Filter-ExtractAuthorName.yaml
 deps/Filter-FeedFlareStripper.yaml
+deps/Filter-FloatingDateTime.yaml
 deps/Filter-GuessLanguage.yaml
 deps/Filter-HatenaBookmarkTag.yaml
 deps/Filter-HatenaBookmarkUsersCount.yaml
@@ -532,7 +535,9 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
+t/99-perlcritic.t
 t/assets/plugins/Test-AssetsPath/assets_path.tt
+t/perlcriticrc
 t/samples/assets_path.tt
 t/samples/atom-category.xml
 t/samples/atom-related.xml
@@ -551,6 +556,7 @@ t/samples/guess-language/japanese.xml
 t/samples/guess-language/japanese_nolang.xml
 t/samples/guess-language/mixed.xml
 t/samples/guess-language/mixed_nolang.xml
+t/samples/hatena-rss.xml
 t/samples/hatenafotolife.rdf
 t/samples/included-recipe.yaml
 t/samples/included.yaml
