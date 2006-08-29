@@ -44,7 +44,7 @@ sub new {
     }, $class;
 
     my $loader = Plagger::ConfigLoader->new;
-    my $config = $loader->load($opt{config});
+    my $config = $loader->load($opt{config}, $self);
 
     $loader->load_include($config);
     $self->{conf} = $config->{global};

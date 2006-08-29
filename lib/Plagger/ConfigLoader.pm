@@ -9,12 +9,12 @@ sub new {
 }
 
 sub load {
-    my($self, $stuff) = @_;
+    my($self, $stuff, $context) = @_;
 
     my $config;
     if (-e $stuff && -r _) {
         $config = YAML::LoadFile($stuff);
-        $self->{config_path} = $stuff;
+        $context->{config_path} = $stuff if $context;
     } elsif (ref($stuff) && ref($stuff) eq 'SCALAR') {
         $config = YAML::Load(${$stuff});
     } elsif (ref($stuff) && ref($stuff) eq 'HASH') {
