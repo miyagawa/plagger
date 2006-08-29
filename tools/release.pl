@@ -22,7 +22,6 @@ rewrite_version("lib/Plagger.pm", $version);
 
 system("perl Makefile.PL --skip");
 system("make manifest");
-system("make test");
 
 my $url = "http://plagger.org/trac/wiki/PlaggerChangeLog?format=txt";
 my $res = LWP::Simple::mirror($url, "Changes");
