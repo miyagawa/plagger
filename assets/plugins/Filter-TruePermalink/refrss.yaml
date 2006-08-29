@@ -1,3 +1,2 @@
 author: youpy
-rewrite: s/[\?&;](?:ref|from|FM)=(?:atom|rss|rssall)([&;].*)?$/$1/
-
+rewrite: s/[\?&;](?:ref|from|FM)=(?:atom|rss|rssall)([&;].*)?$/defined($1) ? $1 : ''/e

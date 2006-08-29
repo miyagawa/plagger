@@ -26,7 +26,6 @@ sub chtml_init {
 	$context->error("Can't parse value in work");
     }
     $self->conf->{title} ||= __PACKAGE__;
-    $self->conf->{mobile_gw} = undef unless $self->conf->{mobile_gw} =~ m{^https?://.*?/}i;
 }
 
 sub id { shift->{id} }
