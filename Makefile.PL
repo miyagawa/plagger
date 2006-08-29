@@ -70,18 +70,20 @@ require DirHandle;
 require File::Spec;
 
 my $dh = DirHandle->new("deps");
+my @plugins;
 while (my $f = $dh->read) {
     next unless $f =~ /\.yaml$/;
     my $meta = YAML::LoadFile( File::Spec->catfile("deps", $f) );
+    push @plugins, $meta if !$meta->{platform} || $meta->{platform} eq $^O;
+}
 
-    if (!$meta->{platform} || $meta->{platform} eq $^O) {
-        features(
-            $meta->{name}, [
-                -default => $meta->{default},
-                map recommends($_ => $meta->{depends}->{$_}), keys %{$meta->{depends} || {}},
-            ],
-        );
-    }
+for my $meta (sort { $b->{default} <=> $a->{default} || $a->{name} cmp $b->{name} } @plugins) {
+    features(
+        $meta->{name}, [
+            -default => $meta->{default},
+            map recommends($_ => $meta->{depends}->{$_}), keys %{$meta->{depends} || {}},
+        ],
+    );
 }
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
