@@ -1,0 +1,5 @@
+# upgrade http://\w+.keizai.biz/rss.xml or http://www.shibukei.com/rss.xml
+author: Masafumi Otsune
+handle: http://(\w+\.keizai\.biz|www\.shibukei\.com)/headline/\d+/index\.html
+extract_xpath:
+  body: //div[@class="item"]
