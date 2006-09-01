@@ -257,11 +257,24 @@ sub slurp_file() {
     return join '', <$fh>;
 }
 
+=item file_contains($filename, $regexp)
+
+Test if the file (specified by filename) matches the passed regexp.
+
+=cut
+
 sub file_contains() {
     my($file, $pattern) = @_;
 
     like slurp_file($file), $pattern;
 }
+
+=item file_doesnt_contains($filename, $regexp)
+
+Test the file (specified by filename) doesnt matches the passed regexp.
+If the file doesn't exist, this test will fail.
+
+=cut
 
 sub file_doesnt_contain() {
     my($file, $pattern) = @_;
