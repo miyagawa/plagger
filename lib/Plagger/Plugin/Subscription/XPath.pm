@@ -25,17 +25,17 @@ sub load {
     $tree->parse($xhtml);
     $tree->eof;
 
-    $self->find_feed($tree);
+    $self->find_feed($tree, $uri);
 }
 
 sub find_feed {
-    my($self, $tree) = @_;
+    my($self, $tree, $uri) = @_;
     for my $child ($tree->findnodes($self->conf->{xpath} || '//a')) {
         my $href  = $child->attr('href') or next;
         my $title = $child->attr('title') || $child->as_text;
 
         my $feed = Plagger::Feed->new;
-        $feed->url($href);
+        $feed->url( URI->new_abs($href, $uri) );
         $feed->title($title);
 
         Plagger->context->subscription->add($feed);

@@ -2,7 +2,7 @@ use strict;
 use t::TestPlagger;
 
 test_plugin_deps;
-plan tests => 1;
+plan tests => 2;
 run_eval_expected;
 
 __END__
@@ -23,3 +23,14 @@ is_deeply(
       'http://bulknews.typepad.com/',
       'http://subtech.g.hatena.ne.jp/miyagawa/']
 );
+
+=== test with relative link path
+--- input config
+plugins:
+  - module: Subscription::XPath
+    config:
+      url: file://$t::TestPlagger::BaseDirURI/t/samples/xoxo-relative.html
+      xpath: //a
+  - module: Aggregator::Null
+--- expected
+is $context->subscription->feeds->[0]->url, "file://$t::TestPlagger::BaseDirURI/t/samples/foo.html";
