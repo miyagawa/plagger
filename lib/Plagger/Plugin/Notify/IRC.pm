@@ -23,7 +23,7 @@ sub initialize {
     $self->{remote} = POE::Component::IKC::ClientLite::create_ikc_client(
         port    => $port,
         ip      => $host,
-        name    => "Plagger$$",
+        name    => 'Plagger' . $$,
         timeout => 5,
     );
 
