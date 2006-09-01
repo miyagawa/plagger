@@ -31,3 +31,46 @@ sub new {
 
 1;
 
+__END__
+
+
+=head1 NAME
+
+Plagger::Template - Template Toolkit subclass for Plagger
+
+=head1 SYNOPSIS
+
+  From within a plagger plugin
+  $self->templatize($file, $vars);
+
+=head1 DESCRIPTION
+
+A subclass of Template Toolkit that's used by the Plagger plugins.
+As a plugin author, you really don't have to worry about this.  See the
+documentation for Plagger::Pluggin's templatize method instead.
+
+The plugin calls the custom new routine like so:
+
+  Plagger::Template->new($plagger_context, $self);
+
+Essentially this subclass uses this to know where the templates are
+from the assests path.
+
+It also does the right thing with encodings and utf8.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
+
+See I<AUTHORS> file for the name of all the contributors.
+
+=head1 LICENSE
+
+Except where otherwise noted, Plagger is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<http://plagger.org/>, L<Template>, L<http://tt2.org/>
+
+=cut

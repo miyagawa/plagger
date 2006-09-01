@@ -161,3 +161,109 @@ sub load_assets {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin - Base class for Plagger Pluggins
+
+=head1 SYNOPSIS
+
+  package Plagger::Plugin::Something;
+  use base qw(Plagger::Plugin);
+
+  # register hooks
+  sub register {
+    my ($self, $context) = @_;
+    $context->register_hook( $self,
+       'thingy.wosit'  => $self->can('doodad'),
+    )
+  }
+  
+  sub doodad { ... }
+
+=head1 DESCRIPTION
+
+This is the base class for plagger plugins.  Pretty much everything is done
+by pluggins in Plagger.
+
+To write a new plugin, simply inherit from Plagger::Plugin:
+
+  package Plagger::Plugin;
+  use base qw(Plagger::Plugin);
+
+Then register some hooks:
+
+  # register hooks
+  sub register {
+    my ($self, $context) = @_;
+    $context->register_hook( $self,
+       'thingy.wosit'  => $self->can('doodad'),
+    )
+  }
+
+
+This means that the "doodad" method will be called at the "thingy.wosit"
+stage.
+
+=head2 Methods
+
+=over
+
+=item new
+
+Standard constructor.  Calls init.
+
+=item init
+
+Initilises the plugin
+
+=item walk_config_encryption
+
+=item do_walk
+
+=item decrypt_config
+
+=item conf
+
+=item rule
+
+=item rule_hook
+
+=item cache
+
+=item dispatch_rule_on
+
+=item class_id
+
+=item assets_dir
+
+=item log
+
+=item cookie_jar
+
+Access the Plagger::Cookies object.
+
+=item templatize
+
+=item load_assets
+
+=back
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
+
+See I<AUTHORS> file for the name of all the contributors.
+
+=head1 LICENSE
+
+Except where otherwise noted, Plagger is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<http://plagger.org/>
+
+=cut

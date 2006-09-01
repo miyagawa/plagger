@@ -96,3 +96,78 @@ sub serialize {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Date - DateTime subclass for Plagger
+
+=head1 SYNOPSIS
+
+
+
+=head1 DESCRIPTION
+
+This module subclasses DataTime for plagger's own needs.
+
+=over
+
+=item rebless
+
+...
+
+=item parse
+
+...
+
+=item parse_dwim
+
+...
+
+=item strptime
+
+...
+
+=item now
+
+...
+
+=item from_epoch
+
+...
+
+=item format($format)
+
+Convience method.  Returns the datetime in the format
+passed (either a formatter object or a blessed reference) 
+
+=item set_time_zone
+
+Overides default behavior to default to UTC if the passed
+time zone isn't a legal
+
+=item serialize
+
+Returns the object as a W3CDTF string.
+
+=cut
+
+=back
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
+
+See I<AUTHORS> file for the name of all the contributors.
+
+=head1 LICENSE
+
+Except where otherwise noted, Plagger is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<http://plagger.org/>, L<DateTime>
+
+=cut
