@@ -204,8 +204,12 @@ Then register some hooks:
   }
 
 
-This means that the "doodad" method will be called at the "thingy.wosit"
-stage.
+This means that the "doodad" method will be called at the
+"thingy.wosit" stage. The handy L<tools/plugin-start.pl> is a
+I<helper> tool that creates all templates, dependency and test files
+required for you.
+
+  > ./tools/plugin-start.pl Foo::Bar
 
 =head2 Methods
 
