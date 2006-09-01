@@ -174,7 +174,9 @@ Plagger::Plugin::Search::Rast - Search Feed updates by Rast
 
 =head1 DESCRIPTION
 
-This plugin can be indexed via Rast. please use the rast-search command to search.
+This plugin indexes feed entries to Rast, the embeded search engine
+written in C. It requires to install Rast.pm module via
+L<http://tech.yappo.jp/rast/>
 
 =head1 AUTHOR
 
