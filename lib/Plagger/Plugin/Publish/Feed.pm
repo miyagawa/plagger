@@ -3,8 +3,6 @@ package Plagger::Plugin::Publish::Feed;
 use strict;
 use base qw( Plagger::Plugin );
 
-our $VERSION = 0.01;
-
 use XML::Feed;
 use XML::Feed::Entry;
 use XML::RSS::LibXML;
@@ -17,12 +15,12 @@ sub register {
     $context->register_hook(
         $self,
         'publish.feed' => \&publish_feed,
+        'plugin.init'  => \&plugin_init,
     );
-    $self->init_feed($context);
 }
 
-sub init_feed {
-    my($self, $context) = @_;
+sub plugin_init {
+    my($self, $context, $args) = @_;
 
     # check dir
     my $dir = $self->conf->{dir};
