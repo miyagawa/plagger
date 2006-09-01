@@ -6,6 +6,7 @@ use Carp;
 use Plagger::Cookies;
 use Plagger::FeedParser;
 use URI::Fetch 0.06;
+use Scalar::Util qw(blessed);
 
 sub new {
     my $class = shift;
@@ -56,7 +57,7 @@ sub request {
 sub mirror {
     my($self, $request, $file) = @_;
 
-    unless (ref($request)) {
+    unless (blessed($request) && $request->isa('HTTP::Request') ) {
         return $self->SUPER::mirror($request, $file);
     }
 
