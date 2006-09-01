@@ -288,15 +288,55 @@ package t::TestPlagger::Filter;
 use Test::Base::Filter -base;
 use File::Temp ();
 
+
+=over
+
+=item interpolate
+
+Filter that replaces scalar values of the type
+
+  $foo
+  $foo::bar
+
+With their actual values.  But don't do backslash escaped things like
+
+  \$foo
+
+Note that you can't do this either:
+
+  ${foo}
+
+Meaning you can't use $foo like so:
+
+  BAR$fooHELLO
+  
+=cut
+
+ define the interpolate filter - replace $vars with 
 sub interpolate {
     my $stuff = shift;
-    $stuff =~ s/(?<!\\)(\$[\w\:]+)/$1/eeg;
-    $stuff =~ s/\\\$/\$/g;
+    
+    # interpert in $foo::bar to their values in the string
+    # (but not \$foo::bar)
+    $stuff =~ s/(?<!\\)     # check there's no backslash before this
+                (\$[\w\:]+) # look for a $var possibly with packages
+               /$1/eegx;    # replace it with its value
+
+    $stuff =~ s/\\\$/\$/g;  # turn the escaped \$ into $
+    
     $stuff;
 }
 
+=item config
+
+Filter that configures plagger based on the YAML passed in.
+
+=cut
+
 sub config {
     my $yaml = shift;
+    
+    # replace $foo values with their actual values
     $yaml = $self->interpolate($yaml);
 
     # set sane defaults for testing
@@ -307,6 +347,12 @@ sub config {
 
     Plagger->bootstrap(config => $config);
 }
+
+=item output_file
+
+Reads the file who's filename is in $main::output and returns it (failing on problems)
+
+=cut
 
 sub output_file {
     my $output = $main::output or die "\$main::output is undefined";
