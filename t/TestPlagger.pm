@@ -134,6 +134,7 @@ sub file_contains() {
 
 sub file_doesnt_contain() {
     my($file, $pattern) = @_;
+    $pattern = qr/\Q$pattern\E/ unless ref $pattern;
 
     my $content = slurp_file($file) or return fail("$file: $!");
     unlike $content, $pattern;
