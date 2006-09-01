@@ -42,8 +42,6 @@ sub publish_feed {
     my $f = $args->{feed};
     my $feed_format = $conf->{format} || 'Atom';
 
-    local $XML::Atom::DefaultVersion = "1.0";
-
     # generate feed
     my $feed = XML::Feed->new($feed_format);
     $feed->title($f->title);
@@ -51,7 +49,8 @@ sub publish_feed {
     $feed->modified(Plagger::Date->now);
     $feed->generator("Plagger/$Plagger::VERSION");
     $feed->description($f->description || '');
-    $feed->author($f->author) if $f->primary_author;
+    $feed->author( $self->make_author($f->author, $feed_format) )
+        if $f->primary_author;
 
     if ($feed_format eq 'Atom') {
         $feed->{atom}->id("tag:plagger.org,2006:" . $f->id);
@@ -77,6 +76,7 @@ sub publish_feed {
         $entry->issued($e->date)   if $e->date;
         $entry->modified($e->date) if $e->date;
 
+        $entry->author( $self->make_author($e->author, $feed_format) );
         if ($feed_format eq 'RSS') {
             my $author = 'nobody@example.com';
             $author .= ' (' . $e->author . ')' if $e->author;
@@ -142,6 +142,18 @@ sub safe_filename {
     $path =~ s![^\w\s]+!_!g;
     $path =~ s!\s+!_!g;
     $path;
+}
+
+sub make_author {
+    my($self, $author, $feed_format) = @_;
+
+    if ($feed_format eq 'RSS') {
+        my $rfc822 = 'nobody@example.com';
+        $rfc822 .= ' (' . $author . ')' if $author;
+        return $rfc822;
+    } else {
+        return defined $author ? $author : 'nobody';
+    }
 }
 
 # XXX okay, this is a hack until XML::Feed is updated
