@@ -50,6 +50,29 @@ Plagger::Plugin::Notify::Eject - Notify feed updates to CD Drive
 
 =head1 DESCRIPTION
 
+This class ejects the CD each time a notification is triggered.
+
+This class relies on helper classes for the functionality for the 
+particular operating system you are working on.  Provided in the
+main Plagger distribution are helper classes for Linux, FreeBSD,
+Microsoft Windows (MSWin32) and Mac OS X (Darwin.)
+
+=head2 Writing helper classes
+
+This module relies on a helper class existing that is named after
+the architecture name returned in C<$^O>.
+
+Each module must simply subclass this module and implement the
+C<eject> method.  For example, for the hypothetical HAL2000 system: 
+
+  package Plagger::Plugin::Notify::Eject::hal2000;
+  use base qw( Plagger::Plugin::Notify::Eject );
+
+  sub eject {
+     system("eject_the_cd_bay_doors_hal");
+  }
+  
+  1;
 
 =head1 AUTHOR
 
