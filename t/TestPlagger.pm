@@ -312,7 +312,6 @@ Meaning you can't use $foo like so:
   
 =cut
 
- define the interpolate filter - replace $vars with 
 sub interpolate {
     my $stuff = shift;
     
