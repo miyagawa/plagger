@@ -22,5 +22,5 @@ plugins:
 --- expected
 open my $fh, "/tmp/xxxxxxxx";
 my $no_such_file = $!;
-like $warning, qr/Cookies\.plist: $no_such_file/
+like $warnings, qr/Cookies\.plist: $no_such_file/
 

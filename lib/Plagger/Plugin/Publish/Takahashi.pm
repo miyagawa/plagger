@@ -42,7 +42,7 @@ sub finalize {
 
 1;
 
-=head11 NAME
+=head1 NAME
 
 Plagger::Plugin::Publish::Takahashi - produce takahasi output
 
@@ -51,7 +51,7 @@ Plagger::Plugin::Publish::Takahashi - produce takahasi output
   - module: Publish::Takahashi
     config:
       dir: /home/miyagawa/takahashi
-  
+
 =head1 DESCRIPTION
 
 This module creates a Takahashi style presentation in .xul for

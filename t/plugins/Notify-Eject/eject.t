@@ -30,5 +30,5 @@ plugins:
         - file://$t::TestPlagger::BaseDirURI/t/samples/rss2sample.xml
   - module: Notify::Eject
 --- expected
-like $warning, qr/eject ok/;
+like $warnings, qr/eject ok/;
 

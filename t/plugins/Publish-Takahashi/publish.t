@@ -2,8 +2,12 @@ use strict;
 use FindBin;
 use t::TestPlagger;
 use File::Spec;
+use Digest::MD5 qw(md5_hex);
 
-our $output = File::Spec->rel2abs("$FindBin::Bin/89c7ff2fc4bb5e80be21aa7cae83e2d1.xul");
+our $url = "file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml";
+my $id = md5_hex($url);
+
+our $output = File::Spec->rel2abs("$FindBin::Bin/$id.xul");
 our $css    = File::Spec->rel2abs("$FindBin::Bin/takahashi.css");
 our $js     = File::Spec->rel2abs("$FindBin::Bin/takahashi.js");
 
@@ -25,7 +29,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
+        - $main::url
   - module: Publish::Takahashi
     config:
       dir: $FindBin::Bin

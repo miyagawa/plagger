@@ -26,4 +26,4 @@ plugins:
     config:
       music: "g' f bes' c8 f d4 c8 f d4 bes c g f2"
 --- expected
-like $warning, qr/g' f bes' c8 f d4 c8 f d4 bes c g f2/;
+like $warnings, qr/g' f bes' c8 f d4 c8 f d4 bes c g f2/;

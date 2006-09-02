@@ -30,8 +30,8 @@ plugins:
         - file://$t::TestPlagger::BaseDirURI/t/samples/rss2sample.xml
   - module: Notify::Growl
 --- expected
-my @count = $warning =~ /^Growl: plagger:/gm;
+my @count = $warnings =~ /^Growl: plagger:/gm;
 is scalar @count, 4;
 
-like $warning, qr{^Growl: plagger:Liftoff News:Star City:How do Americans }m;
-like $warning, qr{^Growl: plagger:Liftoff News:The Engine That Does More:B}m;
+like $warnings, qr{^Growl: plagger:Liftoff News:Star City:How do Americans }m;
+like $warnings, qr{^Growl: plagger:Liftoff News:The Engine That Does More:B}m;

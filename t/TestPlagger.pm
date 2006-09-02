@@ -230,9 +230,9 @@ sub run_eval_expected_with_capture {
         # capture all the warnings from the filters
         # this is often used in the tests as a way to find
         # out what has happened (e.g. the Growl plugin)
-        my $warning;
+        my $warnings;
         {
-            local $SIG{__WARN__} = sub { $warning .= "@_" };
+            local $SIG{__WARN__} = sub { $warnings .= "@_" };
             $block->run_filters;
         }
         

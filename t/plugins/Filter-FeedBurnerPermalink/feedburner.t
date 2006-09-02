@@ -20,4 +20,4 @@ plugins:
 
   - module: Filter::FeedBurnerPermalink
 --- expected
-like $warning, qr/Permalink rewritten to/;
+like $warnings, qr/Permalink rewritten to/;

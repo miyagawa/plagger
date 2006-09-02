@@ -27,7 +27,7 @@ __END__
 plugins:
   - module: Test::AssetsPath
 --- expected
-like $warning, qr!plugins[/\\]Test-AssetsPath!;
+like $warnings, qr!plugins[/\\]Test-AssetsPath!;
 
 === Test plugin:assets_path
 --- input config
@@ -38,8 +38,8 @@ plugins:
     config:
       assets_path: $t::TestPlagger::BaseDir/t/samples
 --- expected
-unlike $warning, qr!/tmp/assets!;
-like $warning, qr!assets_path is .*t/samples$!m;
+unlike $warnings, qr!/tmp/assets!;
+like $warnings, qr!assets_path is .*t/samples$!m;
 
 === Test templatize
 --- input config
@@ -52,7 +52,7 @@ plugins:
         - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
   - module: Test::AssetsPath
 --- expected
-like $warning, qr/template: foo/;
+like $warnings, qr/template: foo/;
 
 === Test localized templatize
 --- input config
@@ -65,4 +65,4 @@ plugins:
     config:
       assets_path: $t::TestPlagger::BaseDir/t/samples
 --- expected
-like $warning, qr/template: bar/;
+like $warnings, qr/template: bar/;

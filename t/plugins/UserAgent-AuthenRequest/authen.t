@@ -17,7 +17,7 @@ plugins:
       feed:
         - http://irisresearch.library.cornell.edu/control/authBasic/authTest/
 --- expected
-like $warning, qr/401 Authorization Required/;
+like $warnings, qr/401 Authorization Required/;
 
 === With auth
 --- input config
@@ -36,8 +36,8 @@ plugins:
       username: test
       password: this
 --- expected
-unlike $warning, qr/401 Authorization Required/;
-like $warning, qr!200: http://irisresearch!;
+unlike $warnings, qr/401 Authorization Required/;
+like $warnings, qr!200: http://irisresearch!;
 
 === With auth as list
 --- input config
@@ -57,5 +57,5 @@ plugins:
           username: test
           password: this
 --- expected
-unlike $warning, qr/401 Authorization Required/;
-like $warning, qr!200: http://irisresearch!;
+unlike $warnings, qr/401 Authorization Required/;
+like $warnings, qr!200: http://irisresearch!;

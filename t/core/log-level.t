@@ -27,10 +27,10 @@ global:
 plugins:
   - module: Test::Log
 --- expected
-like $warning, qr/error/;
-like $warning, qr/info/;
-like $warning, qr/warn/;
-like $warning, qr/debug/;
+like $warnings, qr/error/;
+like $warnings, qr/info/;
+like $warnings, qr/warn/;
+like $warnings, qr/debug/;
 
 === info log level
 --- input config
@@ -40,7 +40,7 @@ global:
 plugins:
   - module: Test::Log
 --- expected
-like $warning, qr/error/;
-like $warning, qr/info/;
-unlike $warning, qr/warn/;
-unlike $warning, qr/debug/;
+like $warnings, qr/error/;
+like $warnings, qr/info/;
+unlike $warnings, qr/warn/;
+unlike $warnings, qr/debug/;

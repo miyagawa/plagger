@@ -24,4 +24,4 @@ plugins:
         - file://$t::TestPlagger::BaseDirURI/t/samples/rss2sample.xml
   - module: Notify::Beep
 --- expected
-like $warning, qr/beep ok/;
+like $warnings, qr/beep ok/;
