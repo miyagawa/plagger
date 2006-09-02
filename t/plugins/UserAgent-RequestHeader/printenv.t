@@ -1,5 +1,6 @@
 use t::TestPlagger;
 
+test_requires_network 'commonground.mines.edu';
 test_plugin_deps('Filter-EntryFullText', 1);
 plan 'no_plan';
 run_eval_expected;
