@@ -166,7 +166,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin - Base class for Plagger Pluggins
+Plagger::Plugin - Base class for Plagger Plugins
 
 =head1 SYNOPSIS
 
@@ -180,13 +180,13 @@ Plagger::Plugin - Base class for Plagger Pluggins
        'thingy.wosit'  => $self->can('doodad'),
     )
   }
-  
+
   sub doodad { ... }
 
 =head1 DESCRIPTION
 
 This is the base class for plagger plugins.  Pretty much everything is done
-by pluggins in Plagger.
+by plugins in Plagger.
 
 To write a new plugin, simply inherit from Plagger::Plugin:
 
@@ -204,8 +204,13 @@ Then register some hooks:
   }
 
 
-This means that the "doodad" method will be called at the "thingy.wosit"
-stage.
+This means that the "doodad" method will be called at the
+"thingy.wosit" stage.
+
+There is a handy L<tools/plugin-start.pl> tool that creates the
+template of I<.pm> file, dependency YAML file and test files for you.
+
+  > ./tools/plugin-start.pl Foo::Bar
 
 =head2 Methods
 
