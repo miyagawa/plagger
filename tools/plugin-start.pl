@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+use Config;
 use FindBin;
 use ExtUtils::MakeMaker;
 use File::Basename;
@@ -38,9 +39,18 @@ sub write_plugin_files {
 
     my $template = YAML::Load(join '', <DATA>);
     my $vars = { module => $module, plugin => $plugin, path => $path, author => $author };
-    write_file("lib/Plagger/Plugin/$path.pm", $template->{plugin}, $vars);
-    write_file("deps/$plugin.yaml", $template->{deps}, $vars);
-    write_file("t/plugins/$plugin/base.t", $template->{test}, $vars);
+
+    my @files;
+    push @files, write_file("lib/Plagger/Plugin/$path.pm", $template->{plugin}, $vars);
+    push @files, write_file("deps/$plugin.yaml", $template->{deps}, $vars);
+    push @files, write_file("t/plugins/$plugin/base.t", $template->{test}, $vars);
+
+    if (my $vcs = version_control()) {
+        my $ans = prompt("$vcs add newly created files? [Yn]", 'y');
+        if ($ans =~ /[Yy]/) {
+            system($vcs, 'add', @files);
+        }
+    }
 }
 
 sub write_file {
@@ -64,6 +74,22 @@ sub write_file {
     open my $out, ">", $path or die "$path: $!";
     print $out $content;
     close $out;
+
+    return $path;
+}
+
+sub version_control {
+    return 'svk' if check_command('svk', 'svk info', qr/Checkout Path/);
+    return 'svn' if -e ".svn/entries";
+    return;
+}
+
+sub check_command {
+    my($bin, $command, $re) = @_;
+    return unless grep { -e File::Spec->catfile($_, $bin) } split /$Config::Config{path_sep}/, $ENV{PATH};
+
+    my $res = qx($command);
+    defined $res && $res =~ $re;
 }
 
 __DATA__
