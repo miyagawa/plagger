@@ -41,3 +41,43 @@ sub finalize {
 }
 
 1;
+
+=head11 NAME
+
+Plagger::Plugin::Publish::Takahashi - produce takahasi output
+
+=head1 SYNOPSIS
+
+  - module: Publish::Takahashi
+    config:
+      dir: /home/miyagawa/takahashi
+  
+=head1 DESCRIPTION
+
+This module creates a Takahashi style presentation in .xul for
+each feed.
+
+The one configuration option is the directory you want the
+presentation to be created in.  A $feedid.xul file will be
+created for each feed, and the two support takahashi
+javascript and css support files will be copied into
+the directory.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa E<lt>miyagawa@bulknews.netE<gt>
+
+See I<AUTHORS> file for the name of all the contributors.
+
+=head1 LICENSE
+
+Except where otherwise noted, Plagger is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<http://plagger.org/>,
+L<http://www.bright-green.com/blog/2005_12_15/a_cute_mozilla_xul_app.html>
+
+=cut
+
