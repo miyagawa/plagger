@@ -11,6 +11,8 @@
 \.cvsignore
 ^[^/]+\.yaml$
 9.*-pod.*.t
+.*perlcritic.*
+cover_db
 \.tar$
 \.tmp$
 \.bak$

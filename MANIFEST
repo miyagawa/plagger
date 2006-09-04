@@ -535,9 +535,7 @@ MANIFEST			This list of files
 META.yml
 plagger
 t/00_compile.t
-t/99-perlcritic.t
 t/assets/plugins/Test-AssetsPath/assets_path.tt
-t/perlcriticrc
 t/samples/assets_path.tt
 t/samples/atom-category.xml
 t/samples/atom-related.xml
