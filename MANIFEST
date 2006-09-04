@@ -48,6 +48,7 @@ assets/plugins/Filter-EntryFullText/iza_ne_jp.yaml
 assets/plugins/Filter-EntryFullText/japan_internet_com.yaml
 assets/plugins/Filter-EntryFullText/japan_zdnet_com.yaml
 assets/plugins/Filter-EntryFullText/juno.yaml
+assets/plugins/Filter-EntryFullText/keizai_biz.yaml
 assets/plugins/Filter-EntryFullText/kojii_net.yaml
 assets/plugins/Filter-EntryFullText/kyodo.yaml
 assets/plugins/Filter-EntryFullText/kyoko_shimbun_news.yaml
@@ -241,6 +242,7 @@ deps/Notify-Audio-MSWin32.yaml
 deps/Notify-Audio.yaml
 deps/Notify-Balloon.yaml
 deps/Notify-Beep.yaml
+deps/Notify-Command.yaml
 deps/Notify-Eject-Win32.yaml
 deps/Notify-Growl.yaml
 deps/Notify-IRC.yaml
@@ -266,6 +268,7 @@ deps/Publish-Serializer.yaml
 deps/Publish-Speech-MacOSX.yaml
 deps/Publish-Speech-Win32.yaml
 deps/Publish-SWF.yaml
+deps/Publish-Takahashi.yaml
 deps/Rule-Deduped.yaml
 deps/Rule-Fresh.yaml
 deps/Search-Estraier.yaml
@@ -427,6 +430,7 @@ lib/Plagger/Plugin/Notify/Audio/MSWin32.pm
 lib/Plagger/Plugin/Notify/Balloon.pm
 lib/Plagger/Plugin/Notify/Beep.pm
 lib/Plagger/Plugin/Notify/Campfire.pm
+lib/Plagger/Plugin/Notify/Command.pm
 lib/Plagger/Plugin/Notify/Eject.pm
 lib/Plagger/Plugin/Notify/Eject/darwin.pm
 lib/Plagger/Plugin/Notify/Eject/freebsd.pm
@@ -543,6 +547,7 @@ t/samples/atom10-example.xml
 t/samples/babelfish.xml
 t/samples/config.ini
 t/samples/delicious.xml
+t/samples/evil.xml
 t/samples/feed.xml
 t/samples/feeds.txt
 t/samples/googlevideo.xml
@@ -578,6 +583,7 @@ t/samples/tags-to-title.xml
 t/samples/tdiary.rdf
 t/samples/top10news.xml
 t/samples/vox.xml
+t/samples/xoxo-relative.html
 t/samples/xoxo.html
 t/TestPlagger.pm
 tools/check-dependencies.pl

@@ -1,6 +1,6 @@
 package Plagger;
 use strict;
-our $VERSION = '0.7.10';
+our $VERSION = '0.7.11';
 
 use 5.8.1;
 use Carp;

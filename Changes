@@ -1,5 +1,27 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.11 (2006/08/30) ==
+
+=== Core ===
+
+ * Makefile.PL now prioritizes "default" plugins first, then otherwise alphabetically sorted
+ * testcritic test is now not in distribution since it's unnecessary and annoys people
+ * Updated POD document of some core modules (Mark Fowler)
+ * $ua->mirror(URI, $path) now works
+ * t::TestPlagger: allow strings rather than regexp in file_contains
+ * tools/plugin-start: optionally call svn/svk if it's detected
+
+=== New Plugins ===
+
+ * Notify::Command: generic command caller plugin for notification (miyagawa)
+
+=== Plugins Updates ===
+
+ * Search::Rast: moved some code to plugin.init. updated document
+ * Subscription::XPath: Accept non-absolute link as well
+ * Filter::StripRSSAd: some spacing fix for bloglines nasty content updates
+ * Filter::BloglinesContentNormalize: strip &#13; added by Bloglines
+ 
 == 0.7.10 (2006/08/29) ==
 
 === Core ===
