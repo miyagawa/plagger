@@ -47,7 +47,7 @@ sub entry {
         };
 
         open my $out, '>', $path or $context->error("$path: $!");
-        print $out join("\n", $entry->permalink, $entry->author, _u($entry->title_text), _u($entry->body_text));
+        print $out join("\n", $entry->permalink, _u($entry->author || ''), _u($entry->title_text || ''), _u($entry->body_text));
         close $out;
     }
 
