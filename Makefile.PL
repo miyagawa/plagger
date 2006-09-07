@@ -29,7 +29,7 @@ requires('Net::DNS');
 requires('XML::Feed', 0.12);
 requires('XML::LibXML');
 requires('XML::Atom', 0.23);
-requires('XML::RSS::LibXML', 0.20);
+requires('XML::RSS::LibXML', 0.23);
 requires('Encode', 2.10);
 requires('Term::Encoding');
 requires('File::HomeDir');
