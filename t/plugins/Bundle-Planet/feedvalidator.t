@@ -17,7 +17,7 @@ our $dir    = "$FindBin::Bin/planet";
 run_eval_expected;
 
 END {
-    rmtree $dir if $dir && -e $dir;
+#    rmtree $dir if $dir && -e $dir;
 }
 
 __END__

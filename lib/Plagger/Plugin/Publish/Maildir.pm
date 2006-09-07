@@ -11,17 +11,17 @@ use MIME::Lite;
 use Digest::MD5 qw/ md5_hex /;;
 use File::Find;
 
-our $VERSION = '0.3';
-
 sub register {
     my($self, $context) = @_;
     $context->register_hook(
       $self,
-      'publish.init' => \&initialize,
-      'publish.entry.fixup' => \&store_entry,
-       'publish.finalize' => \&finalize,
+      'plugin.init'   => \&initialize,
+      'publish.entry' => \&store_entry,
+      'publish.finalize' => \&finalize,
     );
 }
+
+sub rule_hook { 'publish.entry' }
 
 sub initialize {
   my ($self, $context, $args) = @_;

@@ -21,7 +21,7 @@ sub register {
 sub feed {
     my($self, $context, $args) = @_;
 
-    my $file  = $args->{feed}->id . '.xul';
+    my $file  = $args->{feed}->id_safe . '.xul';
     my $path  = File::Spec->catfile($self->conf->{dir}, $file);
     $context->log(info => "writing output to $path");
 

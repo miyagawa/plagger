@@ -54,15 +54,12 @@ sub title {
 sub id {
     my $self = shift;
     $self->{id} = shift if @_;
-    $self->{id} || Digest::MD5::md5_hex($self->url || $self->link);
+    $self->{id} || $self->url || $self->link;
 }
 
 sub id_safe {
     my $self = shift;
-    my $id = $self->id;
-    $id =~ s![^\w\s]+!_!g;
-    $id =~ s!\s+!_!g;
-    $id;
+    Plagger::Util::safe_id($self->id);
 }
 
 sub title_text {

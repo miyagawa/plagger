@@ -12,6 +12,7 @@ $XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
 
 sub register {
     my($self, $context) = @_;
+    $context->autoload_plugin('Filter::FloatingDateTime');
     $context->register_hook(
         $self,
         'publish.feed' => \&publish_feed,
@@ -104,7 +105,9 @@ sub publish_feed {
     }
 
     # generate file path
-    my $filepath = File::Spec->catfile($self->conf->{dir}, $self->gen_filename($f));
+    my $tmpl = '%i.' . ($feed_format eq 'RSS' ? 'rss' : 'atom');
+    my $file = Plagger::Util::filename_for($f, $self->conf->{filename} || $tmpl);
+    my $filepath = File::Spec->catfile($self->conf->{dir}, $file);
 
     $context->log(info => "save feed for " . $f->link . " to $filepath");
 
@@ -113,33 +116,6 @@ sub publish_feed {
     open my $output, ">:utf8", $filepath or $context->error("$filepath: $!");
     print $output $xml;
     close $output;
-}
-
-my %formats = (
-    'u' => sub { my $s = $_[0]->url;  $s =~ s!^https?://!!; $s },
-    'l' => sub { my $s = $_[0]->link; $s =~ s!^https?://!!; $s },
-    't' => sub { $_[0]->title },
-    'i' => sub { $_[0]->id },
-);
-
-my $format_re = qr/%(u|l|t|i)/;
-
-sub gen_filename {
-    my($self, $feed) = @_;
-
-    my $file = $self->conf->{filename} ||
-        '%i.' . ($self->conf->{format} eq 'RSS' ? 'rss' : 'atom');
-    $file =~ s{$format_re}{
-        $self->safe_filename($formats{$1}->($feed))
-    }egx;
-    $file;
-}
-
-sub safe_filename {
-    my($self, $path) = @_;
-    $path =~ s![^\w\s]+!_!g;
-    $path =~ s!\s+!_!g;
-    $path;
 }
 
 sub make_author {

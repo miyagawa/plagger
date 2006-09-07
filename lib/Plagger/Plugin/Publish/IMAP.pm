@@ -16,11 +16,13 @@ sub register {
     $self->{version} = '0.1';
     $context->register_hook(
       $self,
-      'publish.init' => \&initialize,
-      'publish.entry.fixup' => \&store_entry,
+      'plugin.init' => \&initialize,
+      'publish.entry' => \&store_entry,
       'publish.finalize' => \&finalize,
     );
 }
+
+sub rule_hook { 'publish.entry' }
 
 sub initialize {
   my ($self, $context, $args) = @_;

@@ -27,7 +27,7 @@ sub feed {
         mkdir $dir, 0755 or $context->error("mkdir $dir: $!");
     }
 
-    my $file = $self->gen_filename($args->{feed}) || $args->{feed}->id . ".csv";
+    my $file = Plagger::Util::filename_for($args->{feed}, $self->conf->{filename} || "%i.csv");
     my $path = File::Spec->catfile($dir, $file);
     my $io = IO::File->new($append  ? ">> $path" : "> $path");
 
@@ -52,33 +52,6 @@ sub convert {
     my ($self, $str) = @_;
     utf8::decode($str) unless utf8::is_utf8($str);
     return encode($self->conf->{encoding} || 'utf8', $str);
-}
-
-my %formats = (
-    'u' => sub { my $s = $_[0]->url;  $s =~ s!^https?://!!; $s },
-    'l' => sub { my $s = $_[0]->link; $s =~ s!^https?://!!; $s },
-    't' => sub { $_[0]->title },
-    'i' => sub { $_[0]->id },
-);
-
-my $format_re = qr/%(u|l|t|i)/;
-
-sub gen_filename {
-    my($self, $feed) = @_;
-
-    my $file = $self->conf->{filename} || '';
-    $file =~ s{$format_re}{
-        $self->safe_filename($formats{$1}->($feed))
-    }egx;
-
-    $file;
-}
-
-sub safe_filename {
-    my($self, $path) = @_;
-    $path =~ s![^\w\s]+!_!g;
-    $path =~ s!\s+!_!g;
-    $path;
 }
 
 1;

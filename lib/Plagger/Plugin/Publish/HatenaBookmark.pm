@@ -11,12 +11,12 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.init'        => \&initialize,
-        'publish.entry.fixup' => \&add_entry,
+        'plugin.init'   => \&initialize,
+        'publish.entry' => \&add_entry,
     );
 }
 
-sub rule_hook { 'publish.entry.fixup' }
+sub rule_hook { 'publish.entry' }
 
 sub initialize {
     my ($self, $context, $args) = @_;

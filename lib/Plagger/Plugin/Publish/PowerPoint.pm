@@ -11,8 +11,8 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.init' => \&connect_powerpoint,
         'publish.feed' => \&publish_presentation,
+        'publish.init'  => \&connect_powerpoint,
     );
 }
 
@@ -44,7 +44,7 @@ sub publish_presentation {
 
     # generate file path;
     my $file = File::Spec->catfile(
-        $self->conf->{dir}, $self->gen_filename($feed)
+        $self->conf->{dir}, Plagger::Util::filename_for($feed, $self->conf->{filename} || '%i.pps'),
     );
 
     $context->log(info => "save feed for " . $feed->link . " to $file");
@@ -64,34 +64,6 @@ sub connect_powerpoint {
 
     $context->log(debug => "hello, PowerPoint");
     $self->{powerpoint} = Win32::PowerPoint->new;
-}
-
-# stolen from ::Publish::Feed
-
-my %formats = (
-    'u' => sub { my $s = $_[0]->url;  $s =~ s!^https?://!!; $s },
-    'l' => sub { my $s = $_[0]->link; $s =~ s!^https?://!!; $s },
-    't' => sub { $_[0]->title },
-    'i' => sub { $_[0]->id },
-);
-
-my $format_re = qr/%(u|l|t|i)/;
-
-sub gen_filename {
-    my($self, $feed) = @_;
-
-    my $file = $self->conf->{filename} || '%i.pps';
-    $file =~ s{$format_re}{
-        $self->safe_filename($formats{$1}->($feed))
-    }egx;
-    $file;
-}
-
-sub safe_filename {
-    my($self, $path) = @_;
-    $path =~ s![^\w\s]+!_!g;
-    $path =~ s!\s+!_!g;
-    $path;
 }
 
 1;

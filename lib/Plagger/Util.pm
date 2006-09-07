@@ -171,7 +171,7 @@ my %formats = (
     'u' => sub { my $s = $_[0]->url;  $s =~ s!^https?://!!; $s },
     'l' => sub { my $s = $_[0]->link; $s =~ s!^https?://!!; $s },
     't' => sub { $_[0]->title },
-    'i' => sub { $_[0]->id },
+    'i' => sub { $_[0]->id_safe },
 );
 
 my $format_re = qr/%(u|l|t|i)/;
@@ -189,6 +189,12 @@ sub safe_filename {
     $path =~ s![^\w\s]+!_!g;
     $path =~ s!\s+!_!g;
     $path;
+}
+
+sub safe_id {
+    my $id = shift;
+    $id =~ s/^urn:guid://;
+    $id =~ /^([\w\-]+)$/ ? $1 : Digest::MD5::md5_hex($id);
 }
 
 1;

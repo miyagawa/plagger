@@ -11,8 +11,8 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.entry.fixup' => \&add_entry,
-        'publish.init'        => \&initialize,
+        'publish.entry' => \&add_entry,
+        'publish.init'  => \&initialize,
     );
 }
 

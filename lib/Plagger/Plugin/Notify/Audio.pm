@@ -21,7 +21,7 @@ sub register {
     my($self, $context) = @_;
     $context->register_hook(
         $self,
-        'publish.entry.fixup' => \&update,
+        'publish.entry' => \&update,
         'publish.finalize' => \&finalize,
     );
     $self->{enclosures} = [ ];

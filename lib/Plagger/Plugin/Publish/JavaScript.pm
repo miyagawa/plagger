@@ -26,7 +26,7 @@ sub init {
 sub feed {
     my($self, $context, $args) = @_;
 
-    my $file = $self->gen_filename($args->{feed}, $self->conf->{filename} || '%i.js');
+    my $file = Plagger::Util::filename_for($args->{feed}, $self->conf->{filename} || '%i.js');
     my $path = File::Spec->catfile($self->conf->{dir}, $file);
     $context->log(info => "writing output to $path");
 
@@ -35,32 +35,6 @@ sub feed {
     open my $out, ">:utf8", $path or $context->error("$path: $!");
     print $out $body;
     close $out;
-}
-
-my %formats = (
-    'u' => sub { my $s = $_[0]->url;  $s =~ s!^https?://!!; $s },
-    'l' => sub { my $s = $_[0]->link; $s =~ s!^https?://!!; $s },
-    't' => sub { $_[0]->title },
-    'i' => sub { $_[0]->id },
-);
-
-my $format_re = qr/%(u|l|t|i)/;
-
-sub gen_filename {
-    my($self, $feed, $file) = @_;
-
-    $file =~ s{$format_re}{
-        $self->safe_filename($formats{$1}->($feed))
-    }egx;
-
-    $file;
-}
-
-sub safe_filename {
-    my($self, $path) = @_;
-    $path =~ s![^\w\s]+!_!g;
-    $path =~ s!\s+!_!g;
-    $path;
 }
 
 1;

@@ -2,7 +2,7 @@ package Plagger::Entry;
 use strict;
 
 use base qw( Plagger::Thing );
-__PACKAGE__->mk_accessors(qw( title author tags link feed_link id summary body rate icon meta source ));
+__PACKAGE__->mk_accessors(qw( title author tags link feed_link summary body rate icon meta source ));
 __PACKAGE__->mk_date_accessors(qw( date ));
 
 use Digest::MD5;
@@ -47,17 +47,19 @@ sub permalink {
     $self->{permalink} || $self->link;
 }
 
+sub id {
+    my $self = shift;
+    $self->{id} = shift if @_;
+    $self->{id} || $self->permalink || do {
+        my $id = $self->feed_link;
+        $id .= $self->date ? $self->date->epoch : $self->title;
+        $id;
+    };
+}
+
 sub id_safe {
     my $self = shift;
-    my $id   = $self->id || $self->permalink;
-
-    # entry without id or permalink. Try entry's date or title
-    unless ($id) {
-        $id  = $self->feed_link;
-        $id .= $self->date ? $self->date->epoch : $self->title;
-    }
-
-    $id =~ m!^https?://! ? Digest::MD5::md5_hex($id) : $id;
+    Plagger::Util::safe_id($self->id);
 }
 
 sub title_text {
