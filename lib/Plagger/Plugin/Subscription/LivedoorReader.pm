@@ -94,7 +94,8 @@ sub sync {
             $entry->link($item->{link});
             # TODO support enclosure
             $entry->tags([ $item->{category} ]) if $item->{category};
-            $entry->date( Plagger::Date->from_epoch($item->{modified_on}) ); # xxx created_on as well
+            $entry->date( Plagger::Date->from_epoch($item->{modified_on}) )
+                if $item->{modified_on};
             $entry->meta->{livedoor_reader_item_id} = $item->{id};
             $entry->feed_link($feed->link);
             $entry->body($item->{body});
