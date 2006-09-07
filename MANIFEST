@@ -547,7 +547,6 @@ t/samples/atom10-example.xml
 t/samples/babelfish.xml
 t/samples/config.ini
 t/samples/delicious.xml
-t/samples/evil.xml
 t/samples/feed.xml
 t/samples/feeds.txt
 t/samples/googlevideo.xml
