@@ -1,0 +1,4 @@
+name: Search::Grep
+author: Kazuhiro Osawa
+depends: 
+  File::Grep: 0
