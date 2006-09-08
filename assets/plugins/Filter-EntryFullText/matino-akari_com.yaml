@@ -4,6 +4,7 @@ custom_feed_follow_link: /news\.cgi\?mode=vew&resno=\d+.*?
 handle: http://www\.matino-akari\.com/linksyu/news\.cgi\?mode=vew&resno=\d+.*?
 extract: <h1>.*?<a href=.*?>(.*?)</a> <span class=c>/(.*?) \((.*?)\)</span></h1>.*?<div class=o>(.*?)<br></div>
 extract_capture: title author date body
+extract_date_format: %y-%m-%d %H:%M:%S
 extract_after_hook: |
   $data->{body} =~ s!<script.*?</script>!!g;
   $data->{body} =~ s!<iframe src=(.*?) .*?</iframe>!<a href="\1">$data->{title}</a>!g;
