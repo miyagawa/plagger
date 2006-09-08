@@ -141,6 +141,7 @@ sub filter {
                 $data->{body} = $resolver->resolve( $data->{body} );
                 $args->{entry}->body($data->{body});
                 $args->{entry}->title($data->{title}) if $data->{title};
+                $args->{entry}->author($data->{author}) if $data->{author};
                 $args->{entry}->icon({ url => $data->{icon} }) if $data->{icon};
 
                 # extract date using found one
