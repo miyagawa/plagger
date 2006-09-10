@@ -12,7 +12,8 @@ sub load {
     my($self, $stuff, $context) = @_;
 
     my $config;
-    if (-e $stuff && -r _) {
+    if ((!ref($stuff) && $stuff eq '-') ||
+        (-e $stuff && -r _)) {
         $config = YAML::LoadFile($stuff);
         $context->{config_path} = $stuff if $context;
     } elsif (ref($stuff) && ref($stuff) eq 'SCALAR') {
