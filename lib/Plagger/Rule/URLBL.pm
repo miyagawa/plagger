@@ -27,6 +27,8 @@ sub dispatch {
     return unless $url;
 
     my $uri = URI->new($url);
+    return 1 unless $uri->can('host');
+
     my $domain = $uri->host;
     $domain =~ s/^www\.//;
 

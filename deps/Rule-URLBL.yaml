@@ -1,0 +1,4 @@
+name: Rule::URLBL
+author: Kazuhiro Osawa
+depends:
+  Net::DNS::Resolver: 0
