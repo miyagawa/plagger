@@ -18,6 +18,7 @@ sub filter {
     my $body = $args->{entry}->body;
     my $c  = $body =~ s!$Pattern!!g;
        $c += $body =~ s!&#13;!!g;
+       $c += $body =~ s!"/>!" />!g;
     if ($c) {
         $context->log(info => "Stripped Bloglines extra attributes on " . $args->{entry}->link);
         $args->{entry}->body($body);
