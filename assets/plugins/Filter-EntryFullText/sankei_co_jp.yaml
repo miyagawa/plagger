@@ -3,7 +3,7 @@ author: Masafumi Otsune
 custom_feed_handle: http://www\.sankei\.co\.jp/news/
 custom_feed_follow_link: /\d+/\w+\.htm
 handle: http://www\.sankei\.co\.jp/news/\d+/\w+\.htm
-extract: <!--midashi-->(.*?)</div>.*?<!--photo.sta-->(.*?)<!--photo.end-->.*?<!--hombun-->(.*?(\(\d{2}/\d{2} \d{2}:\d{2}\)).*?)<!--hbnend-->
+extract: <!--midashi-->(.*?)<!--midashiend-->.*?<!--photo.sta-->(.*?)<!--photo.end-->.*?<!--hombun-->(.*?(\(\d{2}/\d{2} \d{2}:\d{2}\)).*?)<!--hbnend-->
 extract_capture: title photo body date
 extract_after_hook: |
   $data->{body} = $data->{photo} . $data->{body};
