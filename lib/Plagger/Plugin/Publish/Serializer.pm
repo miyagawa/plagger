@@ -61,6 +61,7 @@ Plagger::Plugin::Publish::Serializer - Serialize feed data using Data::Serialize
 
   - module: Publish::Serializer
     config:
+      dir: /path/to/dir
       serializer: YAML
       filename: %i.yaml
 
