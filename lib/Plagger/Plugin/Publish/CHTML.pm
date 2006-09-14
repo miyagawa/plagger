@@ -46,7 +46,7 @@ sub feed {
     my($self, $context, $args) = @_;
 
     my $feed = $args->{feed} or return;
-    my $feed_path = $self->work . '/feeds/' . $feed->id;
+    my $feed_path = $self->work . '/feeds/' . $feed->id_safe;
     my $publish_path = "$feed_path/" . $self->id;
 
     mkpath($publish_path);
@@ -79,7 +79,7 @@ sub feed {
 		 "$feed_path/index.html");
 
     $self->add(+{
-	feed_link => './feeds/' . $feed->id . '/' . $self->id . '.html',
+	feed_link => './feeds/' . $feed->id_safe . '/' . $self->id . '.html',
 	title  => $feed->title || '(no-title)',
 	lastdate => $feed->entries->[-1]->date,
 	count => scalar(@{$feed->entries}),

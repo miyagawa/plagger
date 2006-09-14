@@ -35,3 +35,4 @@ plugins:
 --- expected
 file_contains($main::output, qr{<!DOCTYPE HTML PUBLIC "-//W3C//DTD Compact HTML 1.0 Draft//EN">});
 file_contains($main::output, qr{<title>Boofy</title>});
+file_contains($main::output, qr{feeds/[0-9a-f]{32}/\d+\.html});
