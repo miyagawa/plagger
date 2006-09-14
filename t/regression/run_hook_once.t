@@ -3,7 +3,7 @@ use FindBin;
 use t::TestPlagger;
 
 test_requires_network;
-plan 'no_plan';
+plan tests => 2;
 run_eval_expected;
 
 __END__
