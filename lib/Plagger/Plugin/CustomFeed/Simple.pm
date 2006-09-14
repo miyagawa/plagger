@@ -5,6 +5,7 @@ use base qw( Plagger::Plugin );
 use Encode;
 use HTML::TokeParser;
 use HTML::ResolveLink;
+use HTML::TreeBuilder::XPath;
 use Plagger::UserAgent;
 use Plagger::Util qw( decode_content extract_title );
 
@@ -19,7 +20,7 @@ sub register {
 sub handle {
     my($self, $context, $args) = @_;
 
-    if (my $match = $args->{feed}->meta->{follow_link}) {
+    if ( my $match = $args->{feed}->meta->{follow_link} || $args->{feed}->meta->{follow_xpath} ) {
         $args->{match} = $match;
         return $self->aggregate($context, $args);
     }
@@ -44,32 +45,51 @@ sub aggregate {
     my $content = decode_content($res);
     my $title   = extract_title($content);
 
-    my $resolver = HTML::ResolveLink->new(base => $url);
-    $content = $resolver->resolve($content);
-
     my $feed = Plagger::Feed->new;
     $feed->title($title);
     $feed->link($url);
 
     my $re = $args->{match};
 
-    my %seen;
-    my $parser = HTML::TokeParser->new(\$content);
-    while (my $token = $parser->get_tag('a')) {
-        next unless ($token->[1]->{href} || '') =~ /$re/;
+    if( $args->{feed}->meta->{follow_link} ) {
+        my $resolver = HTML::ResolveLink->new(base => $url);
+        $content = $resolver->resolve($content);
 
-        my $text = $parser->get_trimmed_text('/a');
-        next if !$text || $text eq '[IMG]';
+        my %seen;
+        my $parser = HTML::TokeParser->new(\$content);
+        while (my $token = $parser->get_tag('a')) {
+            next unless ($token->[1]->{href} || '') =~ /$re/;
 
-        my $url = URI->new_abs($token->[1]->{href}, $url);
-        next if $seen{$url->as_string}++;
+            my $text = $parser->get_trimmed_text('/a');
+            next if !$text || $text eq '[IMG]';
 
-        my $entry = Plagger::Entry->new;
-        $entry->title($text);
-        $entry->link($url);
-        $feed->add_entry($entry);
+            my $url = URI->new_abs($token->[1]->{href}, $url);
+            next if $seen{$url->as_string}++;
 
-        $context->log(debug => "Add $token->[1]->{href} ($text)");
+            my $entry = Plagger::Entry->new;
+            $entry->title($text);
+            $entry->link($url);
+            $feed->add_entry($entry);
+
+            $context->log(debug => "Add $token->[1]->{href} ($text)");
+        }
+    }
+    else {
+        my $tree = HTML::TreeBuilder::XPath->new;
+        $tree->parse($content);
+        $tree->eof;
+
+        for my $child ( $tree->findnodes($re || '//a') ) {
+            my $href  = $child->attr('href') or next;
+            my $title = $child->attr('title') || $child->as_text;
+
+            my $entry = Plagger::Entry->new;
+            $entry->title($title);
+            $entry->link($href);
+            $feed->add_entry($entry);
+
+            $context->log(debug => "Add $href ($title)");
+        }
     }
 
     $context->update->add($feed);
@@ -93,6 +113,9 @@ Plagger::Plugin::CustomFeed::Simple - Simple way to create title and link only c
         - url: http://sportsnavi.yahoo.co.jp/index.html
           meta:
             follow_link: /headlines/
+        - url: http://d.hatena.ne.jp/antipop/20050628/1119966355
+          meta:
+            follow_xpath: //ul[@class="xoxo" or @class="subscriptionlist"]//a
 
   - module: CustomFeed::Simple
 
