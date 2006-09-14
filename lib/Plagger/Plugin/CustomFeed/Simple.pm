@@ -20,8 +20,9 @@ sub register {
 sub handle {
     my($self, $context, $args) = @_;
 
-    if ( my $match = $args->{feed}->meta->{follow_link} || $args->{feed}->meta->{follow_xpath} ) {
-        $args->{match} = $match;
+    $args->{match} = $args->{feed}->meta->{follow_link};
+    $args->{xpath} = $args->{feed}->meta->{follow_xpath};
+    if ($args->{match} || $args->{xpath}) {
         return $self->aggregate($context, $args);
     }
 
@@ -49,9 +50,7 @@ sub aggregate {
     $feed->title($title);
     $feed->link($url);
 
-    my $re = $args->{match};
-
-    if( $args->{feed}->meta->{follow_link} ) {
+    if( my $re = $args->{match} ) {
         my $resolver = HTML::ResolveLink->new(base => $url);
         $content = $resolver->resolve($content);
 
@@ -73,13 +72,12 @@ sub aggregate {
 
             $context->log(debug => "Add $token->[1]->{href} ($text)");
         }
-    }
-    else {
+    } elsif (my $xpath = $args->{xpath}) {
         my $tree = HTML::TreeBuilder::XPath->new;
         $tree->parse($content);
         $tree->eof;
 
-        for my $child ( $tree->findnodes($re || '//a') ) {
+        for my $child ( $tree->findnodes($xpath || '//a') ) {
             my $href  = $child->attr('href') or next;
             my $title = $child->attr('title') || $child->as_text;
 

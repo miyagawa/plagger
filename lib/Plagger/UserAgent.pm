@@ -11,6 +11,7 @@ use Scalar::Util qw(blessed);
 sub new {
     my $class = shift;
     my $self  = $class->SUPER::new(@_);
+       $self->parse_head(0);
 
     my $conf = Plagger->context ? Plagger->context->conf->{user_agent} : {};
     if ($conf->{cookies}) {
@@ -113,7 +114,6 @@ sub find_parse {
     my($self, $url) = @_;
     $url = URI->new($url) unless ref $url;
 
-    $self->parse_head(0);
     my $response = $self->fetch($url);
     if ($response->is_error) {
         Carp::croak("Error fetching $url: ", $response->http_status);
@@ -132,8 +132,6 @@ sub find_parse {
 sub fetch_parse {
     my($self, $url) = @_;
     $url = URI->new($url) unless ref $url;
-
-    $self->parse_head(0);
 
     my $response = $self->fetch($url);
     if ($response->is_error) {

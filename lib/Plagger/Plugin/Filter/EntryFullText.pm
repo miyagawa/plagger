@@ -29,7 +29,6 @@ sub init {
     $self->load_plugins();
 
     $self->{ua} = Plagger::UserAgent->new;
-    $self->{ua}->parse_head(0);
 }
 
 sub load_plugins {
@@ -87,6 +86,7 @@ sub handle {
     my $handler = first { $_->custom_feed_handle($args) } @{ $self->{plugins} };
     if ($handler) {
         $args->{match} = $handler->custom_feed_follow_link;
+        $args->{xpath} = $handler->custom_feed_follow_xpath;
         return $self->Plagger::Plugin::CustomFeed::Simple::aggregate($context, $args);
     }
 }
@@ -168,6 +168,7 @@ package Plagger::Plugin::Filter::EntryFullText::Site;
 sub new { bless {}, shift }
 sub custom_feed_handle { 0 }
 sub custom_feed_follow_link { }
+sub custom_feed_follow_xpath { }
 sub handle_force { 0 }
 sub handle { 0 }
 
@@ -210,6 +211,10 @@ sub custom_feed_handle {
 
 sub custom_feed_follow_link {
     $_[0]->{custom_feed_follow_link};
+}
+
+sub custom_feed_follow_xpath {
+    $_[0]->{custom_feed_follow_xpath};
 }
 
 sub handle_force {

@@ -18,7 +18,7 @@ plugins:
         - url: http://d.hatena.ne.jp/antipop/20050628/1119966355
           meta:
             follow_xpath: //ul[@class="xoxo" or @class="subscriptionlist"]//a
- 	
+
   - module: CustomFeed::Simple
 
 --- expected
