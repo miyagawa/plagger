@@ -55,8 +55,9 @@ sub rewrite {
 
     my $loop;
     while ($self->rewrite_link($getter, $callback, $args)) {
-        if ($loop++ >= 100) {
-            Plagger->error("Possible infinite loop on " . $getter->());
+        if ($loop++ >= 10) {
+            $self->log(error => "Possible infinite loop on " . $getter->());
+            return;
         }
     }
 }
