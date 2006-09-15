@@ -1,0 +1,4 @@
+name: Filter-UnicodeNormalize
+author: Masafumi Otsune
+depends:
+  Unicode::Normalize: 0
