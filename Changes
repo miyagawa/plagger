@@ -1,5 +1,30 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.12 (2006/09/15) ==
+
+=== Core ===
+
+ * [Backward Incompatible] Updated $feed->id implementation to return unique ID
+ * Requires XML::RSS::LibXML 0.23
+ * allow '-' as a config name to read from STDIN
+ 
+=== New Plugins ===
+
+ * Search::Grep: Search engine using flat file and grep (ko)
+ * Filter::UnicodeNormalize: Normalize entry body using Unicode::Normalize (otsune)
+ 
+=== Plugins Updates ===
+
+ * Misc plugins updates to use Plagger::Util filename_for
+ * Subscription::LivedoorReader: modified_on can be null
+ * BloglinesContentNormalize: hack space before empty elements
+ * Rule::URLBL: fixed bug with non-HTTP URLs
+ * Filter::StripRSSAd: Update for Bloglines
+ * CustomFeed::Simple: Support XPath based link extraction
+ * Publish::CHTML: use id_safe for safe feed ID generation
+ * Filter::EntryFullText: support XPath with custom_feed_follow_xpath
+ * Filter::TruePermalink: Don't die if it detects infinite reditrection loop
+
 == 0.7.11 (2006/08/30) ==
 
 === Core ===
@@ -17,6 +42,7 @@ The latest, HTML version of this document is always available at http://plagger.
 
 === Plugins Updates ===
 
+ * Publish::Feed: fixed RSS 2.0 webMaster validity problem
  * Search::Rast: moved some code to plugin.init. updated document
  * Subscription::XPath: Accept non-absolute link as well
  * Filter::StripRSSAd: some spacing fix for bloglines nasty content updates

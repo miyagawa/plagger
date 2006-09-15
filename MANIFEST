@@ -59,6 +59,7 @@ assets/plugins/Filter-EntryFullText/livedoorblog.pl
 assets/plugins/Filter-EntryFullText/mailman.yaml
 assets/plugins/Filter-EntryFullText/mainichi-msn-graph.yaml
 assets/plugins/Filter-EntryFullText/mainichi-msn.yaml
+assets/plugins/Filter-EntryFullText/matino-akari_com.yaml
 assets/plugins/Filter-EntryFullText/memn0ck.yaml
 assets/plugins/Filter-EntryFullText/mtv-music.yaml
 assets/plugins/Filter-EntryFullText/mycom_journal.yaml
@@ -93,6 +94,7 @@ assets/plugins/Filter-EntryFullText/slashcode.pl
 assets/plugins/Filter-EntryFullText/slashdot_jp.yaml
 assets/plugins/Filter-EntryFullText/sponichi.yaml
 assets/plugins/Filter-EntryFullText/sportsnavi.yaml
+assets/plugins/Filter-EntryFullText/technobahn_com.yaml
 assets/plugins/Filter-EntryFullText/tencount.yaml
 assets/plugins/Filter-EntryFullText/theinquirer.yaml
 assets/plugins/Filter-EntryFullText/theregister.yaml
@@ -236,6 +238,7 @@ deps/Filter-StripRSSAd.yaml
 deps/Filter-tDiaryComment.yaml
 deps/Filter-Thumbnail.yaml
 deps/Filter-TTP.yaml
+deps/Filter-UnicodeNormalize.yaml
 deps/Filter-URLBL.yaml
 deps/Notify-Audio-iTunesWin32.yaml
 deps/Notify-Audio-MSWin32.yaml
@@ -271,7 +274,9 @@ deps/Publish-SWF.yaml
 deps/Publish-Takahashi.yaml
 deps/Rule-Deduped.yaml
 deps/Rule-Fresh.yaml
+deps/Rule-URLBL.yaml
 deps/Search-Estraier.yaml
+deps/Search-Grep.yaml
 deps/Search-KinoSearch.yaml
 deps/Search-Spotlight.yaml
 deps/Subscription-Bloglines.yaml
@@ -422,6 +427,7 @@ lib/Plagger/Plugin/Filter/tDiaryComment.pm
 lib/Plagger/Plugin/Filter/Thumbnail.pm
 lib/Plagger/Plugin/Filter/TruePermalink.pm
 lib/Plagger/Plugin/Filter/TTP.pm
+lib/Plagger/Plugin/Filter/UnicodeNormalize.pm
 lib/Plagger/Plugin/Filter/URLBL.pm
 lib/Plagger/Plugin/Notify/Audio.pm
 lib/Plagger/Plugin/Notify/Audio/iTunesMac.pm
@@ -476,6 +482,7 @@ lib/Plagger/Plugin/Publish/Speech/Win32.pm
 lib/Plagger/Plugin/Publish/SWF.pm
 lib/Plagger/Plugin/Publish/Takahashi.pm
 lib/Plagger/Plugin/Search/Estraier.pm
+lib/Plagger/Plugin/Search/Grep.pm
 lib/Plagger/Plugin/Search/KinoSearch.pm
 lib/Plagger/Plugin/Search/Namazu.pm
 lib/Plagger/Plugin/Search/Rast.pm
