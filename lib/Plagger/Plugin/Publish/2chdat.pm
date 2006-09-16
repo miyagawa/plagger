@@ -38,7 +38,7 @@ sub feed {
     printf $fh "%s<><>%s ID:%s<> %s<>%s\n",
         ($feed->author || $feed->entries->[0]->author || $anonymous),
         $self->format_date( Plagger::Date->from_epoch(0) ), # Fix created date to handle bytes-range request
-        substr($feed->id_safe), 0, 8),
+        substr($feed->id_safe, 0, 8),
         $self->format_body($feed->description) . "<BR>" . $feed->link,
         $feed->title;
 
@@ -91,6 +91,9 @@ sub format_body {
 
     # other than that, nuke newlines
     $body =~ tr/\r\n//d;
+
+    # <> is a separator
+    $body =~ s/<>/&lt;&gt;/g;
 
     $body;
 }
