@@ -5,6 +5,7 @@ use base qw( Plagger::Plugin );
 use Encode;
 use Digest::MD5 qw(md5_hex);
 use File::Path;
+use File::Copy;
 
 sub register {
     my($self, $context) = @_;
@@ -112,7 +113,10 @@ sub write {
 sub symlink {
     my ($self, $old, $new) = @_;
     unlink $new if -e $new;
-    symlink $old, $new;
+    eval { symlink $old, $new; };
+    if ($@) {  # primarily for Win32
+      copy $old, $new;
+    }
 }
 
 sub earlier {
