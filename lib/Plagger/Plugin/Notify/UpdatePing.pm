@@ -24,7 +24,12 @@ sub feed {
 
     for my $url (@$urls) {
         $context->log(info => "Ping " . $feed->link . " to $url");
-        XMLRPC::Lite->new->proxy($url)->call('weblogUpdates.ping', @args);
+        eval {
+            XMLRPC::Lite->new->proxy($url)->call('weblogUpdates.ping', @args);
+        };
+        if ($@) {
+            $context->log(error => "Error sending UpdatePing: $@");
+        }
     }
 }
 
