@@ -1,0 +1,7 @@
+author: S0R5
+custom_feed_handle: http://video\.mina-kuru\.jp/(index|video)\.html
+custom_feed_follow_link: /soft_detail\.html\?softsq=\d+
+handle: http://video\.mina-kuru\.jp/soft_detail\.html\?softsq=\d+
+extract: <p class="comment">.*?<b>番組紹介</b><br />(.*?)</p>.*?<p>投稿日：(\d{4}/\d{2}/\d{2})</p>.*?<b>投稿者名：</b><a href=.*?>(.*?)</a></p>
+extract_capture: body date author
+extract_date_format: %y/%m/%d
