@@ -71,7 +71,7 @@ sub new {
 	mech     => $mech,
 	email    => $plugin->conf->{email},
 	password => $plugin->conf->{password},
-        start_url => 'http://www.amazon.co.jp/',
+        start_url => 'http://affiliate.amazon.co.jp/gp/associates/join/main.html',
     }, $class;
 }
 
@@ -80,7 +80,6 @@ sub login {
     my $mech = $self->mech;
     my $res = $mech->get($self->start_url);
     return unless $mech->success;
-    $mech->follow_link(url_regex => qr!associates/join/main\.html!);
     $mech->follow_link(url_regex => qr!associates/login/login\.html!);
     $mech->form_number(1);
     $mech->field(email => $self->email);
