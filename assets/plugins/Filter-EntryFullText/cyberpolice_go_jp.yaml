@@ -1,0 +1,4 @@
+# upgrade http://www.cyberpolice.go.jp/index.rdf
+author: Masafumi Otsune
+handle: http://www\.cyberpolice\.go\.jp/important/\d{4}/[\d_]+\.html
+extract: <!--ニュースー開始-->(.*?)<!--ニュースー終了-->
