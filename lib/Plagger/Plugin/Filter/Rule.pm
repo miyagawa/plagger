@@ -62,7 +62,7 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<Plagger::Plugin::Filter::Rule>
+L<Plagger>, L<Plagger::Plugin::SmartFeed>
 
 =cut
 

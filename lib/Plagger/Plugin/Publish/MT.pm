@@ -73,7 +73,7 @@ sub post_to_mt {
 
 __END__
 
-=head1
+=head1 NAME
 
 Plagger::Plugin::Publish::MT - Post feeds to Movable Type
 
