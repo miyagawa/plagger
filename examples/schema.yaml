@@ -1,0 +1,126 @@
+name: real-global
+desc: real-global
+required: yes
+type: map
+mapping:
+  "global":
+    name: plagger's global configuration
+    desc: plagger's global configuration = $self->{conf}
+    type: map
+    mapping:
+      "assets_path":
+        name: assets_path
+        desc: "path to assets directory"
+        type: str
+      "plugin_path":
+        name: plugin_path
+        desc: "path to plugins directory"
+        type: seq
+        sequence:
+          - type: str
+      "timezone":
+        name: timezone
+        desc: "timezone for Plagger::Date"
+        type: str
+      "user_agent":
+        name: user_agent
+        desc: "various stuff used in Plagger::UserAgent and Mechanize"
+        type: map
+        mapping:
+          "agent":
+            name: user_agent-agent
+            desc: user_agent-agent
+            type: str
+          "timeout":
+            name: user_agent-timeout
+            desc: user_agent-timeout
+            type: int
+          "cookies":
+            name: user_agent-cookies
+            desc: "user_agent-cookies @Plagger::Cookies"
+            type: map
+            mapping:
+              "type":
+                name: user_agent-cookies-type
+                desc: "user_agent-cookies-type  HTTP::Cookies::$type"
+                type: str
+              "file":
+                name: user_agent-cookies-file
+                desc: user_agent-cookies-file
+                type: str
+              =: # any keys for HTTP::Cookies(::$type)
+                type: any
+      "log":
+        name: log
+        desc: log
+        type: map
+        mapping:
+          "level":
+            name: log-level
+            desc: log-level
+            type: str
+            enum:
+              - debug
+              - warn
+              - info
+              - error
+          "encoding":
+            name: log-encoding
+            desc: log-encoding
+            type: str
+      "cache":
+        name: cache
+        desc: cache
+        type: map
+        mapping:
+          "base":
+            name: cache-base
+            desc: cache-base
+            type: str
+          "class":
+            name: cache-class
+            desc: cache-class
+            type: str
+          "expires":
+            name: cache-expires
+            desc: cache-expires
+            type: int
+          "params":
+            name: cache-params
+            desc: cache-params
+            type: map
+            mapping:
+              "cache_root":
+                name: cache-params-cache_root
+                desc: cache-params-cache_root
+                type: str
+              "default_expires_in":
+                name: cache-params-default_expires_in
+                desc: cache-params-default_expires_in
+                type: str
+
+
+  "plugins":
+    name: list of plugins
+    desc: list of plugins
+    type: seq
+    sequence:
+      - type: map
+        mapping:
+          "module":
+            type: str
+            required: true
+          "config":
+            type: map
+            mapping:
+              =:
+                type: any
+          "rule":
+            type: map
+            mapping:
+              "module":
+                type: str
+              "expression":
+                type: str
+              =:
+                type: any
