@@ -297,8 +297,8 @@ sub run {
         } else {
             my $ok = $self->run_hook_once('customfeed.handle', { feed => $feed });
             if (!$ok) {
-                Plagger->context->log(error => $feed->url . " is not aggregated by any aggregator");
-                Plagger->context->subscription->delete_feed($feed);
+                $self->log(error => $feed->url . " is not aggregated by any aggregator");
+                $self->subscription->delete_feed($feed);
             }
         }
     }
