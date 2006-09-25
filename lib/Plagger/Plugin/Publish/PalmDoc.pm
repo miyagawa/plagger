@@ -39,8 +39,8 @@ sub finalize {
 
         my $filename = $prefix . '-' . $feed_count . '.pdb';
         my $outfile = File::Spec->catfile($path, $filename);
-        
-        my $doc = Palm::PalmDoc->new({OUTFILE=>$outfile, TITLE=>$feed->title});
+        my $title = encode("sjis", $feed->title);
+        my $doc = Palm::PalmDoc->new({OUTFILE=>$outfile, TITLE=>$title});
         $doc->compression(1);
         $doc->body($text);
         $doc->write_text();
