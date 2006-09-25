@@ -2,7 +2,6 @@ package Plagger::Plugin::Subscription::PingServer;
 use strict;
 use base qw( Plagger::Plugin );
 
-use HTML::RSSAutodiscovery;
 use List::Util qw(first);
 use Plagger::UserAgent;
 use XML::LibXML;

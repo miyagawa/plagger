@@ -1,4 +1,4 @@
 name: Subscription::PingServer
 author: Kazuhiro Osawa
-depends:
-  HTML::RSSAutodiscovery: 0
+
+
