@@ -53,8 +53,8 @@ Plagger::Plugin::Filter::LivedoorClipUsersCount - Queries livedoorClip users cou
 
 =head1 DESCRIPTION
 
-This plugin queries Hatena Bookmark (L<http://clip.livedoor.com/>) how
-many people bookmarked each of feed entries, using its XMLRPC API
+This plugin queries livedoor Clip (L<http://clip.livedoor.com/>) how
+many people clipped each of feed entries, using its XMLRPC API
 C<clip.getCount>.
 
 Users count is stored in C<livedoorclip_users> metadata of
