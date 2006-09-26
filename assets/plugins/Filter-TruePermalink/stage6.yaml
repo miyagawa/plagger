@@ -1,0 +1,3 @@
+author: Taro Funaki
+match: stage6\.divx\.com/
+rewrite: s#^(http://stage6\.divx\.com/content/show/\d+)\?.*#$1#
