@@ -1,6 +1,6 @@
 sub handle {
     my ($self, $url) = @_;
-    $url =~ qr!http://stage6\.divx\.com/.*/(?:show_)?videos?/\d+!;
+    $url =~ qr!http://stage6\.divx\.com/(?:[\w-+]+/show_video|members/\d+/videos|content/show)/\d+!;
 }
 
 sub find {
