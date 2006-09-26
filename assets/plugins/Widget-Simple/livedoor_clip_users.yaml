@@ -1,0 +1,3 @@
+link: http://clip.livedoor.com/
+append: my $p = $args->{entry}->permalink; $p =~ s/#/%23/; $p
+content_dynamic: <img src="http://image.clip.livedoor.com/counter/[% entry.permalink.replace('#', '%23') %]" style="border:0;vertical-align:middle" />
