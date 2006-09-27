@@ -19,6 +19,8 @@ sub new {
         unshift @$paths, $plugin->conf->{assets_path};
     }
 
+    $context->log(debug => "Assets path: " . join(":", @$paths));
+
     return $class->SUPER::new({
         INCLUDE_PATH => $paths,
         LOAD_TEMPLATES => [
