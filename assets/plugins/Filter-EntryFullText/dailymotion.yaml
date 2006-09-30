@@ -1,0 +1,8 @@
+author: Taro Funaki
+custom_feed_handle: http://www\.dailymotion\.com/
+custom_feed_follow_link: /video/\w+?_[^/]+$
+handle: http://www\.dailymotion\.com.*?/video/\w+?_[^/]+$
+extract: <a class="user_name" href="/(.*?)">.*Taken:</span>&nbsp;(.*?)</div>.*<div id="video_player_description_content">(.*?)</div>
+extract_capture: author date body
+extract_date_format: %d %B %Y
+extract_date_timezone: CET

@@ -1,0 +1,3 @@
+author: Taro Funaki
+match: dailymotion\.com/
+rewrite: s#^http://www\.dailymotion\.com/.*?/video/(\w+?_[^/]+)$#http://www.dailymotion.com/video/$1#
