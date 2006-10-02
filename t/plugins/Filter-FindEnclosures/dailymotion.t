@@ -24,5 +24,5 @@ plugins:
 
   - module: Filter::FindEnclosures
 --- expected
-is $context->update->feeds->[0]->entries->[0]->enclosure->url, 'http://www.dailymotion.com/get/10/320x240/flv/747714.flv?key=104de2f55fbbebc2e8e746e8bce8dc6c1270c71';
+like $context->update->feeds->[0]->entries->[0]->enclosure->url, qr!http://www.dailymotion.com/get/10/320x240/flv/747714.flv\?key=\w+!;
 
