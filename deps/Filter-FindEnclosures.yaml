@@ -1,0 +1,5 @@
+name: Filter::FindEnclosures
+author: Tatsuhiko Miyagawa
+depends:
+  List::Util: 0
+  HTML::TokeParser: 0
