@@ -43,12 +43,9 @@ sub get_list {
 
 sub _list_regexp {
     return <<'RE';
-<tr class="bgwhite">
-<td [^>]+><small>(\d\d\d\d)\.(\d\d)\.(\d\d) (\d\d):(\d\d)</small></td>
-<td width="98%"><small><a href="([^"]+)">(.+?)</a></small></td>
-<td width="1%" nowrap><small>
-<strong><a href="([^"]+)">(.+?)</a></strong>\(\d+\)
-</small></td>
+<tr>
+<th>(\d\d\d\d)\.(\d\d)\.(\d\d) (\d\d):(\d\d)</th>
+<td><a href="([^"]+?)">(.+?)</a>\(<a href="([^"]+?)">(.+?)</a>\)</td>
 </tr>
 RE
 }

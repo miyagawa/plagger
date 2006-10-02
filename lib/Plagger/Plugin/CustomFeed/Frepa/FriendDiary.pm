@@ -51,28 +51,22 @@ sub get_detail {
 
 sub _list_regexp {
     return <<'RE';
-<tr class="bgwhite">
-<td width="1%" style="padding:5px 30px;" nowrap><small>(\d\d\d\d)\.(\d\d)\.(\d\d) (\d\d):(\d\d)</small></td>
-<td width="99%"><img src="/img/icon/diary_fp.gif" border="0" alt=".*?" title=".*?">
-<small>
-
-
-
-<a href="([^"]+?/blog/show[^"]+?)">(.*?)</a>.*?
-<a href="([^"]+?)"(?: rel="popup")?>([^"]+?)</a>.*?
+<tr>
+<th>(\d\d\d\d)\.(\d\d)\.(\d\d) (\d\d):(\d\d)</th>
+<td><span class="frepablog">
+<a href="([^"]+?/blog/show[^"]+?)">(.*?)</a>\(<a href="([^"]+?)"(?: rel="popup")?>([^"]+?)</a>\)</span>.*?
 RE
 }
 
 sub _detail_regexp {
     return <<'RE';
-<td width="105" valign="top" rowspan="3" class="bg2 blogline1" nowrap><small>(\d\d\d\d)\.(\d\d)\.(\d\d)<br>(\d\d):(\d\d)</small></td>
-<td width="445" class="bg2 blogline3 blogcell"><small><strong>(.*?)</strong></small></td>
-</tr>
-<tr>
-<td class="bgwhite blogline2" style="line-height:115%;border-bottom:1px solid #fff;"><small>(.*?)</small></td>
-</tr>
-
-</table>
+<div class="blogcontainer">
+<div class="date"><h4>(\d\d\d\d)\.(\d\d)\.(\d\d)<br />(\d\d):(\d\d)</h4></div>
+<div class="blogbody">
+\s*<h3>(.*?)</h3>
+\s*<div class="blogbox">(.*?</p>)</div>
+\s*</div>
+<div class="brclear"></div>
 RE
 }
 

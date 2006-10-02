@@ -173,10 +173,9 @@ sub get_top {
 
 sub top_re {
     return <<'RE';
-<a href="http://(?:frepa\.livedoor\.com/.*?/|www\.frepa\.livedoor\.com/)"(?: rel="popup")?><img src="(http://img\d+\.(?:ico\.frepa\.livedoor\.com/member_photo/|bbs\.frepa\.livedoor\.com/community_board/).*?\.(?:jpe?g|JPE?G|gif|GIF|png|PNG))" border="0"></a>
-</small>
-.*?
-<div id="namebody"><small><strong>(.*?)....</strong>
+<a href="http://(?:frepa\.livedoor\.com/.*?/|www\.frepa\.livedoor\.com/)"(?: rel="popup")?><img src="(http://img\d+\.(?:ico\.frepa\.livedoor\.com/member_photo/|bbs\.frepa\.livedoor\.com/community_board/)[^"]*?\.(?i:jpe?g|gif|png))" /></a>
+<br /><a href=.+?
+<div class="phframebtm"><h3>(.*?)..<span>\(\d+\)</span></h3></div>
 RE
 }
 
