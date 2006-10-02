@@ -2,8 +2,8 @@ author: Tatsuhiko Miyagawa
 custom_feed_handle: http://(?:www\.)?youtube\.com/(?:browse|results|my_favorites)
 custom_feed_follow_link: /watch\?v=\w+
 handle: http://(?:www\.)?youtube\.com/(?:watch)\?v=
-extract: <span class="smallLabel">Added</span>&nbsp;\s*<b class="smallText">(.*?)</b><br/>.*?<span id="vidDescBegin">\s*(.*?)\s*</span>.*?<div class="vWatchEntry">.*?<img class="vimgSm" src="(http://.*?\.youtube\.com/vi/.*?/\d+\.jpg)" />
-extract_capture: date body icon
+extract: <h1>(.*?)</h1>.*?<span class="smallLabel">Added</span>&nbsp;\s*<b class="smallText">(.*?)</b><br/>.*?<span id="vidDescBegin">\s*(.*?)\s*</span>.*?<div class="vWatchEntry">.*?<img class="vimgSm" src="(http://.*?\.youtube\.com/vi/.*?/\d+\.jpg)" />
+extract_capture: title date body icon
 extract_date_format: %B %d, %Y
 extract_date_timezone: America/Los_Angeles
 
