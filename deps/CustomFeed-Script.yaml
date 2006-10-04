@@ -1,0 +1,6 @@
+name: CustomFeed-Script
+author: Tatsuhiko Miyagawa
+depends:
+bundles:
+  - Aggregator::Simple
+  - CustomFeed::Debug
