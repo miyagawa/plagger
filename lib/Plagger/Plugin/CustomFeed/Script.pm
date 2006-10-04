@@ -37,6 +37,10 @@ sub aggregate {
 
     $context->log(debug => "Executing '$script'");
     my $output = qx($script);
+    if ($?) {
+        $context->log(error => "Error happend while executing '$script': $?");
+        return;
+    }
 
     # TODO: check BOM?
     if ($output =~ /^<\?xml/) {
@@ -50,9 +54,12 @@ sub aggregate {
             $self->Plagger::Plugin::CustomFeed::Debug::aggregate($context, $args);
         };
         if ($@) {
-            $context->log(error => "Can't determine output format of $script");
+            $context->log(error => "Failed to parse as YAML. Can't determine output format of $script");
+            return;
         }
     }
+
+    return 1;
 }
 
 1;
