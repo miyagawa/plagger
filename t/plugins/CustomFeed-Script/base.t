@@ -49,3 +49,18 @@ plugins:
 is $context->update->feeds->[0]->title, "Foo Bar";
 is $context->update->feeds->[0]->link, "http://example.com/";
 is $context->update->feeds->[0]->description, "baz";
+
+===
+--- input config
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+        - script://$t::TestPlagger::BaseDirURI/t/samples/scraper-yaml-syck.pl
+  - module: CustomFeed::Script
+--- expected
+is $context->update->feeds->[0]->title, "Foo Bar";
+is $context->update->feeds->[0]->link, "http://example.com/";
+is $context->update->feeds->[0]->count, 2;
+is $context->update->feeds->[0]->entries->[0]->title, "Entry 1";
+is $context->update->feeds->[0]->entries->[0]->link, "http://example.com/1";

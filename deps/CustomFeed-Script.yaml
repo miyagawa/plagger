@@ -1,6 +1,7 @@
 name: CustomFeed-Script
 author: Tatsuhiko Miyagawa
 depends:
+  YAML::Syck: 0
 bundles:
   - Aggregator::Simple
   - CustomFeed::Debug

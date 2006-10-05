@@ -4,7 +4,7 @@ use base qw( Plagger::Plugin );
 
 use URI;
 use URI::Escape;
-use YAML;
+use YAML::Syck;
 
 use Plagger::Plugin::Aggregator::Simple;
 use Plagger::Plugin::CustomFeed::Debug;
@@ -48,7 +48,7 @@ sub aggregate {
         $self->Plagger::Plugin::Aggregator::Simple::handle_feed($args->{feed}->url, \$output, $args->{feed});
     } else {
         eval {
-            my $feed = YAML::Load($output);
+            my $feed = YAML::Syck::Load($output);
             $context->log(debug => "Looks like output is YAML");
             local $self->{conf} = $feed;
             $self->Plagger::Plugin::CustomFeed::Debug::aggregate($context, $args);
