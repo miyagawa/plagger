@@ -102,6 +102,8 @@ Directory to save ics files in.
 
 filename to save ics files as. Defaults to I<%i.ics>.
 
+=back
+
 =head1 AUTHOR
 
 Kentaro Kuribayashi
