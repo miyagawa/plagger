@@ -1,4 +1,4 @@
-name: Filter-LivedoorClipUsersCount
+name: Filter::LivedoorClipUsersCount
 author: Masafumi Otsune
 depends:
   XMLRPC::Lite: 0

@@ -1,4 +1,4 @@
-name: Publish-Serializer
+name: Publish::Serializer
 author: Tatsuhiko Miyagawa, Naoya Ito
 depends:
   Data::Serializer: 0

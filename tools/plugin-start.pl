@@ -136,7 +136,7 @@ plugin: |
   =cut
 
 deps: |
-  name: [% plugin %]
+  name: [% module %]
   author: [% author %]
   depends:
 

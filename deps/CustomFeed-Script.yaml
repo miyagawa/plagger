@@ -1,4 +1,4 @@
-name: CustomFeed-Script
+name: CustomFeed::Script
 author: Tatsuhiko Miyagawa
 depends:
   YAML::Syck: 0

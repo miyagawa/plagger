@@ -1,4 +1,4 @@
-name: Filter-SpamAssassin
+name: Filter::SpamAssassin
 author: Ishigaki Kenichi
 depends:
   Mail::SpamAssassin: 0

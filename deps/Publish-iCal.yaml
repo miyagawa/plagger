@@ -1,4 +1,4 @@
-name: Publish-iCal
+name: Publish::iCal
 author: Tatsuhiko Miyagawa
 depends:
   Data::ICal: 0
