@@ -4,6 +4,7 @@ use base qw( Plagger::Plugin );
 
 use File::Spec;
 use PDF::FromHTML;
+use Plagger::Util;
 
 sub register {
     my($self, $context) = @_;
@@ -21,16 +22,17 @@ sub feed {
         mkdir $dir, 0755 or $context->error("mkdir $dir: $!");
     }
 
-    my $file = File::Spec->catfile($dir, $args->{feed}->id . ".pdf");
+    my $file = Plagger::Util::filename_for($args->{feed}, $self->conf->{filename} || '%i.pdf');
+    my $path = File::Spec->catfile($dir, $file);
     my $body = $self->templatize('html.tt', $args);
     utf8::encode($body);
 
-    $context->log(info => "Writing PDF to $file");
+    $context->log(info => "Writing PDF to $path");
 
     my $pdf = PDF::FromHTML->new;
     $pdf->load_file(\$body);
     $pdf->convert();
-    $pdf->write_file($file);
+    $pdf->write_file($path);
 }
 
 1;
