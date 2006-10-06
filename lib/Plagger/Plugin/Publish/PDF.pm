@@ -22,7 +22,7 @@ sub feed {
     }
 
     my $file = File::Spec->catfile($dir, $args->{feed}->id . ".pdf");
-    my $body = $self->templatize('gmail_notify.tt', $args);
+    my $body = $self->templatize('html.tt', $args);
     utf8::encode($body);
 
     $context->log(info => "Writing PDF to $file");
