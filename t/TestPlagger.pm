@@ -170,7 +170,7 @@ sub test_plugin_deps() {
         return;
     }
 
-    my $meta = YAML::LoadFile($file);
+    my $meta = eval { YAML::LoadFile($file) } or die "reading $file failed:\n$@";
 
     if ($meta->{platform} && $meta->{platform} ne $^O) {
         plan skip_all => "Test requires to be run on '$meta->{platform}'";
