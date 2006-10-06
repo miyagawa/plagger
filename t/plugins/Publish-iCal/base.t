@@ -31,10 +31,9 @@ ok -e $::output;
 my $ical = Data::ICal->new(filename => $::output);
 is @{$ical->entries}, 5;
 is $ical->entries->[0]->property('dtstart')->[0]->value, "20060710T213213";
-is $ical->entries->[0]->property('dtend')->[0]->value, "20060710T223213";
+is $ical->entries->[0]->property('dtend')->[0]->value, "20060710T213213";
 
 === Full day event
---- ONLY
 --- input config
 plugins:
   - module: CustomFeed::Debug

@@ -45,7 +45,7 @@ sub publish_feed {
             $dtend   = [ $date->strftime('%Y%m%d'), { VALUE => 'DATE' } ];
         } else {
             $dtstart = $date->strftime('%Y%m%dT%H%M%S');
-            $dtend   = $date->add( DateTime::Duration->new(hours => 1) )->strftime('%Y%m%dT%H%M%S');
+            $dtend   = $date->strftime('%Y%m%dT%H%M%S');
         }
 
         $event->add_properties(
