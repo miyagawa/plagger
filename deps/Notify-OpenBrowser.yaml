@@ -1,0 +1,3 @@
+name: Notify::OpenBrowser
+author: Masahiro Nagano, Tatsuhiko Miyagawa
+depends:
