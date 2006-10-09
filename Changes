@@ -1,5 +1,33 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.13 (2006/10/09) ==
+
+=== Core ===
+
+ * Example of Kwalify schema file in examples/schema.yaml
+ * Dumpes template path in Plagger::Template for debug-aid
+
+=== New Plugins ===
+
+ * Filter::LivedoorClipUsersCount: get livedoor Clip users count via API (otsune)
+ * CustomFeed::Script: Call script via shell to get the feed as RSS/Atom or YAML (miyagawa)
+ * Publish::iCal: Simple Feed to iCal generator (miyagawa, kentaro)
+ * Notify::OpenBrowser: Open updated entries in a browser, cross-platform. (kazeburo, miyagawa, youpy)
+
+=== Plugins Updates ===
+
+ * Publish::CHTML: workaround for symlinks in Win32 (charsbar)
+ * Publish::2chdat: Fixed typo and added escape for <> in the content
+ * CustomFeed::AmazonAssociateReportJP: Fixed follow_link (otsune)
+ * Notify::UpdatePing: Wrap ping sending code to trap errors (otsune)
+ * Publish::MT: fixed POD
+ * Publish::Palmdoc: Fixed UTF-8 error on feed title (cheebow)
+ * Subscription::PingServer: Fixed unused dependency
+ * Filter::FindEnclosures: Added stage6 and dailymotion assets (taro)
+ * CustomFeed::Frepa: Updated regular expression to deal with site updates (nipotan)
+ * Publish::PDF: Added 'html.tt' template which was missing
+ * Publish::PDF: now accepts 'filename' as a parameter
+
 == 0.7.12 (2006/09/15) ==
 
 === Core ===

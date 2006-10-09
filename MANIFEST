@@ -1,3 +1,4 @@
+assets/common/html.tt
 assets/common/mail.tt
 assets/plugins/Filter-EntryFullText/2ch.pl
 assets/plugins/Filter-EntryFullText/actiblog_com.yaml
@@ -14,6 +15,7 @@ assets/plugins/Filter-EntryFullText/bbc.yaml
 assets/plugins/Filter-EntryFullText/blog_goo_ne_jp.yaml
 assets/plugins/Filter-EntryFullText/blog_japan_cnet_com.yaml
 assets/plugins/Filter-EntryFullText/blog_pasonatech_co_jp.yaml
+assets/plugins/Filter-EntryFullText/blog_smatch_jp.yaml
 assets/plugins/Filter-EntryFullText/blog_tech.rikunabi_next.yaml
 assets/plugins/Filter-EntryFullText/bounce.yaml
 assets/plugins/Filter-EntryFullText/business-i.yaml
@@ -25,7 +27,9 @@ assets/plugins/Filter-EntryFullText/cnet_japan.yaml
 assets/plugins/Filter-EntryFullText/cnn.yaml
 assets/plugins/Filter-EntryFullText/computerworld_jp.yaml
 assets/plugins/Filter-EntryFullText/cookpad.yaml
+assets/plugins/Filter-EntryFullText/cyberpolice_go_jp.yaml
 assets/plugins/Filter-EntryFullText/daily_sports.yaml
+assets/plugins/Filter-EntryFullText/dailymotion.yaml
 assets/plugins/Filter-EntryFullText/debian_administration_org.yaml
 assets/plugins/Filter-EntryFullText/distrowatch.yaml
 assets/plugins/Filter-EntryFullText/docs_info_apple_com.yaml
@@ -94,6 +98,7 @@ assets/plugins/Filter-EntryFullText/slashcode.pl
 assets/plugins/Filter-EntryFullText/slashdot_jp.yaml
 assets/plugins/Filter-EntryFullText/sponichi.yaml
 assets/plugins/Filter-EntryFullText/sportsnavi.yaml
+assets/plugins/Filter-EntryFullText/stage6.yaml
 assets/plugins/Filter-EntryFullText/technobahn_com.yaml
 assets/plugins/Filter-EntryFullText/tencount.yaml
 assets/plugins/Filter-EntryFullText/theinquirer.yaml
@@ -104,6 +109,7 @@ assets/plugins/Filter-EntryFullText/til_info_apple_co_jp.yaml
 assets/plugins/Filter-EntryFullText/tiyu_to.yaml
 assets/plugins/Filter-EntryFullText/usatoday.yaml
 assets/plugins/Filter-EntryFullText/usewill_com_diary.pl
+assets/plugins/Filter-EntryFullText/video_mina-kuru_jp.yaml
 assets/plugins/Filter-EntryFullText/wired_com.yaml
 assets/plugins/Filter-EntryFullText/wordpress.pl
 assets/plugins/Filter-EntryFullText/worldtimes.yaml
@@ -116,8 +122,10 @@ assets/plugins/Filter-EntryFullText/youtube.yaml
 assets/plugins/Filter-EntryFullText/zakzak.yaml
 assets/plugins/Filter-EntryFullText/zianplus_net.yaml
 assets/plugins/Filter-EntryFullText/zzz_google_adsense.pl
+assets/plugins/Filter-FindEnclosures/dailymotion.pl
 assets/plugins/Filter-FindEnclosures/impress_watch.pl
 assets/plugins/Filter-FindEnclosures/mainichi_msn.pl
+assets/plugins/Filter-FindEnclosures/stage6.pl
 assets/plugins/Filter-FindEnclosures/typepad_images.pl
 assets/plugins/Filter-FindEnclosures/yourfilehost.pl
 assets/plugins/Filter-FindEnclosures/youtube.pl
@@ -136,6 +144,7 @@ assets/plugins/Filter-StripRSSAd/valueclick.pat
 assets/plugins/Filter-TruePermalink/2chrss.yaml
 assets/plugins/Filter-TruePermalink/blogpeople.yaml
 assets/plugins/Filter-TruePermalink/cnet_podcast.yaml
+assets/plugins/Filter-TruePermalink/dailymotion.yaml
 assets/plugins/Filter-TruePermalink/google_groups.yaml
 assets/plugins/Filter-TruePermalink/imenu.yaml
 assets/plugins/Filter-TruePermalink/joltmark.yaml
@@ -147,6 +156,7 @@ assets/plugins/Filter-TruePermalink/rd_yahoo.yaml
 assets/plugins/Filter-TruePermalink/reddit.yaml
 assets/plugins/Filter-TruePermalink/refrss.yaml
 assets/plugins/Filter-TruePermalink/rssquery.yaml
+assets/plugins/Filter-TruePermalink/stage6.yaml
 assets/plugins/Filter-TruePermalink/tech_souken.yaml
 assets/plugins/Filter-TruePermalink/tiyu_to.yaml
 assets/plugins/Filter-TruePermalink/yahoo_blog_search.yaml
@@ -192,6 +202,7 @@ assets/plugins/Widget-Simple/google_pagerank.yaml
 assets/plugins/Widget-Simple/hatena_bookmark.yaml
 assets/plugins/Widget-Simple/hatena_bookmark_users.yaml
 assets/plugins/Widget-Simple/livedoor_clip.yaml
+assets/plugins/Widget-Simple/livedoor_clip_users.yaml
 assets/plugins/Widget-Simple/mm.yaml
 assets/plugins/Widget-Simple/reddit.yaml
 assets/plugins/Widget-Simple/technorati.yaml
@@ -205,6 +216,7 @@ deps/Aggregator-Xango.yaml
 deps/Bundle-Planet.yaml
 deps/CustomFeed-FlickrSearch.yaml
 deps/CustomFeed-Mixi.yaml
+deps/CustomFeed-Script.yaml
 deps/CustomFeed-SVNLog.yaml
 deps/Filter-2chNewsokuTitle.yaml
 deps/Filter-2chRSSContent.yaml
@@ -217,6 +229,7 @@ deps/Filter-Emoticon.yaml
 deps/Filter-EntryFullText.yaml
 deps/Filter-ExtractAuthorName.yaml
 deps/Filter-FeedFlareStripper.yaml
+deps/Filter-FindEnclosures.yaml
 deps/Filter-FloatingDateTime.yaml
 deps/Filter-GuessLanguage.yaml
 deps/Filter-HatenaBookmarkTag.yaml
@@ -226,6 +239,7 @@ deps/Filter-HatenaFormat.yaml
 deps/Filter-HatenaKeywordTag.yaml
 deps/Filter-HTMLScrubber.yaml
 deps/Filter-ImageInfo.yaml
+deps/Filter-LivedoorClipUsersCount.yaml
 deps/Filter-Markdown.yaml
 deps/Filter-Pipe.yaml
 deps/Filter-POPFile.yaml
@@ -250,6 +264,8 @@ deps/Notify-Eject-Win32.yaml
 deps/Notify-Growl.yaml
 deps/Notify-IRC.yaml
 deps/Notify-NetSend.yaml
+deps/Notify-OpenBrowser-FirefoxRemote.yaml
+deps/Notify-OpenBrowser.yaml
 deps/Notify-UpdatePing.yaml
 deps/Publish-2chdat.yaml
 deps/Publish-CHTML.yaml
@@ -258,6 +274,7 @@ deps/Publish-Delicious.yaml
 deps/Publish-Excel.yaml
 deps/Publish-Feed.yaml
 deps/Publish-Gmail.yaml
+deps/Publish-iCal.yaml
 deps/Publish-IMAP.yaml
 deps/Publish-JavaScript.yaml
 deps/Publish-JSON.yaml
@@ -303,6 +320,7 @@ examples/planet-old.yaml
 examples/planet.yaml
 examples/podcast.yaml
 examples/rss2email.yaml
+examples/schema.yaml
 examples/search.yaml
 examples/weather-notify.yaml
 examples/xoxo-planet.yaml
@@ -369,6 +387,7 @@ lib/Plagger/Plugin/CustomFeed/Mixi.pm
 lib/Plagger/Plugin/CustomFeed/MixiDiarySearch.pm
 lib/Plagger/Plugin/CustomFeed/PerlMonks.pm
 lib/Plagger/Plugin/CustomFeed/POP3.pm
+lib/Plagger/Plugin/CustomFeed/Script.pm
 lib/Plagger/Plugin/CustomFeed/Simple.pm
 lib/Plagger/Plugin/CustomFeed/SVNLog.pm
 lib/Plagger/Plugin/CustomFeed/YouTube.pm
@@ -406,6 +425,7 @@ lib/Plagger/Plugin/Filter/HatenaKeywordTag.pm
 lib/Plagger/Plugin/Filter/HEADEnclosureMetadata.pm
 lib/Plagger/Plugin/Filter/HTMLScrubber.pm
 lib/Plagger/Plugin/Filter/ImageInfo.pm
+lib/Plagger/Plugin/Filter/LivedoorClipUsersCount.pm
 lib/Plagger/Plugin/Filter/LivedoorKeywordUnlink.pm
 lib/Plagger/Plugin/Filter/Markdown.pm
 lib/Plagger/Plugin/Filter/Pipe.pm
@@ -446,6 +466,11 @@ lib/Plagger/Plugin/Notify/Growl.pm
 lib/Plagger/Plugin/Notify/IRC.pm
 lib/Plagger/Plugin/Notify/MSAgent.pm
 lib/Plagger/Plugin/Notify/NetSend.pm
+lib/Plagger/Plugin/Notify/OpenBrowser.pm
+lib/Plagger/Plugin/Notify/OpenBrowser/darwin.pm
+lib/Plagger/Plugin/Notify/OpenBrowser/FirefoxRemote.pm
+lib/Plagger/Plugin/Notify/OpenBrowser/linux.pm
+lib/Plagger/Plugin/Notify/OpenBrowser/mswin32.pm
 lib/Plagger/Plugin/Notify/SSTP.pm
 lib/Plagger/Plugin/Notify/Tiarra.pm
 lib/Plagger/Plugin/Notify/UpdatePing.pm
@@ -459,6 +484,7 @@ lib/Plagger/Plugin/Publish/Feed.pm
 lib/Plagger/Plugin/Publish/FOAFRoll.pm
 lib/Plagger/Plugin/Publish/Gmail.pm
 lib/Plagger/Plugin/Publish/HatenaBookmark.pm
+lib/Plagger/Plugin/Publish/iCal.pm
 lib/Plagger/Plugin/Publish/IMAP.pm
 lib/Plagger/Plugin/Publish/JavaScript.pm
 lib/Plagger/Plugin/Publish/JSON.pm
@@ -582,6 +608,10 @@ t/samples/rss2-image.xml
 t/samples/rss2sample.xml
 t/samples/safari_bookmarks.plist
 t/samples/sample.foaf
+t/samples/scraper-args.pl
+t/samples/scraper-yaml-syck.pl
+t/samples/scraper-yaml.pl
+t/samples/scraper.pl
 t/samples/spamassassin/ham_rule.txt
 t/samples/spamassassin/spam_rule.txt
 t/samples/tags-in-title.xml
