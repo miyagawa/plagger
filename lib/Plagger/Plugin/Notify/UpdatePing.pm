@@ -21,14 +21,24 @@ sub feed {
     $urls = [ $urls ] unless ref $urls;
 
     my @args = (XMLRPC::Data->type(string => $feed->title), $feed->link);
+    my $method;
+    if ($self->conf->{extended_ping}) {
+        $method = 'weblogUpdates.extendedPing';
+        push @args, $feed->count ? $feed->entries->[0]->permalink : $feed->link;
+        push @args, $feed->url;
+        push @args, join("|", map XMLRPC::Data->type(string => $_), @{ $feed->tags })
+            if @{ $feed->tags };
+    } else {
+        $method = 'weblogUpdates.ping';
+    }
 
     for my $url (@$urls) {
         $context->log(info => "Ping " . $feed->link . " to $url");
-        eval {
-            XMLRPC::Lite->new->proxy($url)->call('weblogUpdates.ping', @args);
+        my $res = eval {
+            XMLRPC::Lite->new->proxy($url)->call($method, @args)->result;
         };
-        if ($@) {
-            $context->log(error => "Error sending UpdatePing: $@");
+        if (my $err = $@ || $res->{flerror}) {
+            $context->log(error => "Error sending UpdatePing: $err");
         }
     }
 }
@@ -50,6 +60,19 @@ Plagger::Plugin::Notify::UpdatePing - Notify updates via XMLRPC update ping
 =head1 DESCRIPTION
 
 This plugin notifies feed updates to update ping servers using XML-RPC.
+
+=head1 CONFIG
+
+=over 4
+
+=item extended_ping
+
+  extended_ping: 1
+
+Whether to use I<weblogUpdates.extendedPing> method for extra
+information. Defaults to 0.
+
+=back
 
 =head1 AUTHOR
 
