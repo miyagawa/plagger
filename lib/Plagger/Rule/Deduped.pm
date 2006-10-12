@@ -79,7 +79,7 @@ entry's title with body. Defaults to 0.
 
 Tatsuhiko Miyagawa
 
-Kazuhiro Ohsawa created Plagger::Plugin::Cache in early days, which
+Kazuhiro Osawa created Plagger::Plugin::Cache in early days, which
 gives me a base idea of this module.
 
 =head1 SEE ALSO

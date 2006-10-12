@@ -109,7 +109,7 @@ Specify path to your bookmarks file (or directory).
 
 Configuration is optional. When you omit I<browser>, this plugin auto-configure
 the default config. On Win32, I<browser> is "InternetExplorer" and I<path> is looked up
-using Windows Registry. On darwin, I<browser>is "Safari". Otherwise, I<browser> is set 
+using Windows Registry. On darwin, I<browser> is "Safari". Otherwise, I<browser> is set 
 to "Mozilla", but I<path> isn't set.
 
 =head1 AUTHOR

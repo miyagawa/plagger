@@ -50,7 +50,7 @@ entries, with Publish::Gmail plugin.
 
 =item use_entry_title
 
-Use entry's title as a newly genrated feed title. Defaults to 0.
+Use entry's title as a newly generated feed title. Defaults to 0.
 
 =back
 

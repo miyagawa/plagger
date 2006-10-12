@@ -200,7 +200,7 @@ See L<Plagger::Cookies> for details.
 
 C<mark_read> specifies whether this plugin I<marks as read> the items
 you synchronize. With this option set to 0, you will get the
-duplicated updates everytime you run Plagger, until you mark them
+duplicated updates every time you run Plagger, until you mark them
 unread using Livedoor Reader web interface.
 
 =back

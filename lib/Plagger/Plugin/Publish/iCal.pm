@@ -86,7 +86,7 @@ Plagger::Plugin::Publish::iCal - Produces iCal file out of the feed
 
 =head1 DESCRIPTION
 
-Publish::iCal creates iCal (.ics) files usine feed items. Every feed
+Publish::iCal creates iCal (.ics) files using feed items. Every feed
 is a calendar and each entry is a schedule item. Entry's posted
 date/time is used as a schedule date/time and so on.
 

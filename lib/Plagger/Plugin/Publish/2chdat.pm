@@ -112,7 +112,7 @@ __END__
 
 Plagger::Plugin::Publish::2chdat - Publish 2ch data files for 2ch browsers
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: Publish::2chdat
     config:

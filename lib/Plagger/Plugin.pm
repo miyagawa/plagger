@@ -222,7 +222,7 @@ Standard constructor.  Calls init.
 
 =item init
 
-Initilises the plugin
+Initializes the plugin
 
 =item walk_config_encryption
 

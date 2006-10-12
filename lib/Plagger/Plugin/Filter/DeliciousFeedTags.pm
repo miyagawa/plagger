@@ -38,7 +38,7 @@ Plagger::Plugin::Filter::DeliciousFeedTags - Fix del.icio.us tags
 =head1 DESCRIPTION
 
 del.icio.us RSS feeds contain information to "tags", but they're
-encoded in a single I<dc:subject> element as whiltespace-delimitered,
+encoded in a single I<dc:subject> element as whitespace-separated,
 like C<foo bar baz>.
 
 This plugin walks through feeds matching with

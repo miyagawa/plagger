@@ -130,7 +130,7 @@ See L<HTML::Scrubber> document for details.
 Some rules and default config parameters are set by default. See I<rules>
 and I<default> methods defined in this module code for details.
 
-If you doen't need these settings, use C<no_default_configs>
+If you don't need these settings, use C<no_default_configs>
 
    no_detault_configs: 1
 

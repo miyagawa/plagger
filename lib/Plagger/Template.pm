@@ -56,7 +56,7 @@ The plugin calls the custom new routine like so:
   Plagger::Template->new($plagger_context, $self);
 
 Essentially this subclass uses this to know where the templates are
-from the assests path.
+from the assets path.
 
 It also does the right thing with encodings and utf8.
 

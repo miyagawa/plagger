@@ -148,7 +148,7 @@ Specifies the repository url.
 
 =item title
 
-Specifies the feed title you want. If not spacified, default is 'SVN Log'.
+Specifies the feed title you want. If not specified, default is 'SVN Log'.
 
 =item link
 

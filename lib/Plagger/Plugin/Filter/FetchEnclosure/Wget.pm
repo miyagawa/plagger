@@ -123,7 +123,7 @@ Plagger::Plugin::Filter::FetchEnclosure::Wget - Fetch enclosures using wget
 
 =head1 DESCRIPTION
 
-This pluguins uses wget command to download enclosure files.
+This plugin uses wget command to download enclosure files.
 
 =head1 AUTHOR
 

@@ -54,7 +54,7 @@ Plagger::Plugin::Publish::JavaScript - publish links to entries as JavaScript
 
 =head1 DESCRIPTION
 
-This plugin publishes links to feed entries as an HTML embedable
+This plugin publishes links to feed entries as an HTML embeddable
 JavaScript file. The JS file contains document.write() calls, and can
 be easily included in any HTML page using:
 

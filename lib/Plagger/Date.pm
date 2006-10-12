@@ -109,7 +109,7 @@ Plagger::Date - DateTime subclass for Plagger
 
 =head1 DESCRIPTION
 
-This module subclasses DataTime for plagger's own needs.
+This module subclasses DateTime for plagger's own needs.
 
 =over
 
@@ -139,12 +139,12 @@ This module subclasses DataTime for plagger's own needs.
 
 =item format($format)
 
-Convience method.  Returns the datetime in the format
+Convenience method.  Returns the datetime in the format
 passed (either a formatter object or a blessed reference) 
 
 =item set_time_zone
 
-Overides default behavior to default to UTC if the passed
+Overrides default behavior to default to UTC if the passed
 time zone isn't a legal
 
 =item serialize

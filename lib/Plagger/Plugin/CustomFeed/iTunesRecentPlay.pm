@@ -181,7 +181,7 @@ This plugin fetches the data of musics you played with iTunes or iPod recently.
 
 =item library_path
 
-A path name of iTunes Music Libary.xml.If you omit this parameter,
+A path name of iTunes Music Library.xml.If you omit this parameter,
 this plugin try to find it automatically.
 
 =item duration

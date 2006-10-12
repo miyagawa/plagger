@@ -90,7 +90,7 @@ A flag to post entry's body as extended field for del.icio.us. Defaults to 0.
 
 =head1 AUTHOR
 
-Tsutomu Koyacho
+Tsutomu Koyachi
 
 =head1 SEE ALSO
 

@@ -143,7 +143,7 @@ Or, to use bot using existent login credentials,
 This plugin notifies feed updates to 37 Signals' Campfire
 L<http://www.campfirenow.com/> chat room.
 
-Note that you don't have to supply emali and password if you set
+Note that you don't have to supply email and password if you set
 global cookie_jar in your configuration file and the cookie_jar
 contains a valid login session there, such as:
 

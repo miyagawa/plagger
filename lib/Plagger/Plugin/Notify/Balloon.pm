@@ -76,7 +76,7 @@ Plagger::Plugin::Notify::Balloon - Notify feed updates using Win32 BalloonNotify
 This plugin uses Windows Balloon notification system to notify feed
 updates to users.
 
-You need to install BallonNotify.exe command line tool from
+You need to install BalloonNotify.exe command line tool from
 L<http://www.gertrud.jp/soft/balloonnotify.html>.
 
 =head1 TODO

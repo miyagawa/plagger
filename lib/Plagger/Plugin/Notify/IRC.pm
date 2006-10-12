@@ -76,7 +76,7 @@ Plagger::Plugin::Notify::IRC - Notify feed updates to IRC
 =head1 DESCRIPTION
 
 This plugin allows you to notify feed updates to IRC channels using
-POE based IRC client. This module uses IKC inter-kernal protocol to
+POE based IRC client. This module uses IKC inter-kernel protocol to
 communicate with POE daemon.
 
 =head1 SETUP

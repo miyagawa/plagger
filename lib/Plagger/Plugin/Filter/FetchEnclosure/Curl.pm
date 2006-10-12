@@ -114,7 +114,7 @@ Plagger::Plugin::Filter::FetchEnclosure::Curl - Fetch enclosures using curl
 
 =head1 DESCRIPTION
 
-This pluguins uses curl command to download enclosure files.
+This plugin uses curl command to download enclosure files.
 
 =head1 AUTHOR
 

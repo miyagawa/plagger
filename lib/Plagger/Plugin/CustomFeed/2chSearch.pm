@@ -158,7 +158,7 @@ global I<user_agent> config.
 =head1 FREQUENCY FOR SEARCHES
 
 By default, this plugin doesn't search more than once in an hour by
-default, to save your money (Moritapo). If you want to reduce seach
+default, to save your money (Moritapo). If you want to reduce search
 frequency more (like once in a day), consider using
 L<Plagger::Rule::DateTimeCron> to trigger Subscription::Config for it.
 

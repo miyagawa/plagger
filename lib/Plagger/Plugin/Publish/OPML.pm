@@ -43,9 +43,9 @@ __END__
 
 =head1
 
-Plagger::Plugin::Publish::OPML - Publish OPML files based on your subcscription
+Plagger::Plugin::Publish::OPML - Publish OPML files based on your subscription
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: Publish::OPML
     config:
@@ -53,7 +53,7 @@ Plagger::Plugin::Publish::OPML - Publish OPML files based on your subcscription
 
 =head1 DESCRIPTION
 
-This plugin publishes OPML file using feeds fonnd in the subscription.
+This plugin publishes OPML file using feeds found in the subscription.
 
 =head1 CONFIG
 

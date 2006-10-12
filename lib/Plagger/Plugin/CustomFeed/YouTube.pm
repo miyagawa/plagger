@@ -162,7 +162,7 @@ Specify search query.
 
 =item sort
 
-Set sort condition. Available condisions are below. Default is video_date_uploaded.
+Set sort condition. Available conditions are below. Default is video_date_uploaded.
 
   relevance
   video_date_uploaded

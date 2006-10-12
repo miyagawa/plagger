@@ -32,7 +32,7 @@ __END__
 
 Plagger::Plugin::UserAgent::AuthenRequest - Plagger plugin for authen request
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: UserAgent::AuthenRequest
     config:

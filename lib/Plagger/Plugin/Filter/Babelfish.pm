@@ -127,7 +127,7 @@ Plagger::Plugin::Filter::Babelfish - translate via WWW::Babelfish
 
 =head1 DESCRIPTION
 
-This plugin translates each entry body via Bebelfish.
+This plugin translates each entry body via Babelfish.
 See L<WWW::Babelfish> for details.
 
 =head1 CONFIG

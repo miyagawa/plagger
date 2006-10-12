@@ -112,7 +112,7 @@ Plagger::Plugin::Notify::MSAgent - Let your Agent speak feed updates
 
 =head1 DESCRIPTION
 
-This plugin uses Microsoft Agent API to let your agent speack feed updates.
+This plugin uses Microsoft Agent API to let your agent speak feed updates.
 
 =head1 AUTHOR
 

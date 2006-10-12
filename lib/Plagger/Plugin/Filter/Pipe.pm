@@ -99,7 +99,7 @@ This plugin filtering feed with other program using a pipe.
 
 =item text_only
 
-When set to 1, uses HTML::Parser so that the regexp substition should
+When set to 1, uses HTML::Parser so that the regexp substitution should
 be applied only to HTML text part. Defaults to 0.
 
 =back

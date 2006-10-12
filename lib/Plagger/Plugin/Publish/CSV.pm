@@ -62,7 +62,7 @@ __END__
 
 Plagger::Plugin::Publish::CSV - Publish feeds as CSV
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: Publish::CSV
     config:

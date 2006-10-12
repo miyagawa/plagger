@@ -32,7 +32,7 @@ Plagger::Plugin::Aggregator::Null - Aggregator that doesn't do anything
 
 This plugin implements Plagger Aggregator but it doesn't do anything
 useful. It could be only useful when you want to just pass subscribed
-feed to Publish/Notify plugins, or inisde test scripts.
+feed to Publish/Notify plugins, or inside test scripts.
 
 =head1 AUTHOR
 

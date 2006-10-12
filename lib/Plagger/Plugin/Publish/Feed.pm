@@ -159,7 +159,7 @@ __END__
 
 Plagger::Plugin::Publish::Feed - republish RSS/Atom feeds
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: Publish::Feed
     config:
@@ -214,7 +214,7 @@ Whether to publish full content feed. Defaults to 1.
 
 =head1 AUTHOR
 
-Yoshiki KURIHARA
+Yoshiki Kurihara
 
 Tatsuhiko Miyagawa
 

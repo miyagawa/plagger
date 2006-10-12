@@ -74,7 +74,7 @@ __END__
 
 Plagger::Plugin::Publish::PowerPoint - publish as PowerPoint slide
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: Publish::PowerPoint
     config:

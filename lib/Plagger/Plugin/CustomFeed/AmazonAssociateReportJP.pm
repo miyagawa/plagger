@@ -148,7 +148,7 @@ Amazon.co.jp associate central
 
 This plugin fetches your report for Amazon affiliate.
 
-=head1 CONFIGRATION
+=head1 CONFIGS
 
 =over 4
 

@@ -27,7 +27,7 @@ __END__
 
 Plagger::Plugin::UserAgent::RequestHeader - Add arbitrary request header
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: UserAgent::RequestHeader
     config:

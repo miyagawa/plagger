@@ -91,7 +91,7 @@ Plagger::Plugin::Filter::Delicious - Fetch tags and users count from del.icio.us
 =head1 DESCRIPTION
 
 B<Note: this module is mostly untested and written just for a proof of
-concept. If you run this on your box with real feeds, del.icio.us wlil
+concept. If you run this on your box with real feeds, del.icio.us will
 be likely to ban your IP. See http://del.icio.us/help/ for details.>
 
 This plugin queries del.icio.us using its RSS feeds API to get the

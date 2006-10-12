@@ -270,7 +270,7 @@ This plugin creates HTML emails and sends them to your Gmail mailbox.
 
 =item mailto
 
-Your email address to send updatess to. Required.
+Your email address to send updates to. Required.
 
 =item mailfrom
 

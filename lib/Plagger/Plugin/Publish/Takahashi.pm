@@ -44,7 +44,7 @@ sub finalize {
 
 =head1 NAME
 
-Plagger::Plugin::Publish::Takahashi - produce takahasi output
+Plagger::Plugin::Publish::Takahashi - produce takahashi output
 
 =head1 SYNOPSIS
 

@@ -151,9 +151,7 @@ Plagger::Plugin::Filter::TruePermalink - Normalize permalink using its own plugi
 =head1 DESCRIPTION
 
 This plugin normalizes permalink using YAML based URL pattern
-files. Various permalink fix filters in the past (YahooBlogSearch,
-Namaan, 2chRSSPermalink) can now be writting as a pattern file for
-this plugin.
+files.
 
 This plugin rewrites I<permalink> attribute of C<$entry>, while
 keeping I<link> as is. If C<$entry> has enclosures, this plugin also

@@ -185,7 +185,7 @@ all the entries aggregated. Defaults to I<7 days>.
 
 =item extra_rule
 
-Additional rule to add to filter entris using SmartFeed::All. Optional and defaults to nothing.
+Additional rule to add to filter entries using SmartFeed::All. Optional and defaults to nothing.
 
 =item description
 

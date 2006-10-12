@@ -43,7 +43,7 @@ __END__
 
 Plagger::Plugin::Publish::FOAFRoll - Publish foafroll RDF file using subscriptions
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
   - module: Publish::FOAFRoll
     config:

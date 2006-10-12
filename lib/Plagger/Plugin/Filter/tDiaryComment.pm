@@ -64,7 +64,7 @@ This plugin strips the comment entries from tDiary RSS feeds.
 
 =head1 AUTHOR
 
-MATSUNO Tokuhiro E<lt>tokuhiro at mobilefactory.jpE<gt>
+Tokuhiro Matsuno E<lt>tokuhiro at mobilefactory.jpE<gt>
 
 Tatsuhiko Miyagawa
 

@@ -76,7 +76,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Notify::Tiarra - Notify feed updates to Tiraa IRC Proxy
+Plagger::Plugin::Notify::Tiarra - Notify feed updates to Tiarra IRC Proxy
 
 =head1 SYNOPSIS
 

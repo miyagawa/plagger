@@ -105,7 +105,7 @@ Plagger::Plugin::Filter::FetchEnclosure::ParallelUA - Fetch enclosures using Par
 
 =head1 DESCRIPTION
 
-This pluguins uses LWP::Parallel UA to download enclosures from multiple hosts in parallel.
+This plugin uses LWP::Parallel UA to download enclosures from multiple hosts in parallel.
 
 =head1 AUTHOR
 
