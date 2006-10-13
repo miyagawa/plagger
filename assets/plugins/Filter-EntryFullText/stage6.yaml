@@ -1,7 +1,7 @@
 author: Taro Funaki
 custom_feed_handle: http://stage6\.divx\.com/(?:(?:[\w-+]+/|members/\d+/)?videos|favorite/list/\d+)
-custom_feed_follow_link: (?:[\w-+]+/show_video|members/\d+/videos|content/show)/\d+
-handle: http://stage6\.divx\.com/(?:[\w-+]+/show_video|members/\d+/videos|content/show)/\d+
+custom_feed_follow_link: (?:[\w\-\+]+/show_video|members/\d+/videos|content/show)/\d+
+handle: http://stage6\.divx\.com/(?:[\w\-\+]+/show_video|members/\d+/videos|content/show)/\d+
 extract: <img src="(http://images.stage6.com/videos/\d+.jpg)".*<div id='vdetail_description'>\s*(.*?)\s*</div>.*Uploaded on (.*?)\s+(?:in|by)\s+<b><a href=".*?" class="small_userlink">(.*?)</a>
 extract_capture: icon body date author
 extract_date_format: %B %d, %Y
