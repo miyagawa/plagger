@@ -1,4 +1,8 @@
 author: woremacx
 handle: http://www\.nikkei\.co\.jp/news/
-extract: <!--FJZONE START NAME="MIDASHI" -->(?:<!-- headline -->)?(.*?)(?:<!-- /headline -->)?<!--FJZONE END NAME="MIDASHI" --></h1>(.*?)<!--FJZONE END NAME="HONBUN" -->
-extract_capture: title body
+extract: <!--FJZONE START NAME="MIDASHI" -->(.+?)<!--FJZONE END NAME="MIDASHI" -->\s</h1>\s<p>(.+?)&nbsp;&nbsp;\((\d{2}:\d{2})\)
+extract_capture: title body time
+extract_after_hook: |
+  if ($args->{entry}->link =~ m!/news/\w+?/(\d{4})(\d\d)(\d\d)!) {
+   $data->{date} = "$1/$2/$3 $data->{time} JST";
+  }
