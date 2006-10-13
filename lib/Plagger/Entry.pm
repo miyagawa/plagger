@@ -2,7 +2,8 @@ package Plagger::Entry;
 use strict;
 
 use base qw( Plagger::Thing );
-__PACKAGE__->mk_accessors(qw( title author tags link feed_link summary body rate icon meta source ));
+__PACKAGE__->mk_accessors(qw( tags link feed_link rate icon meta source language ));
+__PACKAGE__->mk_text_accessors(qw( title author summary body ));
 __PACKAGE__->mk_date_accessors(qw( date ));
 
 use Digest::MD5;
@@ -64,12 +65,12 @@ sub id_safe {
 
 sub title_text {
     my $self = shift;
-    Plagger::Util::strip_html($self->title);
+    $self->title ? $self->title->plaintext : undef;
 }
 
 sub body_text {
     my $self = shift;
-    Plagger::Util::strip_html($self->body || '');
+    $self->body ? $self->body->plaintext : undef;
 }
 
 sub add_enclosure {

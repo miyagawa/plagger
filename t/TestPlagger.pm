@@ -315,14 +315,13 @@ Meaning you can't use $foo like so:
 sub interpolate {
     my $stuff = shift;
     
-    # interpert in $foo::bar to their values in the string
+    # interpolate in $foo::bar to their values in the string
     # (but not \$foo::bar)
-    $stuff =~ s/(?<!\\)     # check there's no backslash before this
-                (\$[\w\:]+) # look for a $var possibly with packages
-               /$1/eegx;    # replace it with its value
+    $stuff =~ s/(?<!\\)                         # check there's no backslash before this
+                (\$[\w\:]+(?:[\{\[]\w+[\]\}])?) # look for a $var possibly with packages
+               /$1/eegx;                        # replace it with its value
 
     $stuff =~ s/\\\$/\$/g;  # turn the escaped \$ into $
-    
     $stuff;
 }
 

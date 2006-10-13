@@ -31,5 +31,5 @@ plugins:
       full_content: 0
 --- expected
 file_doesnt_contain($main::output, qr/&lt;a href=/);
-file_contains($main::output, qr/for\s+http/s);
+file_contains($main::output, qr/for\s+(\*\s*)?http/s);
 

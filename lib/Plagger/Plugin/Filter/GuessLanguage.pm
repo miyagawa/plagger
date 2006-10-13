@@ -120,7 +120,7 @@ sub guess_feed {
 sub guess_entry {
     my ($self, $context, $args) = @_;
 
-    return $args->{entry}->{language} if $args->{entry}->{language};
+    return $args->{entry}->language if $args->{entry}->language;
 
     $context->log(debug => "start guessing entry's language");
 
@@ -128,7 +128,7 @@ sub guess_entry {
 
     if ($code) {
         $context->log(debug => "guessed: $code");
-        $args->{entry}->{language} = $code;
+        $args->{entry}->language($code);
         return $code;
     }
     else {

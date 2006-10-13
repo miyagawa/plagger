@@ -12,7 +12,7 @@ $XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
 
 sub register {
     my($self, $context) = @_;
-    $context->autoload_plugin('Filter::FloatingDateTime');
+    $context->autoload_plugin({ module => 'Filter::FloatingDateTime' });
     $context->register_hook(
         $self,
         'publish.feed' => \&publish_feed,

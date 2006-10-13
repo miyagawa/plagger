@@ -20,7 +20,6 @@ Plagger->bootstrap(config => \$config);
 
 package Plagger::Plugin::Test::Cache;
 use base qw( Plagger::Plugin );
-use Plagger::UserAgent;
 
 sub register {
     my($self, $context) = @_;

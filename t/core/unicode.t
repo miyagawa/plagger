@@ -14,7 +14,7 @@ plugins:
       feed:
         - file://$t::TestPlagger::BaseDirURI/t/samples/rss-full.xml
 --- expected
-ok utf8::is_utf8( $context->update->feeds->[0]->title );
-ok utf8::is_utf8( $context->update->feeds->[0]->description );
-ok utf8::is_utf8( $context->update->feeds->[0]->entries->[0]->title );
-ok utf8::is_utf8( $context->update->feeds->[0]->entries->[0]->body );
+ok utf8::is_utf8( $context->update->feeds->[0]->title->data );
+ok utf8::is_utf8( $context->update->feeds->[0]->description->data );
+ok utf8::is_utf8( $context->update->feeds->[0]->entries->[0]->title->data );
+ok utf8::is_utf8( $context->update->feeds->[0]->entries->[0]->body->data );

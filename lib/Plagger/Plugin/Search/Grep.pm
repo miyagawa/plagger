@@ -40,10 +40,10 @@ sub entry {
 
         $config->{$id} = {
             link   => $entry->link,
-            author => _u($entry->author),
+            author => _u($entry->author || ''),
             date   => $entry->date ? $entry->date->format('W3CDTF') : '',
-            title  => _u($entry->title),
-            body   => _u($entry->summary) || '',
+            title  => _u($entry->title->plaintext),
+            body   => _u($entry->body->plaintext) || '',
         };
 
         open my $out, '>', $path or $context->error("$path: $!");

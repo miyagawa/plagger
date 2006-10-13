@@ -2,6 +2,9 @@ package Plagger::Thing;
 use strict;
 use base qw( Class::Accessor::Fast );
 
+use Plagger::Text;
+use Scalar::Util qw(blessed);
+
 sub has_tag {
     my($self, $want_tag) = @_;
     for my $tag (@{$self->tags}) {
@@ -35,6 +38,25 @@ sub mk_date_accessors {
                     $date = Plagger::Date->parse_dwim($date);
                 }
                 $obj->{$key} = $date;
+            } else {
+                return $obj->{$key};
+            }
+        };
+    }
+}
+
+sub mk_text_accessors {
+    my $class = shift;
+    for my $key (@_) {
+        no strict 'refs';
+        *{"$class\::$key"} = sub {
+            my $obj = shift;
+            if (@_) {
+                my $text = $_[0];
+                unless ( blessed($text) && $text->isa('Plagger::Text') ) {
+                    $text = Plagger::Text->new_from_text($text);
+                }
+                $obj->{$key} = $text;
             } else {
                 return $obj->{$key};
             }

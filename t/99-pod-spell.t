@@ -7,7 +7,6 @@ BEGIN {
 }
 
 use FindBin;
-use Test::More;
 use Test::Spelling;
 
 add_authors_to_stopwords();
@@ -39,6 +38,7 @@ Bloglines
 Bulkfeeds
 CDTF
 CONFIGS
+CPAN
 CSV
 CVS
 ControlPort
@@ -148,6 +148,7 @@ aggregator
 aggregators
 al
 ascii
+atomfeed
 authen
 autodiscovery
 backend
@@ -182,6 +183,7 @@ euc
 euc
 exe
 extendedPing
+fallbacks
 feedburner's
 foaf
 foafroll
@@ -207,6 +209,7 @@ init
 inline
 irc
 ircbot
+ized
 ja
 javascript
 jp
@@ -282,3 +285,5 @@ wosit
 xml
 xul
 yaml
+plaintext
+Trackback

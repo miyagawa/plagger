@@ -64,6 +64,11 @@ features(
         -default => 1,
         recommends('HTML::TreeBuilder::XPath'),
     ],
+    'Better html to text formatter' => [
+        -default => 1,
+        recommends('HTML::TreeBuilder'),
+        recommends('HTML::FormatText'),
+    ],
 );
 
 require YAML;

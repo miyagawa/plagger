@@ -41,12 +41,12 @@ sub entry {
 
     my $doc = Search::Estraier::Document->new;
     $doc->add_attr('@uri' => $args->{entry}->permalink);
-    $doc->add_attr('@title' => _u($args->{entry}->title));
+    $doc->add_attr('@title' => $args->{entry}->title->utf8);
     $doc->add_attr('@cdate' => $args->{entry}->date->format('W3CDTF')) if $args->{entry}->date;
-    $doc->add_attr('@author' => _u($args->{entry}->author)) if $args->{entry}->author;
+    $doc->add_attr('@author' => $args->{entry}->author->utf8) if $args->{entry}->author;
 
-    $doc->add_text(_u($args->{entry}->body_text));
-    $doc->add_hidden_text(_u($args->{entry}->title));
+    $doc->add_text($args->{entry}->body->utf8);
+    $doc->add_hidden_text($args->{entry}->title->utf8);
 
     $doc->add_attr('@id' => $id) if $id; # update mode
 

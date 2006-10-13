@@ -1,0 +1,4 @@
+name: Summary-TextOriginal
+author: Tatsuhiko Miyagawa
+depends:
+  Text::Original: 0

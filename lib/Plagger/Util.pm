@@ -6,8 +6,10 @@ our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri m
 use Encode ();
 use List::Util qw(min);
 use HTML::Entities;
+use HTML::Tagset;
 use MIME::Types;
 use MIME::Type;
+use Plagger::Text;
 
 our $Detector;
 
@@ -25,8 +27,27 @@ BEGIN {
 
 sub strip_html {
     my $html = shift;
-    $html =~ s/<[^>]*>//g;
-    HTML::Entities::decode($html);
+
+    eval {
+        require HTML::FormatText;
+        require HTML::TreeBuilder;
+    };
+
+    if ($@) {
+        # dump stripper
+        $html =~ s/<[^>]*>//g;
+        return HTML::Entities::decode($html);
+    }
+
+    my $tree = HTML::TreeBuilder->new;
+    $tree->parse($html);
+    $tree->eof;
+
+    my $formatter = HTML::FormatText->new(leftmargin => 0);
+    my $text = $formatter->format($tree);
+#    utf8::decode($text);
+    $text =~ s/\s*$//s;
+    $text;
 }
 
 sub dumbnail {
@@ -156,7 +177,8 @@ my %entities = (
     '&' => '&amp;',
     '<' => '&lt;',
     '>' => '&gt;',
-    "'" => '&quot;',
+    '"' => '&quot;',
+    "'" => '&apos;',
 );
 
 my $entities_re = join '|', keys %entities;

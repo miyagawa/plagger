@@ -7,7 +7,7 @@ use DirHandle;
 sub init {
     my $self = shift;
     $self->SUPER::init(@_);
-    Plagger->context->autoload_plugin('Filter::BloglinesContentNormalize');
+    Plagger->context->autoload_plugin({ module => 'Filter::BloglinesContentNormalize' });
 
     $self->load_assets('*.yaml', sub { $self->load_yaml(@_) });
     $self->load_assets('*.pat',  sub { $self->load_regexp(@_)});

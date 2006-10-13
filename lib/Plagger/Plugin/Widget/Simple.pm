@@ -58,6 +58,8 @@ sub value {
     if ($string =~ /\$/) { # DWIM
         $string = eval $string;
         Plagger->context->log(error => $@) if $@;
+
+        $string = "$string"; # stringify ::Content
         utf8::encode($string) if utf8::is_utf8($string);
     }
 

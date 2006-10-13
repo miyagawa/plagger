@@ -52,7 +52,15 @@ sub default {
 sub register {
     my ( $self, $context ) = @_;
 
-    $context->register_hook( $self, 'update.entry.fixup' => \&update, );
+    $context->register_hook(
+        $self,
+        'update.entry.fixup' => \&update,
+        'plugin.init'        => \&initialize,
+    );
+}
+
+sub initialize {
+    my($self, $context, $args) = @_;
 
     $self->{scrubber} = do {
         my $scrubber = HTML::Scrubber->new;
@@ -83,7 +91,8 @@ sub register {
 sub update {
     my ( $self, $context, $args ) = @_;
 
-    if (defined $args->{entry}->body) {
+    if (defined $args->{entry}->body && $args->{entry}->body->is_html) {
+        $context->log(debug => "Scrubbing body for" . $args->{entry}->permalink || '(no-link)');
         my $body = $self->{scrubber}->scrub( $args->{entry}->body );
         $args->{entry}->body($body);
     }

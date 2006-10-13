@@ -95,7 +95,7 @@ sub filter {
     my($self, $context, $args) = @_;
 
     my $handler = first { $_->handle_force($args) } @{ $self->{plugins} };
-    if ( !$handler && $args->{entry}->body && $args->{entry}->body =~ /<\w+>/ && !$self->conf->{force_upgrade} ) {
+    if ( !$handler && $args->{entry}->body && $args->{entry}->body->is_html && !$self->conf->{force_upgrade} ) {
         $self->log(debug => $args->{entry}->link . " already contains body. Skipped");
         return;
     }
@@ -138,11 +138,18 @@ sub filter {
             if ($data) {
                 $context->log(info => "Extract content succeeded on " . $args->{entry}->permalink);
                 my $resolver = HTML::ResolveLink->new( base => $args->{entry}->permalink );
+
+                # if body was already there, set that to summary
+                if ($args->{entry}->body) {
+                    $args->{entry}->summary($args->{entry}->body);
+                }
+
                 $data->{body} = $resolver->resolve( $data->{body} );
                 $args->{entry}->body($data->{body});
                 $args->{entry}->title($data->{title}) if $data->{title};
                 $args->{entry}->author($data->{author}) if $data->{author};
                 $args->{entry}->icon({ url => $data->{icon} }) if $data->{icon};
+                $args->{entry}->summary($data->{summary}) if $data->{summary};
 
                 # extract date using found one
                 if ($data->{date}) {

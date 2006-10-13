@@ -196,8 +196,8 @@ sub extract_package {
 
 sub autoload_plugin {
     my($self, $plugin) = @_;
-    unless ($self->is_loaded($plugin)) {
-        $self->load_plugin({ module => $plugin });
+    unless ($self->is_loaded($plugin->{module})) {
+        $self->load_plugin($plugin);
     }
 }
 
@@ -273,6 +273,7 @@ sub run_hook {
         }
     }
 
+    return if $once;
     return @ret;
 }
 
@@ -290,6 +291,8 @@ sub run {
     unless ( $self->is_loaded(qr/^Aggregator::/) ) {
         $self->load_plugin({ module => 'Aggregator::Simple' });
     }
+    $self->autoload_plugin({ module => 'Summary::Auto' });
+    $self->autoload_plugin({ module => 'Summary::Simple' });
 
     for my $feed ($self->subscription->feeds) {
         if (my $sub = $feed->aggregator) {

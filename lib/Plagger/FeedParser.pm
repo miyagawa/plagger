@@ -2,9 +2,11 @@ package Plagger::FeedParser;
 use strict;
 
 use Feed::Find;
+use XML::Atom;
 use XML::Feed;
 use XML::Feed::RSS;
 $XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
+$XML::Atom::ForceUnicode = 1;
 
 use Plagger::Util;
 
@@ -19,7 +21,6 @@ sub parse {
         $sweeper = XML::Liberal->globally_override('LibXML');
     }
 
-    local $XML::Atom::ForceUnicode = 1;
     my $remote = eval { XML::Feed->parse($content_ref) }
         or Carp::croak("Parsing content failed: " . ($@ || XML::Feed->errstr));
 

@@ -13,7 +13,7 @@ use Plagger::UserAgent;
 sub register {
     my($self, $context) = @_;
 
-    $context->autoload_plugin('Filter::ResolveRelativeLink');
+    $context->autoload_plugin({ module => 'Filter::ResolveRelativeLink' });
     $context->register_hook(
         $self,
         'update.entry.fixup' => \&filter,
@@ -81,7 +81,9 @@ sub filter {
     # check $entry->link first, if it links directly to media files
     $self->add_enclosure($args->{entry}, [ 'a', { href => $args->{entry}->permalink } ], 'href' );
 
-    my $parser = HTML::TokeParser->new(\$args->{entry}->body);
+    return unless $args->{entry}->body;
+
+    my $parser = HTML::TokeParser->new(\$args->{entry}->body->data);
     while (my $tag = $parser->get_tag('a', 'embed', 'img', 'object')) {
         if ($tag->[0] eq 'a' ) {
             $self->add_enclosure($args->{entry}, $tag, 'href');

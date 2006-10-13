@@ -12,7 +12,7 @@ use Locale::Language;
 sub register {
     my($self, $context) = @_;
 
-    $context->autoload_plugin('Filter::GuessLanguage');
+    $context->autoload_plugin({ module => 'Filter::GuessLanguage' });
     $context->register_hook(
         $self,
         'plugin.init'        => \&connect_to_babelfish,

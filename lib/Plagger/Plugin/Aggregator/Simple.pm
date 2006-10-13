@@ -6,6 +6,7 @@ use Feed::Find;
 use Plagger::Enclosure;
 use Plagger::FeedParser;
 use Plagger::UserAgent;
+use Plagger::Text;
 use List::Util qw(first);
 use UNIVERSAL::require;
 use URI;
@@ -134,7 +135,16 @@ sub handle_feed {
         $entry->link($e->link);
         $entry->feed_link($feed->link);
         $entry->id($e->id);
-        $entry->body(_u($e->content->body || $e->summary->body));
+
+        my $content = feed_to_text($e, $e->content);
+        my $summary = feed_to_text($e, $e->summary);
+        $entry->body($content || $summary);
+        $entry->summary($summary) if $summary;
+
+        # per-entry level language support in Atom
+        if ($remote->format eq 'Atom' && $e->{entry}->content && $e->{entry}->content->lang) {
+            $entry->language($e->{entry}->content->lang);
+        }
 
         # enclosure support, to be added to XML::Feed
         if ($remote->format =~ /^RSS / and my $encls = $e->{entry}->{enclosure}) {
@@ -164,52 +174,9 @@ sub handle_feed {
         }
 
         # TODO: move MediaRSS, Hatena, iTunes and those specific parser to be subclassed
-
-        # Media RSS
-        my $media_ns = "http://search.yahoo.com/mrss";
-        my $media = $e->{entry}->{$media_ns}->{group} || $e->{entry};
-        my $content = $media->{$media_ns}->{content} || [];
-           $content = [ $content ] unless ref $content && ref $content eq 'ARRAY';
-
-        for my $media_content (@{$content}) {
-            my $enclosure = Plagger::Enclosure->new;
-            $enclosure->url( URI->new($media_content->{url}) );
-            $enclosure->auto_set_type($media_content->{type});
-            $entry->add_enclosure($enclosure);
-        }
-
-        if (my $thumbnail = $media->{$media_ns}->{thumbnail}) {
-            $entry->icon({
-                url   => $thumbnail->{url},
-                width => $thumbnail->{width},
-                height => $thumbnail->{height},
-            });
-        }
-
-        # Hatena Image extensions
-        my $hatena = $e->{entry}->{"http://www.hatena.ne.jp/info/xmlns#"} || {};
-        if ($hatena->{imageurl}) {
-            my $enclosure = Plagger::Enclosure->new;
-            $enclosure->url($hatena->{imageurl});
-            $enclosure->auto_set_type;
-            $entry->add_enclosure($enclosure);
-        }
-
-        if ($hatena->{imageurlsmall}) {
-            $entry->icon({ url   => $hatena->{imageurlsmall} });
-        }
-
-        # Apple photocast feed
-        my $apple = $e->{entry}->{"http://www.apple.com/ilife/wallpapers"} || {};
-        if ($apple->{image}) {
-            my $enclosure = Plagger::Enclosure->new;
-            $enclosure->url( URI->new($apple->{image}) );
-            $enclosure->auto_set_type;
-            $entry->add_enclosure($enclosure);
-        }
-        if ($apple->{thumbnail}) {
-            $entry->icon({ url => $apple->{thumbnail} });
-        }
+        $self->handle_media_rss($entry, $e);
+        $self->handle_hatena_image($entry, $e);
+        $self->handle_apple_photocast($entry, $e);
 
         my $args = {
             entry      => $entry,
@@ -224,6 +191,83 @@ sub handle_feed {
 
     $context->log(info => "Aggregate $url success: " . $feed->count . " entries.");
     $context->update->add($feed);
+}
+
+sub handle_media_rss {
+    my($self, $entry, $e) = @_;
+
+    my $media_ns = "http://search.yahoo.com/mrss";
+    my $media = $e->{entry}->{$media_ns}->{group} || $e->{entry};
+    my $content = $media->{$media_ns}->{content} || [];
+    $content = [ $content ] unless ref $content && ref $content eq 'ARRAY';
+
+    for my $media_content (@{$content}) {
+        my $enclosure = Plagger::Enclosure->new;
+        $enclosure->url( URI->new($media_content->{url}) );
+        $enclosure->auto_set_type($media_content->{type});
+        $entry->add_enclosure($enclosure);
+    }
+
+    if (my $thumbnail = $media->{$media_ns}->{thumbnail}) {
+        $entry->icon({
+            url   => $thumbnail->{url},
+            width => $thumbnail->{width},
+            height => $thumbnail->{height},
+        });
+    }
+}
+
+sub handle_hatena_image {
+    my($self, $entry, $e) = @_;
+
+    # Hatena Image extensions
+    my $hatena = $e->{entry}->{"http://www.hatena.ne.jp/info/xmlns#"} || {};
+    if ($hatena->{imageurl}) {
+        my $enclosure = Plagger::Enclosure->new;
+        $enclosure->url($hatena->{imageurl});
+        $enclosure->auto_set_type;
+        $entry->add_enclosure($enclosure);
+    }
+
+    if ($hatena->{imageurlsmall}) {
+        $entry->icon({ url   => $hatena->{imageurlsmall} });
+    }
+}
+
+sub handle_apple_photocast {
+    my($self, $entry, $e) = @_;
+
+    my $apple = $e->{entry}->{"http://www.apple.com/ilife/wallpapers"} || {};
+    if ($apple->{image}) {
+        my $enclosure = Plagger::Enclosure->new;
+        $enclosure->url( URI->new($apple->{image}) );
+        $enclosure->auto_set_type;
+        $entry->add_enclosure($enclosure);
+    }
+    if ($apple->{thumbnail}) {
+        $entry->icon({ url => $apple->{thumbnail} });
+    }
+}
+
+sub feed_to_text {
+    my($e, $content) = @_;
+    return unless $content->body;
+
+    if (ref($e) eq 'XML::Feed::Entry::Atom') {
+        # in Atom, be a little strict with TextConstruct
+        # TODO: this actually doesn't work since XML::Feed and XML::Atom does the right
+        # thing with Atom 1.0 TextConstruct
+        if ($content->type eq 'text/plain' || $content->type eq 'text') {
+            return Plagger::Text->new(type => 'text', data => $content->body);
+        } else {
+            return Plagger::Text->new(type => 'html', data => $content->body);
+        }
+    } elsif (ref($e) eq 'XML::Feed::Entry::RSS') {
+        # in RSS there's no explicit way to declare the type. Just guess it
+        return Plagger::Text->new_from_text($content->body);
+    } else {
+        die "Something is wrong: $e";
+    }
 }
 
 sub _u {

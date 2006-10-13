@@ -1,0 +1,6 @@
+name: Summary-English
+author: Tatsuhiko Miyagawa
+depends:
+  Lingua::EN::Summarize: 0
+bundles:
+  - Filter::GuessLanguage

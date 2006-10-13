@@ -2,7 +2,8 @@ package Plagger::Feed;
 use strict;
 
 use base qw( Plagger::Thing );
-__PACKAGE__->mk_accessors(qw( link url image description language author tags meta type source_xml aggregator ));
+__PACKAGE__->mk_accessors(qw( link url image language tags meta type source_xml aggregator ));
+__PACKAGE__->mk_text_accessors(qw( description author title ));
 __PACKAGE__->mk_date_accessors(qw( updated ));
 
 use Digest::MD5 qw(md5_hex);
@@ -41,16 +42,6 @@ sub count {
     scalar @{ $self->{entries} };
 }
 
-sub title {
-    my $self = shift;
-    if (@_) {
-        my $title = shift;
-        utf8::decode($title) unless utf8::is_utf8($title);
-        $self->{title} = $title;
-    }
-    $self->{title};
-}
-
 sub id {
     my $self = shift;
     $self->{id} = shift if @_;
@@ -64,7 +55,7 @@ sub id_safe {
 
 sub title_text {
     my $self = shift;
-    Plagger::Util::strip_html($self->title);
+    $self->title ? $self->title->plaintext : undef;
 }
 
 sub sort_entries {

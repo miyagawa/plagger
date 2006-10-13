@@ -14,7 +14,7 @@ sub register {
 
 sub filter {
     my($self, $context, $args) = @_;
-    if (defined $args->{entry}->title) {
+    if (defined $args->{entry}->title && $args->{entry}->title->is_html) {
         $args->{entry}->title( Plagger::Util::strip_html($args->{entry}->title) );
     }
 }

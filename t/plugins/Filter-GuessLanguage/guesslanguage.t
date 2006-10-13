@@ -3,8 +3,6 @@ use FindBin;
 use t::TestPlagger;
 
 test_plugin_deps;
-test_requires_network;
-
 plan tests => 12;
 
 run_eval_expected;
@@ -99,9 +97,9 @@ plugins:
     config:
       target: both
 --- expected
-is $context->update->feeds->[0]->entries->[0]->{language}, 'en';
-is $context->update->feeds->[0]->entries->[1]->{language}, 'de';
-is $context->update->feeds->[0]->entries->[2]->{language}, 'ja';
+is $context->update->feeds->[0]->entries->[0]->language, 'en';
+is $context->update->feeds->[0]->entries->[1]->language, 'de';
+is $context->update->feeds->[0]->entries->[2]->language, 'ja';
 
 === Mixed atom feed without xml:lang
 --- input config
@@ -114,6 +112,6 @@ plugins:
     config:
       target: both
 --- expected
-is $context->update->feeds->[0]->entries->[0]->{language}, 'en';
-is $context->update->feeds->[0]->entries->[1]->{language}, 'de';
-is $context->update->feeds->[0]->entries->[2]->{language}, 'ja';
+is $context->update->feeds->[0]->entries->[0]->language, 'en';
+is $context->update->feeds->[0]->entries->[1]->language, 'de';
+is $context->update->feeds->[0]->entries->[2]->language, 'ja';

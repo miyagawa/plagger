@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<feed xmlns="http://www.w3.org/2005/Atom">
 
   <title>Example Feed</title>
   <link href="http://example.org/"/>
@@ -10,22 +10,19 @@
   <id>urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6</id>
 
   <entry>
-    <title>Atom-Powered Robots Run Amok</title>
+    <title type="text">This is &lt;b&gt;text&lt;/b&gt;</title>
     <link href="http://example.org/2003/12/13/atom03"/>
     <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
     <updated>2003-12-13T18:30:02Z</updated>
-    <summary>Some text.</summary>
+    <summary type="text">&lt;p&gt;Some text.&lt;p&gt;</summary>
   </entry>
 
   <entry>
-    <title>Atom-Powered Robots Run Amok</title>
+    <title type="html">This is &lt;b&gt;text&lt;/b&gt;</title>
     <link href="http://example.org/2003/12/13/atom03"/>
-    <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+    <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6x</id>
     <updated>2003-12-13T18:30:02Z</updated>
-    <summary>Some text.</summary>
-    <content type="xhtml" xml:lang="ja">
-      <div xmlns="http://www.w3.org/1999/xhtml">foo</div>
-    </content>
+    <summary type="html">&lt;p&gt;Some text.&lt;p&gt;</summary>
   </entry>
 
 </feed>
