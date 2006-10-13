@@ -16,6 +16,8 @@ sub filter {
     my($self, $context, $args) = @_;
     my $entry = $args->{entry};
 
+    return unless defined $entry->body;
+
     my $base = $entry->permalink || $args->{feed}->link;
     unless ($base) {
         $context->log(warn => "No base link found");
