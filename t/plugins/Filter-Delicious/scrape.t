@@ -1,5 +1,7 @@
 use t::TestPlagger;
 
+plan skip_all => 'The site it tries to test is unreliable.' unless $ENV{TEST_UNRELIABLE_NETWORK};
+
 test_plugin_deps;
 test_requires_network 'del.icio.us:80';
 
