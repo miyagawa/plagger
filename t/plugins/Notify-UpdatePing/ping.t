@@ -16,7 +16,10 @@ local *XMLRPC::Lite::call = sub {
         name   => $name,
         url    => $url,
     };
+    bless $rpc, "RPC";
 };
+
+sub RPC::result { +{ flerror => 0 } }
 
 sub rpc { $rpc }
 
