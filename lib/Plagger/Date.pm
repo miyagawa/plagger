@@ -4,6 +4,7 @@ use base qw( DateTime );
 
 use Encode;
 use DateTime::Format::Strptime;
+use DateTime::TimeZone;
 use UNIVERSAL::require;
 
 sub rebless { bless $_[1], $_[0] }
@@ -45,18 +46,7 @@ sub parse_dwim {
     my $dt = $class->new(%p);
 
     if (defined $zone) {
-        use integer;
-        my $offset = $zone / 60;
-        my $sign;
-        if ($zone >= 0) {
-            $sign = '+';
-        } else {
-            $sign = '-';
-            $offset = -$offset;
-        }
-        my $hour   = $offset / 60;
-        my $minute = $offset % 60;
-        my $tz     = sprintf '%s%02d%02d', $sign, $hour, $minute;
+        my $tz = DateTime::TimeZone::offset_as_string($zone);
         $dt->set_time_zone($tz);
     }
 
