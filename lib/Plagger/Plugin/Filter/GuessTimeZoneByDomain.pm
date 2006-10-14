@@ -49,7 +49,7 @@ sub update {
     if ($cctld) {
         my @names = DateTime::TimeZone->names_in_country($cctld);
         $result{cc} = $names[0];
-        $context->log(info => "guess by ccTLD ($cctld): " . $names[0] || '(undef)');
+        $context->log(info => "guess by ccTLD ($cctld): " . ($names[0] || '(undef)'));
     }
 
     if ($self->{ip_country}) {
@@ -57,7 +57,7 @@ sub update {
         if ($ccip) {
             my @names = DateTime::TimeZone->names_in_country($ccip);
             $result{ip} = $names[0];
-            $context->log(info => "guess by IP::Country ($ccip): " . $names[0] || '(undef)');
+            $context->log(info => "guess by IP::Country ($ccip): " . ($names[0] || '(undef)'));
         }
     }
 
