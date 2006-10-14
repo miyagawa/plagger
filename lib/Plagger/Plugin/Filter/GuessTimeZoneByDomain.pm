@@ -7,6 +7,12 @@ use List::Util qw( first );
 
 sub register {
     my($self, $context) = @_;
+
+    unless (DateTime::TimeZone->can('names_in_country')) {
+        $context->log(error => 'DateTime::TimeZone >= 0.51 is required.');
+        return;
+    }
+
     $context->register_hook(
         $self,
         'update.entry.fixup' => \&update,

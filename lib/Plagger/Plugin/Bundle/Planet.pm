@@ -23,6 +23,10 @@ sub register {
         config => $self->conf->{scrubber} || {},
     });
 
+    $context->load_plugin({
+        module => 'Filter::GuessTimeZoneByDomain',
+    });
+
     my @rules;
     my $duration = defined $self->conf->{duration}
         ? $self->conf->{duration} : "7 days";
@@ -141,6 +145,8 @@ configurations.
 =item Filter::StripTagsFromTitle
 
 =item Filter::HTMLScrubber
+
+=item Filter::GuessTimeZoneByDomain
 
 =item SmartFeed::All
 
