@@ -33,9 +33,35 @@ sub parse_dwim {
     my($class, $str) = @_;
 
     require Date::Parse;
-    my $time = Date::Parse::str2time($str) or return;
+    my($sec, $min, $hour, $day, $month, $year, $zone) = Date::Parse::strptime($str);
+    defined $sec or return;
 
-    $class->from_epoch($time);
+    my $dt = $class->new(
+        year   => $year + 1900,
+        month  => $month + 1,
+        day    => $day,
+        hour   => $hour,
+        minute => $min,
+        second => $sec,
+    );
+
+    if (defined $zone) {
+        use integer;
+        my $offset = $zone / 60;
+        my $sign;
+        if ($zone >= 0) {
+            $sign = '+';
+        } else {
+            $sign = '-';
+            $offset = -$offset;
+        }
+        my $hour   = $offset / 60;
+        my $minute = $offset % 60;
+        my $tz     = sprintf '%s%02d%02d', $sign, $hour, $minute;
+        $dt->set_time_zone($tz);
+    }
+
+    $dt;
 }
 
 sub strptime {
@@ -58,8 +84,6 @@ sub now {
 sub from_epoch {
     my $class = shift;
     my %p = @_ == 1 ? (epoch => $_[0]) : @_;
-
-    $p{time_zone} = Plagger->context->conf->{timezone} || 'local';
     $class->SUPER::from_epoch(%p);
 }
 

@@ -287,3 +287,9 @@ xul
 yaml
 plaintext
 Trackback
+ccTLD
+cc
+asahi
+ip
+timezones
+www
