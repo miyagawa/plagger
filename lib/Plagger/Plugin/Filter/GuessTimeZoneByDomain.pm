@@ -39,7 +39,7 @@ sub update {
 
     return unless $args->{entry}->date && $args->{entry}->date->time_zone->is_floating;
 
-    my $uri = URI->new($args->{entry}->link);
+    my $uri = URI->new($args->{entry}->permalink);
     $uri->can('host') or return;
 
     my $host  = $uri->host;
@@ -66,7 +66,7 @@ sub update {
 
     my $tz = first { defined } @cand;
     if ($tz) {
-        $context->log(info => "Use timezone $tz");
+        $context->log(info => "Use timezone $tz for $uri");
         $args->{entry}->date->set_time_zone($tz);
     }
 }
