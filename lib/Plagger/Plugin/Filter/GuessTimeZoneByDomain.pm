@@ -29,7 +29,7 @@ sub initialize {
     }
 
     my %valid_policy = map { $_ => 1 } qw( cc ip );
-    unless ($valid_policy{$self->conf->{conflict_policy}}) {
+    unless ($self->conf->{conflict_policy} && $valid_policy{$self->conf->{conflict_policy}}) {
         $self->conf->{conflict_policy} = 'cc';
     }
 }
