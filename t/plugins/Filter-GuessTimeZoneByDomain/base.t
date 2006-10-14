@@ -27,7 +27,7 @@ plugins:
     config:
       title: Foo
       entry:
-        - link: http://www.asahi.com/
+        - link: http://bulknews.net/
           date: 2006/10/14 12:00:00
   - module: Filter::GuessTimeZoneByDomain
 --- expected
