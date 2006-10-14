@@ -27,17 +27,22 @@ sub parse_dwim {
     my($class, $str) = @_;
 
     require Date::Parse;
-    my($sec, $min, $hour, $day, $month, $year, $zone) = Date::Parse::strptime($str);
-    defined $sec or return;
+    my %p;
+    @p{qw( second minute hour day month year zone )} = Date::Parse::strptime($str);
 
-    my $dt = $class->new(
-        year   => $year + 1900,
-        month  => $month + 1,
-        day    => $day,
-        hour   => $hour,
-        minute => $min,
-        second => $sec,
-    );
+    unless (defined($p{year}) && defined($p{month}) && defined($p{day})) {
+        return;
+    }
+
+    $p{year} += 1900;
+    $p{month}++;
+
+    my $zone = delete $p{zone};
+    for (qw( second minute hour )) {
+        delete $p{$_} unless defined $p{$_};
+    }
+
+    my $dt = $class->new(%p);
 
     if (defined $zone) {
         use integer;
