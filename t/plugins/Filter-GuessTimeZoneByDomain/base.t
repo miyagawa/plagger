@@ -90,3 +90,16 @@ plugins:
 is $context->update->feeds->[0]->entries->[0]->date->time_zone->name, "Asia/Tokyo";
 is $context->update->feeds->[0]->entries->[0]->date->iso8601, "2006-10-14T21:00:00";
 
+=== United States has lots of TZs, thus skip
+--- input config
+plugins:
+  - module: CustomFeed::Debug
+    config:
+      title: Foo
+      entry:
+        - link: http://del.icio.us/
+          date: 2006/10/14 12:00:00
+  - module: Filter::GuessTimeZoneByDomain
+--- expected
+ok $context->update->feeds->[0]->entries->[0]->date->time_zone->is_floating;
+
