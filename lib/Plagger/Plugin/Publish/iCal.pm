@@ -6,6 +6,7 @@ use File::Spec;
 use Data::ICal;
 use Data::ICal::Entry::Event;
 use DateTime::Duration;
+use DateTime::Format::ICal;
 use Plagger::Util;
 
 sub register {
@@ -40,19 +41,18 @@ sub publish_feed {
         my $event = Data::ICal::Entry::Event->new;
 
         my $tz = $date->time_zone;
-        my %param;
-        if (!$tz->is_floating && $tz->name ne 'UTC' && !$tz->isa('DateTime::TimeZone::OffsetOnly')) {
-            # don't set TZID if tz name is like '+0900'
-            $param{TZID} = $tz->name;
-        }
 
-        my($dtstart, $dtend);
+        my $dtstart = $date->format('ICal');
+        my $dtend   = $date->format('ICal');
+
         if ($date->hms eq '00:00:00') {
-            $dtstart = [ $date->strftime('%Y%m%d'), { %param, VALUE => 'DATE' } ];
-            $dtend   = [ $date->strftime('%Y%m%d'), { %param, VALUE => 'DATE' } ];
+            $dtstart = [ $dtstart, { VALUE => 'DATE' } ];
+            $dtend   = [ $dtend,   { VALUE => 'DATE' } ];
         } else {
-            $dtstart = [ iso8691_full($date), \%param ];
-            $dtend   = [ iso8691_full($date), \%param ];
+            $dtstart =~ s/^TZID=(.*?)://
+                and $dtstart = [ $dtstart, { TZID => $1 } ];
+            $dtend   =~ s/^TZID=(.*?)://
+                and $dtend   = [ $dtend, { TZID => $1 } ];
         }
 
         $event->add_properties(
@@ -75,13 +75,6 @@ sub publish_feed {
     close $output;
 
     $context->log(info => "Wrote iCalendar file to $path");
-}
-
-sub iso8691_full {
-    my $date = shift;
-    my $iso  = $date->strftime('%Y%m%dT%H%M%S');
-    $iso .= $date->time_zone->name eq 'UTC' ? 'Z' : '';
-    $iso;
 }
 
 1;

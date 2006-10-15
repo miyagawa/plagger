@@ -30,8 +30,8 @@ plugins:
 ok -e $::output;
 my $ical = Data::ICal->new(filename => $::output);
 is @{$ical->entries}, 5;
-is $ical->entries->[0]->property('dtstart')->[0]->value, "20060710T213213";
-is $ical->entries->[0]->property('dtend')->[0]->value, "20060710T213213";
+is $ical->entries->[0]->property('dtstart')->[0]->value, "20060710T123213Z";
+is $ical->entries->[0]->property('dtend')->[0]->value, "20060710T123213Z";
 
 === Full day event
 --- input config
@@ -108,7 +108,7 @@ plugins:
 --- expected
 ok -e $::output;
 my $ical = Data::ICal->new(filename => $::output);
-is $ical->entries->[0]->property('dtstart')->[0]->value, "20061020T123456";
+is $ical->entries->[0]->property('dtstart')->[0]->value, "20061020T033456Z";
 is_deeply $ical->entries->[0]->property('dtstart')->[0]->parameters, {};
 
 === Fixed TimeZone

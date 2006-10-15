@@ -2,3 +2,4 @@ name: Publish::iCal
 author: Tatsuhiko Miyagawa
 depends:
   Data::ICal: 0
+  DateTime::Format::ICal: 0
