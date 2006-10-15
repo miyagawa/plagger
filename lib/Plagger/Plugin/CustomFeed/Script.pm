@@ -48,6 +48,7 @@ sub aggregate {
         $self->SUPER::handle_feed($args->{feed}->url, \$output, $args->{feed});
     } else {
         eval {
+            local $YAML::Syck::ImplicitUnicode = 1;
             my $feed = YAML::Syck::Load($output);
             $context->log(debug => "Looks like output is YAML");
             local $self->{conf} = $feed;
