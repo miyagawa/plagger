@@ -34,7 +34,7 @@ while (my $node = shift @cols) {
     push @{$feed->{entry}}, {
         title => $title->as_text . " " . $card->as_text,
         date  => munge_datetime($date->as_text, $hour->as_text),
-        tags  => [ $mark->content->[0]->attr('alt'), $channel->as_text ],
+        tags  => [ $mark->content->[0]->attr('alt'), $channel->as_text, $current_league ],
     };
 }
 
