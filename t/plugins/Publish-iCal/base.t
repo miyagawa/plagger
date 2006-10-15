@@ -32,6 +32,7 @@ my $ical = Data::ICal->new(filename => $::output);
 is @{$ical->entries}, 5;
 is $ical->entries->[0]->property('dtstart')->[0]->value, "20060710T123213Z";
 is $ical->entries->[0]->property('dtend')->[0]->value, "20060710T123213Z";
+unlike $ical->entries->[0]->property('description')->[0]->value, qr/<p>/;
 
 === Full day event
 --- input config

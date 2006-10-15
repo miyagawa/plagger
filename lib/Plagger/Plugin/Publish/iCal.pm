@@ -57,7 +57,7 @@ sub publish_feed {
 
         $event->add_properties(
             summary     => $entry->title,
-            description => $entry->summary || $entry->body || '', # xxx plaintext
+            description => $entry->summary ? $entry->summary->plaintext : '',
             dtstart     => $dtstart,
             dtend       => $dtend,
         );
