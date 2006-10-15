@@ -49,16 +49,20 @@ sub update {
     my $cctld = ($host =~ /\.(\w{2})$/)[0];
     if ($cctld) {
         my @names = DateTime::TimeZone->names_in_country($cctld);
-        $result{cc} = $names[0];
-        $context->log(info => "guess by ccTLD ($cctld): " . ($names[0] || '(undef)'));
+        if (@names <= 3) {
+            $result{cc} = $names[0];
+            $context->log(info => "guess by ccTLD ($cctld): " . ($names[0] || '(undef)'));
+        }
     }
 
     if ($self->{ip_country}) {
         my $ccip = $self->{ip_country}->inet_atocc($host);
         if ($ccip) {
             my @names = DateTime::TimeZone->names_in_country($ccip);
-            $result{ip} = $names[0];
-            $context->log(info => "guess by IP::Country ($ccip): " . ($names[0] || '(undef)'));
+            if (@names <= 3) {
+                $result{ip} = $names[0];
+                $context->log(info => "guess by IP::Country ($ccip): " . ($names[0] || '(undef)'));
+            }
         }
     }
 
