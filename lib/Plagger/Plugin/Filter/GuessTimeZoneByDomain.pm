@@ -38,7 +38,7 @@ sub update {
     my($self, $context, $args) = @_;
 
     return unless $args->{entry}->date &&
-        ($args->{entry}->date->time_zone->is_floating || $args->{entry}->date->time_zone->name eq 'UTC');
+        ($args->{entry}->date->time_zone->is_floating || $args->{entry}->date->time_zone->is_utc);
 
     my $uri = URI->new($args->{entry}->permalink);
     $uri->can('host') or return;
