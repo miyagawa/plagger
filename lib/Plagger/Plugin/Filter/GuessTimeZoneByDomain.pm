@@ -37,7 +37,8 @@ sub initialize {
 sub update {
     my($self, $context, $args) = @_;
 
-    return unless $args->{entry}->date && $args->{entry}->date->time_zone->is_floating;
+    return unless $args->{entry}->date &&
+        ($args->{entry}->date->time_zone->is_floating || $args->{entry}->date->time_zone->name eq 'UTC');
 
     my $uri = URI->new($args->{entry}->permalink);
     $uri->can('host') or return;
@@ -76,7 +77,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Filter::GuessTimeZoneByDomain - Guess timezone by domains if datetime is floating
+Plagger::Plugin::Filter::GuessTimeZoneByDomain - Guess timezone by domains if datetime is floating or UTC
 
 =head1 SYNOPSIS
 
@@ -85,7 +86,7 @@ Plagger::Plugin::Filter::GuessTimeZoneByDomain - Guess timezone by domains if da
 =head1 DESCRIPTION
 
 This plugin guesses feed date timezone by domains, if dates are
-floating. It uses the mapping table from ISO 3166 country code to
+floating or UTC. It uses the mapping table from ISO 3166 country code to
 timezones available in Olson database (hence requires
 DateTime::TimeZone 0.51).
 
@@ -93,10 +94,11 @@ Optionally, if you have IP::Country module installed. This plugin also
 checks the country name which the host address is assigned to, instead
 of its domain name (ccTLD).
 
-For example, if the datetime is floating in the feed of I<example.jp>,
-it is resolved to I<Asia/Tokyo> since its ccTLD is I<jp>. In the case
-of I<www.asahi.com>, ccTLD is null but the IP address is assigned to
-Japan, hence it is resolved to I<Asia/Tokyo> as well.
+For example, if the datetime is floating or UTC set in the feed of
+I<example.jp>, it is resolved to I<Asia/Tokyo> since its ccTLD is
+I<jp>. In the case of I<www.asahi.com>, ccTLD is null but the IP
+address is assigned to Japan, hence it is resolved to I<Asia/Tokyo> as
+well.
 
 =head1 CONFIG
 
