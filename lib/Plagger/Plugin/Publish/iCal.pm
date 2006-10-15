@@ -40,12 +40,16 @@ sub publish_feed {
         my $event = Data::ICal::Entry::Event->new;
 
         my($dtstart, $dtend);
+        my %param;
+        if (!$date->time_zone->is_floating && $date->time_zone->name ne 'UTC') {
+            $param{TZID} = $date->time_zone->name;
+        }
         if ($date->hms eq '00:00:00') {
-            $dtstart = [ $date->strftime('%Y%m%d'), { VALUE => 'DATE' } ];
-            $dtend   = [ $date->strftime('%Y%m%d'), { VALUE => 'DATE' } ];
+            $dtstart = [ $date->strftime('%Y%m%d'), { %param, VALUE => 'DATE' } ];
+            $dtend   = [ $date->strftime('%Y%m%d'), { %param, VALUE => 'DATE' } ];
         } else {
-            $dtstart = $date->strftime('%Y%m%dT%H%M%S');
-            $dtend   = $date->strftime('%Y%m%dT%H%M%S');
+            $dtstart = [ iso8691_full($date), \%param ];
+            $dtend   = [ iso8691_full($date), \%param ];
         }
 
         $event->add_properties(
@@ -70,6 +74,12 @@ sub publish_feed {
     $context->log(info => "Wrote iCalendar file to $path");
 }
 
+sub iso8691_full {
+    my $date = shift;
+    my $iso  = $date->strftime('%Y%m%dT%H%M%S');
+    $iso .= $date->time_zone->name eq 'UTC' ? 'Z' : '';
+    $iso;
+}
 
 1;
 __END__
