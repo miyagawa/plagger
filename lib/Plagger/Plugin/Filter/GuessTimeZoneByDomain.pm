@@ -56,7 +56,11 @@ sub update {
     }
 
     if ($self->{ip_country}) {
-        my $ccip = $self->{ip_country}->inet_atocc($host);
+        my $ccip = $self->cache->get_callback(
+            $host,
+            sub { $self->{ip_country}->inet_atocc($host) },
+            '1 day',
+        );
         if ($ccip) {
             my @names = DateTime::TimeZone->names_in_country($ccip);
             if (@names <= 3) {
