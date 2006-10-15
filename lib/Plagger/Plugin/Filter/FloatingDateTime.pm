@@ -8,7 +8,7 @@ sub register {
         $self,
         'update.entry.fixup' => \&update,
     );
-    $self->{tz} = $context->conf->{timezone} || 'local';
+    $self->{tz} = $self->conf->{timezone} || $context->conf->{timezone} || 'local';
 }
 
 sub update {
