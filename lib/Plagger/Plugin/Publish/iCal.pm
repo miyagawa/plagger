@@ -39,11 +39,14 @@ sub publish_feed {
         my $date  = $entry->date;
         my $event = Data::ICal::Entry::Event->new;
 
-        my($dtstart, $dtend);
+        my $tz = $date->time_zone;
         my %param;
-        if (!$date->time_zone->is_floating && $date->time_zone->name ne 'UTC') {
-            $param{TZID} = $date->time_zone->name;
+        if (!$tz->is_floating && $tz->name ne 'UTC' && !$tz->isa('DateTime::TimeZone::OffsetOnly')) {
+            # don't set TZID if tz name is like '+0900'
+            $param{TZID} = $tz->name;
         }
+
+        my($dtstart, $dtend);
         if ($date->hms eq '00:00:00') {
             $dtstart = [ $date->strftime('%Y%m%d'), { %param, VALUE => 'DATE' } ];
             $dtend   = [ $date->strftime('%Y%m%d'), { %param, VALUE => 'DATE' } ];
