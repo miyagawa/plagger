@@ -294,3 +294,8 @@ ip
 timezones
 www
 TZ
+photocast
+Fotolife
+namespace
+MyDiary
+
