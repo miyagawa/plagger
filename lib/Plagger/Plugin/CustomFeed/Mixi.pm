@@ -30,11 +30,24 @@ our $MAP = {
         get_list   => 'parse_list_comment',
     },
     Log => {
-        start_url => 'http://mixi.jp/show_log.pl',
-        title     => 'ミクシィ足跡',
-        get_list => 'parse_show_log',
-        icon_re => qr/[^_]id=(\d+)/,
+        start_url  => 'http://mixi.jp/show_log.pl',
+        title      => 'ミクシィ足跡',
+        get_list   => 'parse_show_log',
+        icon_re    => qr/[^_]id=(\d+)/,
     }, 
+    MyDiary => {
+        start_url  => 'http://mixi.jp/list_diary.pl',
+        title      => 'ミクシィ日記',
+        get_list   => 'parse_list_diary',
+        get_detail => 'get_view_diary',
+        icon_re    => qr/owner_id=(\d+)/,
+    },
+    Calendar => {
+        start_url  => 'http://mixi.jp/show_calendar.pl',
+        title      => 'ミクシィカレンダー',
+        get_list   => 'parse_show_calendar',
+        get_detail => 'get_view_event',
+    },
 };
 
 sub plugin_id {
@@ -254,7 +267,7 @@ mixi.jp site, which makes the output HTML very user-friendly.
 
 With this option set, you can set the feed types.
 
-Now supports: RecentComment, FriendDiary, and Message.
+Now supports: RecentComment, FriendDiary, Message, Log, MyDiary, and Calendar.
 
 Default: FriendDiary.
 
