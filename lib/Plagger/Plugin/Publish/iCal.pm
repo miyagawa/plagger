@@ -42,24 +42,19 @@ sub publish_feed {
 
         my $tz = $date->time_zone;
 
-        my $dtstart = $date->format('ICal');
-        my $dtend   = $date->format('ICal');
+        my $dt = [ $date->format('ICal'), {} ];
+        $dt->[0] =~ s/^TZID=(.*?)://
+            and $dt->[1]->{TZID} = $1;
 
         if ($date->hms eq '00:00:00') {
-            $dtstart = [ $dtstart, { VALUE => 'DATE' } ];
-            $dtend   = [ $dtend,   { VALUE => 'DATE' } ];
-        } else {
-            $dtstart =~ s/^TZID=(.*?)://
-                and $dtstart = [ $dtstart, { TZID => $1 } ];
-            $dtend   =~ s/^TZID=(.*?)://
-                and $dtend   = [ $dtend, { TZID => $1 } ];
+            $dt->[1]->{VALUE} = 'DATE';
         }
 
         $event->add_properties(
             summary     => $entry->title,
             description => $entry->summary ? $entry->summary->plaintext : '',
-            dtstart     => $dtstart,
-            dtend       => $dtend,
+            dtstart     => $dt,
+            dtend       => $dt,
         );
         $ical->add_entry($event);
     }
