@@ -285,14 +285,10 @@ sub run_hook_once {
 sub run {
     my $self = shift;
 
+    $self->autoload_plugin({ module => 'Bundle::Defaults' });
+
     $self->run_hook('plugin.init');
     $self->run_hook('subscription.load');
-
-    unless ( $self->is_loaded(qr/^Aggregator::/) ) {
-        $self->load_plugin({ module => 'Aggregator::Simple' });
-    }
-    $self->autoload_plugin({ module => 'Summary::Auto' });
-    $self->autoload_plugin({ module => 'Summary::Simple' });
 
     for my $feed ($self->subscription->feeds) {
         if (my $sub = $feed->aggregator) {
