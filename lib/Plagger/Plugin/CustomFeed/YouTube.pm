@@ -5,6 +5,8 @@ use base qw( Plagger::Plugin );
 
 use Plagger::Enclosure;
 use Plagger::UserAgent;
+use URI;
+use Encode;
 
 sub register {
     my($self, $context) = @_;
@@ -24,23 +26,33 @@ sub load {
 sub aggregate {
     my($self, $context, $args) = @_;
 
-    my $q = $self->conf->{query};
-    $q =~ s/\s/\+/g;
-
+    my $url  = URI->new('http://youtube.com/results');
     my $file = $self->cache->path_to('youtube_search_result.html');
+    my $query = $self->conf->{query};
 
-    $context->log( info => 'Getting YouTube search results for ' . $self->conf->{query} );
+    $query = encode('UTF-8', $query) unless $context->conf->{no_decode_utf8};
+
+    $context->log( info => 'Getting YouTube search results for ' . $query );
 
     my $ua = Plagger::UserAgent->new;
 
     my $feed = Plagger::Feed->new;
     $feed->type('youtubesearch');
-    $feed->title('YouTube Search - ' . $self->conf->{query});
+    $feed->title("YouTube Search - $query");
 
     my $page = $self->conf->{page} || 1;
     my $sort = $self->conf->{sort} || 'video_date_uploaded';
+
     for ( 1 .. $page ){
-        my $res = $ua->mirror("http://youtube.com/results?search_type=search_videos&search_query=$q&search_sort=$sort&search_category=0&page=$_" => $file);
+        $url->query_form(
+            search_type     => 'search_videos',
+            search_query    => $query,
+            search_sort     => $sort,
+            search_category => 0,
+            page            => $_,
+        );
+
+        my $res = $ua->mirror( $url->as_string => $file );
 
         if($res->is_error){
             $context->log( error => $res->status );
