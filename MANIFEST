@@ -1,5 +1,9 @@
 assets/common/html.tt
 assets/common/mail.tt
+assets/plugins/CustomFeed-Script/domain-expire.pl
+assets/plugins/CustomFeed-Script/jsports-football.pl
+assets/plugins/CustomFeed-Script/wowow-hv-51ch.pl
+assets/plugins/CustomFeed-Script/wowow-liga-espanola.pl
 assets/plugins/Filter-EntryFullText/2ch.pl
 assets/plugins/Filter-EntryFullText/actiblog_com.yaml
 assets/plugins/Filter-EntryFullText/akibablog.yaml
@@ -213,6 +217,7 @@ bin/plagger-search
 bin/spotlight_comment.scpt
 Changes
 deps/Aggregator-Xango.yaml
+deps/Bundle-Defaults.yaml
 deps/Bundle-Planet.yaml
 deps/CustomFeed-FlickrSearch.yaml
 deps/CustomFeed-Mixi.yaml
@@ -231,7 +236,9 @@ deps/Filter-ExtractAuthorName.yaml
 deps/Filter-FeedFlareStripper.yaml
 deps/Filter-FindEnclosures.yaml
 deps/Filter-FloatingDateTime.yaml
+deps/Filter-ForceTimeZone.yaml
 deps/Filter-GuessLanguage.yaml
+deps/Filter-GuessTimeZoneByDomain.yaml
 deps/Filter-HatenaBookmarkTag.yaml
 deps/Filter-HatenaBookmarkUsersCount.yaml
 deps/Filter-HatenaDiaryKeywordLink.yaml
@@ -239,6 +246,7 @@ deps/Filter-HatenaFormat.yaml
 deps/Filter-HatenaKeywordTag.yaml
 deps/Filter-HTMLScrubber.yaml
 deps/Filter-ImageInfo.yaml
+deps/Filter-Kansai.yaml
 deps/Filter-LivedoorClipUsersCount.yaml
 deps/Filter-Markdown.yaml
 deps/Filter-Pipe.yaml
@@ -254,6 +262,9 @@ deps/Filter-Thumbnail.yaml
 deps/Filter-TTP.yaml
 deps/Filter-UnicodeNormalize.yaml
 deps/Filter-URLBL.yaml
+deps/Namespace-ApplePhotocast.yaml
+deps/Namespace-HatenaFotolife.yaml
+deps/Namespace-MediaRSS.yaml
 deps/Notify-Audio-iTunesWin32.yaml
 deps/Notify-Audio-MSWin32.yaml
 deps/Notify-Audio.yaml
@@ -310,6 +321,12 @@ deps/Subscription-PingServer.yaml
 deps/Subscription-PlanetINI.yaml
 deps/Subscription-XOXO.yaml
 deps/Subscription-XPath.yaml
+deps/Summary-Auto.yaml
+deps/Summary-English.yaml
+deps/Summary-HatenaBookmark.yaml
+deps/Summary-Simple.yaml
+deps/Summary-TextOriginal.yaml
+deps/Summary-TrackbackRDF.yaml
 deps/Widget-Simple.yaml
 examples/atode.yaml
 examples/bloglines2gmail.yaml
@@ -349,6 +366,7 @@ inc/YAML.pm
 inc/YAML/Base.pm
 inc/YAML/Dumper/Base.pm
 inc/YAML/Error.pm
+inc/YAML/Loader.pm
 inc/YAML/Node.pm
 inc/YAML/Tag.pm
 lib/Plagger.pm
@@ -370,6 +388,7 @@ lib/Plagger/Plugin.pm
 lib/Plagger/Plugin/Aggregator/Null.pm
 lib/Plagger/Plugin/Aggregator/Simple.pm
 lib/Plagger/Plugin/Aggregator/Xango.pm
+lib/Plagger/Plugin/Bundle/Defaults.pm
 lib/Plagger/Plugin/Bundle/Planet.pm
 lib/Plagger/Plugin/CustomFeed/2chSearch.pm
 lib/Plagger/Plugin/CustomFeed/AmazonAssociateReportJP.pm
@@ -415,7 +434,9 @@ lib/Plagger/Plugin/Filter/FetchEnclosure/Wget.pm
 lib/Plagger/Plugin/Filter/FetchEnclosure/Xango.pm
 lib/Plagger/Plugin/Filter/FindEnclosures.pm
 lib/Plagger/Plugin/Filter/FloatingDateTime.pm
+lib/Plagger/Plugin/Filter/ForceTimeZone.pm
 lib/Plagger/Plugin/Filter/GuessLanguage.pm
+lib/Plagger/Plugin/Filter/GuessTimeZoneByDomain.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkTag.pm
 lib/Plagger/Plugin/Filter/HatenaBookmarkUsersCount.pm
 lib/Plagger/Plugin/Filter/HatenaDiaryKeywordLink.pm
@@ -425,6 +446,7 @@ lib/Plagger/Plugin/Filter/HatenaKeywordTag.pm
 lib/Plagger/Plugin/Filter/HEADEnclosureMetadata.pm
 lib/Plagger/Plugin/Filter/HTMLScrubber.pm
 lib/Plagger/Plugin/Filter/ImageInfo.pm
+lib/Plagger/Plugin/Filter/Kansai.pm
 lib/Plagger/Plugin/Filter/LivedoorClipUsersCount.pm
 lib/Plagger/Plugin/Filter/LivedoorKeywordUnlink.pm
 lib/Plagger/Plugin/Filter/Markdown.pm
@@ -449,6 +471,9 @@ lib/Plagger/Plugin/Filter/TruePermalink.pm
 lib/Plagger/Plugin/Filter/TTP.pm
 lib/Plagger/Plugin/Filter/UnicodeNormalize.pm
 lib/Plagger/Plugin/Filter/URLBL.pm
+lib/Plagger/Plugin/Namespace/ApplePhotocast.pm
+lib/Plagger/Plugin/Namespace/HatenaFotolife.pm
+lib/Plagger/Plugin/Namespace/MediaRSS.pm
 lib/Plagger/Plugin/Notify/Audio.pm
 lib/Plagger/Plugin/Notify/Audio/iTunesMac.pm
 lib/Plagger/Plugin/Notify/Audio/iTunesWin32.pm
@@ -469,6 +494,7 @@ lib/Plagger/Plugin/Notify/NetSend.pm
 lib/Plagger/Plugin/Notify/OpenBrowser.pm
 lib/Plagger/Plugin/Notify/OpenBrowser/darwin.pm
 lib/Plagger/Plugin/Notify/OpenBrowser/FirefoxRemote.pm
+lib/Plagger/Plugin/Notify/OpenBrowser/freebsd.pm
 lib/Plagger/Plugin/Notify/OpenBrowser/linux.pm
 lib/Plagger/Plugin/Notify/OpenBrowser/mswin32.pm
 lib/Plagger/Plugin/Notify/SSTP.pm
@@ -536,6 +562,12 @@ lib/Plagger/Plugin/Subscription/Planet.pm
 lib/Plagger/Plugin/Subscription/PlanetINI.pm
 lib/Plagger/Plugin/Subscription/XOXO.pm
 lib/Plagger/Plugin/Subscription/XPath.pm
+lib/Plagger/Plugin/Summary/Auto.pm
+lib/Plagger/Plugin/Summary/English.pm
+lib/Plagger/Plugin/Summary/HatenaBookmark.pm
+lib/Plagger/Plugin/Summary/Simple.pm
+lib/Plagger/Plugin/Summary/TextOriginal.pm
+lib/Plagger/Plugin/Summary/TrackbackRDF.pm
 lib/Plagger/Plugin/UserAgent/AuthenRequest.pm
 lib/Plagger/Plugin/UserAgent/RequestHeader.pm
 lib/Plagger/Plugin/Widget/BloglinesSubscription.pm
@@ -561,6 +593,7 @@ lib/Plagger/Rules.pm
 lib/Plagger/Subscription.pm
 lib/Plagger/Tag.pm
 lib/Plagger/Template.pm
+lib/Plagger/Text.pm
 lib/Plagger/Thing.pm
 lib/Plagger/TT/Plagger/Util.pm
 lib/Plagger/Update.pm
@@ -576,6 +609,7 @@ t/assets/plugins/Test-AssetsPath/assets_path.tt
 t/samples/assets_path.tt
 t/samples/atom-category.xml
 t/samples/atom-related.xml
+t/samples/atom-type.xml
 t/samples/atom10-example.xml
 t/samples/babelfish.xml
 t/samples/config.ini

@@ -1,5 +1,46 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.14 (2006/10/17) ==
+
+=== Core ===
+
+ * include YAML::Loader in inc
+ * Introduced new spell typo checker Test::Spelling
+ * Merged hackathon-summary for a pluggable summary generation
+ * Added Plagger::Text object for title, author, entry, summary and body
+ * Better html2text function using HTML::TreeBuilder and (optional) HTML::FormatText
+ * Plagger::Date parse* method now doesn't set Timezones by default
+ * Move namespecific parsing logic into Namespace::* plugins
+
+=== New Plugins ===
+ 
+ * Summary::Auto: Auto-extract summaries
+ * Summary::Simple: Default summary extractor using regular expression
+ * Summary::English: Wrapper for Lingua::EN::Summarize
+ * Summary::HatenaBookmark: Extract summary using Hatena Bookmark
+ * Summary::TextOriginal: Wrapper for Text::Original
+ * Summary::TrackbackRDF: Extract summary from Trackback RDF data
+ * Filter::GuessTimeZoneByDomain: guess timezones of entry using URL domains
+ * Filter::ForceTimeZone: force timezone regardless of they're UTC/Olson/Floating
+ * Namespace::HatenaFotolife: Hatena fotolife module handler
+ * Namespace::ApplePhotocast: Apple Photocast module handler
+ * Namespace::MediaRSS: Media RSS module handler
+ * Bundle::Defaults: Default plugins loader
+ * Filter::Kansai: Converts Japanese text body to Kansai Dialect
+
+=== Plugins Updates ===
+
+ * Notify::UpdatePing: support weblogUpdates.extendedPing #419
+ * Notify::OpenBrowser: support FreeBSD
+ * Filter::EntryFullText: fixed bad regular expressons in stage6
+ * CustomFeed::Script: load YAML output as Unicode
+ * Publish::iCal: better Timezone handling. requires DateTime::Format::ICal
+ * Filter::FloatingDateTime: use config 'timezone' if set
+ * CustomFeed::Mixi: support my diary and calendar (otsune)
+ * Filter::HatenaBookmarkUsersCount: Iterate links so that it support 50+ URLs
+ * 
+
+
 == 0.7.13 (2006/10/09) ==
 
 === Core ===
