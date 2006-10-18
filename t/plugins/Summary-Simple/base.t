@@ -1,4 +1,5 @@
 use strict;
+use utf8;
 use t::TestPlagger;
 
 test_plugin_deps;
@@ -79,3 +80,15 @@ Foo Bar Baz
 "<div class=\"foo\">\n<p>First paragraph</p><p>Second paragraph</p></div>"
 --- expected
 <p>First paragraph</p>
+
+=== I18N. Japanese plaintext
+--- input
+Shibuya Perl Mongers は東京地区とくに渋谷周辺のインターネット関連企業に勤務している Perl ユーザのコミュニティ形成を目指す非営利の団体です。主な活動内容はプログラミング言語 Perl に関係するメンバー主催の勉強会やインターネット上での啓蒙活動や情報交換です。Shibuya Perl Mongers は Perl を利用し、スキル向上を望む方であればどなたでも無料で参加できます。
+--- expected
+Shibuya Perl Mongers は東京地区とくに渋谷周辺のインターネット関連企業に勤務している Perl ユーザのコミュニティ形成を目指す非営利の団体です。
+
+=== English plaintext
+--- input
+There'll be the Web 2.0 Conference in San Francisco. blah blah blah.
+--- expected
+There'll be the Web 2.0 Conference in San Francisco.

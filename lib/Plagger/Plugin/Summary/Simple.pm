@@ -32,7 +32,13 @@ sub summarize {
             return $text->data;
         }
     } else {
-        # text: substring with 255 bytes
+        # text: strip until the ending dots
+        # TODO: make this 255 configurable?
+        if ($text =~ /^(.+?(\x{3002}|\.\s))/ && length($1) <= 255) {
+            (my $summary = $1) =~ s/\s*$//;
+            return $summary;
+        }
+
         if (length($text) > 255) {
             return substr($text, 0, 255) . "...";
         } else {
