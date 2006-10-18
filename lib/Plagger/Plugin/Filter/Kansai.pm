@@ -62,6 +62,8 @@ sub filter {
 1;
 __END__
 
+=for stopwords Mishima-san Kansai Kansai-ben Kansai.pm
+
 =head1 NAME
 
 Plagger::Plugin::Filter::Kansai - Filer text to Kansai-ben
