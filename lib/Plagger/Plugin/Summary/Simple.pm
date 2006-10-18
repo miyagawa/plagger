@@ -34,7 +34,7 @@ sub summarize {
     } else {
         # text: strip until the ending dots
         # TODO: make this 255 configurable?
-        if ($text =~ /^(.+?(\x{3002}|\.\s))/ && length($1) <= 255) {
+        if ($text =~ /^(.{20,254}?(\x{3002}|\.\s))/) {
             (my $summary = $1) =~ s/\s*$//;
             return $summary;
         }
