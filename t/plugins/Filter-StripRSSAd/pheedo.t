@@ -16,10 +16,9 @@ plugins:
       feed:
         - http://jp.techcrunch.com/feed/
         - http://slashdot.jp/slashdotjp.rss
+        - http://www.appleinsider.com/appleinsider.rss
   - module: Filter::StripRSSAd
 --- expected
-unlike $context->update->feeds->[0]->entries->[0]->body, qr/pheedo/;
-unlike $context->update->feeds->[1]->entries->[1]->body, qr/pheedo/;
-
-
-
+for my $feed ( $context->update->feeds ) {
+    unlike $feed->entries->[0]->body, qr/pheedo/;
+}
