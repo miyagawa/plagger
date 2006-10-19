@@ -3,5 +3,5 @@ author: Masafumi Otsune
 custom_feed_handle: http://pya\.cc/
 custom_feed_follow_link: cnt2\.php\?uid=\d+
 handle: http://pya\.cc/
-extract: ((?:<br><br><(?:A Href|[iI]mg [sS]rc)="?http://61\.197\.151\.26/\d+/\w+/\w+\d+/[\d\w_/]+\.(?:gif|png|jpe?g|wmv)"?[^>]*>)+)
+extract: ((?:<(?:A Href|[iI]mg [sS]rc)=["']?http://61\.197\.151\.26/\d+/\w+/\w+\d+/[\d\w_/]+\.(?:gif|png|jpe?g|wmv)["']?[^>]*>)+)
 extract_capture: body
