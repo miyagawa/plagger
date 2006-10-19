@@ -96,7 +96,7 @@ sub aggregate_feed {
 
     my $next_url = URI->new($start_url)->path;
 
-    if ($response->content =~ /action=login\.pl/) {
+    if ($response->content =~ /action="login\.pl"/) {
         $context->log(debug => "Cookie not found. Logging in");
 
         if ($self->conf->{email} eq 'plagger@localhost') {
