@@ -66,7 +66,8 @@ sub notify {
         }
     }
 
-    my $body = $self->templatize('gmail_notify.tt', { feed => $feed });
+    my $encoding = $self->conf->{encoding} || 'utf-8';
+    my $body = $self->templatize('gmail_notify.tt', { feed => $feed, encoding => $encoding });
 
     my $cfg = $self->conf;
     $context->log(info => "Sending $subject to $cfg->{mailto}");
@@ -85,7 +86,6 @@ sub notify {
     );
     $msg->replace("X-Mailer" => "Plagger/$Plagger::VERSION");
 
-    my $encoding = $self->conf->{encoding} || 'utf-8';
     $msg->attach(
         Type => "text/html; charset=$encoding",
         Data => encode($encoding, $body, Encode::FB_HTMLCREF),
