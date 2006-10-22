@@ -20,8 +20,8 @@ sub filter {
     my $cfg = $self->conf;
     my $entry = $args->{entry};
     my $html = markdown($entry->body, {
-      $cfg->{empty_element_suffix} || ' />',
-      $cfg->{tab_width} || '4',
+        empty_element_suffix => $cfg->{empty_element_suffix} || ' />',
+        tab_width => $cfg->{tab_width} || '4',
     } );
     $entry->body($html);
 }
