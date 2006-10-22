@@ -73,9 +73,7 @@ sub store_entry {
   my $now = Plagger::Date->now(timezone => $context->conf->{timezone});
   my @enclosure_cb;
   if ($self->conf->{attach_enclosures}) {
-    for my $entry ($args->{feed}->entries) {
       push @enclosure_cb, $self->prepare_enclosures($entry);
-    }
   }
   $msg = MIME::Lite->new(
     Date    => $now->format('Mail'),
