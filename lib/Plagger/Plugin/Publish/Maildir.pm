@@ -94,7 +94,7 @@ sub store_entry {
   }
   $msg->add('Message-Id', "<$id.plagger\@localhost>");
   $msg->add('X-Tags', encode('MIME-Header',join(' ',@{$entry->tags})));
-  my $xmailer = "MIME::Lite (Plagger/$Plagger::VERSION with Publish::Maildir/$VERSION)";
+  my $xmailer = "Plagger/$Plagger::VERSION";
   $msg->replace('X-Mailer',$xmailer);
   store_maildir($self, $context,$msg->as_string(),$id);
   $self->{msg} += 1;
