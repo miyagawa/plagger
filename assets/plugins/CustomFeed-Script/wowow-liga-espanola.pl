@@ -46,7 +46,7 @@ sub munge_datetime {
     my $date = shift->content->[0];
 
     # 10月15日（日）深夜2:55　WOWOW/BS-5ch/191ch 
-    $date =~ m!^\s*(\d{1,2})月(\d{1,2})日（.*?）\s*(午前|午後|深夜)(\d{1,2}):(\d{2})\s*WOWOW.*?/(\d+ch)!
+    $date =~ m!^\s*(\d{1,2})月(\d{1,2})日[（\(].*?[）\)]\s*(午前|午後|深夜)(\d{1,2}):(\d{2})\s*WOWOW.*?(\d{3}[cｃ][hｈ])!
         or die "No match: $date";
     my($month, $day, $am_pm_midnight, $hour, $minute, $channel) = ($1, $2, $3, $4, $5, $6);
     $hour += 12 if $am_pm_midnight eq '午後';
