@@ -1,5 +1,5 @@
 name: Filter::GuessTimeZoneByDomain
 author: Tatsuhiko Miyagawa
 depends:
-  DateTime::TimeZone: 0.51
+  DateTime::TimeZone: 0.52
   IP::Country: 0
