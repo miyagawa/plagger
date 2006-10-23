@@ -155,6 +155,11 @@ sub prepare_enclosures {
         my $msg = shift;
 
         for my $enclosure (grep $_->local_path, $entry->enclosures) {
+            if (!-e $enclosure->local_path) {
+                Plagger->context->log(warning => $enclosure->local_path . " doesn't exist. Skip");
+                next;
+            }
+
             my %param = (
                 Type => $enclosure->type,
                 Path => $enclosure->local_path,
