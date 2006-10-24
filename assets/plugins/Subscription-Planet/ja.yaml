@@ -7,5 +7,5 @@ engines:
   - http://b.hatena.ne.jp/t/{keyword}?mode=rss&sort=eid&threshold=1
   - http://d.hatena.ne.jp/keyworddiary/{keyword:euc-jp}?mode=rss
   - http://www.bloglines.com/search?q={keyword}&s=f&pop=l&news=m&n=100&format=rss&ql=ja
-  - http://blogsearch.google.com/blogsearch_feeds?hl=en&lr=lang_ja&q={keyword}&scoring=d&ie=utf-8&num=100&output=rss
+  - http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&lr=lang_ja&q={keyword}&scoring=d&ie=utf-8&num=100&output=rss
   - http://www.bloglines.com/search?q=bcite:{url}&ql=ja&s=f&pop=n&news=m&n=100&format=rss
