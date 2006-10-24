@@ -74,14 +74,14 @@ sub store_entry {
     $body = encode("utf-8", $body);
     my $from = $cfg->{mailfrom} || 'plagger@localhost';
     my $id   = md5_hex($entry->id_safe);
-    my $now  = Plagger::Date->now(timezone => $context->conf->{timezone});
+    my $date = $entry->date || Plagger::Date->now(timezone => $context->conf->{timezone});
     my @enclosure_cb;
 
     if ($self->conf->{attach_enclosures}) {
         push @enclosure_cb, $self->prepare_enclosures($entry);
     }
     $msg = MIME::Lite->new(
-        Date    => $now->format('Mail'),
+        Date    => $date->format('Mail'),
         From    => encode('MIME-Header', qq("$feed_title" <$from>)),
         To      => $cfg->{mailto},
         Subject => encode('MIME-Header', $subject),
@@ -141,6 +141,11 @@ sub prepare_enclosures {
         my $msg = shift;
 
         for my $enclosure (grep $_->local_path, $entry->enclosures) {
+            if (!-e $enclosure->local_path) {
+                Plagger->context->log(warning => $enclosure->local_path .  " doesn't exist.  Skip");
+                next;
+            }
+
             my %param = (
                 Type     => $enclosure->type,
                 Path     => $enclosure->local_path,
