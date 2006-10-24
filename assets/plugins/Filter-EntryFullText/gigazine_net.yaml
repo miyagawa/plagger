@@ -1,0 +1,5 @@
+# upgrade http://gigazine.net/index.php?/news/rss_atom/
+author: koji
+handle_force: http://gigazine\.net/index.php\?/news/comments/\w+
+extract: <h3 class="date">(.*?)</h3>.*?<h2 class="title">(.*?)</h2>(.*?)<br clear="all" />
+extract_capture: date title body
