@@ -67,9 +67,9 @@ sub store_entry {
     my $cfg = $self->conf;
     my $msg;
     my $entry      = $args->{entry};
-    my $feed_title = $args->{feed}->title;
+    my $feed_title = $args->{feed}->title->plaintext;
     $feed_title =~ tr/,//d;
-    my $subject = $entry->title || '(no-title)';
+    my $subject = $entry->title->plaintext || '(no-title)';
     my $body = $self->templatize('mail.tt', $args);
     $body = encode("utf-8", $body);
     my $from = $cfg->{mailfrom} || 'plagger@localhost';
