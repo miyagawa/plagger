@@ -34,6 +34,9 @@ __END__
 
 === Error enclosure URL
 --- input config entity
+global:
+  log:
+    level: debug
 plugins:
   - module: CustomFeed::Debug
     config:
