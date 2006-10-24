@@ -1,0 +1,9 @@
+# http://homepage2.nifty.com/usuta/note/notelist.html
+author: Masafumi Otsune
+custom_feed_handle: http://homepage2\.nifty\.com/usuta/note/notelist\.html
+custom_feed_follow_link: \d{1,2}-\d{1,2}(?:-\d{1,2})?\.html 
+handle: http://homepage2\.nifty\.com/usuta/note/\d{1,2}-\d{1,2}(?:-\d{1,2})?\.html
+extract: <h1>(.*?)</h1>(.*?(\d{4}/\d{2}/\d{2}))
+extract_capture: title body date
+extract_date_format: %Y/%m/%d
+extract_date_timezone: Asia/Tokyo
