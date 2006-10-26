@@ -246,6 +246,11 @@ sub extract {
     my($self, $args) = @_;
     my $data;
 
+    unless ($self->{extract} || $self->{extract_xpath}) {
+        Plagger->context->log(error => "YAML doesn't have either 'extract' nor 'extract_xpath'");
+        return;
+    }
+
     if ($self->{extract}) {
 	if (my @match = $args->{content} =~ /$self->{extract}/s) {
 	    my @capture = split /\s+/, $self->{extract_capture};
