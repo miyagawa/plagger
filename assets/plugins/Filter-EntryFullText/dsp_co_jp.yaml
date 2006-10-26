@@ -1,0 +1,5 @@
+# upgrade http://wd.dsp.co.jp/atom.xml
+author: Masafumi Otsune
+handle_force: http://wd\.dsp\.co\.jp/\d+/\d+\.html
+extract_xpath:
+  body: //div[@class="entry"]
