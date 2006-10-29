@@ -1,0 +1,5 @@
+# upgrade http://feeds.baltimoresun.com/baltimoresun/news/rss2.0.xml
+author: Tennetiss
+handle_force: http://(\w+)\.baltimoresun\.com/.+?\d\.story
+extract_xpath:
+  body: //div[@class="text"]
