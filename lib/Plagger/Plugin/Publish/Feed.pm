@@ -67,7 +67,7 @@ sub publish_feed {
             if ($feed_format eq 'RSS') {
                 $entry->content($e->body);
             } else {
-                $entry->{entry}->content($e->body);
+                $entry->{entry}->content($e->body->utf8);
             }
         }
 

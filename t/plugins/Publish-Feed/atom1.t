@@ -7,7 +7,7 @@ use XML::Feed;
 our $output = "$FindBin::Bin/atom.xml";
 
 test_plugin_deps;
-plan tests => 2;
+plan tests => 4;
 run_eval_expected;
 
 END {
@@ -33,3 +33,6 @@ open my $fh, $main::output or fail "$main::output: $!";
 my $feed = XML::Atom::Feed->new($fh);
 is $feed->version, '1.0';
 is $feed->title, 'Bulknews::Subtech';
+unlike( ($feed->entries)[0]->content->as_xml, qr/CgkJPGRpdiBjbGFz/);
+file_doesnt_contain($main::output, qr!<content xmlns="http://www.w3.org/2005/Atom">!);
+
