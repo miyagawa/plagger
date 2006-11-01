@@ -2,6 +2,7 @@ assets/common/html.tt
 assets/common/mail.tt
 assets/plugins/CustomFeed-Script/domain-expire.pl
 assets/plugins/CustomFeed-Script/jsports-football.pl
+assets/plugins/CustomFeed-Script/ssl-expire.pl
 assets/plugins/CustomFeed-Script/wowow-hv-51ch.pl
 assets/plugins/CustomFeed-Script/wowow-liga-espanola.pl
 assets/plugins/Filter-EntryFullText/2ch.pl
@@ -14,6 +15,7 @@ assets/plugins/Filter-EntryFullText/asahi_com.yaml
 assets/plugins/Filter-EntryFullText/asahi_wcup2006.yaml
 assets/plugins/Filter-EntryFullText/ascii24_com.yaml
 assets/plugins/Filter-EntryFullText/atmarkit.yaml
+assets/plugins/Filter-EntryFullText/baltimoresun_com.yaml
 assets/plugins/Filter-EntryFullText/barks.yaml
 assets/plugins/Filter-EntryFullText/bbc.yaml
 assets/plugins/Filter-EntryFullText/blog_goo_ne_jp.yaml
@@ -38,10 +40,12 @@ assets/plugins/Filter-EntryFullText/debian_administration_org.yaml
 assets/plugins/Filter-EntryFullText/distrowatch.yaml
 assets/plugins/Filter-EntryFullText/docs_info_apple_com.yaml
 assets/plugins/Filter-EntryFullText/drecom.yaml
+assets/plugins/Filter-EntryFullText/dsp_co_jp.yaml
 assets/plugins/Filter-EntryFullText/eweek.yaml
 assets/plugins/Filter-EntryFullText/extremetech.yaml
 assets/plugins/Filter-EntryFullText/forbes.yaml
 assets/plugins/Filter-EntryFullText/ft.yaml
+assets/plugins/Filter-EntryFullText/gigazine_net.yaml
 assets/plugins/Filter-EntryFullText/gyao_content.pl
 assets/plugins/Filter-EntryFullText/hatena_diary.pl
 assets/plugins/Filter-EntryFullText/headlines_yahoo_jp.yaml
@@ -75,6 +79,7 @@ assets/plugins/Filter-EntryFullText/netkeiba.yaml
 assets/plugins/Filter-EntryFullText/news_com.yaml
 assets/plugins/Filter-EntryFullText/news_livedoor_com.yaml
 assets/plugins/Filter-EntryFullText/newsforge.yaml
+assets/plugins/Filter-EntryFullText/nifty_com_usuta.yaml
 assets/plugins/Filter-EntryFullText/nikkansports.yaml
 assets/plugins/Filter-EntryFullText/nikkei.yaml
 assets/plugins/Filter-EntryFullText/nytimes.yaml
@@ -143,6 +148,7 @@ assets/plugins/Filter-StripRSSAd/pheedo_jp2.pat
 assets/plugins/Filter-StripRSSAd/pheedo_jp_ad_entry.yaml
 assets/plugins/Filter-StripRSSAd/plaza_rakuten.pat
 assets/plugins/Filter-StripRSSAd/rssad_jp.pat
+assets/plugins/Filter-StripRSSAd/rsscache.pat
 assets/plugins/Filter-StripRSSAd/seesaa.pat
 assets/plugins/Filter-StripRSSAd/valueclick.pat
 assets/plugins/Filter-TruePermalink/2chrss.yaml
@@ -323,6 +329,7 @@ deps/Subscription-XOXO.yaml
 deps/Subscription-XPath.yaml
 deps/Summary-Auto.yaml
 deps/Summary-English.yaml
+deps/Summary-GetSen.yaml
 deps/Summary-HatenaBookmark.yaml
 deps/Summary-Simple.yaml
 deps/Summary-TextOriginal.yaml
@@ -564,6 +571,7 @@ lib/Plagger/Plugin/Subscription/XOXO.pm
 lib/Plagger/Plugin/Subscription/XPath.pm
 lib/Plagger/Plugin/Summary/Auto.pm
 lib/Plagger/Plugin/Summary/English.pm
+lib/Plagger/Plugin/Summary/GetSen.pm
 lib/Plagger/Plugin/Summary/HatenaBookmark.pm
 lib/Plagger/Plugin/Summary/Simple.pm
 lib/Plagger/Plugin/Summary/TextOriginal.pm

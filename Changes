@@ -1,5 +1,31 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.15 (2006/11/01) ==
+
+=== Core ===
+
+ * bump up Encode::Detect dependency so it's easier to install
+ 
+=== New Plugins ===
+
+ * Summary::GetSen: Use GetSen web service to get summary
+
+=== Plugins Updates ===
+
+ * CustomFeed::YouTube: Update queries unencoded in YAML (mizzy)
+ * Summary::Simple: Get the first sentence if it's plain text 
+ * Filter::StripRSSAd: support pheedo variant ads, RSScache.com
+ * Publish::Gmail: now allows non-UTF8 encoding by setting 'encoding' 
+ * CustomFeed::Mixi: Updated regular expression to keep up with the site updates
+ * Publish::Maildir: fixed enclosure bugs
+ * Filter::Markdown: fixed configuration pass bug
+ * Filter::GuessTimeZoneByDomain: bump up DateTime::TimeZone requirement
+ * Publish::Gmail: don't die if enclosure URL is not found and thus not saved in the local
+ * CustomFeed::Script: added SSL expire example code
+ * Subscriptoin::Planet: Update Google Blog search to use Japanese version
+ * Filter::EntryFullText: show debug message if YAML mandatory key is not found
+ * Publish::Feed: fixed a critical bug that the content is always b64 encoded
+
 == 0.7.14 (2006/10/17) ==
 
 === Core ===
