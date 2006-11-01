@@ -20,7 +20,10 @@ plugins:
       entry:
         - title: Slashdot.jp
           link: http://slashdot.jp/article.pl?sid=06/08/14/1941259
+        - title: foo
+          link: http://slashdot.jp/developers/article.pl?sid=06/10/31/0418208
   - module: Filter::EntryFullText
 --- expected
 ok $context->update->feeds->[0]->entries->[0]->body;
+ok $context->update->feeds->[0]->entries->[1]->body;
 
