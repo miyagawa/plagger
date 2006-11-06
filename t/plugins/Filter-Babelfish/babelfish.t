@@ -42,7 +42,7 @@ plugins:
     config:
       source: Japanese
       destination: English
-      service: Google
+#      service: Google
       prepend_original: 0
 --- expected
 like $context->update->feeds->[0]->entries->[0]->title, qr/[cC]at/;
@@ -64,7 +64,7 @@ plugins:
     config:
       source: Japanese
       destination: English
-      service: Google
+#      service: Google
       prepend_original: 1
 --- expected
 like $context->update->feeds->[0]->entries->[0]->title, qr/猫.*[cC]at/s;
@@ -86,7 +86,7 @@ plugins:
     config:
 #      source: Japanese
       destination: English
-      service: Google
+#      service: Google
       prepend_original: 0
 --- expected
 like $context->update->feeds->[0]->entries->[0]->title, qr/[cC]at/;
