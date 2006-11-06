@@ -7,3 +7,6 @@
 # no strict 'refs'
 [TestingAndDebugging::ProhibitNoStrict]
 allow = refs
+
+# temporary disable this
+[-Modules::RequireFilenameMatchesPackage]
