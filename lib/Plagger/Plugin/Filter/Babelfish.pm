@@ -51,7 +51,7 @@ sub update {
         return;
     };
 
-    my $title    = $args->{entry}->title;
+    my $title    = $args->{entry}->title->data;
     my $title_tr = $self->translate($translator, $title, $language);
     unless (defined $title_tr) {
         $context->log(error => "Translation failed: " . $translator->error);
@@ -63,7 +63,7 @@ sub update {
 
     sleep 1;
 
-    my $body    = $args->{entry}->body;
+    my $body    = $args->{entry}->body->data;
     my $body_tr = $self->translate($translator, $body, $language);
     unless (defined $body_tr) {
         $context->log(error => "Translation failed: " . $translator->error);
