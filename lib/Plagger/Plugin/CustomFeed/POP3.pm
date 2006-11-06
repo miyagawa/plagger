@@ -66,7 +66,13 @@ sub mail2feed {
 
     $entry->title($email->header('Subject'));
     $entry->author($email->header('From'));
-    $entry->date(Plagger::Date->parse($format, $email->header('Date'))) if $email->header('Date');
+
+    if (my $date = $email->header('Date')) {
+        my $dt = eval { Plagger::Date->parse($format, $date) }
+            || Plagger::Date->parse_dwim($date);
+        $entry->date($dt) if $dt;
+    }
+
     $entry->body($self->get_body($email));
 
     $feed->add_entry($entry);
