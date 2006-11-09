@@ -2,3 +2,5 @@ name: Summary::GetSen
 author: Tatsuhiko Miyagawa
 depends:
   XMLRPC::Lite: 0
+bundles:
+  - Filter::GuessLanguage
