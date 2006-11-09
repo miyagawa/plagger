@@ -1,0 +1,4 @@
+name: Summary::Japanese
+author: Tatsuhiko Miyagawa
+depends:
+  Lingua::JA::Summarize::Extract: 0
