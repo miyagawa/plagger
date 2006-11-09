@@ -1,0 +1,5 @@
+name: Summary::AppleScript
+author: Masafumi Otsune
+platform: darwin
+depends:
+  Mac::AppleScript: 0
