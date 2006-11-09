@@ -7,6 +7,7 @@ use Lingua::JA::Summarize::Extract;
 sub register {
     my($self, $context) = @_;
     $context->autoload_plugin({ module => 'Filter::GuessLanguage' });
+    $self->{extracter} = Lingua::JA::Summarize::Extract->new($self->conf);
     $context->register_hook(
         $self,
         'summarizer.summarize' => \&summarize,
@@ -19,8 +20,8 @@ sub summarize {
     my $lang = $args->{entry}->language || $args->{feed}->language;
     return unless $lang && $lang eq 'ja';
 
-    my $summary = Lingua::JA::Summarize::Extract->extract($args->{entry}->body->plaintext);
-    $summary->length(128);
+    my $summary = $self->{extracter}->extract($args->{entry}->body->plaintext);
+    $summary->length(128) unless $self->conf->{length};
     return $summary->as_string;
 }
 
@@ -49,6 +50,6 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>
+L<Plagger>, L<Lingua::JA::Summarize::Extract>
 
 =cut
