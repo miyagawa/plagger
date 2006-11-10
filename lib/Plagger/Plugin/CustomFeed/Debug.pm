@@ -26,19 +26,26 @@ sub aggregate {
     my $feed = Plagger::Feed->new;
     $feed->type('debug');
     for (keys %{$self->conf}) {
-        next if $_ eq 'entry';
+        next if $_ eq 'entry' || $_ eq 'entries';
         $feed->$_($self->conf->{$_});
     }
 
-    for my $entry_conf (@{$self->conf->{entry}}) {
+    for my $entry_conf (@{ $self->conf->{entry} || $self->conf->{entries} || [] }) {
         my $entry = Plagger::Entry->new;
-        $entry->$_($entry_conf->{$_}) for keys %$entry_conf;
+        for my $method (keys %$entry_conf) {
+            next if $method eq 'enclosure';
+            $entry->$method($entry_conf->{$method});
+        }
         $feed->add_entry($entry);
 
         # enclosure
-        for my $enclosure_conf ( @{ $entry_conf->{enclosure} } ){
+        my $encls = $entry_conf->{enclosure} || [];
+           $encls = [ $encls ] if ref $encls && ref $encls ne 'ARRAY';
+
+        for my $enclosure_conf ( @$encls ) {
             my $enclosure = Plagger::Enclosure->new;
             $enclosure->$_($enclosure_conf->{$_}) for keys %$enclosure_conf;
+            $enclosure->auto_set_type unless defined $enclosure->type;
             $entry->add_enclosure($enclosure);
         }
     }
