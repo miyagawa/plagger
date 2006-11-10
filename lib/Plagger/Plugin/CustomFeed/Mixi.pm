@@ -178,6 +178,10 @@ sub aggregate_feed {
                     Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
                     my $meth = $MAP->{$type}->{get_detail};
                     my($item) = $self->{mixi}->$meth($msg->{link});
+
+                    if ($meth eq 'get_view_diary') {
+                        $item->{images} = $self->get_images($self->{mixi}->response->content);
+                    }
                     $item;
                 },
                 '12 hours',
@@ -186,8 +190,12 @@ sub aggregate_feed {
                 my $body = decode('euc-jp', $item->{description});
                    $body =~ s!(\r\n?|\n)!<br />!g;
                 for my $image (@{ $item->{images} }) {
-                    # xxx this should be $entry->enclosures
                     $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
+                    my $enclosure = Plagger::Enclosure->new;
+                    $enclosure->url( URI->new($image->{thumb_link}) );
+                    $enclosure->auto_set_type;
+                    $enclosure->is_inline(1);
+                    $entry->add_enclosure($enclosure);
                 }
                 $entry->body($body);
 
@@ -202,6 +210,17 @@ sub aggregate_feed {
     }
 
     $context->update->add($feed);
+}
+
+sub get_images {
+    my($self, $content) = @_;
+
+    my @images;
+    while ($content =~ m!MM_openBrWindow\('(show_diary_picture\.pl\?.*?)',.*?><img src="(http://ic\d+\.mixi\.jp/p/.*?)"!g) {
+        push @images, { link => "http://mixi.jp/$1", thumb_link => $2 };
+    }
+
+    return \@images;
 }
 
 1;
