@@ -14,7 +14,7 @@ sub update {
     my($self, $context, $args) = @_;
     my $body = $args->{entry}->body;
 
-    my $count = $body =~ s!<a class="o?keyword" href="http://(?:d|[\w\-]+\.g)\.hatena\.ne\.jp/keyword/.*?"[^>]*?>(.*?)</a>!$1!g;
+    my $count = $body =~ s!<a (?:class="o?keyword"\s*)?href="http://(?:(?:d|[\w\-]+\.g)\.hatena\.ne\.jp|anond\.hatelabo\.jp)/keyword/.*?"(?:\s*class="keyword")?[^>]*>(.*?)</a>!$1!g;
 
     if ($count) {
         $context->log(info => "Stripped $count links to Hatena Diary Keywords");
