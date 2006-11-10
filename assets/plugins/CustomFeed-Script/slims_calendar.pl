@@ -49,7 +49,7 @@ sub fetch_calendar {
 
         my $headliner = ($node->look_down(_tag => 'b'))[0] or next;
         my $info      = ($node->look_down(_tag => 'a'))[0] or next;
-        push @{$feed->{entries}}, {
+        push @{$feed->{entry}}, {
             date  =>  DateTime::Format::W3CDTF->format_datetime($date),
             title => $headliner->as_text,
             link  => URI->new_abs( $info->attr('href'), $url )->as_string,
