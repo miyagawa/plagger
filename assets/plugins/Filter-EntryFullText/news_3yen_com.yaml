@@ -1,0 +1,7 @@
+# upgrade http://news.3yen.com/feed/
+author: Masafumi Otsune
+handle_force: http://news\.3yen\.com/\d{4}-\d{2}-\d{2}/.*
+extract_xpath:
+  body: //div[@class="storycontent"]
+#  author: //span[@class="emphasis"]
+#extract_after_hook: $data->{author} =~ s/Posted by //s;
