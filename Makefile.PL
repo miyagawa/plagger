@@ -69,6 +69,10 @@ features(
         recommends('HTML::TreeBuilder'),
         recommends('HTML::FormatText'),
     ],
+    'Parse Japanese datetime format' => [
+        -default => 0,
+        recommends('DateTime::Format::Japanese'),
+    ],
 );
 
 require YAML;

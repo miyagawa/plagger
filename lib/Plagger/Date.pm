@@ -27,6 +27,16 @@ sub parse {
 sub parse_dwim {
     my($class, $str) = @_;
 
+    # check if it's Japanese
+    if ($str =~ /^(\x{5E73}\x{6210}|\x{662D}\x{548C}|\x{5927}\x{6B63}|\x{660E}\x{6CBB})/) {
+        eval { require DateTime::Format::Japanese };
+        if ($@) {
+            Plagger->context->log(warn => "requires DateTime::Format::Japanese to parse '$str'");
+            return;
+        }
+        return $class->parse( 'Japanese', encode_utf8($str) );
+    }
+
     require Date::Parse;
     my %p;
     @p{qw( second minute hour day month year zone )} = Date::Parse::strptime($str);
