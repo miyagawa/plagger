@@ -65,9 +65,14 @@ sub init_bloglines {
 sub notifier {
     my($self, $context) = @_;
 
-    my $count = $self->{bloglines}->notify();
-    $context->log(info => "You have $count unread item(s) on Bloglines.");
-    if ($count) {
+    my $to_fetch = $self->conf->{dont_use_notifier_api};
+    unless ($to_fetch) {
+        my $count = $self->{bloglines}->notify();
+        $context->log(info => "You have $count unread item(s) on Bloglines.");
+        $to_fetch = $count;
+    }
+
+    if ($to_fetch) {
         my $feed = Plagger::Feed->new;
         $feed->aggregator(sub { $self->sync(@_) });
         $context->subscription->add($feed);
@@ -246,6 +251,11 @@ structure using listsubs API. With this option on, all feeds under
 I<Plagger> folder will have I<Plagger> as its tag.
 
 You can use this tags information using Rules in later phase.
+
+=item dont_use_notifier_api
+
+Turn it on when you want to skip Notifier API, which could sometimes
+be broken and always returns 0 instead of the actuan unread count.
 
 =back
 
