@@ -13,7 +13,7 @@ sub register {
 sub filter {
     my($self, $context, $args) = @_;
 
-    return unless $args->{entry}->link =~ m!\.2ch\.net/test/read\.cgi|rss\.s2ch\.net/test/\-/!;
+    return unless $args->{entry}->link =~ m!\.2ch\.net/test/read\.cgi|rss\.s2ch\.net/test(\.cgi)?/\-/!;
 
     my $body = $args->{entry}->body;
     if ($body && $body =~ s!^([^:]*):(\d{4}/\d\d/\d\d)\(.*?\) (\d\d:\d\d:\d\d)(?:\.\d\d)? (ID:\S+)?  ?!!) {
