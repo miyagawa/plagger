@@ -1,4 +1,4 @@
 name: CustomFeed::Mixi
 author: Tatsuhiko Miyagawa
 depends: 
-  WWW::Mixi: 0.46
+  WWW::Mixi: 0.48
