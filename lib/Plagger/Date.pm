@@ -27,6 +27,8 @@ sub parse {
 sub parse_dwim {
     my($class, $str) = @_;
 
+    return unless defined $str;
+
     # check if it's Japanese
     if ($str =~ /^(\x{5E73}\x{6210}|\x{662D}\x{548C}|\x{5927}\x{6B63}|\x{660E}\x{6CBB})/) {
         eval { require DateTime::Format::Japanese };
