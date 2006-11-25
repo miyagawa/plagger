@@ -87,7 +87,7 @@ sub handle_feed {
     $feed->description(_u($remote->tagline)); # xxx should support Atom 1.0
     $feed->language($remote->language);
     $feed->author(_u($remote->author));
-    $feed->updated($remote->modified);
+    $feed->updated($remote->modified) if defined $remote->modified;
 
     Encode::_utf8_on($$xml_ref);
     $feed->source_xml($$xml_ref);
