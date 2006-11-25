@@ -255,7 +255,7 @@ You can use this tags information using Rules in later phase.
 =item dont_use_notifier_api
 
 Turn it on when you want to skip Notifier API, which could sometimes
-be broken and always returns 0 instead of the actuan unread count.
+be broken and always returns 0 instead of the actual unread count.
 
 =back
 

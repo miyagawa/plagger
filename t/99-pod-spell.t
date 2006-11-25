@@ -28,6 +28,7 @@ API
 AdSense
 Anil
 AtomPP
+AppleScript
 AutoLink
 Babelfish
 BalloonNotify
