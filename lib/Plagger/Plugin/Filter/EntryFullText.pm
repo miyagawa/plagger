@@ -275,7 +275,9 @@ sub extract {
             if (@children) {
                 no warnings 'redefine';
                 local *HTML::Element::_xml_escape = \&xml_escape;
-                $data->{$capture} = $children[0]->as_XML;
+                $data->{$capture} = $children[0]->isElementNode
+                    ? $children[0]->as_XML
+                    : $children[0]->getValue;
             } else {
                 Plagger->context->log(error => "Can't find node matching $self->{extract_xpath}->{$capture}");
             }
