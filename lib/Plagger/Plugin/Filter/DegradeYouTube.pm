@@ -85,6 +85,8 @@ to the thumbnail.
 Your YouTube developer ID. If set, it tries to fetch the thumbnail
 image using YouTube API. Optional.
 
+=back
+
 =head1 AUTHOR
 
 Tokuhiro Matsuno
