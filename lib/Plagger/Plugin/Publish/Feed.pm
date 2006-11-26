@@ -71,11 +71,10 @@ sub publish_feed {
             }
         }
 
-        $entry->category(join(' ', @{$e->tags}));
+        $entry->category(join(' ', @{$e->tags})) if @{$e->tags};
         $entry->issued($e->date)   if $e->date;
         $entry->modified($e->date) if $e->date;
 
-        $entry->author( $self->make_author($e->author, $feed_format) );
         if ($feed_format eq 'RSS') {
             my $author = 'nobody@example.com';
             $author .= ' (' . $e->author . ')' if $e->author;
