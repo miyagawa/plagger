@@ -52,7 +52,7 @@ sub publish_feed {
         if $f->primary_author;
 
     if ($feed_format eq 'Atom') {
-        $feed->{atom}->id("tag:plagger.org,2006:" . $f->id);
+        $feed->{atom}->id("tag:plagger.org,2006:" . $f->id); # XXX what if id is empty?
     }
 
     # add entry
