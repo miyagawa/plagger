@@ -5,7 +5,7 @@ use base qw( Plagger::Plugin );
 use WebService::YouTube;
 
 my $regex = <<'...';
-<object width="\d+" height="\d+"><param name="movie" value="(http://www.youtube.com/[^"]+)"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/[^"]+"  type="application/x-shockwave-flash" wmode="transparent"  width="\d+" height="\d+"></embed></object>
+<object width="\d+" height="\d+".*?><param name="movie" value="(http://www.youtube.com/[^"]+)".*?><param name="wmode" value="transparent".*?>(.*?)</object>
 ...
 chomp $regex;
 
@@ -27,7 +27,12 @@ sub update {
         $context->log(info => "Found YouTube video $url");
         my $body;
         if (my $dev_id = $self->conf->{dev_id}) {
-            my $thumb_url = $self->_thumbnail_url($dev_id, $self->_video_id($url));
+            my $thumb_url = $self->cache->get_callback(
+                $url,
+                sub { $self->_thumbnail_url($dev_id, $self->_video_id($url)) },
+                60 * 60 * 24,
+            );
+            $context->log(info => "Thumbnail for $url => $thumb_url");
             qq{<a href="$url"><img src="$thumb_url" /></a>}
         } else {
             $context->log(warn => "No dev_id found. Just use the text replacement.");
