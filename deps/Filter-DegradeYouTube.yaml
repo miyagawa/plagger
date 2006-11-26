@@ -1,0 +1,4 @@
+name: Filter-DegradeYouTube
+author: Tokuhiro Matsuno
+depends:
+  WebService::YouTube: 0
