@@ -20,7 +20,7 @@ sub summarize {
         # HTML: grab first block paragraph, or until first <br />
         local $HTML::Tagset::isBodyElement{div} = 0;
         my $html = $text->data;
-        while ($html =~ s|^\s*<(\w*)\s*[^>]*>(.*?)</\1>|$2|gs) {
+        while ($html =~ s|^\s*<([^ >]+)(?:\s+[^>]+)?>(.*?)</\1>|$2|gs) {
             if ($HTML::Tagset::isBodyElement{lc($1)}) {
                 return "<$1>$2</$1>";
             }
