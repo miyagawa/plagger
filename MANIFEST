@@ -2,6 +2,7 @@ assets/common/html.tt
 assets/common/mail.tt
 assets/plugins/CustomFeed-Script/domain-expire.pl
 assets/plugins/CustomFeed-Script/jsports-football.pl
+assets/plugins/CustomFeed-Script/slims_calendar.pl
 assets/plugins/CustomFeed-Script/ssl-expire.pl
 assets/plugins/CustomFeed-Script/wowow-hv-51ch.pl
 assets/plugins/CustomFeed-Script/wowow-liga-espanola.pl
@@ -73,9 +74,11 @@ assets/plugins/Filter-EntryFullText/mainichi-msn-graph.yaml
 assets/plugins/Filter-EntryFullText/mainichi-msn.yaml
 assets/plugins/Filter-EntryFullText/matino-akari_com.yaml
 assets/plugins/Filter-EntryFullText/memn0ck.yaml
+assets/plugins/Filter-EntryFullText/mt2.pl
 assets/plugins/Filter-EntryFullText/mtv-music.yaml
 assets/plugins/Filter-EntryFullText/mycom_journal.yaml
 assets/plugins/Filter-EntryFullText/netkeiba.yaml
+assets/plugins/Filter-EntryFullText/news_3yen_com.yaml
 assets/plugins/Filter-EntryFullText/news_com.yaml
 assets/plugins/Filter-EntryFullText/news_livedoor_com.yaml
 assets/plugins/Filter-EntryFullText/newsforge.yaml
@@ -234,6 +237,7 @@ deps/Filter-2chRSSContent.yaml
 deps/Filter-AtomLinkRelated.yaml
 deps/Filter-Babelfish.yaml
 deps/Filter-BlogPet.yaml
+deps/Filter-DegradeYouTube.yaml
 deps/Filter-Delicious.yaml
 deps/Filter-DeliciousFeedTags.yaml
 deps/Filter-Emoticon.yaml
@@ -327,10 +331,12 @@ deps/Subscription-PingServer.yaml
 deps/Subscription-PlanetINI.yaml
 deps/Subscription-XOXO.yaml
 deps/Subscription-XPath.yaml
+deps/Summary-AppleScript.yaml
 deps/Summary-Auto.yaml
 deps/Summary-English.yaml
 deps/Summary-GetSen.yaml
 deps/Summary-HatenaBookmark.yaml
+deps/Summary-Japanese.yaml
 deps/Summary-Simple.yaml
 deps/Summary-TextOriginal.yaml
 deps/Summary-TrackbackRDF.yaml
@@ -427,6 +433,7 @@ lib/Plagger/Plugin/Filter/BlogPet.pm
 lib/Plagger/Plugin/Filter/BreakEntriesToFeeds.pm
 lib/Plagger/Plugin/Filter/BulkfeedsTerms.pm
 lib/Plagger/Plugin/Filter/CompositeFeed.pm
+lib/Plagger/Plugin/Filter/DegradeYouTube.pm
 lib/Plagger/Plugin/Filter/Delicious.pm
 lib/Plagger/Plugin/Filter/DeliciousFeedTags.pm
 lib/Plagger/Plugin/Filter/Emoticon.pm
@@ -569,10 +576,12 @@ lib/Plagger/Plugin/Subscription/Planet.pm
 lib/Plagger/Plugin/Subscription/PlanetINI.pm
 lib/Plagger/Plugin/Subscription/XOXO.pm
 lib/Plagger/Plugin/Subscription/XPath.pm
+lib/Plagger/Plugin/Summary/AppleScript.pm
 lib/Plagger/Plugin/Summary/Auto.pm
 lib/Plagger/Plugin/Summary/English.pm
 lib/Plagger/Plugin/Summary/GetSen.pm
 lib/Plagger/Plugin/Summary/HatenaBookmark.pm
+lib/Plagger/Plugin/Summary/Japanese.pm
 lib/Plagger/Plugin/Summary/Simple.pm
 lib/Plagger/Plugin/Summary/TextOriginal.pm
 lib/Plagger/Plugin/Summary/TrackbackRDF.pm

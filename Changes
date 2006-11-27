@@ -1,5 +1,37 @@
 The latest, HTML version of this document is always available at http://plagger.org/trac.cgi/wiki/PlaggerChangeLog
 
+== 0.7.16 (2006/11/26) ==
+
+=== Core ===
+
+ * Plagger::Date->parse_dwim now supports Japanese date format
+ * $plugin->load_assets ignore .svn directory by default
+ * update DateTime and DateTime::Locale dependencies
+
+=== New Plugins ===
+
+ * Summary::Japanese: Summary generator using Lingua::JA::Summarize::Japanese::Extract (miyagawa, ko)
+ * Summary::AppleScript: Summary generator using MacOSX summary service (otsune)
+ * Filter::DegradeYoutube: degrade YouTube embed video HTML (tokuhirom)
+
+=== Plugins Updates ===
+
+ * Filter::EntryFullText: Update patterns for Slashdot.jp, pmachine
+ * Filter::TruePermalink: added ?fr=rdf (otsune)
+ * CustomFeed::POP3: Made it more liberal to parse Date: header
+ * Filter::Babelfish: Fixed bug around Plagger::Text
+ * Filter::HatenaDiaryKeywordUnlink: Support annonymous diary (kentaro)
+ * CustomFeed::Mixi: reworked regular expression to work with site updates. Now image links are added to enlcousres
+ * CustomFeed::Debug: Allow "entries" key. Auto set type on enclosures if not set.
+ * Filter::EntryFullText: support Japanese date format per Plagger::Date updates
+ * Subscription::Bloglines: 'dont_use_notifier_api' to work around Notifer API bug
+ * Fitler::2chRSSContent: work around with s2ch.net URL changes
+ * Notify::IRC: Update defaulte templates colors (typester)
+ * CustomFeed::Mixi: bumped WWW::Mixi deps
+ * CustomFeed::MixiDiarySearch: HTML updates
+ * Filter::EntryFullText: XPath support now works with non-Node element (nikc)
+ * Publish::Feed: fixed bugs that it emits empty category tags and nobody author elemen
+
 == 0.7.15 (2006/11/01) ==
 
 === Core ===
