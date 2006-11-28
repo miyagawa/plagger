@@ -23,7 +23,7 @@ sub load {
 sub aggregate {
     my ($self, $context, $args) = @_;
 
-    my $feed = Plagger::Feed->new;
+    my $feed = $args->{feed};
     $feed->type('debug');
     for (keys %{$self->conf}) {
         next if $_ eq 'entry' || $_ eq 'entries';
