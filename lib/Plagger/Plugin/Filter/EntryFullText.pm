@@ -124,12 +124,14 @@ sub filter {
     }
 
     # use Last-Modified to populate entry date, even if handler doesn't find one
+    # TODO: make this a separate plugin
     if ($res->last_modified && !$args->{entry}->date) {
         $args->{entry}->date( Plagger::Date->from_epoch($res->last_modified) );
     }
 
     my @plugins = $handler ? ($handler) : @{ $self->{plugins} };
 
+    my $upgraded;
     for my $plugin (@plugins) {
         if ( $handler || $plugin->handle($args) ) {
             $context->log(debug => $args->{entry}->permalink . " handled by " . $plugin->site_name);
@@ -156,10 +158,20 @@ sub filter {
                     $args->{entry}->date($data->{date});
                 }
 
-                return 1;
+                $upgraded++;
+                last;
             }
         }
     }
+
+    # extract TITLE tag if title is not set yet
+    # TODO: make this a separate plugin
+    if (!$args->{entry}->title
+        and $args->{content} =~ m!<title>\s*(.*?)\s*</title>!is ) {
+        $args->{entry}->title( HTML::Entities::decode($1) );
+    }
+
+    return 1 if $upgraded;
 
     # failed to extract: store whole HTML if the config is on
     if ($self->conf->{store_html_on_failure}) {
