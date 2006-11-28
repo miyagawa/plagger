@@ -97,3 +97,10 @@ bar</p>
 --- expected
 <p>日本語のテスト <img src="foo.jpg" alt="顔" /></p>
 
+=== UTF-8 with HTML special chars
+--- input
+<p>日本語のテスト &aring;</p>
+--- expected
+<p>日本語のテスト å</p>
+
+
