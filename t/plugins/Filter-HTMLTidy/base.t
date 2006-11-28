@@ -58,20 +58,20 @@ This is a text, not HTML.
 --- input
 <p><div>fooo <br><font face="foo">foo</div></p><div><hr>foo<i>bar</i><p>aaa
 --- expected
-<div>fooo
-<br />
+<div>fooo<br />
 <font face="foo">foo</font></div>
 <div>
-<hr />foo
-<i>bar</i>
-<p>aaa</p></div>
+<hr />
+foo<i>bar</i>
+<p>aaa</p>
+</div>
 
 === html2xhtml
 --- input
 <p>foo<br>bar</p>
 --- expected
-<p>foo
-<br />bar</p>
+<p>foo<br />
+bar</p>
 
 === HTML chars
 --- input
@@ -95,6 +95,5 @@ This is a text, not HTML.
 --- input
 <p>日本語のテスト <img src="foo.jpg" alt="顔"></p>
 --- expected
-<p>日本語のテスト 
-<img src="foo.jpg" alt="顔" /></p>
+<p>日本語のテスト <img src="foo.jpg" alt="顔" /></p>
 

@@ -13,11 +13,13 @@ sub register {
 }
 
 our %defaults = (
-    output_xml   => 1,
+    doctype      => 'omit',
+    output_xhtml => 1,
     wrap         => 0,
     break_before_br => 0,
     input_encoding => 'utf8',
     output_encoding => 'utf8',
+    tidy_mark => 0,
 );
 
 sub filter {
