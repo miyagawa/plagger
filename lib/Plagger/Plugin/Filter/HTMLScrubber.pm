@@ -92,7 +92,7 @@ sub update {
     my ( $self, $context, $args ) = @_;
 
     if (defined $args->{entry}->body && $args->{entry}->body->is_html) {
-        $context->log(debug => "Scrubbing body for" . $args->{entry}->permalink || '(no-link)');
+        $context->log(debug => "Scrubbing body for " . $args->{entry}->permalink || '(no-link)');
         my $body = $self->{scrubber}->scrub( $args->{entry}->body );
         $args->{entry}->body($body);
     }
