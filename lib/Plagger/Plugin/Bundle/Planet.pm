@@ -18,6 +18,13 @@ sub register {
         module => 'Filter::StripTagsFromTitle',
     });
 
+    eval { require HTML::Tidy };
+    unless ($@) {
+        $context->load_plugin({
+            module => 'Filter::HTMLTidy',
+        });
+    }
+
     $context->load_plugin({
         module => 'Filter::HTMLScrubber',
         config => $self->conf->{scrubber} || {},
@@ -143,6 +150,8 @@ configurations.
 =over 4
 
 =item Filter::StripTagsFromTitle
+
+=item Filter::HTMLTidy (if HTML::Tidy is available)
 
 =item Filter::HTMLScrubber
 

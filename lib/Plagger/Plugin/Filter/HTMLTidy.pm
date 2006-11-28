@@ -46,6 +46,8 @@ sub filter {
 1;
 __END__
 
+=for stopwords htmltidy
+
 =head1 NAME
 
 Plagger::Plugin::Filter::HTMLTidy - Filters body HTML using HTML::Tidy
