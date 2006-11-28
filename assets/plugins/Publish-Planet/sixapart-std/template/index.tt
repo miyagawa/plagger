@@ -15,7 +15,7 @@
 [% FOREACH style = style_url.list -%]
   <link rel="stylesheet" type="text/css" href="[% style | html %]" />
 [% END %]
-  <title>[% feed.title | html %]</title>
+  <title>[% feed.title.html %]</title>
 </head>
 [% USE util = Plagger.Util -%]
 <body class="layout-two-column-right">
@@ -23,8 +23,8 @@
     <div id="container-inner" class="pkg">
       <div id="banner">
         <div id="banner-inner" class="pkg">
-          <h1 id="banner-header">[% feed.title | html %]</h1>
-          <h2 id="banner-description">[% feed.description | html %]</h2>
+          <h1 id="banner-header">[% feed.title.html %]</h1>
+          <h2 id="banner-description">[% feed.description.html %]</h2>
         </div>
       </div>
       <div id="pagebody">
@@ -32,18 +32,18 @@
           <div id="alpha">
             <div id="alpha-inner" class="pkg">
               [% FOREACH entry = entries %]
-              <a id="[% entry.id %]"></a>
-              <div class="entry" id="entry-[% entry.id %]">
+              <a id="[% entry.id_safe %]"></a>
+              <div class="entry" id="entry-[% entry.id_safe %]">
                 <h3 class="entry-header">
                 [% IF entry.source.title %]
-                <a href="[% entry.source.link | html %]">[% entry.source.title | html %]</a>: 
+                <a href="[% entry.source.link | html %]">[% entry.source.title.html %]</a>: 
                 [% END %]
-                <a href="[% (entry.permalink || entry.id) | html %]">[% entry.title | html %]</a>
+                <a href="[% entry.permalink | html %]">[% entry.title.html %]</a>
                 </h3>
                 <div class="entry-content">
                 [% IF entry.icon %]<div class="entry-userpic"><img src="[% entry.icon.url | html %]" [% util.dumbnail(entry.icon, width=150, height=100) %] border="0" alt="[% (entry.icon.title || entry.title) | html %]" /></div>[% END %]
                   <div class="entry-body">
-                  [% entry.body %]
+                  [% entry.body.html %]
                   <p class="entry-footer">
                     <span class="post-footers">Posted
                     [% IF entry.author %]by [% entry.author | html %][% END %]
@@ -70,7 +70,7 @@
                   <ul class="module-list">
                     [% FOREACH member = members %]
                     <li class="module-list-item">
-                    <a  href="[% member.link | html %]">[% member.title | html %]</a>
+                    <a  href="[% member.link | html %]">[% member.title.html %]</a>
                     </li>
                     [% END %]
                   </ul>
