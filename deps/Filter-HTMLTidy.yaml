@@ -1,0 +1,4 @@
+name: Filter::HTMLTidy
+author: Tatsuhiko Miyagawa
+depends:
+  HTML::Tidy: 1.07
