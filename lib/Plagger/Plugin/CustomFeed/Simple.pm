@@ -62,12 +62,12 @@ sub aggregate {
             my $text = $parser->get_trimmed_text('/a');
             next if !$text || $text eq '[IMG]';
 
-            my $url = URI->new_abs($token->[1]->{href}, $url);
-            next if $seen{$url->as_string}++;
+            my $item_url = URI->new_abs($token->[1]->{href}, $url);
+            next if $seen{$item_url->as_string}++;
 
             my $entry = Plagger::Entry->new;
             $entry->title($text);
-            $entry->link($url);
+            $entry->link($item_url);
             $feed->add_entry($entry);
 
             $context->log(debug => "Add $token->[1]->{href} ($text)");
@@ -83,7 +83,7 @@ sub aggregate {
 
             my $entry = Plagger::Entry->new;
             $entry->title($title);
-            $entry->link($href);
+            $entry->link(URI->new_abs($href, $url));
             $feed->add_entry($entry);
 
             $context->log(debug => "Add $href ($title)");
