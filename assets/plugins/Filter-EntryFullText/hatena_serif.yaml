@@ -1,0 +1,5 @@
+# upgrade hatena serif
+author: Tatsuhiko Miyagawa
+handle: http://serif\.hatelabo\.jp/\w+/\w+
+extract_xpath:
+  body: //div[@id="hatelabo-serif"]
