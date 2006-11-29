@@ -3,7 +3,6 @@ use strict;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri mime_type_of filename_for mime_is_enclosure );
 
-use Digest::MD5;
 use Encode ();
 use List::Util qw(min);
 use HTML::Entities;
@@ -215,7 +214,7 @@ sub safe_filename {
 }
 
 sub safe_id {
-    my $id = shift;
+    my $id = "$_[0]"; # force stringify
     $id =~ s/^urn:guid://;
     $id =~ /^([\w\-]+)$/ ? $1 : Digest::MD5::md5_hex($id);
 }
