@@ -3,7 +3,8 @@ use strict;
 use base qw( Plagger::Plugin );
 
 use URI;
-use XML::Feed;
+use Plagger::FeedParser;
+use Plagger::UserAgent;
 
 sub register {
     my($self, $context) = @_;
@@ -22,7 +23,9 @@ sub load {
 
     my $feed_uri = "http://$group.g.hatena.ne.jp/diarylist?mode=rss";
 
-    my $remote = XML::Feed->parse(URI->new($feed_uri)) or $context->error("feed parse error $feed_uri");
+    my $agent = Plagger::UserAgent->new;
+    my $remote = eval { $agent->fetch_parse(URI->new($feed_uri)) }
+        or $context->error("feed parse error $feed_uri: $@");
     for my $r ($remote->entries) {
         $context->log(info => "diary: ". $r->link);
 
