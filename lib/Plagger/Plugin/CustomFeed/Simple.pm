@@ -44,10 +44,9 @@ sub aggregate {
     }
 
     my $content = decode_content($res);
-    my $title   = extract_title($content);
 
     my $feed = Plagger::Feed->new;
-    $feed->title($args->{feed}->title || $title);
+    $feed->title($args->{feed}->title || extract_title($content));
     $feed->link($url);
 
     if( my $re = $args->{match} ) {
