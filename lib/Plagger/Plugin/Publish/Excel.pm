@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use base qw(Plagger::Plugin);
 
-use Plagger::Util qw(strip_html);
 use Spreadsheet::WriteExcel;
 
 sub init {
@@ -39,7 +38,7 @@ sub feed {
         $worksheet->write($row, $col++, $entry->date->format('Mail'));
         $worksheet->write($row, $col++, $entry->title);
         $worksheet->write($row, $col++, $entry->permalink);
-        $worksheet->write($row, $col++, strip_html($entry->body), $self->{body_format});
+        $worksheet->write($row, $col++, $entry->body->plaintext, $self->{body_format});
         $row++;
     }
 }
