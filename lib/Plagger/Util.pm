@@ -3,6 +3,7 @@ use strict;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( strip_html dumbnail decode_content extract_title load_uri mime_type_of filename_for mime_is_enclosure );
 
+use Digest::MD5;
 use Encode ();
 use List::Util qw(min);
 use HTML::Entities;
