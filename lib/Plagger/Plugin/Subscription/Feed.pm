@@ -4,8 +4,7 @@ use warnings;
 
 use base qw( Plagger::Plugin );
 use Plagger::Util;
-
-use XML::Feed;
+use Plagger::FeedParser;
 
 sub register {
     my ( $self, $context ) = @_;
@@ -29,10 +28,10 @@ sub load_feed {
     my ( $self, $context, $uri ) = @_;
 
     my $content = Plagger::Util::load_uri($uri);
-    my $feed = eval { XML::Feed->parse(\$content) };
+    my $feed = eval { Plagger::FeedParser->parse(\$content) };
 
     unless ($feed) {
-        $context->log( error => "Error loading feed $uri: " . ($@ || XML::Feed->errstr) );
+        $context->log( error => "Error loading feed $uri: $@" );
         return;
     }
 
