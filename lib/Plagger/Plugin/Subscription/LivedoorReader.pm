@@ -75,7 +75,7 @@ sub sync {
 
         my $feed = Plagger::Feed->new;
         $feed->type('livedoorReader');
-        $feed->title( Plagger::Util::strip_html($data->{channel}->{title}) );
+        $feed->title($data->{channel}->{title});
         $feed->link($data->{channel}->{link});
         $feed->url($data->{channel}->{feedlink});
         $feed->image({ url => $data->{channel}->{image} || $sub->{icon} });
