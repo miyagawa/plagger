@@ -3,5 +3,7 @@ author: Daisuke Murase <typester@cpan.org>
 custom_feed_handle: http://www.talesweaver.jp/home/default.asp
 custom_feed_follow_link: /web_module/.*intidx=\d+
 handle: http://www\.talesweaver\.jp/web_module/skins/TalesWeaver/(news_board_content\.asp\?strboardid=talesweavernews|maintenance_board_content.asp\?strboardid=talesweavermainte)&intidx=\d+
+extract: <td class="tbl_td_t" bgcolor="#FAFAFA" style="color:#666666;" align="center">\d+-\d+-\d+</td>.*?<td class="tbl_td_1" bgcolor="#FAFAFA">(.*?)</td>
+extract_capture: title
 extract_xpath:
   body: //td[@class="txt1"]
