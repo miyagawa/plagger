@@ -135,9 +135,7 @@ sub aggregate {
                     );
 
                     if ($video_url) {
-                        warn $video_url;
                         my $video_id = ( $video_url =~ /video_id=(\w+)/ )[0];
-
                         my $enclosure = Plagger::Enclosure->new;
                         $enclosure->url( URI->new($video_url) );
                         $enclosure->type('video/x-flv');
