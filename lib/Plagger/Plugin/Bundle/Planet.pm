@@ -88,6 +88,7 @@ sub register {
             dir => $self->conf->{dir},
             filename => 'atom.xml',
             format => 'Atom',
+            taguri_base => URI->new($self->conf->{url})->host,
         },
     });
 

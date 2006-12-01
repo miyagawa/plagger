@@ -44,6 +44,7 @@ file_contains("$main::dir/index.html", qr(href="http://planet.plagger.org/foo.cs
 file_contains("$main::dir/index.html", qr(href="http://planet.plagger.org/subscriptions.opml"));
 file_contains("$main::dir/index.html", qr(href="http://planet.plagger.org/foafroll.xml"));
 file_contains("$main::dir/atom.xml", qr!href="http://planet.plagger.org/"!);
+file_contains("$main::dir/atom.xml", qr!tag:planet.plagger.org!);
 file_contains("$main::dir/rss.xml", qr!<link>http://planet.plagger.org/</link>!);
 file_contains("$main::dir/subscriptions.opml", qr!<head>\s*<title>Planet Foobar</title>!);
 file_contains("$main::dir/subscriptions.opml", qr!<outline title="blog.bulknews.net"!);

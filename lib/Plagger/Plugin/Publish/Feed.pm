@@ -51,8 +51,13 @@ sub publish_feed {
     $feed->author( $self->make_author($f->author, $feed_format) )
         if $f->primary_author;
 
+    my $taguri_base = $self->conf->{taguri_base} || do {
+        require Sys::Hostname;
+        Sys::Hostname::hostname();
+    };
+
     if ($feed_format eq 'Atom') {
-        $feed->{atom}->id("tag:plagger.org,2006:" . $f->id); # XXX what if id is empty?
+        $feed->{atom}->id("tag:$taguri_base,2006:" . $f->id); # XXX what if id is empty?
     }
 
     # add entry
@@ -85,7 +90,7 @@ sub publish_feed {
             }
         }
 
-        $entry->id("tag:plagger.org,2006:" . $e->id);
+        $entry->id("tag:$taguri_base,2006:" . $e->id);
 
         if ($e->has_enclosure) {
             for my $enclosure (grep { defined $_->url && !$_->is_inline } $e->enclosures) {
@@ -209,13 +214,20 @@ like printf():
 
 Whether to publish full content feed. Defaults to 1.
 
+=item taguri_base
+
+Domain name to use with Tag URI base for Atom feed IDs. If it's not
+set, the domain is grabbed using Sys::Hostname module. Optional.
+
 =back
 
 =head1 AUTHOR
 
-Yoshiki Kurihara
-
 Tatsuhiko Miyagawa
+
+=head1 CONTRIBUTORS
+
+Yoshiki Kurihara
 
 Gosuke Miyashita
 

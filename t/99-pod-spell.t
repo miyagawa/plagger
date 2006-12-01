@@ -67,6 +67,7 @@ Hatena
 HatenaDiary
 HatenaGroup
 HatenaRSS
+IDs
 IE
 IKC
 IMAP
