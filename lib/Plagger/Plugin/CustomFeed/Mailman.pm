@@ -70,13 +70,15 @@ sub aggregate {
     $feed->link($args->{feed}->url); # base
 
     my @matches;
-    while ($content =~ m!<LI><A HREF="(\d+\.html)">(.*?)\n</A><A NAME="(\d+)">&nbsp;</A>\n<I>(.*?)\n</I>!g) {
-        push @matches, {
+    while ($content =~ m!<LI><A HREF="(\d+\.html)">(.*?)\n</A><A NAME="(\d+)">&nbsp;</A>\n<I>(.*?)\n</I>!sg) {
+        my $data = {
             link    => $1,
             subject => $2,
             id      => $3,
             from    => $4,
         };
+        $data->{subject} =~ tr/\n//d;
+        push @matches, $data;
     }
 
     my $items = min( $self->conf->{fetch_items} || 20, scalar(@matches));
