@@ -44,4 +44,4 @@ plugins:
           link: http://www.frepa.livedoor.com/blog/show?id=4&diary=60231
           body: <object width="340" height="280"><param name="movie" value="http://www.youtube.com/v/nf8LyHLN2x4"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/nf8LyHLN2x4"  type="application/x-shockwave-flash" wmode="transparent"  width="340" height="280"></embed></object>
 --- expected
-like $context->update->feeds->[0]->entries->[0]->body, qr{<a href="http://www.youtube.com/v/nf8LyHLN2x4"><img src="http://sjl-static16.sjl.youtube.com/vi/nf8LyHLN2x4/2.jpg" /></a>}, "degrade with thumbnail";
+like $context->update->feeds->[0]->entries->[0]->body, qr{<a href="http://www.youtube.com/v/nf8LyHLN2x4"><img src="http://sj\w-static\d+.sj\w.youtube.com/vi/nf8LyHLN2x4/2.jpg" /></a>}, "degrade with thumbnail";
