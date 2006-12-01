@@ -5,6 +5,7 @@ use base qw( Plagger::Plugin );
 
 use XML::Feed;
 use XML::Feed::Entry;
+use XML::Feed::RSS; # load explicitly to force LibXML
 use XML::RSS::LibXML;
 use File::Spec;
 
@@ -217,7 +218,7 @@ Whether to publish full content feed. Defaults to 1.
 =item taguri_base
 
 Domain name to use with Tag URI base for Atom feed IDs. If it's not
-set, the domain is grabbed using Sys::Hostname module. Optional.
+set, the domain is grabbed using Sys::Hostname module Optional.
 
 =back
 
