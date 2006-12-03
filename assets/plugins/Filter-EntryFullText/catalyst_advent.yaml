@@ -1,0 +1,6 @@
+# upgrade http://www.catalystframework.org/calendar/rss/2006
+author: Tatsuhiko Miyagawa
+handle: http://www\.catalystframework\.org/calendar/2006/
+extract_xpath:
+  body: //div[@class="pod"]
+  title: //h1/following-sibling::*[1]/self::p
