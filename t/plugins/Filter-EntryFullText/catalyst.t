@@ -23,4 +23,4 @@ plugins:
 --- expected
 ok $context->update->feeds->[0]->entries->[0]->body;
 ok $context->update->feeds->[0]->entries->[0]->title;
-warn $context->update->feeds->[0]->entries->[0]->title, 'foo';
+isnt $context->update->feeds->[0]->entries->[0]->title, 'foo';
