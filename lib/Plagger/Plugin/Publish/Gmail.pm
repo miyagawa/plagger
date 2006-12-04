@@ -106,6 +106,7 @@ sub notify {
                 User     => $route->{username},
                 Password => $route->{password},
                 Port     => $route->{port} || 587,
+                Timeout  => $route->{timeout} || 300,
             ];
             $msg->send_by_smtp_tls(@{ $self->{tls_args} });
         } elsif ($route->{via} eq 'sendmail') {
