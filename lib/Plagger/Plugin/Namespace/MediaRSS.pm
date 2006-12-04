@@ -13,24 +13,26 @@ sub register {
 sub handle {
     my($self, $context, $args) = @_;
 
-    my $media_ns = "http://search.yahoo.com/mrss";
-    my $media = $args->{orig_entry}->{entry}->{$media_ns}->{group} || $args->{orig_entry}->{entry};
-    my $content = $media->{$media_ns}->{content} || [];
-    $content = [ $content ] unless ref $content && ref $content eq 'ARRAY';
+    # Ick, I need to try the URL with and without the trailing slash
+    for my $media_ns ("http://search.yahoo.com/mrss", "http://search.yahoo.com/mrss/") {
+        my $media = $args->{orig_entry}->{entry}->{$media_ns}->{group} || $args->{orig_entry}->{entry};
+        my $content = $media->{$media_ns}->{content} || [];
+        $content = [ $content ] unless ref $content && ref $content eq 'ARRAY';
 
-    for my $media_content (@{$content}) {
-        my $enclosure = Plagger::Enclosure->new;
-        $enclosure->url( URI->new($media_content->{url}) );
-        $enclosure->auto_set_type($media_content->{type});
-        $args->{entry}->add_enclosure($enclosure);
-    }
+        for my $media_content (@{$content}) {
+            my $enclosure = Plagger::Enclosure->new;
+            $enclosure->url( URI->new($media_content->{url}) );
+            $enclosure->auto_set_type($media_content->{type});
+            $args->{entry}->add_enclosure($enclosure);
+        }
 
-    if (my $thumbnail = $media->{$media_ns}->{thumbnail}) {
-        $args->{entry}->icon({
-            url   => $thumbnail->{url},
-            width => $thumbnail->{width},
-            height => $thumbnail->{height},
-        });
+        if (my $thumbnail = $media->{$media_ns}->{thumbnail}) {
+            $args->{entry}->icon({
+                url   => $thumbnail->{url},
+                width => $thumbnail->{width},
+                height => $thumbnail->{height},
+            });
+        }
     }
 
     1;
