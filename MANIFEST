@@ -27,6 +27,7 @@ assets/plugins/Filter-EntryFullText/blog_tech.rikunabi_next.yaml
 assets/plugins/Filter-EntryFullText/bounce.yaml
 assets/plugins/Filter-EntryFullText/business-i.yaml
 assets/plugins/Filter-EntryFullText/business_nikkeibp_co_jp.yaml
+assets/plugins/Filter-EntryFullText/catalyst_advent.yaml
 assets/plugins/Filter-EntryFullText/cdjournal.yaml
 assets/plugins/Filter-EntryFullText/chugoku-np.yaml
 assets/plugins/Filter-EntryFullText/chuspo_dragons.yaml
@@ -49,6 +50,7 @@ assets/plugins/Filter-EntryFullText/ft.yaml
 assets/plugins/Filter-EntryFullText/gigazine_net.yaml
 assets/plugins/Filter-EntryFullText/gyao_content.pl
 assets/plugins/Filter-EntryFullText/hatena_diary.pl
+assets/plugins/Filter-EntryFullText/hatena_serif.yaml
 assets/plugins/Filter-EntryFullText/headlines_yahoo_jp.yaml
 assets/plugins/Filter-EntryFullText/hmv.yaml
 assets/plugins/Filter-EntryFullText/impress.yaml
@@ -111,6 +113,7 @@ assets/plugins/Filter-EntryFullText/slashdot_jp.yaml
 assets/plugins/Filter-EntryFullText/sponichi.yaml
 assets/plugins/Filter-EntryFullText/sportsnavi.yaml
 assets/plugins/Filter-EntryFullText/stage6.yaml
+assets/plugins/Filter-EntryFullText/talesweaver_news.yaml
 assets/plugins/Filter-EntryFullText/technobahn_com.yaml
 assets/plugins/Filter-EntryFullText/tencount.yaml
 assets/plugins/Filter-EntryFullText/theinquirer.yaml
@@ -255,6 +258,7 @@ deps/Filter-HatenaDiaryKeywordLink.yaml
 deps/Filter-HatenaFormat.yaml
 deps/Filter-HatenaKeywordTag.yaml
 deps/Filter-HTMLScrubber.yaml
+deps/Filter-HTMLTidy.yaml
 deps/Filter-ImageInfo.yaml
 deps/Filter-Kansai.yaml
 deps/Filter-LivedoorClipUsersCount.yaml
@@ -459,6 +463,7 @@ lib/Plagger/Plugin/Filter/HatenaFormat.pm
 lib/Plagger/Plugin/Filter/HatenaKeywordTag.pm
 lib/Plagger/Plugin/Filter/HEADEnclosureMetadata.pm
 lib/Plagger/Plugin/Filter/HTMLScrubber.pm
+lib/Plagger/Plugin/Filter/HTMLTidy.pm
 lib/Plagger/Plugin/Filter/ImageInfo.pm
 lib/Plagger/Plugin/Filter/Kansai.pm
 lib/Plagger/Plugin/Filter/LivedoorClipUsersCount.pm
@@ -633,6 +638,7 @@ t/samples/config.ini
 t/samples/delicious.xml
 t/samples/feed.xml
 t/samples/feeds.txt
+t/samples/flickr_new.xml
 t/samples/googlevideo.xml
 t/samples/guess-language/english.xml
 t/samples/guess-language/english_nolang.xml
