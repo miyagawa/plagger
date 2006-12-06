@@ -1,0 +1,15 @@
+# upgrade photon.st
+author: Daisuke Murase <typester@cpan.org>
+custom_feed_handle: "^http://photon\.st/"
+custom_feed_follow_link: module=Snap&action=Detail
+handle: http://photon\.st/.*module=Snap
+extract_xpath:
+  name: //div[@id="snapdetail"]/h2/strong/text()
+  age: //div[@id="snapdetail"]//span[@class="age"]/text()
+  job: //div[@id="snapdetail"]//p[@class="job"]/text()
+  photo: //div[@id="thissnap"]//img
+  comment: //div[@id="cameraman"]/p/text()
+extract_after_hook: |
+  use utf8;
+  $data->{body} = "<p>$data->{photo}</p><p>$data->{comment}</p>";
+  $data->{title} = "$data->{name}さん $data->{age} $data->{job}";
