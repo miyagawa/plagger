@@ -4,7 +4,7 @@ use warnings;
 use base qw( Plagger::Plugin );
 use Encode;
 use HTML::Entities;
-use IPC::Run qw( start pump finish timeout );
+use IPC::Run qw( start timeout );
 use Text::ParseWords qw(shellwords);
 
 sub register {
@@ -29,7 +29,6 @@ sub update {
         my $meth = $self->conf->{text_only} ? 'rewrite_text_only' : 'rewrite';
         my $body = $self->$meth($args->{entry}->body, $h, \$in, \$out);
         $args->{entry}->body( $body );
-        $h->finish;
 
         alarm 0;
     };
@@ -49,6 +48,7 @@ sub rewrite {
     $$out_ref = '';
     $$in_ref .= encode($self->conf->{encoding}, $body);
     $h->pump while $$in_ref;
+    $h->finish;
     $h->pump until $$out_ref;
 
     return decode($self->conf->{encoding}, $$out_ref);
