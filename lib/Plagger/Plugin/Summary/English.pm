@@ -27,7 +27,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::Summary::English - uses Lingua::EN::Summarizer to generate summary
+Plagger::Plugin::Summary::English - uses Lingua::EN::Summarize to generate summary
 
 =head1 SYNOPSIS
 
@@ -35,7 +35,7 @@ Plagger::Plugin::Summary::English - uses Lingua::EN::Summarizer to generate summ
 
 =head1 DESCRIPTION
 
-This plugin uses Lingua::EN::Summary to generate summary, if entry language is in English.
+This plugin uses Lingua::EN::Summarize to generate summary, if entry language is in English.
 
 =head1 AUTHOR
 
@@ -43,6 +43,6 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<Filter::GuessLanguage>, L<Lignau::EN::Summarize>
+L<Plagger>, L<Filter::GuessLanguage>, L<Lignua::EN::Summarize>
 
 =cut
