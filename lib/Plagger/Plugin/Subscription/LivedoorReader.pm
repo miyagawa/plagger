@@ -146,9 +146,7 @@ sub _request {
     my($self, $method, $param) = @_;
 
     my $uri = URI->new_abs($method, "http://reader.livedoor.com/");
-    $uri->query_form(%$param, ApiKey => $self->{apikey});
-
-    $self->{mech}->get($uri->as_string);
+    $self->{mech}->post($uri, { %$param, ApiKey => $self->{apikey} });
 
     if ($self->{mech}->status == 200) {
         return JSON::Syck::Load($self->{mech}->content);
