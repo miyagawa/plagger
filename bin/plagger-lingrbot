@@ -1,0 +1,104 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Getopt::Long;
+use List::Util qw(first);
+use YAML;
+
+use Plagger::ConfigLoader;
+
+use POE qw(
+    Session
+    Component::Client::Lingr
+    Component::IKC::Server
+    Component::IKC::Specifier
+);
+
+sub msg (@) { print "[msg] ", "@_\n" }
+sub err (@) { print "[err] ", "@_\n" }
+
+my $path = "$FindBin::Bin/../config.yaml";
+GetOptions("--config=s", \$path);
+Getopt::Long::Configure("bundling"); # allows -c
+
+msg "loading configuration $path";
+
+my $loader = Plagger::ConfigLoader->new;
+my $base_config = $loader->load($path);
+
+$loader->load_include($base_config);
+$loader->load_recipes($base_config);
+
+my $plugin = first { $_->{module} eq 'Notify::Lingr' } @{ $base_config->{plugins} }
+    or die "Can't find Notify::Lingr config in $path";
+
+my $config = $plugin->{config};
+$config->{api_key} or die "config 'api_key' is required";
+$config->{room}    or die "config 'room' is required";
+
+$config->{nickname} ||= 'plaggerbot';
+
+msg 'creating daemon component';
+POE::Component::IKC::Server->spawn(
+    port => $config->{daemon_port} || 9999,
+    name => 'NotifyLingrBot',
+);
+
+msg 'creating Lingr component';
+POE::Component::Client::Lingr->spawn( alias => 'bot' );
+
+msg 'creating kernel session';
+POE::Session->create(
+    inline_states => {
+        _start           => \&bot_start,
+        _stop            => \&bot_stop,
+        update           => \&update,
+        connect          => \&bot_connect,
+        'lingr.session.create' => \&lingr_session_create,
+    }
+);
+
+msg 'starting the kernel';
+POE::Kernel->run();
+msg 'exiting';
+exit 0;
+
+sub update
+{
+    my ( $kernel, $heap, $msg ) = @_[ KERNEL, HEAP, ARG0 ];
+    eval {
+        $kernel->post(bot => call => 'room.say', { message => $msg });
+    };
+    err "update error: $@" if $@;
+}
+
+sub bot_start
+{
+    my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
+    msg "starting Lingr session";
+    $kernel->alias_set('notify_lingr');
+    $kernel->call( IKC => publish => notify_lingr => ['update'] );
+    $kernel->post( bot => 'register' );
+    $kernel->yield('connect');
+}
+
+sub bot_connect
+{
+    my ( $kernel, $heap ) = @_[ KERNEL, HEAP ];
+    msg "attempting to connect to Lingr";
+    $kernel->post( bot => call => 'session.create', { api_key => $config->{api_key} } );
+}
+
+sub lingr_session_create {
+    my($kernel, $event) = @_[KERNEL, ARG0];
+    $kernel->call(bot => call => 'room.enter' => { id => $config->{room}, nickname => $config->{nickname} });
+}
+
+sub bot_stop
+{
+    msg "stopping bot";
+}
