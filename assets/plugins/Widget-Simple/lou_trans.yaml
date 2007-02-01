@@ -1,0 +1,4 @@
+link: http://e8y.net/labs/lou_trans/
+query:
+  url:  $args->{entry}->permalink
+content: ルー語にトランスレートゥ 

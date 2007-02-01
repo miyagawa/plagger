@@ -1,0 +1,5 @@
+name: Filter::Lou
+author: Naoki Tomita
+depends: 
+  Acme::Lou: 0
+  Text::MeCab: 0
