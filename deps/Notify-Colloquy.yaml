@@ -1,0 +1,4 @@
+name: Notify::Colloquy
+author: id:franck
+default: 1
+platform: darwin
