@@ -1,0 +1,4 @@
+name: Publish::Calendar
+author: Franck Cuny
+depends:
+  Net::Google::Calendar: 0

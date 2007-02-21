@@ -2,7 +2,6 @@ package Plagger::Plugin::Publish::GoogleCalendar;
 
 use strict;
 use base qw( Plagger::Plugin );
-use Data::Dumper;
 use Net::Google::Calendar;
 
 sub register {
