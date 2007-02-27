@@ -85,7 +85,11 @@ my $dh = DirHandle->new("deps");
 my @plugins;
 while (my $f = $dh->read) {
     next unless $f =~ /\.yaml$/;
-    my $meta = YAML::LoadFile( File::Spec->catfile("deps", $f) );
+    my $meta = eval { YAML::LoadFile( File::Spec->catfile("deps", $f) ) };
+    if ($@) {
+        warn "Loading deps/$f failed: $@";
+        next;
+    }
     push @plugins, $meta if !$meta->{platform} || $meta->{platform} eq $^O;
 }
 
