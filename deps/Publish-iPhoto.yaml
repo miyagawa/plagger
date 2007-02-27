@@ -1,0 +1,6 @@
+name: Publish::iPhoto
+author: Franck Cuny
+default: 1
+platform: darwin
+depends: 
+  Mac::Glue: 0
