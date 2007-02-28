@@ -15,6 +15,7 @@ sub new {
     $conf->{params} ||= {
         cache_root => File::Spec->catfile($conf->{base}, 'cache'),
         default_expires_in => $conf->{expires} || 'never',
+        directory_umask => 0077,
     };
 
     $conf->{class}->require;
