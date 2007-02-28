@@ -55,8 +55,8 @@ Plagger::Plugin::Publish::GoogleCalendar - Publish feeds to google calendar
   - module: Publish::GoogleCalendar
     config:
       url: 
-	  user:
-	  pass:
+	  	user:
+	  	password:
 
 =head1 DESCRIPTION
 
