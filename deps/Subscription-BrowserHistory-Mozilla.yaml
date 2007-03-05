@@ -1,0 +1,4 @@
+name: Subscription::BrowserHistory::InternetExplorer
+author: Franck Cuny
+depends: 
+  File::Mork: 0

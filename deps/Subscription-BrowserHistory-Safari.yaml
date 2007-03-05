@@ -1,0 +1,5 @@
+name: Subscription::BrowserHistory::Safari
+author: Franck Cuny
+platform: darwin
+depends: 
+  Mac::Tie::PList: 0
