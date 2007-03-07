@@ -1,0 +1,4 @@
+name: Publish::Twitter
+author: Tatsuhiko Miyagawa
+depends:
+  Net::Twitter: 0
