@@ -221,8 +221,10 @@ sub load_plugin {
     my($self, $config) = @_;
 
     my $module = delete $config->{module};
-    $module =~ s/^Plagger::Plugin:://;
-    $module = "Plagger::Plugin::$module";
+    if ($module !~ s/^\+//) {
+        $module =~ s/^Plagger::Plugin:://;
+        $module = "Plagger::Plugin::$module";
+    }
 
     if ($module->isa('Plagger::Plugin')) {
         $self->log(debug => "$module is loaded elsewhere ... maybe .t script?");
