@@ -6,6 +6,9 @@
 package Plagger::Plugin::Aggregator::Xango;
 use strict;
 use base qw( Plagger::Plugin::Aggregator::Simple );
+use Plagger::FeedParser;
+use URI::Fetch;
+use HTTP::Status;
 use POE;
 use Xango::Broker::Push;
 # BEGIN { sub Xango::DEBUG { 1 } } # uncomment to get Xango debug messages
@@ -18,7 +21,10 @@ sub register {
     my %xango_args = (
         Alias => 'xgbroker',
         HandlerAlias => 'xghandler',
-        HttpCompArgs => [ Agent => "Plagger/$Plagger::VERSION (http://plagger.org/)", Timeout => $self->conf->{timeout} || 10 ],
+        HttpCompArgs => [
+            Agent => $self->conf->{agent} || "Plagger/$Plagger::VERSION (http://plagger.org/)",
+            Timeout => $self->conf->{timeout} || 10
+        ],
         %{$self->conf->{xango_args} || {}},
     );
     $self->{xango_alias} = $xango_args{Alias};
@@ -46,7 +52,13 @@ sub aggregate {
     $self->{_url2feed}->{$url} = $args->{feed}; # map from url to feed object
 
     $context->log(info => "Fetch $url");
-    POE::Kernel->post($self->{xango_alias}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => 0));
+
+    my $job = Xango::Job->new(
+        uri => URI->new($url), 
+        redirect => 0,
+        is_original_request => 1
+    );
+    POE::Kernel->post($self->{xango_alias}, 'enqueue_job', $job);
 }
 
 sub handle_feed {
@@ -114,25 +126,35 @@ sub handle_response {
         $url = $r->header('location');
         return unless $url =~ m!^https?://!i;
         $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($url), redirect => $redirect));
-	return;
+    	return;
+    }
+
+    if (! $r->is_success) {
+        Plagger->context->log(error => "Fetch for $url failed: " . $r->code);
+        return;
+    }
+
+    # P::P::A::Simple does this bit as the first thing when aggregate()
+    # gets called. But since we're going through Xango, we need to figure
+    # out if this is the "original" feed or not
+
+    if (! $job->notes('is_original_request')) {
+        $plugin->handle_feed($url, $r->content_ref);
     } else {
-        return unless $r->is_success;
+        # If this is the original request, chack if the content we've
+        # just fetched is a parsable feed. if not, refetch what's claimed
+        # to be the feed.
 
-        my $ct = $r->content_type;
-        if ( $Feed::Find::IsFeed{$ct} ) {
+        # XXX - Hack. P::F->discover likes to have URI::Fetch::Response
+        my $ufr = TO_URI_FETCH_RESPONSE( $r );
+        my $feed_url = Plagger::FeedParser->discover($ufr);
+        if ($feed_url eq $url) {
             $plugin->handle_feed($url, $r->content_ref);
-        } else {
-            my @feeds = Feed::Find->find_in_html($r->content_ref, $url);
-            if (@feeds) {
-                my $feed_url = $feeds[0];
-                return unless $feed_url =~ m!^https?://!i;
+        } elsif($feed_url) {
+            # OMG we should alias Feed so it can be looked up with $feed_url, too
+            $plugin->{_url2feed}->{$feed_url} = $plugin->{_url2feed}->{$url};
 
-                # OMG we should alias Feed so it can be looked up with $feed_url, too
-                $plugin->{_url2feed}->{$feed_url} = $plugin->{_url2feed}->{$url};
-
-                $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($feed_url), redirect => $redirect));
-            }
-            return;
+            $_[KERNEL]->post($_[HEAP]->{BROKER_ALIAS}, 'enqueue_job', Xango::Job->new(uri => URI->new($feed_url), redirect => $redirect));
         }
     }
 
@@ -143,6 +165,28 @@ sub handle_response {
                 LastModified => $r->header('Last-Modified')}
         );
     }
+}
+
+sub TO_URI_FETCH_RESPONSE
+{
+    my ($r) = @_;
+
+    my $ufr = URI::Fetch::Response->new();
+    $ufr->http_status($r->code);
+    $ufr->http_response($r);
+    $ufr->status(
+        $r->previous && $r->previous->code == &HTTP::Status::RC_MOVED_PERMANENTLY ? &URI::Fetch::URI_MOVED_PERMANENTLY :
+        $r->code == &HTTP::Status::RC_GONE ? &URI::Fetch::URI_GONE :
+        $r->code == &HTTP::Status::RC_NOT_MODIFIED ? &URI::Fetch::URI_NOT_MODIFIED :
+        &URI::Fetch::URI_OK
+    );
+    $ufr->etag($r->header('ETag'));
+    $ufr->last_modified($r->header('Last-Modified'));
+    $ufr->uri($r->request->uri);
+    $ufr->content($r->content);
+    $ufr->content_type($r->content_type);
+
+    return $ufr;
 }
 
 1;
