@@ -1,0 +1,4 @@
+name: Aggregator::Gungho
+author: Daisuke Maki
+depends: 
+  Gungho: 0
