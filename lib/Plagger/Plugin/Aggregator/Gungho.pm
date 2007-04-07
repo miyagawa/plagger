@@ -9,14 +9,50 @@ use base qw(Gungho::Handler::Null);
 
 __PACKAGE__->mk_accessors($_) for qw(gungho_plugin);
 
+sub TO_URI_FETCH_RESPONSE
+{
+    my ($r) = @_;
+
+    my $ufr = URI::Fetch::Response->new();
+    $ufr->http_status($r->code);
+    $ufr->http_response($r);
+    $ufr->status(
+        $r->previous && $r->previous->code == &HTTP::Status::RC_MOVED_PERMANENTLY ? &URI::Fetch::URI_MOVED_PERMANENTLY :
+        $r->code == &HTTP::Status::RC_GONE ? &URI::Fetch::URI_GONE :
+        $r->code == &HTTP::Status::RC_NOT_MODIFIED ? &URI::Fetch::URI_NOT_MODIFIED :
+        &URI::Fetch::URI_OK
+    );
+    $ufr->etag($r->header('ETag'));
+    $ufr->last_modified($r->header('Last-Modified'));
+    $ufr->uri($r->request->uri);
+    $ufr->content($r->content);
+    $ufr->content_type($r->content_type);
+
+    return $ufr;
+}
+
 sub handle_response
 {
     my $self = shift;
     my $c    = shift;
+    my $req  = shift;
     my $res  = shift;
+    my $ufr  = TO_URI_FETCH_RESPONSE($res);
 
-    $self->next::method($c, $res);
-    $self->gungho_plugin->handle_feed($res->request->uri, $res->content_ref);
+    $self->next::method($c, $req, $res);
+
+    my $plugin   = $self->gungho_plugin;
+    my $url      = $req->url;
+    my $feed_url = Plagger::FeedParser->discover($ufr);
+    if ($url eq $feed_url) {
+        $plugin->handle_feed($url, \$ufr->content, $req->notes('feed'));
+    } elsif ($feed_url) {
+        my $clone = $req->clone;
+        $clone->uri($feed_url);
+        $plugin->gungho->send_request($clone);
+    } else {
+        return;
+    }
 }
 
 package Plagger::Plugin::Aggregator::Gungho;
@@ -25,7 +61,7 @@ use base qw(Plagger::Plugin::Aggregator::Simple);
 use Gungho;
 use Gungho::Request;
 
-__PACKAGE__->mk_accessors($_) for qw(requests);
+__PACKAGE__->mk_accessors($_) for qw(gungho requests);
 
 sub register
 {
@@ -45,8 +81,10 @@ sub accumulate
     my $url = $args->{feed}->url;
     return unless $url =~ m!^https?://!i;
 
+    my $req = Gungho::Request->new(GET => $url);
+    $req->notes( feed => $args->{feed} );
     $context->log(info => "Fetch $url");
-    push @{ $self->requests }, Gungho::Request->new(GET => $url);
+    push @{ $self->requests }, $req;
 }
 
 sub aggregate
@@ -60,6 +98,9 @@ sub aggregate
             module => '+Plagger::Plugin::Aggregator::Gungho::Handler'
         }
     });
+
+    $self->gungho($g);
+
     $g->provider()->requests( $self->requests );
     $g->provider()->has_requests( 1 );
     $self->requests([]);
