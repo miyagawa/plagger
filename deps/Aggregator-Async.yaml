@@ -1,0 +1,4 @@
+name: Aggregator::Async
+author: Masahiro Nagano
+depends:
+  HTTP::Async: 0.07
