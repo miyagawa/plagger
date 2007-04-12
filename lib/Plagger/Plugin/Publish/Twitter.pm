@@ -15,10 +15,14 @@ sub register {
 
 sub initialize {
     my($self, $context) = @_;
-    $self->{twitter} = Net::Twitter->new(
+    my %opt = (
         username => $self->conf->{username},
         password => $self->conf->{password},
     );
+    for my $key (qw/ apihost apiurl apirealm/) {
+        $opt{$key} = $self->conf->{$key} if $self->conf->{$key};
+    }
+    $self->{twitter} = Net::Twitter->new(%opt);
 }
 
 sub publish_entry {
@@ -26,7 +30,7 @@ sub publish_entry {
 
     my $body = ( $args->{entry}->summary || $args->{entry}->title ) . " " . $args->{entry}->permalink;
     $context->log(info => "Updating Twitter status to '$body'");
-    $self->{twitter}->update($body);
+    $self->{twitter}->update($body) or $context->error("Can't update twitter status");
 }
 
 1;
@@ -58,6 +62,20 @@ Twitter username. Required.
 =item password
 
 Twitter password. Required.
+
+=item apiurl
+
+OPTIONAL. The URL of the API for twitter.com. This defaults to "http://twitter.com/statuses" if not set.
+
+=item apihost
+
+=item apirealm
+
+Optional.
+If you do point to a different URL, you will also need to set "apihost" and "apirealm" so that the internal LWP can authenticate.
+
+    "apihost" defaults to "www.twitter.com:80".
+    "apirealm" defaults to "Twitter API".
 
 =back
 
