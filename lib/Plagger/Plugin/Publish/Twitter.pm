@@ -2,6 +2,7 @@ package Plagger::Plugin::Publish::Twitter;
 use strict;
 use base qw( Plagger::Plugin );
 
+use Encode;
 use Net::Twitter;
 
 sub register {
@@ -28,9 +29,13 @@ sub initialize {
 sub publish_entry {
     my($self, $context, $args) = @_;
 
-    my $body = ( $args->{entry}->summary || $args->{entry}->title ) . " " . $args->{entry}->permalink;
+    my $body = ( $args->{entry}->summary->plaintext || $args->{entry}->title ) . " " . $args->{entry}->permalink;
+    # TODO: FIX when Summary configurable.
+    if ( length($body) > 159 ) {
+        $body = substr($body, 0, 159);
+    }
     $context->log(info => "Updating Twitter status to '$body'");
-    $self->{twitter}->update($body) or $context->error("Can't update twitter status");
+    $self->{twitter}->update( encode_utf8($body) ) or $context->error("Can't update twitter status");
 }
 
 1;
