@@ -4,6 +4,7 @@ use base qw( Plagger::Plugin );
 
 use Encode;
 use Net::Twitter;
+use Time::HiRes qw(sleep);
 
 sub register {
     my($self, $context) = @_;
@@ -29,13 +30,17 @@ sub initialize {
 sub publish_entry {
     my($self, $context, $args) = @_;
 
-    my $body = ( $args->{entry}->summary->plaintext || $args->{entry}->title ) . " " . $args->{entry}->permalink;
+    my $body = $self->templatize('twitter.tt', $args);
     # TODO: FIX when Summary configurable.
     if ( length($body) > 159 ) {
         $body = substr($body, 0, 159);
     }
     $context->log(info => "Updating Twitter status to '$body'");
     $self->{twitter}->update( encode_utf8($body) ) or $context->error("Can't update twitter status");
+
+    my $sleeping_time = $self->conf->{interval} || 15;
+    $context->log(info => "sleep $sleeping_time.");
+    sleep( $sleeping_time );
 }
 
 1;
@@ -67,6 +72,10 @@ Twitter username. Required.
 =item password
 
 Twitter password. Required.
+
+=item interval
+
+Optional.
 
 =item apiurl
 
