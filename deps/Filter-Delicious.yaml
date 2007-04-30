@@ -1,3 +1,4 @@
 name: Filter::Delicious
 author: Tatsuhiko Miyagawa, Taro Funaki
 depends:
+  JSON::Syck: 0

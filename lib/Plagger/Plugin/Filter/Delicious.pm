@@ -2,9 +2,9 @@ package Plagger::Plugin::Filter::Delicious;
 use strict;
 use base qw( Plagger::Plugin );
 
+use JSON::Syck;
 use Digest::MD5 qw(md5_hex);
 use Plagger::UserAgent;
-use XML::Feed;
 
 sub register {
     my($self, $context) = @_;
@@ -21,7 +21,7 @@ sub update {
     sleep $interval;
 
     my $md5  = md5_hex($args->{entry}->permalink);
-    my $url  = "http://del.icio.us/rss/url/$md5";
+    my $url = "http://badges.del.icio.us/feeds/json/url/data?hash=$md5";
 
     $self->log(info => "Going to fetch $url");
 
@@ -32,39 +32,20 @@ sub update {
         $self->log(error => "Fetch URL $url failed.");
         return;
     }
-
-    my $feed = XML::Feed->parse(\$res->content);
-
-    unless ($feed) {
-        $context->log(warn => "Feed error $url: " . XML::Feed->errstr);
+    
+    my $data = JSON::Syck::Load($res->content);
+    unless (ref $data eq 'ARRAY') {
+        $self->log(error => "json parse error: $data");
         return;
     }
+    my $h = @{$data}[0];
 
-    for my $entry ($feed->entries) {
-        my @tag = split / /, ($entry->category || '');
-           @tag or next;
-
-        for my $tag (@tag) {
-            $args->{entry}->add_tag($tag);
-        }
+    for my $tag (keys %{$h->{top_tags}}) {
+        $args->{entry}->add_tag($tag);
+        $self->log(debug => "add tag $tag");
     }
 
-    my $delicious_users = $feed->entries;
-    if ($delicious_users >= 30 && $self->conf->{scrape_big_numbers}) {
-        my $url = "http://del.icio.us/url/$md5";
-        $self->log(info => "users count is more than 30. Trying to scrape from $url.");
-        sleep $interval;
-
-        my $res = $ua->fetch($url);
-
-        if ($res->is_error) {
-            $context->log(warn => "Fetch error $url: " . $res->http_response->message);
-            return;
-        }
-
-        $delicious_users =
-            ( $res->content =~ m#<h4[^>]*>[^<>]*this url has been saved by\D+(\d+)#s )[0];
-    }
+    my $delicious_users = $h->{total_posts} || 0;
     $args->{entry}->meta->{delicious_rate} = rate_of_color($delicious_users);
     $args->{entry}->meta->{delicious_users} = $delicious_users;
     $self->log(info => "set delicious_users to $delicious_users");
@@ -94,8 +75,8 @@ B<Note: this module is mostly untested and written just for a proof of
 concept. If you run this on your box with real feeds, del.icio.us will
 be likely to ban your IP. See http://del.icio.us/help/ for details.>
 
-This plugin queries del.icio.us using its RSS feeds API to get the
-tags people added to the entries, and how many people bookmarked them.
+This plugin queries del.icio.us using its JSON API to get the tags
+people added to the entries, and how many people bookmarked them.
 
 Users count is stored in C<delicious_users> metadata of
 Plagger::Entry, so that other plugins and smartfeeds can make use of.
@@ -106,6 +87,6 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<http://del.icio.us/help/>
+L<Plagger>, L<http://del.icio.us/help/>, L<http://del.icio.us/help/json/url>
 
 =cut
