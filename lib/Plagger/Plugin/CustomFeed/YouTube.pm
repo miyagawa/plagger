@@ -65,7 +65,7 @@ sub aggregate {
         my (@videos, $data, $title_flag, $tag_flag);
         while (<$fh>) {
             # get title
-            m!<div class="vtitle">!
+            m!<div class="vSnippetTitle">!
                 and $title_flag = 1;
             m!<a href="/watch\?v=([^"]+)"[^>]+>(.+)</a>!
                 and do {
@@ -76,7 +76,7 @@ sub aggregate {
                     }
                 };
             # get image url
-            m!<img src="(http://[\w-]*static\d+(.[\w-]+)?\.youtube.com/[^">]+/[12].jpg)" border="0" class="vimg120" />!
+            m!<img src="(http://img.youtube.com/[^">]+/[12].jpg)" border="0" class="vimg120" />!
                 and $data->{image}->{url} = $1;
             # get description
             m!<div class="vdesc">!
@@ -95,7 +95,7 @@ sub aggregate {
                     }
                 };
             # get author
-            m!From:</span> <a href="/user/[^>]+">([^<]+)</a>!
+            m!From:</span> <a[^>]+href="/user/[^>]+">([^<]+)</a>!
                 and $data->{author} = $1;
             m/<!-- end vEntry -->/
                 and do {
