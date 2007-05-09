@@ -71,6 +71,7 @@ sub aggregate {
                 and do {
                     if($title_flag){
                         $data->{title} = $2;
+                        $data->{title} =~ s/<[^>]+>//g;
                         $data->{id} = $1;
                         $title_flag = 0;
                     }
