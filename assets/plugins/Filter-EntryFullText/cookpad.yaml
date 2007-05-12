@@ -1,5 +1,5 @@
 # COOKPAD
 author: Shigefumi
 handle: http://cookpad\.com/\w+/recipe/\d+/
-extract: <title>(.*?)\[クックパッド\].*?<div id="recipe_detail">(.*?)<div style="float:right; margin-top:10px;">
+extract: <title>(.*?)\[クックパッド\].*?<div id="recipe_detail" class="clr">(.*?)<div style="float:right; margin-top:10px;">
 extract_capture: title body
