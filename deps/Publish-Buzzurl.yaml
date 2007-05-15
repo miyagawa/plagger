@@ -1,0 +1,4 @@
+name: Publish::Buzzurl
+author: Masafumi Otsune
+depends: 
+  WebServie::BuzzurlAPI: 0
