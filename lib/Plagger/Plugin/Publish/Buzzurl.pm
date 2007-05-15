@@ -17,10 +17,10 @@ sub rule_hook { 'publish.entry' }
 
 sub initialize {
     my ($self, $context, $args) = @_;
-    $self->{buzzurl} = WebService::BuzzurlAPI->new({
+    $self->{buzzurl} = WebService::BuzzurlAPI->new(
         email    => $self->conf->{usermail},
         password => $self->conf->{password},
-    });
+    );
 }
 
 sub add_entry {
@@ -36,7 +36,7 @@ sub add_entry {
         $params->{comment} = $args->{entry}->body_text,
     }
 
-    my $res = $self->{buzzurl}->add($params);
+    my $res = $self->{buzzurl}->add(%{$params});
 
     if ($res->is_success) {
         $context->log(info  => "Post entry success :" . $res->json->{status});
