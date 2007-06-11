@@ -55,7 +55,7 @@ sub aggregate {
             $self->Plagger::Plugin::CustomFeed::Debug::aggregate($context, $args);
         };
         if ($@) {
-            $context->log(error => "Failed to parse as YAML. Can't determine output format of $script");
+            $context->log(error => "Failed to parse as YAML. Can't determine output format of $script: $@");
             return;
         }
     }
