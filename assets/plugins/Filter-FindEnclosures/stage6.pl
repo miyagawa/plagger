@@ -1,17 +1,18 @@
 sub handle {
     my ($self, $url) = @_;
-    $url =~ qr!http://stage6\.divx\.com/(?:[\w\-\+]+/show_video|members/\d+/videos|content/show)/\d+!;
+    $url =~ m!http://stage6\.divx\.com/.*videos?/(\d+)!;
 }
+
+sub needs_content { 0 }
 
 sub find {
     my ($self, $args) = @_;
-    my $url = $args->{url};
 
-    if ($args->{content} =~ m!<a class='vdetail-down' href="http://video.stage6.com/(\d+)/(\d+).divx"!gms){
+    if ($args->{url} =~ m!http://stage6\.divx\.com/.*videos?/(\d+)!) {
         my $enclosure = Plagger::Enclosure->new;
-        $enclosure->url("http://video.stage6.com/$1/$2.divx");
+        $enclosure->url("http://video.stage6.com/$1/");
         $enclosure->type('video/divx');
-        $enclosure->filename("$2.divx");
+        $enclosure->filename("$1.divx");
         return $enclosure;
     }
 
