@@ -37,7 +37,8 @@ sub filter {
 
         if ($meta->{type} &&
             (!$enclosure->type ||
-             $meta->{type} !~ m!^text/! && $enclosure->type ne $meta->{type})) {
+             $meta->{type} !~ m!^(?:text/|application/octet-stream)! &&
+             $enclosure->type ne $meta->{type})) {
             $enclosure->type($meta->{type});
             $context->log(info => "Set type of " . $enclosure->url . ": $meta->{type}");
         }
