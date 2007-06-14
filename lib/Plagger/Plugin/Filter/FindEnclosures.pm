@@ -149,7 +149,9 @@ sub add_enclosure {
     for my $plugin (@{$self->{plugins}}) {
         if ( $plugin->handle($url) ) {
             Plagger->context->log(debug => "Try $url with " . $plugin->site_name);
-            $content ||= $self->fetch_content($url) or return;
+            if ($plugin->needs_content) {
+                $content ||= $self->fetch_content($url) or return;
+            }
 
             if (my $enclosure = $plugin->find({ content => $content, url => $url })) {
                 Plagger->context->log(info => "Found enclosure " . $enclosure->url ." with " . $plugin->site_name);
@@ -190,6 +192,7 @@ package Plagger::Plugin::Filter::FindEnclosures::Site;
 sub new { bless {}, shift }
 sub handle { 0 }
 sub find { }
+sub needs_content { 1 }
 
 1;
 
