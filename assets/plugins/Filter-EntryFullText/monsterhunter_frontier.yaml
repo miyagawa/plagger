@@ -1,0 +1,6 @@
+author: Daisuke Murase <typester@cpan.org>
+custom_feed_handle: http://members.mh-frontier.jp/
+custom_feed_follow_link: /information/\?id=\d+
+handle: http://members\.mh-frontier\.jp/information/\?id=\d+
+extract_xpath:
+  body: //div[@class="newstext_area"]
