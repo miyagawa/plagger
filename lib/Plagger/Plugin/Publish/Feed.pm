@@ -48,7 +48,8 @@ sub publish_feed {
     $feed->link($f->link);
     $feed->modified(Plagger::Date->now);
     $feed->generator("Plagger/$Plagger::VERSION");
-    $feed->description($f->description || '');
+    $feed->description($f->description);
+    $feed->copyright($f->meta->{copyright}) if $f->meta->{copyright};
     $feed->author( $self->make_author($f->author, $feed_format) )
         if $f->primary_author;
 
@@ -148,13 +149,14 @@ sub make_author {
 
 *XML::Feed::Entry::RSS::add_enclosure = sub {
     my($entry, $enclosure) = @_;
-    $entry->{entry}->{enclosure} = {
-        url    => $enclosure->{url},
-        type   => $enclosure->{type},
-        length => $enclosure->{length},
-    };
+    $entry->{entry}->{enclosure} = XML::RSS::LibXML::MagicElement->new(
+        attributes => {
+            url    => $enclosure->{url},
+            type   => $enclosure->{type},
+            length => $enclosure->{length},
+        }
+    );
 };
-
 
 1;
 
