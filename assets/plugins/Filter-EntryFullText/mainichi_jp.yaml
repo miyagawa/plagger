@@ -1,0 +1,6 @@
+author: Masafumi Otsune
+handle: http://mainichi\.jp/.+
+extract_xpath:
+  title: //h2[@class="NewsTitle"]/text()
+  body: //div[@class="NewsBody"]
+  date: //div[@class="Credit"]/p/text()
