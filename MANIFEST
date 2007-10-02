@@ -233,6 +233,7 @@ deps/Bundle-Defaults.yaml
 deps/Bundle-Planet.yaml
 deps/CustomFeed-FlickrSearch.yaml
 deps/CustomFeed-Mixi.yaml
+deps/CustomFeed-MixiScraper.yaml
 deps/CustomFeed-Script.yaml
 deps/CustomFeed-SVNLog.yaml
 deps/Filter-2chNewsokuTitle.yaml
@@ -421,6 +422,7 @@ lib/Plagger/Plugin/CustomFeed/iTunesRecentPlay.pm
 lib/Plagger/Plugin/CustomFeed/Mailman.pm
 lib/Plagger/Plugin/CustomFeed/Mixi.pm
 lib/Plagger/Plugin/CustomFeed/MixiDiarySearch.pm
+lib/Plagger/Plugin/CustomFeed/MixiScraper.pm
 lib/Plagger/Plugin/CustomFeed/PerlMonks.pm
 lib/Plagger/Plugin/CustomFeed/POP3.pm
 lib/Plagger/Plugin/CustomFeed/Script.pm
