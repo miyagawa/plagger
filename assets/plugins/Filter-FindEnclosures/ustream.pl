@@ -1,4 +1,4 @@
-# author: yappo
+# author: yappo, typester
 use Plagger::Util qw( decode_content );
 
 sub handle {
@@ -22,8 +22,8 @@ sub find {
     my $res = $ua->request($req);
     my $response_body = $res->content;
 
-    return unless my($server_id) = $response_body =~ /server_id...(.)/;
     my $null = pack('C', 0);
+    return unless my($server_id) = $response_body =~ /server_id...([^$null]+)/;
     return unless my($video_name) = $response_body =~ /video_name...([^$null]+)/;
 
     my $enclosure = Plagger::Enclosure->new;
