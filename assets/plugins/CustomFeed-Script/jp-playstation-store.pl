@@ -4,6 +4,8 @@ use Web::Scraper;
 use URI;
 use YAML;
 
+binmode STDOUT, ":utf8";
+
 my $uri = URI->new("http://www.jp.playstation.com/store/");
 my $scraper = scraper {
     result->{link} = $uri; # xxx
