@@ -1,0 +1,17 @@
+# http://www.chosunonline.com/
+author: 
+  - mhatta
+  - Masafumi Otsune
+custom_feed_handle: http://www\.chosunonline\.com/
+custom_feed_follow_link: /article/\d{14}
+handle: http://www\.chosunonline\.com/article/\d{14}
+extract_xpath:
+  title: //h4/text()
+  subtitle: //h5
+  date: //div[@class="postdate"]/text()
+#  date: substring-after(//div[@id="post"]/div[@class="postdate"]/text(),': ')
+  body: //div[@id="news_content"]
+  author: //div[@class="credit"]/text()
+extract_after_hook: |
+  $data->{body} = "$data->{subtitle} $data->{body}";
+  $data->{date} =~ s!.+?(\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})!$1!;
