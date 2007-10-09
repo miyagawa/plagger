@@ -40,6 +40,11 @@ our $MAP = {
         get_list   => 'show_calendar',
         get_detail => 'view_event',
     },
+    BBS => {
+        title      => 'コミュニティ最新書き込み',
+        get_list   => 'new_bbs',
+        get_detail => 'view_bbs',
+    },
 };
 
 sub plugin_id {
@@ -136,10 +141,15 @@ sub aggregate_feed {
             }
         }
 
+        my @comments;
         if ($self->conf->{fetch_body} && !$blocked && $msg->{link} =~ /view_/ && defined $MAP->{$type}->{get_detail}) {
+            # view_enquete is not implemented and probably
+            # won't be implemented as it seems redirected to
+            # reply_enquete
+            next if $msg->{link} =~ /view_enquete/;
             $context->log(info => "Fetch body from $msg->{link}");
             my $item = $self->cache->get_callback(
-                "item-$msg->{link}",
+                "item-".$msg->{link},
                 sub {
                     Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
                     my $item = $self->{mixi}->parse($msg->{link});
@@ -161,6 +171,17 @@ sub aggregate_feed {
                 $entry->body($body);
 
                 $entry->date( Plagger::Date->parse($format, $item->{time}) );
+                if ($self->conf->{fetch_comment}) {
+                  for my $comment (@{ $item->{comments} || [] }) {
+                      my $c = Plagger::Entry->new;
+                         $c->title($entry->title . ': '. $comment->{subject});
+                         $c->body($comment->{description});
+                         $c->link($comment->{link});
+                         $c->author($comment->{name});
+                         $c->date( Plagger::Date->parse($format, $comment->{time}) );
+                      push @comments, $c;
+                  }
+                }
             } else {
                 $context->log(warn => "Fetch body failed. You might be blocked?");
                 $blocked++;
@@ -168,6 +189,9 @@ sub aggregate_feed {
         }
 
         $feed->add_entry($entry);
+        for my $comment ( @comments ) {
+            $feed->add_entry($comment);
+        }
     }
 
     $context->update->add($feed);
@@ -188,6 +212,7 @@ Plagger::Plugin::CustomFeed::MixiScraper -  Custom feed for mixi.jp
         email: email@example.com
         password: password
         fetch_body: 1
+        fetch_comment: 0
         show_icon: 1
         feed_type:
           - RecentComment
@@ -221,6 +246,11 @@ See L<Plagger::Cookies> for details.
 
 With this option set, this plugin fetches entry body HTML, not just a
 link to the entry. Defaults to 0.
+
+=item fetch_comment
+
+With this option set, this plugin fetches entry's comments as well
+(meaningless when C<fetch_body> is not set). Defaults to 0.
 
 =item fetch_body_interval
 

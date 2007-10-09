@@ -1,4 +1,4 @@
 name: CustomFeed::MixiScraper
 author: Kenichi Ishigaki
 depends: 
-  WWW::Mixi::Scraper: 0.07
+  WWW::Mixi::Scraper: 0.09
