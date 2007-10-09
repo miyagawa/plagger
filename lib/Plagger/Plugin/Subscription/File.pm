@@ -22,7 +22,21 @@ sub load {
 
     $uri->scheme('file') unless $uri->scheme;
 
-    for ( split /\n/, Plagger::Util::load_uri($uri)) {
+    my $output;
+    if ($uri->scheme eq 'script') {
+        my $script = $uri->opaque;
+        $script =~ s!^//!!;
+        $script = URI::Escape::uri_unescape($script);
+        $output = qx($script);
+        if ($?) {
+            $context->log(error => "Error happend while executing '$script': $?");
+            return;
+        }
+    } else {
+        $output = Plagger::Util::load_uri($uri);
+    }
+
+    for ( split /\n/, $output ) {
         s/\#.*//;
         next if /^\s*$/;
         my $feed = Plagger::Feed->new;
