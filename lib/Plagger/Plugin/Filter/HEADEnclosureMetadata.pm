@@ -95,9 +95,7 @@ Plagger::Plugin::Filter::HEADEnclosureMetadata - Fetch enclosure metadata by sen
 
 =head1 SYNOPSIS
 
-  - module: Filter::FetchEnclosure
-    config:
-      dir: /path/to/files
+  - module: Filter::HEADEnclosureMetadata
 
 =head1 DESCRIPTION
 
