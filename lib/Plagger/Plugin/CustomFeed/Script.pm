@@ -4,6 +4,7 @@ use base qw( Plagger::Plugin::Aggregator::Simple );
 
 use URI;
 use URI::Escape;
+use URI::http; # for autoloading
 use YAML::Syck;
 
 use Plagger::Plugin::Aggregator::Simple;
