@@ -1,4 +1,5 @@
+# http://blog.seesaa.jp/
 author: Masafumi Otsune
-handle: http://\w+\.seesaa\.net/
-extract: <div class="blogbody">\n<h3 class="title">.*?</h3>.*?<div class="text">(.*?)<div class="posted">
-extract_capture: body 
+handle: http://[\w\-]+\.(?:tol-blog\.com|seesaa\.net)/article/\d+\.html
+extract_xpath: 
+  body: //div[@class="text" or @class="entry_contents"]

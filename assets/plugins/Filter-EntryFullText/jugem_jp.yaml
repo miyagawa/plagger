@@ -1,0 +1,5 @@
+# http://jugem.jp/
+author: Masafumi Otsune
+handle: http://[\w\-]+\.jugem\.(?:cc|jp)/\?eid=\d+
+extract_xpath: 
+  body: //div[@class="entry_body"]
