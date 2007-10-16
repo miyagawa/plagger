@@ -1,0 +1,11 @@
+# http://sankei.jp.msn.com/rss/rss.htm
+author: Masafumi Otsune
+handle: http://sankei\.jp\.msn\.com/\w+/\w+/\d+/[\w\-]+\.htm
+extract_xpath:
+  title: //span[@id="__r_article_title__"]
+  date: //span[@id="__r_publish_date__"]/text()
+  body: //div[@class="_LSUCS"]
+  photo1: //div[@class="image"]
+  photo2: //div[@class="relatedimg"]
+extract_after_hook: |
+  $data->{body} = $data->{photo1} . $data->{body} . $data->{photo2}; 
