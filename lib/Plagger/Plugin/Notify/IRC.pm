@@ -70,7 +70,7 @@ Plagger::Plugin::Notify::IRC - Notify feed updates to IRC
       server_port: 6667
       server_channels:
         - #plagger-test
-      charset: iso-2022-jp
+      charset: utf-8
       announce: notice
 
 =head1 DESCRIPTION
