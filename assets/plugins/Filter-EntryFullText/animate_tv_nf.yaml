@@ -1,0 +1,9 @@
+# http://www.animate.tv/nf/index.php
+author: Masafumi Otsune
+custom_feed_handle: http://www\.animate\.tv/nf/index\.php\?page[=\w&]+
+custom_feed_follow_link: detail\.php\?id[=&\w]+
+handle: http://www\.animate\.tv/nf/detail\.php\?id[=&\w]+
+extract: <td align="left" valign="top" class="main_txt1">.*?【(.+?)】<!--
+extract_capture: date
+extract_xpath:
+  body: //table[@border="0" and @width="555"]//td[@class="main_txt1"]
