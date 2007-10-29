@@ -1,0 +1,6 @@
+# http://rss.rssad.jp/rss/markezine/new/20/index.xml
+# http://markezine.jp/
+author: Masafumi Otsune
+handle: http://markezine\.jp/a/article/aid/\d+\.aspx
+extract_xpath:
+  body: //div[@class="article"]
