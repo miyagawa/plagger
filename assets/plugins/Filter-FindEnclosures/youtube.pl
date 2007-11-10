@@ -3,7 +3,7 @@ use Plagger::Util qw( decode_content );
 
 sub handle {
     my ($self, $url) = @_;
-    $url =~ qr!http://(?:www.)?youtube.com/(?:watch(?:\.php)?)?\?v=.+!;
+    $url =~ qr!http://(?:(?:au|br|ca|fr|de|us|hk|ie|it|jp|mx|nl|nz|pl|es|tw|gb|www)\.)?youtube\.com/(?:watch(?:\.php)?)?\?v=.+!;
 }
 
 sub find {
