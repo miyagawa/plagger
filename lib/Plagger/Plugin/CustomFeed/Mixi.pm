@@ -101,6 +101,7 @@ sub aggregate_feed {
 
         if ($self->conf->{email} eq 'plagger@localhost') {
             $context->log(error => 'email/password should be set to login');
+            return;
         }
 
         $response = $self->{mixi}->post("http://mixi.jp/login.pl", {
