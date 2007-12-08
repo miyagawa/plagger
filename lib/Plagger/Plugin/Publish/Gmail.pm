@@ -211,21 +211,25 @@ sub DESTORY {
 # hack MIME::Lite to support TLS Authentication
 *MIME::Lite::send_by_smtp_tls = sub {
     my($self, @args) = @_;
+    my $extract_addrs_ref =
+        defined &MIME::Lite::extract_addrs
+        ? \&MIME::Lite::extract_addrs
+        : \&MIME::Lite::extract_full_addrs;
 
     ### We need the "From:" and "To:" headers to pass to the SMTP mailer:
     my $hdr   = $self->fields();
-    my($from) = MIME::Lite::extract_addrs( $self->get('From') );
+    my($from) = $extract_addrs_ref->( $self->get('From') );
     my $to    = $self->get('To');
 
     ### Sanity check:
     defined($to) or Carp::croak "send_by_smtp_tls: missing 'To:' address\n";
 
     ### Get the destinations as a simple array of addresses:
-    my @to_all = MIME::Lite::extract_addrs($to);
+    my @to_all = $extract_addrs_ref->($to);
     if ($MIME::Lite::AUTO_CC) {
         foreach my $field (qw(Cc Bcc)) {
             my $value = $self->get($field);
-            push @to_all, MIME::Lite::extract_addrs($value) if defined($value);
+            push @to_all, $extract_addrs_ref->($value) if defined($value);
         }
     }
 
