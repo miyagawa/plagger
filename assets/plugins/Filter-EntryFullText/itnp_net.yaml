@@ -1,0 +1,6 @@
+# http://rss.rssad.jp/rss/itnp/index.rdf
+# http://itnp.net/
+author: Masafumi Otsune
+handle: http://itnp\.net/category_betsu/\d+/\d+/
+extract_xpath:
+  body: //div[@class="news_kiji"]
