@@ -11,9 +11,11 @@ sub find {
     my $response = LWP::UserAgent->new->post(
 	$uri,
 	['download' => 1]);
-    if($response->content =~ m/content="10;URL=(.+?)">/) {
+    if($response->content =~ m/('h','t','t','p'.+?')\);link/) {
+	my $enclosure_url = $1;
+	$enclosure_url =~ s/[',]//g;
         my $enclosure = Plagger::Enclosure->new;
-        $enclosure->url($1);
+        $enclosure->url($enclosure_url);
         $enclosure->auto_set_type;
         return $enclosure;
     }
