@@ -1,0 +1,5 @@
+# upgrade http://www.excite.co.jp/News/xml/rss_excite_news_bit_index_utf_8.dcg
+author: Masafumi Otsune
+handle_force: http://www\.excite\.co\.jp/News/bit/
+extract_xpath:
+  body: //div[@class="lh140"]
