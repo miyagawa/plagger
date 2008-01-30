@@ -1,0 +1,4 @@
+<a href="[% feed.link %]">[% feed.title %]</a>
+<a href="[% entry.permalink %]">[% entry.title %]</a>[% IF entry.author %]
+by [% entry.author %][% END %]
+[% IF entry.body %][% entry.body %][% END %]

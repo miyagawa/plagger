@@ -1,0 +1,4 @@
+name: Publish::HatenaDiary
+author: Kazuhiro Osawa
+depends:
+  WWW::HatenaDiary: 0
