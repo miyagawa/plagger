@@ -1,0 +1,6 @@
+# blogspot.com
+author: Tokuhiro Matsuno
+handle_force: http://.*\.blogspot.com/
+extract_xpath:
+  body: '//div[@class="post-body entry-content"]'
+
