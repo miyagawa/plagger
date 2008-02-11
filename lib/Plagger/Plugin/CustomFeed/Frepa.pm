@@ -130,7 +130,7 @@ sub login {
     my $res = $self->{mech}->get($start_url);
     return unless $self->{mech}->success;
 
-    if ($self->{mech}->content =~ /loginside/) {
+    if ($self->{mech}->content =~ /loginContent/) {
         unless ($args{livedoor_id} && $args{password}) {
             Plagger->context->log(error => "Error logging in using existent Cookies. Your User-Agent (" . $self->{mech}->agent . ") should strictly match with the UA used with the Cookies.");
             return;
