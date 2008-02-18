@@ -1,0 +1,2 @@
+condition: $args->{entry}->link =~ m!^http://www\.pheedo\.jp/feeds/ht\.php! && $args->{entry}->title =~ m!^AD:!
+strip: 1
