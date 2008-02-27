@@ -21,7 +21,7 @@ plugins:
   - module: Subscription::Config
     config:
       feed:
-        - http://del.icio.us/rss/nagayama
+        - http://feeds.delicious.com/rss/nagayama
   - module: Filter::DeliciousFeedTags
 --- expected
 ok grep scalar @{$_->tags} > 1, $context->update->feeds->[0]->entries;

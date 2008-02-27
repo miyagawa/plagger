@@ -15,7 +15,8 @@ sub register {
 sub filter {
     my($self, $context, $args) = @_;
 
-    return unless $args->{feed}->url =~ m!^http://del\.icio\.us/rss/!;
+    return unless $args->{feed}->url =~
+        m!^http://(?:del\.icio\.us|feeds\.delicious\.com)/rss/!;
 
     $context->log(debug => "Fixing del.icio.us tags " . $args->{entry}->tags->[0]);
 
