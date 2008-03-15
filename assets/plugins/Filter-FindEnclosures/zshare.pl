@@ -8,12 +8,9 @@ sub find {
     
     my $uri = $args->{url};
     $uri =~ s/audio/download/;
-    my $response = LWP::UserAgent->new->post(
-	$uri,
-	['download' => 1]);
-    if($response->content =~ m/('h','t','t','p'.+?')\);link/) {
+    my $response = LWP::UserAgent->new->get($uri);
+    if($response->content =~ m/link = '(http:\/\/.+\.zshare\.net\/download\/[^']+?)';/) {
 	my $enclosure_url = $1;
-	$enclosure_url =~ s/[',]//g;
         my $enclosure = Plagger::Enclosure->new;
         $enclosure->url($enclosure_url);
         $enclosure->auto_set_type;
