@@ -115,6 +115,7 @@ sub aggregate_feed {
         $entry->link($msg->{link});
         $entry->author($msg->{name});
         $entry->date( Plagger::Date->parse($format, $msg->{time}) );
+        $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
 
         if ($self->conf->{show_icon} && !$blocked && defined $MAP->{$type}->{icon}) {
             my $owner_id = $msg->{link}->query_param($MAP->{$type}->{icon});
@@ -171,6 +172,7 @@ sub aggregate_feed {
                 $entry->body($body);
 
                 $entry->date( Plagger::Date->parse($format, $item->{time}) );
+                $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
                 if ($self->conf->{fetch_comment}) {
                   for my $comment (@{ $item->{comments} || [] }) {
                       my $c = Plagger::Entry->new;
@@ -179,6 +181,7 @@ sub aggregate_feed {
                          $c->link($comment->{link});
                          $c->author($comment->{name});
                          $c->date( Plagger::Date->parse($format, $comment->{time}) );
+                         $c->date->set_time_zone('Asia/Tokyo') if $c->date;
                       push @comments, $c;
                   }
                 }
