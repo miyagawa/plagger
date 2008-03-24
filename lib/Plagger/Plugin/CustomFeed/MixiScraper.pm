@@ -85,7 +85,12 @@ sub aggregate {
     my($self, $context, $args) = @_;
     for my $type (@{$self->conf->{feed_type} || ['FriendDiary']}) {
         $context->error("$type not found") unless $MAP->{$type};
-        $self->aggregate_feed($context, $type, $args);
+        if ($type eq 'BBS' and $self->conf->{split_bbs_feed}) {
+            $self->aggregate_bbs_feed($context, $type, $args);
+        }
+        else {
+            $self->aggregate_feed($context, $type, $args);
+        }
     }
 }
 
@@ -113,6 +118,34 @@ sub aggregate_feed {
     }
 
     $context->update->add($feed);
+}
+
+sub aggregate_bbs_feed {
+    my($self, $context, $type, $args) = @_;
+
+    my $meth = $MAP->{$type}->{get_list};
+    my @msgs = $self->{mixi}->$meth->parse;
+    my $items = $self->conf->{fetch_items} || 20;
+    $self->log(info => 'fetch ' . scalar(@msgs) . ' entries');
+
+    my $i = 0;
+    $self->{blocked} = 0;
+    for my $msg (@msgs) {
+        next if $type eq 'FriendDiary' and $msg->{link}->query_param('url'); # external blog
+        last if $i++ >= $items;
+
+        my $feed = Plagger::Feed->new;
+        $feed->type('mixi');
+        (my $subject = $msg->{subject}) =~ s/\(\d+\)$//;
+        (my $link = $msg->{link}) =~ s/&comment_count=\d*//;
+        $feed->title($subject);
+        $feed->description($MAP->{$type}->{title}.': '.$msg->{name});
+        $feed->link($link);
+
+        $self->add_entry( $context, $type, $feed, $msg );
+
+        $context->update->add($feed);
+    }
 }
 
 my $format = DateTime::Format::Strptime->new(pattern => '%Y-%m-%d %H:%M');
@@ -271,6 +304,10 @@ wait for a little, to avoid mixi.jp throttling. Defaults to 1.5.
 
 With this option set, this plugin fetches users buddy icon from
 mixi.jp site, which makes the output HTML very user-friendly.
+
+=item split_bbs_feed
+
+With this option set, BBS feed will be split up. Defaults to 0.
 
 =item feed_type
 
