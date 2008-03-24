@@ -88,14 +88,13 @@ sub aggregate {
         $self->aggregate_feed($context, $type, $args);
     }
 }
+
 sub aggregate_feed {
     my($self, $context, $type, $args) = @_;
 
     my $feed = Plagger::Feed->new;
     $feed->type('mixi');
     $feed->title($MAP->{$type}->{title});
-
-    my $format = DateTime::Format::Strptime->new(pattern => '%Y-%m-%d %H:%M');
 
     my $meth = $MAP->{$type}->{get_list};
     my @msgs = $self->{mixi}->$meth->parse;
@@ -105,99 +104,107 @@ sub aggregate_feed {
     $feed->link($self->{mixi}->{mech}->uri);
 
     my $i = 0;
-    my $blocked = 0;
+    $self->{blocked} = 0;
     for my $msg (@msgs) {
         next if $type eq 'FriendDiary' and $msg->{link}->query_param('url'); # external blog
         last if $i++ >= $items;
 
-        my $entry = Plagger::Entry->new;
-        $entry->title($msg->{subject});
-        $entry->link($msg->{link});
-        $entry->author($msg->{name});
-        $entry->date( Plagger::Date->parse($format, $msg->{time}) );
-        $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
-
-        if ($self->conf->{show_icon} && !$blocked && defined $MAP->{$type}->{icon}) {
-            my $owner_id = $msg->{link}->query_param($MAP->{$type}->{icon});
-            $context->log(info => "Fetch icon of id=$owner_id");
-
-            my $item = $self->cache->get_callback(
-                "outline-$owner_id",
-                sub {
-                    Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
-                    my $item = $self->{mixi}->show_friend->parse(id => $owner_id)->{outline};
-                    $item;
-                },
-                '12 hours',
-            );
-            if ($item && $item->{image} !~ /no_photo/) {
-                # prefer smaller image
-                my $image = $item->{image};
-                   $image =~ s/\.jpg$/s.jpg/;
-                $entry->icon({
-                    title => $item->{name},
-                    url   => $image,
-                    link  => $item->{link},
-                });
-            }
-        }
-
-        my @comments;
-        if ($self->conf->{fetch_body} && !$blocked && $msg->{link} =~ /view_/ && defined $MAP->{$type}->{get_detail}) {
-            # view_enquete is not implemented and probably
-            # won't be implemented as it seems redirected to
-            # reply_enquete
-            next if $msg->{link} =~ /view_enquete/;
-            $context->log(info => "Fetch body from $msg->{link}");
-            my $item = $self->cache->get_callback(
-                "item-".$msg->{link},
-                sub {
-                    Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
-                    my $item = $self->{mixi}->parse($msg->{link});
-                    $item;
-                },
-                '12 hours',
-            );
-            if ($item) {
-                my $body = $item->{description};
-                   $body =~ s!(\r\n?|\n)!<br />!g;
-                for my $image (@{ $item->{images} || [] }) {
-                    $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
-                    my $enclosure = Plagger::Enclosure->new;
-                    $enclosure->url($image->{thumb_link});
-                    $enclosure->auto_set_type;
-                    $enclosure->is_inline(1);
-                    $entry->add_enclosure($enclosure);
-                }
-                $entry->body($body);
-
-                $entry->date( Plagger::Date->parse($format, $item->{time}) );
-                $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
-                if ($self->conf->{fetch_comment}) {
-                  for my $comment (@{ $item->{comments} || [] }) {
-                      my $c = Plagger::Entry->new;
-                         $c->title($entry->title . ': '. $comment->{subject});
-                         $c->body($comment->{description});
-                         $c->link($comment->{link});
-                         $c->author($comment->{name});
-                         $c->date( Plagger::Date->parse($format, $comment->{time}) );
-                         $c->date->set_time_zone('Asia/Tokyo') if $c->date;
-                      push @comments, $c;
-                  }
-                }
-            } else {
-                $context->log(warn => "Fetch body failed. You might be blocked?");
-                $blocked++;
-            }
-        }
-
-        $feed->add_entry($entry);
-        for my $comment ( @comments ) {
-            $feed->add_entry($comment);
-        }
+        $self->add_entry( $context, $type, $feed, $msg );
     }
 
     $context->update->add($feed);
+}
+
+my $format = DateTime::Format::Strptime->new(pattern => '%Y-%m-%d %H:%M');
+
+sub add_entry {
+    my ($self, $context, $type, $feed, $msg) = @_;
+
+    my $entry = Plagger::Entry->new;
+    $entry->title($msg->{subject});
+    $entry->link($msg->{link});
+    $entry->author($msg->{name});
+    $entry->date( Plagger::Date->parse($format, $msg->{time}) );
+    $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
+
+    if ($self->conf->{show_icon} && !$self->{blocked} && defined $MAP->{$type}->{icon}) {
+        my $owner_id = $msg->{link}->query_param($MAP->{$type}->{icon});
+        $context->log(info => "Fetch icon of id=$owner_id");
+
+        my $item = $self->cache->get_callback(
+            "outline-$owner_id",
+            sub {
+                Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
+                my $item = $self->{mixi}->show_friend->parse(id => $owner_id)->{outline};
+                $item;
+            },
+            '12 hours',
+        );
+        if ($item && $item->{image} !~ /no_photo/) {
+            # prefer smaller image
+            my $image = $item->{image};
+               $image =~ s/\.jpg$/s.jpg/;
+            $entry->icon({
+                title => $item->{name},
+                url   => $image,
+                link  => $item->{link},
+            });
+        }
+    }
+
+    my @comments;
+    if ($self->conf->{fetch_body} && !$self->{blocked} && $msg->{link} =~ /view_/ && defined $MAP->{$type}->{get_detail}) {
+        # view_enquete is not implemented and probably
+        # won't be implemented as it seems redirected to
+        # reply_enquete
+        return if $msg->{link} =~ /view_enquete/;
+        $context->log(info => "Fetch body from $msg->{link}");
+        my $item = $self->cache->get_callback(
+            "item-".$msg->{link},
+            sub {
+                Time::HiRes::sleep( $self->conf->{fetch_body_interval} || 1.5 );
+                my $item = $self->{mixi}->parse($msg->{link});
+                $item;
+            },
+            '12 hours',
+        );
+        if ($item) {
+            my $body = $item->{description};
+               $body =~ s!(\r\n?|\n)!<br />!g;
+            for my $image (@{ $item->{images} || [] }) {
+                $body .= qq(<div><a href="$image->{link}"><img src="$image->{thumb_link}" style="border:0" /></a></div>);
+                my $enclosure = Plagger::Enclosure->new;
+                $enclosure->url($image->{thumb_link});
+                $enclosure->auto_set_type;
+                $enclosure->is_inline(1);
+                $entry->add_enclosure($enclosure);
+            }
+            $entry->body($body);
+
+            $entry->date( Plagger::Date->parse($format, $item->{time}) );
+            $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
+            if ($self->conf->{fetch_comment}) {
+              for my $comment (@{ $item->{comments} || [] }) {
+                  my $c = Plagger::Entry->new;
+                     $c->title($entry->title . ': '. $comment->{subject});
+                     $c->body($comment->{description});
+                     $c->link($comment->{link});
+                     $c->author($comment->{name});
+                     $c->date( Plagger::Date->parse($format, $comment->{time}) );
+                     $c->date->set_time_zone('Asia/Tokyo') if $c->date;
+                  push @comments, $c;
+              }
+            }
+        } else {
+            $context->log(warn => "Fetch body failed. You might be blocked?");
+            $self->{blocked}++;
+        }
+    }
+
+    $feed->add_entry($entry);
+    for my $comment ( @comments ) {
+        $feed->add_entry($comment);
+    }
 }
 
 1;
