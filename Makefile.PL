@@ -1,6 +1,13 @@
 use strict;
 use inc::Module::Install;
 
+{
+    no warnings 'redefine';
+    *recommends_hack = $Module::Install::VERSION > 0.70 ?
+        sub { recommends(@_); $_[0] } :
+        \&recommends;
+}
+
 name('Plagger');
 all_from('lib/Plagger.pm');
 
@@ -46,34 +53,34 @@ build_requires('Test::Base', 0.52);
 features(
     'Better Encoding detection' => [
         -default => 0,
-        recommends('Encode::Detect', 1.0),
+        recommends_hack('Encode::Detect', 1.0),
     ],
     'POD Testing' => [
         -default => 0,
-        recommends('Test::Pod'),
-        recommends('Test::Pod::Coverage'),
+        recommends_hack('Test::Pod'),
+        recommends_hack('Test::Pod::Coverage'),
     ],
     'Cookie sharing with Firefox' => [
         -default => 0,
-        recommends('HTTP::Cookies::Mozilla'),
+        recommends_hack('HTTP::Cookies::Mozilla'),
     ],
     'Liberal XML parsing' => [
         -default => 1,
-        recommends('XML::Liberal', 0.14),
-        recommends('XML::RSS::Liberal'),
+        recommends_hack('XML::Liberal', 0.14),
+        recommends_hack('XML::RSS::Liberal'),
     ],
     'XPath support in Subscription and Feed Upgrader' => [
         -default => 1,
-        recommends('HTML::TreeBuilder::XPath'),
+        recommends_hack('HTML::TreeBuilder::XPath'),
     ],
     'Better html to text formatter' => [
         -default => 1,
-        recommends('HTML::TreeBuilder'),
-        recommends('HTML::FormatText'),
+        recommends_hack('HTML::TreeBuilder'),
+        recommends_hack('HTML::FormatText'),
     ],
     'Parse Japanese datetime format' => [
         -default => 0,
-        recommends('DateTime::Format::Japanese'),
+        recommends_hack('DateTime::Format::Japanese'),
     ],
 );
 
@@ -97,7 +104,7 @@ for my $meta (sort { $b->{default} <=> $a->{default} || $a->{name} cmp $b->{name
     features(
         $meta->{name}, [
             -default => $meta->{default},
-            map recommends($_ => $meta->{depends}->{$_}), keys %{$meta->{depends} || {}},
+            map recommends_hack($_ => $meta->{depends}->{$_}), keys %{$meta->{depends} || {}},
         ],
     );
 }
