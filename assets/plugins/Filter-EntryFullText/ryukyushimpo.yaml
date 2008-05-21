@@ -1,4 +1,8 @@
 author: woremacx
-handle: http://ryukyushimpo.jp/news/storyid-\d+-storytopic-\d+.html
-extract: <h2>(.*?)</h2>(.*?)<p class="next_txt">
-extract_capture: title body
+handle_force: http://ryukyushimpo.jp/news/storyid-\d+-storytopic-\d+.html
+extract_xpath:
+  title: //div[@id="item"]/h3/text()
+  photo: //div[@id="item"]/p[@class="photo"]
+  body: //div[@id="item"]/p[@class="body"]
+extract_after_hook: |
+  $data->{body} = $data->{photo} . $data->{body} if $data->{photo};
