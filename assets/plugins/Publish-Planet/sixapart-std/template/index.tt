@@ -30,11 +30,11 @@
       <div id="pagebody">
         <div id="pagebody-inner" class="pkg">
           <div id="alpha">
-            <div id="alpha-inner" class="pkg">
+            <div id="alpha-inner" class="pkg hfeed">
               [% FOREACH entry = entries %]
               <a id="[% entry.id_safe %]"></a>
-              <div class="entry" id="entry-[% entry.id_safe %]">
-                <h3 class="entry-header">
+              <div class="entry hentry" id="entry-[% entry.id_safe %]">
+                <h3 class="entry-header entry-title">
                 [% IF entry.source.title %]
                 <a href="[% entry.source.link | html %]">[% entry.source.title.html %]</a>: 
                 [% END %]
@@ -46,12 +46,12 @@
                   [% entry.body.html %]
                   <p class="entry-footer">
                     <span class="post-footers">Posted
-                    [% IF entry.author %]by [% entry.author | html %][% END %]
+                    [% IF entry.author %]by <span class="author vcard"><span class="fn">[% entry.author | html %]</span></span>[% END %]
                     [% IF entry.tags.size %] on <span class="tag">[% entry.tags.join('</span>, <span class="tag">') %]</span>[% END %]
-                    [% IF entry.date %] at [% entry.date.format('Mail') %][% END %]
+                    [% IF entry.date %] at <abbr class="updated" title="[% entry.date.format('W3CDTF') %]">[% entry.date.format('Mail') %]</abbr>[% END %]
                     </span>
                     <span class="separator">|</span>
-                    <a class="permalink" href="[% entry.permalink | html %]">Permalink</a>
+                    <a class="permalink" href="[% entry.permalink | html %]" rel="bookmark">Permalink</a>
                     [% FOREACH widget = entry.widgets %]
                     | [% widget.html(entry) %]
                     [% END %]
@@ -86,5 +86,6 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="../js/hotkey.js"></script>
   </body>
 </html>

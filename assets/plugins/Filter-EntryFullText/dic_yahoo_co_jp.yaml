@@ -2,4 +2,4 @@
 author: Masafumi Otsune
 handle: http://dic\.yahoo\.co\.jp/newword\?index=\d+.+
 extract_xpath:
-  body: //table[@cellpadding="5"]/tr/td[@class="s130"]/small
+  body: //td[@class="s130"]/small[not(child::b or child::font)]
