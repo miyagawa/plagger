@@ -1,2 +1,2 @@
 author: youpy
-rewrite: s/[\?&;](?:fr(?:om)?|track|ref|FM)=(?:r(?:ss(?:all)?|df)|atom)([&;].*)?$/defined($1) ? $1 : ''/e
+rewrite: s/[\?&;](?:fr(?:om)?|track|ref|FM)=(?:(?:news)?r(?:ss(?:all)?|df)|atom)([&;].*)?$/defined($1) ? $1 : ''/e
