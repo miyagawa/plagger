@@ -71,6 +71,8 @@ You can use it in $args->{feed}->{meta}->{messageid}.
 set domain part of Message-ID. (optional)
 see RFC 2822 "3.6.4. Identification fields".
 
+=back
+
 =head1 AUTHOR
 
 Masafumi Otsune
