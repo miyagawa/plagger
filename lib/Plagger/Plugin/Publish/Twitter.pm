@@ -31,6 +31,11 @@ sub publish_entry {
     my($self, $context, $args) = @_;
 
     my $body = $self->templatize('twitter.tt', $args);
+
+    unless ($self->conf->{templatize}) {
+        $body = $args->{entry}->body_text;
+    }
+
     # TODO: FIX when Summary configurable.
     if ( length($body) > 159 ) {
         $body = substr($body, 0, 159);
@@ -90,6 +95,10 @@ If you do point to a different URL, you will also need to set "apihost" and "api
 
     "apihost" defaults to "www.twitter.com:80".
     "apirealm" defaults to "Twitter API".
+
+=item templatize
+Optional.
+A flag to use Template-Toolkit to message formatting. Defaults to 0.
 
 =back
 
