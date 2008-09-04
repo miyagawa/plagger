@@ -30,9 +30,9 @@ sub initialize {
 sub publish_entry {
     my($self, $context, $args) = @_;
 
-    my $body = $self->templatize('twitter.tt', $args);
-
-    unless ($self->conf->{templatize}) {
+    if ($self->conf->{templatize}) {
+	my $body = $self->templatize('twitter.tt', $args);
+    } else {
         $body = $args->{entry}->body_text;
     }
 
