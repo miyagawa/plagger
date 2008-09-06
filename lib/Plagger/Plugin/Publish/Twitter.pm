@@ -29,11 +29,10 @@ sub initialize {
 
 sub publish_entry {
     my($self, $context, $args) = @_;
+    my $body = $args->{entry}->body_text;
 
     if ($self->conf->{templatize}) {
-	my $body = $self->templatize('twitter.tt', $args);
-    } else {
-        $body = $args->{entry}->body_text;
+	$body = $self->templatize('twitter.tt', $args);
     }
 
     # TODO: FIX when Summary configurable.
