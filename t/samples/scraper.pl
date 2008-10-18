@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use XML::RSS::LibXML;
 
-my $rss = XML::RSS::LibXML->new;
+my $rss = XML::RSS::LibXML->new(version => '1.0');
 $rss->channel(title => "Foo Bar", link => "http://example.com/");
 $rss->add_item(
     title => "Entry 1",

@@ -51,7 +51,7 @@ sub aggregate {
 
     $context->error("$method failed: $search->{error_text}")
       unless $search->{success};
-    my $search_doc = $parser->parse_string($search->{_content});
+    my $search_doc = $parser->parse_string($search->decoded_content);
 
     foreach my $search_photo ( $search_doc->findnodes('/rsp/photos/photo') ) {
         my $entry = $self->_create_entry($context, $flickr, $parser, $search_photo);
@@ -81,7 +81,7 @@ sub _create_entry {
     );
     next unless $info->{success};
 
-    my $info_doc = $parser->parse_string($info->{_content});
+    my $info_doc = $parser->parse_string($info->decoded_content);
     my $link     = $info_doc->findvalue(q[/rsp/photo/urls/url[@type='photopage']]);
     my $author   = $info_doc->findvalue(q[/rsp/photo/owner/@realname])
                 || $info_doc->findvalue(q[/rsp/photo/owner/@username]);

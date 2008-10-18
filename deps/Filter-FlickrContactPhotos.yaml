@@ -1,0 +1,4 @@
+name: Filter::FlickrContactPhotos
+author: Kazuyoshi Kato
+depends:
+  Flickr::API: 0
