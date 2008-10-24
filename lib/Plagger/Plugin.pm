@@ -69,9 +69,10 @@ sub do_walk {
 sub decrypt_config {
     my($self, $data, $key) = @_;
 
+    my $context = Plagger->context;
     my $decrypted = Plagger::Crypt->decrypt($data->{$key});
     if ($decrypted eq $data->{$key}) {
-        Plagger->context->add_rewrite_task($key, $decrypted, Plagger::Crypt->encrypt($decrypted, 'base64'));
+	$context->add_rewrite_task($key, $decrypted, Plagger::Crypt->encrypt($decrypted, $context->conf->{encrypt} || 'base64'));
     } else {
         $data->{$key} = $decrypted;
     }
