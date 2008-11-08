@@ -192,7 +192,7 @@ sub feed_to_text {
     my($e, $content) = @_;
     return unless $content->body;
 
-    if (ref($e) eq 'XML::Feed::Entry::Atom') {
+    if (ref($e) =~ /Atom/) {
         # in Atom, be a little strict with TextConstruct
         # TODO: this actually doesn't work since XML::Feed and XML::Atom does the right
         # thing with Atom 1.0 TextConstruct
@@ -201,7 +201,7 @@ sub feed_to_text {
         } else {
             return Plagger::Text->new(type => 'html', data => $content->body);
         }
-    } elsif (ref($e) eq 'XML::Feed::Entry::RSS') {
+    } elsif (ref($e) =~ /RSS/) {
         # in RSS there's no explicit way to declare the type. Just guess it
         return Plagger::Text->new_from_text($content->body);
     } else {
