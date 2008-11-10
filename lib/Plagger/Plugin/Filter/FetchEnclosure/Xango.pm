@@ -6,7 +6,9 @@
 package Plagger::Plugin::Filter::FetchEnclosure::Xango;
 use strict;
 use base qw(Plagger::Plugin::Filter::FetchEnclosure);
-BEGIN { sub Xango::DEBUG{ 1 } }
+BEGIN {
+    sub Xango::DEBUG{ 1 } ## no critic (ProhibitNestedSubs)
+}
 use Xango::Broker::Push;
 
 sub register {

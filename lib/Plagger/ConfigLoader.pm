@@ -65,7 +65,7 @@ sub load_recipes {
     my($self, $config) = @_;
 
     for (@{ $config->{recipes} }) {
-        $self->error("no such recipe to $_") unless $config->{define_recipes}->{$_};
+        Plagger->context->error("no such recipe to $_") unless $config->{define_recipes}->{$_};
         my $plugin = $config->{define_recipes}->{$_};
         $plugin = [ $plugin ] unless ref($plugin) eq 'ARRAY';
         push(@{ $config->{plugins} }, @{ $plugin });
