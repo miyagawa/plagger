@@ -28,4 +28,4 @@ plugins:
       dir: $FindBin::Bin
       filename: rss.xml
 --- expected chomp regexp
-<content:encoded>\s*&lt;div
+<content:encoded>\s*&#x3C;div
