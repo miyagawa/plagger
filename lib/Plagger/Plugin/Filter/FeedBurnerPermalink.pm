@@ -17,14 +17,14 @@ sub fixup {
     my $fbns = 'http://rssnamespace.org/feedburner/ext/1.0';
 
     # RSS 1.0 & 2.0
-    if ($args->{orig_entry}->isa('XML::Feed::Entry::RSS')) {
+    if (ref $args->{orig_entry} =~ /RSS/) {
         if (my $orig_link = $args->{orig_entry}->{entry}->{$fbns}->{origLink}) {
             $args->{entry}->permalink($orig_link);
             $context->log(info => "Permalink rewritten to $orig_link");
         }
     }
     # Atom 1.0
-    elsif ($args->{orig_entry}->isa('XML::Feed::Entry::Atom')) {
+    elsif (ref $args->{orig_entry} =~ /Atom/) {
         my $ns = XML::Atom::Namespace->new(feedburner => $fbns);
         if (my $orig_link = $args->{orig_entry}->{entry}->get($ns, 'origLink')) {
             $args->{entry}->permalink($orig_link);
