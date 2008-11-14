@@ -9,7 +9,7 @@ use XML::Feed::RSS; # load explicitly to force LibXML
 use XML::RSS::LibXML;
 use File::Spec;
 
-$XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
+$XML::Feed::Format::RSS::PREFERRED_PARSER = $XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
 
 sub register {
     my($self, $context) = @_;
@@ -137,6 +137,7 @@ sub make_author {
 }
 
 # XXX okay, this is a hack until XML::Feed is updated
+*XML::Feed::Entry::Format::Atom::add_enclosure =
 *XML::Feed::Entry::Atom::add_enclosure = sub {
     my($entry, $enclosure) = @_;
     my $link = XML::Atom::Link->new;
@@ -147,6 +148,7 @@ sub make_author {
     $entry->{entry}->add_link($link);
 };
 
+*XML::Feed::Entry::Format::RSS::add_enclosure =
 *XML::Feed::Entry::RSS::add_enclosure = sub {
     my($entry, $enclosure) = @_;
     $entry->{entry}->{enclosure} = XML::RSS::LibXML::MagicElement->new(

@@ -5,7 +5,7 @@ use Feed::Find;
 use XML::Atom;
 use XML::Feed;
 use XML::Feed::RSS;
-$XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
+$XML::Feed::Format::RSS::PREFERRED_PARSER = $XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
 $XML::Atom::ForceUnicode = 1;
 
 use Plagger::Util;
