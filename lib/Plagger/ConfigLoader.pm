@@ -19,7 +19,8 @@ sub load {
     } elsif (ref($stuff) && ref($stuff) eq 'SCALAR') {
         $config = YAML::Load(${$stuff});
     } elsif (ref($stuff) && ref($stuff) eq 'HASH') {
-        $config = Storable::dclone($stuff);
+        $config = $stuff->{global}->{no_config_clone}
+            ? $stuff : Storable::dclone($stuff);
     } else {
         croak "Plagger::ConfigLoader->load: $stuff: $!";
     }
