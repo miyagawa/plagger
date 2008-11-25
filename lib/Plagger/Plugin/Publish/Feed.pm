@@ -5,10 +5,12 @@ use base qw( Plagger::Plugin );
 
 use XML::Feed;
 use XML::Feed::Entry;
-use XML::Feed::RSS; # load explicitly to force LibXML
 use XML::RSS::LibXML;
 use File::Spec;
-
+eval {
+    require XML::Feed::RSS;
+    require XML::Feed::Format::RSS;
+};
 $XML::Feed::Format::RSS::PREFERRED_PARSER = $XML::Feed::RSS::PREFERRED_PARSER = "XML::RSS::LibXML";
 
 sub register {
