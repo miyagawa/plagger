@@ -4,7 +4,7 @@ use t::TestPlagger;
 
 test_requires_network 'www.zshare.net:80';
 
-plan tests => 2;
+plan tests => 3;
 run_eval_expected;
 
 __END__
@@ -20,13 +20,18 @@ plugins:
         - title: Test 1
           link: http://buycheapviagraonlinenow.com/1
           body: |
-            Here's a link to zShare. <a href="http://www.zshare.net/download/4385403840872c/">test</a>
+            Here's a link to zShare. <a href="http://www.zshare.net/download/52199786e5e37595/">test</a>
         - title: Test 2
           link: http://buycheapviagraonlinenow.com/2
           body: |
-            Here's a link to zShare. <a href="http://www.zshare.net/audio/4385403840872c/">test</a>
+            Here's a link to zShare. <a href="http://www.zshare.net/audio/52199786e5e37595/">test</a>
+        - title: Test 3
+          link: http://buycheapviagraonlinenow.com/3
+          body: |
+            Here's a link to ShareBee. <a href="http://sharebee.com/786015ba">test</a>
 
   - module: Filter::FindEnclosures
 --- expected
-like $context->update->feeds->[0]->entries->[0]->enclosure->url, qr!http://upsilon.zshare.net/download/[0-9a-f]+/[0-9]+/4385403/test.txt!;
-like $context->update->feeds->[0]->entries->[1]->enclosure->url, qr!http://upsilon.zshare.net/download/[0-9a-f]+/[0-9]+/4385403/test.txt!;
+like $context->update->feeds->[0]->entries->[0]->enclosure->url, qr!http://[\d\w]+\.zshare\.net/download/[0-9a-f]+/\d+/\d+/test.txt!;
+like $context->update->feeds->[0]->entries->[1]->enclosure->url, qr!http://[\d\w]+\.zshare\.net/download/[0-9a-f]+/\d+/\d+/test.txt!;
+like $context->update->feeds->[0]->entries->[2]->enclosure->url, qr!http://[\d\w]+\.zshare\.net/download/[0-9a-f]+/\d+/\d+/test.txt!;
