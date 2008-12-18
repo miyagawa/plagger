@@ -21,7 +21,7 @@ sub update {
     sleep $interval;
 
     my $md5  = md5_hex($args->{entry}->permalink);
-    my $url = "http://badges.del.icio.us/feeds/json/url/data?hash=$md5";
+    my $url = "http://feeds.delicious.com/feeds/json/url/data?hash=$md5";
 
     $self->log(info => "Going to fetch $url");
 
@@ -48,6 +48,7 @@ sub update {
     my $delicious_users = $h->{total_posts} || 0;
     $args->{entry}->meta->{delicious_rate} = rate_of_color($delicious_users);
     $args->{entry}->meta->{delicious_users} = $delicious_users;
+    $args->{entry}->meta->{delicious_hash} = $h->{hash};
     $self->log(info => "set delicious_users to $delicious_users");
 }
 
@@ -87,6 +88,7 @@ Tatsuhiko Miyagawa
 
 =head1 SEE ALSO
 
-L<Plagger>, L<http://del.icio.us/help/>, L<http://del.icio.us/help/json/url>
+L<Plagger>, L<http://delicious.com/help/api>
+L<http://delicious.com/help/feeds/>, L<http://delicious.com/help/html>
 
 =cut
