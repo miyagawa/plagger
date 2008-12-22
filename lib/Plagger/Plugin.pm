@@ -151,7 +151,7 @@ sub load_assets {
     my($self, $rule, $callback) = @_;
 
     unless (blessed($rule) && $rule->isa('File::Find::Rule')) {
-        $rule = File::Find::Rule->name($rule);
+        $rule = File::Find::Rule->name($rule)->extras({follow => 1});
     }
 
     # ignore .svn directories
