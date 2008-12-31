@@ -2,7 +2,7 @@
 author: Masafumi Otsune
 handle: http://sankei\.jp\.msn\.com/\w+/\w+/\d+/[\w\-]+\.htm
 extract_xpath:
-  title: //span[@id="__r_article_title__"]
+  title: //span[@id="__r_article_title__"]/text()
   date: //span[@id="__r_publish_date__"]/text()
   body: //div[@class="_LSUCS"]
   photo1: //div[@class="image"]
