@@ -74,6 +74,7 @@ sub load {
       email => $self->conf->{email},
       password => $self->conf->{password},
       cookie_jar => $cookie_jar,
+      mode => $self->conf->{mode},
     );
 
     my $feed = Plagger::Feed->new;
@@ -152,6 +153,10 @@ my $format = DateTime::Format::Strptime->new(pattern => '%Y-%m-%d %H:%M');
 
 sub add_entry {
     my ($self, $context, $type, $feed, $msg) = @_;
+
+    if ($type eq 'Log') {
+        $msg->{subject} = $msg->{time} . ' ' . $msg->{name};
+    }
 
     my $entry = Plagger::Entry->new;
     $entry->title($msg->{subject});
@@ -233,6 +238,9 @@ sub add_entry {
             $self->{blocked}++;
         }
     }
+
+require Data::Dump;
+warn Data::Dump::dump($entry);
 
     $feed->add_entry($entry);
     for my $comment ( @comments ) {
