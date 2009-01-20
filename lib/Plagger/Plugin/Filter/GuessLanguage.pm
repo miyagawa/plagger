@@ -70,6 +70,8 @@ sub guess {
 sub guess_language {
     my ($self, $text) = @_;
 
+    return unless defined $text && length $text;
+
     my $code;
 
     # xxx: just a quick hack. there may be a better way.

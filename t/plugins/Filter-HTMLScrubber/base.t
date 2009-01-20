@@ -42,5 +42,3 @@ plugins:
   - module: Filter::HTMLScrubber
 --- expected
 unlike $warnings, qr/Scrubbing/;
-
-

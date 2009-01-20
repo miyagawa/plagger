@@ -1,6 +1,8 @@
 use strict;
 use t::TestPlagger;
-use XMLRPC::Lite;
+
+eval { require XMLRPC::Lite; XMLRPC::Lite->import() };
+plan skip_all => "XMLRPC::Lite is not installed." if $@;
 
 my $server = 'localhost:8081';
 
