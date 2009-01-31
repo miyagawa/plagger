@@ -239,9 +239,6 @@ sub add_entry {
         }
     }
 
-require Data::Dump;
-warn Data::Dump::dump($entry);
-
     $feed->add_entry($entry);
     for my $comment ( @comments ) {
         $feed->add_entry($comment);
