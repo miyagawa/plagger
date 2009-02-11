@@ -151,6 +151,16 @@ sub aggregate_bbs_feed {
 
 my $format = DateTime::Format::Strptime->new(pattern => '%Y-%m-%d %H:%M');
 
+sub parse_date {
+    my ($self, $datetime) = @_;
+
+    # Calendar doesn't have %H:%M part (spotted by id:mad-capone)
+    return unless defined $datetime;
+    $datetime .= ' 00:00' unless $datetime =~ /\d+:\d+$/;
+
+    Plagger::Date->parse($format, $datetime);
+}
+
 sub add_entry {
     my ($self, $context, $type, $feed, $msg) = @_;
 
@@ -162,7 +172,7 @@ sub add_entry {
     $entry->title($msg->{subject});
     $entry->link($msg->{link});
     $entry->author($msg->{name});
-    $entry->date( Plagger::Date->parse($format, $msg->{time}) );
+    $entry->date( $self->parse_date($msg->{time}) );
     $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
 
     if ($self->conf->{show_icon} && !$self->{blocked} && defined $MAP->{$type}->{icon}) {
@@ -219,7 +229,7 @@ sub add_entry {
             }
             $entry->body($body);
 
-            $entry->date( Plagger::Date->parse($format, $item->{time}) );
+            $entry->date( $self->parse_date($item->{time}) );
             $entry->date->set_time_zone('Asia/Tokyo') if $entry->date;
             if ($self->conf->{fetch_comment}) {
               for my $comment (@{ $item->{comments} || [] }) {
@@ -228,7 +238,7 @@ sub add_entry {
                      $c->body($comment->{description});
                      $c->link($comment->{link});
                      $c->author($comment->{name});
-                     $c->date( Plagger::Date->parse($format, $comment->{time}) );
+                     $c->date( $self->parse_date($comment->{time}) );
                      $c->date->set_time_zone('Asia/Tokyo') if $c->date;
                   push @comments, $c;
               }
