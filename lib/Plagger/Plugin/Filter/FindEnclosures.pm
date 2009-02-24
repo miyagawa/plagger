@@ -121,6 +121,8 @@ sub add_enclosure_from_object {
         $url = $movie->[1]->{value} if $movie;
     }
 
+    return unless ($self->url_whitelisted($url));
+
     if ($url) {
         Plagger->context->log(info => "Found enclosure $url");
         my $enclosure = Plagger::Enclosure->new;
@@ -130,9 +132,12 @@ sub add_enclosure_from_object {
     }
 }
 
+
 sub add_enclosure {
     my($self, $entry, $tag, $attr, $opt) = @_;
     $opt ||= {};
+
+    return unless ($self->url_whitelisted($tag->[1]->{$attr}));
 
     if ($self->is_enclosure($tag, $attr, $opt->{type})) {
         Plagger->context->log(info => "Found enclosure $tag->[1]{$attr}");
@@ -160,6 +165,16 @@ sub add_enclosure {
             }
         }
     }
+}
+
+sub url_whitelisted {
+    my $self = shift;
+    my $url = shift;
+
+    if (my $regex = $self->conf->{enclosure_whitelist} ){
+        return unless ($url =~ qr/$regex/);
+    }
+    return 1;
 }
 
 sub fetch_content {
@@ -225,6 +240,12 @@ that they won't appear as enclosures in Publish::Feed.
 You might want to also use Filter::HEADEnclosureMetadata plugin to
 know the actual length (bytes-length) of enclosures by sending HEAD
 requests.
+
+=head1 USAGE
+
+  - module: Filter::FindEnclosures
+    config:
+      enclosure_whitelist: (?:jpg|png|gif)
 
 =head1 AUTHOR
 
