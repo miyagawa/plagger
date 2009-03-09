@@ -2,7 +2,7 @@ package Plagger::Plugin::Subscription::PlanetINI;
 use strict;
 use base qw( Plagger::Plugin );
 
-use Config::INI::Simple;
+use Config::IniFiles;
 use Plagger::Util;
 use URI;
 
@@ -18,15 +18,14 @@ sub register {
 sub load {
     my($self, $context) = @_;
 
-    my $config = Config::INI::Simple->new;
-    $config->read($self->conf->{path});
+    my $config = Config::IniFiles->new( -file => $self->conf->{path} );
 
-    for my $url (keys %$config) {
+    for my $url ($config->Sections) {
         next if $url !~ m!https?://!;
 
         my $feed = Plagger::Feed->new;
         $feed->url($url);
-        $feed->title($config->{$url}->{name});
+        $feed->title($config->val($url, 'name'));
 
         $context->subscription->add($feed);
     }
