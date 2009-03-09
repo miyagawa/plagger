@@ -70,7 +70,6 @@ Filename
 Firefox
 Flickr
 Fotolife
-Frepa
 FriendDiary
 Gmail
 GoogleTalk
