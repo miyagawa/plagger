@@ -3,7 +3,16 @@ use strict;
 use base qw( Class::Accessor::Fast );
 __PACKAGE__->mk_accessors(qw( type data ));
 
-use overload q("") => sub { $_[0]->data }, fallback => 1;
+use overload 
+    q("") => sub {  $_[0]->data },
+    # XXX - if you evaluate Plagger::Text in boolean mode w/o defining a
+    # bool override, you get some nasty problems, especially if it's
+    # called from within the stringification method.
+    # XXX - not sure if this below is the correct to way to make sure 
+    # it's an object?
+    bool     => sub { defined $_[0] && ref $_[0] },
+    fallback => 1
+;
 
 use HTML::Tagset;
 use Plagger::Util;
