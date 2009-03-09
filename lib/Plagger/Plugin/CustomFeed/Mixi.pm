@@ -230,7 +230,7 @@ __END__
 
 =head1 NAME
 
-Plagger::Plugin::CustomFeed::Mixi -  Custom feed for mixi.jp
+Plagger::Plugin::CustomFeed::Mixi -  *DEPRECATED* Custom feed for mixi.jp
 
 =head1 SYNOPSIS
 
@@ -246,6 +246,8 @@ Plagger::Plugin::CustomFeed::Mixi -  Custom feed for mixi.jp
           - Message
 
 =head1 DESCRIPTION
+
+*DEPRECATED* I suggest to use L<Plagger::Plugin::CustomFeed::MixiScraper>.
 
 This plugin fetches your friends diary updates from mixi
 (L<http://mixi.jp/>) and creates a custom feed.
