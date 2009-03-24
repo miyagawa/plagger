@@ -19,6 +19,13 @@ our $MAP = {
         get_list   => 'list_message',
         get_detail => 'view_message',
     },
+    # can't get icon
+    MessageOutbox => {
+        title      => 'ミクシィメッセージ送信済み',
+        get_list   => 'list_message',
+       get_list_parse_param => { box => 'outbox' },
+        get_detail => 'view_message',
+    },
     # can't get icon & body
     RecentComment => {
         title      => 'ミクシィ最近のコメント一覧',
@@ -103,7 +110,8 @@ sub aggregate_feed {
     $feed->title($MAP->{$type}->{title});
 
     my $meth = $MAP->{$type}->{get_list};
-    my @msgs = $self->{mixi}->$meth->parse;
+    my $parse_param = $MAP->{$type}->{get_list_parse_param} || {};
+    my @msgs = $self->{mixi}->$meth->parse(%$parse_param);
     my $items = $self->conf->{fetch_items} || 20;
     $self->log(info => 'fetch ' . scalar(@msgs) . ' entries');
 
@@ -328,7 +336,7 @@ With this option set, BBS feed will be split up. Defaults to 0.
 
 With this option set, you can set the feed types.
 
-Now supports: RecentComment, FriendDiary, Message, Log, MyDiary, and Calendar.
+Now supports: RecentComment, FriendDiary, Message, MessageOutbox, Log, MyDiary, and Calendar.
 
 Default: FriendDiary.
 
