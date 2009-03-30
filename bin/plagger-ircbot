@@ -5,6 +5,7 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+use Encode ();
 use Getopt::Long;
 use List::Util qw(first);
 use YAML;
@@ -83,11 +84,15 @@ sub update
 {
     my ( $kernel, $heap, $msg ) = @_[ KERNEL, HEAP, ARG0 ];
     eval {
-        for my $channel (@{ $config->{server_channels} }) {
+        foreach (@{ $config->{server_channels} }) {
+            my ( $channel, $keyword ) = split /,/;
+            Encode::from_to($channel, "utf8", $config->{charset}) if $config->{charset};
             if ($config->{announce} =~ /action/i) {
                 $kernel->post( bot => ctcp => $channel, "ACTION $msg");
+            } elsif ($config->{announce} =~ /privmsg/i) {
+                $kernel->post( bot => privmsg => $channel, $msg );
             } else {
-                $kernel->post( bot => notice => $channel, $msg )
+                $kernel->post( bot => notice => $channel, $msg );
             }
         }
     };
@@ -112,10 +117,14 @@ sub bot_connect
         bot => connect => {
             Nick     => $config->{nickname},
             Ircname  => $config->{ircname} || $config->{nickname},
-            Username => $ENV{USER},
+            Username => $config->{username} || $ENV{USER},
             Server   => $config->{server_host},
             Port     => $config->{server_port} || 6667,
             Password => $config->{server_password} || undef,
+            LocalAddr=> $config->{local_addr} || undef,
+            LocalPort=> $config->{local_port} || undef,
+            UseSSL   => $config->{use_ssl} || undef,
+            useipv6  => $config->{use_ipv6} || undef,
         }
     );
 }
@@ -131,10 +140,13 @@ sub bot_connected
     foreach ( @{$config->{server_channels}} )
     {
         msg "joining channel $_";
-        $kernel->post( bot => join => $_ );
+        my ( $channel, $keyword ) = split /,/;
         if ($config->{charset}) {
             $kernel->post( bot => charset => $config->{charset} );
+            Encode::from_to($channel, "utf8", $config->{charset});
+            Encode::from_to($keyword, "utf8", $config->{charset});
         }
+        $kernel->post( bot => join => $channel, $keyword );
     }
 }
 
