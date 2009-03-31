@@ -85,7 +85,7 @@ sub update
     my ( $kernel, $heap, $msg ) = @_[ KERNEL, HEAP, ARG0 ];
     eval {
         foreach (@{ $config->{server_channels} }) {
-            my ( $channel, $keyword ) = split /,/;
+            my ( $channel, $keyword ) = split(/,/, $_, 2);
             Encode::from_to($channel, "utf8", $config->{charset}) if $config->{charset};
             if ($config->{announce} =~ /action/i) {
                 $kernel->post( bot => ctcp => $channel, "ACTION $msg");
@@ -140,7 +140,7 @@ sub bot_connected
     foreach ( @{$config->{server_channels}} )
     {
         msg "joining channel $_";
-        my ( $channel, $keyword ) = split /,/;
+        my ( $channel, $keyword ) = split(/,/, $_, 2);
         if ($config->{charset}) {
             $kernel->post( bot => charset => $config->{charset} );
             Encode::from_to($channel, "utf8", $config->{charset});
