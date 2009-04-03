@@ -104,7 +104,7 @@ sub store_entry {
 sub store_maildir {
     my($self, $context, $msg) = @_;
     my $folder = $self->conf->{folder} || 'INBOX';
-    my $uid = $self->{imap}->append_string($folder, $msg)
+    my $uid = $self->{imap}->append_string($folder, $msg, $self->conf->{mark})
       or die $context->log(error => "Could not append: $@");
 }
 
@@ -123,6 +123,7 @@ Plagger::Plugin::Publish::IMAP - Transmits IMAP server
       password: passwd
       folder: plagger
       mailfrom: plagger@localhost
+      mark: "\\Seen"
 
 =head1 DESCRIPTION
 
