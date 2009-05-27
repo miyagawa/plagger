@@ -124,7 +124,7 @@ sub follow_redirect {
             # don't care about content body ... immediately die
             my $res = $ua->simple_request( HTTP::Request->new(GET => $link), sub { die } );
             if ($res->is_redirect) {
-                return $res->header('Location');
+                return URI->new_abs($res->header('Location'), $link);
             }
             return '';
         },
