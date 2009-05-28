@@ -10,6 +10,7 @@ use Digest::MD5;
 use DateTime::Format::Mail;
 use Storable;
 use Plagger::Util;
+use Plagger::Location;
 
 sub new {
     my $class = shift;
@@ -102,6 +103,27 @@ sub digest {
     my $data = $self->title . ($self->body || '');
     Encode::_utf8_off($data);
     Digest::MD5::md5_hex($data);
+}
+
+sub location {
+    my $self = shift;
+
+    if (@_ == 2) {
+        my $location = Plagger::Location->new;
+        $location->latitude($_[0]);
+        $location->longitude($_[1]);
+        $self->{location} = $location;
+    } elsif (@_ == 3) {
+        my $location = Plagger::Location->new;
+        $location->latitude($_[0]);
+        $location->longitude($_[1]);
+        $location->altitude($_[2]);
+        $self->{location} = $location;
+    } elsif (@_) {
+        $self->{location} = shift;
+    }
+
+    $self->{location};
 }
 
 1;
