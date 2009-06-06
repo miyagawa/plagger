@@ -39,8 +39,13 @@ sub publish_entry {
     if ( length($body) > 159 ) {
         $body = substr($body, 0, 159);
     }
+
+    if ($Net::Twitter::VERSION < '3.00000') {
+	$body = encode_utf8( $body );
+    }
+
     $context->log(info => "Updating Twitter status to '$body'");
-    $self->{twitter}->update( encode_utf8($body) ) or $context->error("Can't update twitter status");
+    $self->{twitter}->update( $body ) or $context->error("Can't update twitter status");
 
     my $sleeping_time = $self->conf->{interval} || 15;
     $context->log(info => "sleep $sleeping_time.");
