@@ -1,0 +1,4 @@
+author: mteramoto
+handle: http://blogs\.itmedia\.co\.jp/.+/\d{4}/\d{2}/.+\.html
+extract_xpath:
+  body: //div[@class="body"]
