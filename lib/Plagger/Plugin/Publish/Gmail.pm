@@ -79,7 +79,7 @@ sub notify {
 
     my $msg = MIME::Lite->new(
         Date => $now->format('Mail'),
-        From => encode('MIME-Header', qq("$feed_title" <$cfg->{mailfrom}>)),
+        From => encode('MIME-Header', qq("$feed_title")) . " <$cfg->{mailfrom}>",
         To   => $cfg->{mailto},
         Subject => encode('MIME-Header', $subject),
         Type => 'multipart/related',
