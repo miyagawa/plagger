@@ -1,5 +1,5 @@
 # upgrade nikkeibp ITpro http://itpro.nikkeibp.co.jp/article/COLUMN/
 author: Masafumi Otsune
 handle: http://itpro\.nikkeibp\.co\.jp/article/COLUMN/
-extract: <!-- start 本文 -->(.*?)<!-- end 本文 -->
-extract_capture: body
+extract_xpath:
+  body: //div[@id="kiji"]
