@@ -1,0 +1,3 @@
+condition: $args->{entry}->link =~ m!^http://rss\.rssad\.jp/rss/ad/!
+strip: 1
+
