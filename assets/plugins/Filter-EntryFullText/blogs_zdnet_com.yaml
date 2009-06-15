@@ -1,0 +1,4 @@
+author: mteramoto
+handle: http://blogs\.zdnet\.com/.*?/\?p=\d+
+extract_xpath:
+  body: //div[@class="post"]
