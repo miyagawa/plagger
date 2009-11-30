@@ -1,11 +1,13 @@
 package Plagger::Crypt;
 use strict;
-use Module::Pluggable::Fast
-    search => [ qw/Plagger::Crypt/ ],
-    require => 1;
+use Module::Pluggable::Object;
 
-my %handlers = map { $_->id => $_ } __PACKAGE__->plugins;
-my $re = "^(" . join("|", map $_->id, __PACKAGE__->plugins) . ")::";
+my $pluggable = Module::Pluggable::Object->new(
+    'search_path' => [qw/Plagger::Crypt/],
+    'require'     => 1,
+);
+my %handlers = map { $_->id => $_ } $pluggable->plugins;
+my $re = "^(" . join("|", map $_->id, $pluggable->plugins) . ")::";
 
 sub decrypt {
     my($class, $ciphertext, @args) = @_;

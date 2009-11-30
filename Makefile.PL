@@ -29,7 +29,7 @@ requires('LWP');
 requires('HTML::Parser' => 3.51);
 requires('URI::Fetch' => 0.071);
 requires('Cache::Cache' => 1.04);
-requires('Module::Pluggable::Fast');
+requires('Module::Pluggable' => 3.6);
 requires('HTML::ResolveLink');
 requires('Date::Parse');
 requires('MIME::Types', 1.16);
