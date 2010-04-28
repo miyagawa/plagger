@@ -205,14 +205,16 @@ sub new {
     }
 
     # decode as UTF-8
-    for my $key ( qw(extract extract_date_format) ) {
-        next unless defined $data->{$key};
-	if (ref $data->{$key} && ref $data->{$key} eq 'ARRAY') {
-	    $data->{$key} = [ map decode("UTF-8", $_), @{$data->{$key}} ];
-	} else {
-	    $data->{$key} = decode("UTF-8", $data->{$key});
-	}
+    if ($YAML::VERSION < '0.71') {
+        for my $key ( qw(extract extract_date_format) ) {
+            next unless defined $data->{$key};
+        if (ref $data->{$key} && ref $data->{$key} eq 'ARRAY') {
+            $data->{$key} = [ map decode("UTF-8", $_), @{$data->{$key}} ];
+        } else {
+            $data->{$key} = decode("UTF-8", $data->{$key});
+        }
     }
+}
 
     bless {%$data, base => $base }, $class;
 }
