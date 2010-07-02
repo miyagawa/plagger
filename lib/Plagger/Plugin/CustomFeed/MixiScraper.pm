@@ -44,7 +44,7 @@ our $MAP = {
     },
     Calendar => {
         title      => 'ミクシィカレンダー',
-        get_list   => 'show_calendar',
+        get_list   => 'show_schedule',
         get_detail => 'view_event',
     },
     BBS => {
