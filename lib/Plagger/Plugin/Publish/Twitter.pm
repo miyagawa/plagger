@@ -35,9 +35,9 @@ sub publish_entry {
 	$body = $self->templatize('twitter.tt', $args);
     }
 
-    # TODO: FIX when Summary configurable.
-    if ( length($body) > 159 ) {
-        $body = substr($body, 0, 159);
+    my $maxlength = $self->conf->{maxlength} || 159;
+    if (length($body) > $maxlength) {
+        $body = substr($body, 0, $maxlength);
     }
 
     if ($Net::Twitter::VERSION < '3.00000') {
@@ -85,6 +85,10 @@ Twitter password. Required.
 =item interval
 
 Optional.
+
+=item maxlength
+
+Optional. defaults is 159. (backward compatibility)
 
 =item apiurl
 
