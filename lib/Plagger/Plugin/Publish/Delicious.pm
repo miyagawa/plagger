@@ -40,7 +40,8 @@ sub add_entry {
         $params->{extended} = encode('utf-8', $args->{entry}->body_text),
     }
 
-    $self->{delicious}->add_post($params);
+    $self->{delicious}->add_post($params)
+      or die $context->log(error => "Posting to delicious failed");
 
     my $sleeping_time = $self->conf->{interval} || 3;
     $context->log(info => "Post entry success. sleep $sleeping_time.");
