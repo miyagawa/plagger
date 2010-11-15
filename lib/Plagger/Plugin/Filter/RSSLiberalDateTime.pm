@@ -28,9 +28,9 @@ sub fixup_datetime {
     my @time = Date::Parse::strptime($date) or return $date;
 
     my $dt   = DateTime->new(
-        second => $time[0],
-        minute => $time[1],
-        hour   => $time[2],
+        second => $time[0] || 0,
+        minute => $time[1] || 0,
+        hour   => $time[2] || 0,
         day    => $time[3],
         month  => $time[4] + 1,
         year   => $time[5] + 1900,
