@@ -29,6 +29,7 @@ sub add_entry {
 
     my @tags = @{$args->{entry}->tags};
     my $tag_string = @tags ? join(' ', @tags) : '';
+    $tag_string .= ' ' . $self->conf->{tags} if $self->conf->{tags};
 
     my $params = {
         url         => $args->{entry}->link,
@@ -64,6 +65,7 @@ Plagger::Plugin::Publish::Delicious - Post to del.icio.us automatically
       password: your-password
       interval: 2
       post_body: 1
+      tags: tag1 tag2
 
 =head1 DESCRIPTION
 
@@ -84,6 +86,10 @@ Interval (as seconds) to sleep after posting each bookmark. Defaults to 3.
 =item post_body
 
 A flag to post entry's body as extended field for del.icio.us. Defaults to 0.
+
+=item tags
+
+A space-separated list of tags to be added to those found in the feed entry.
 
 =back
 
