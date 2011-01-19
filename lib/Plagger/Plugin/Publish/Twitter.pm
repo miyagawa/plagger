@@ -18,18 +18,19 @@ sub register {
 sub initialize {
     my($self, $context) = @_;
     my %opt = (
-        traits   => ['API::REST', 'OAuth'], 
-        username => $self->conf->{username},
-        password => $self->conf->{password},
+        traits   => ['API::REST', 'OAuth'],
     );
+    if ($self->conf->{access_token} and $self->conf->{access_token_secret}) {
+        $opt{access_token}        = $self->conf->{access_token};
+        $opt{access_token_secret} = $self->conf->{access_token_secret};
+    } else {
+        $opt{username} = $self->conf->{username};
+        $opt{passowrd} = $self->conf->{password};
+    }
     for my $key (qw/apihost apiurl apirealm consumer_key consumer_secret/) {
         $opt{$key} = $self->conf->{$key} if $self->conf->{$key};
     }
     my $nettwitter = Net::Twitter->new(%opt);
-    if ($self->conf->{access_token} and $self->conf->{access_token_secret}) {
-        $nettwitter->access_token($self->conf->{access_token});
-        $nettwitter->access_token_secret($self->conf->{access_token_secret});
-    }
     $self->{twitter} = $nettwitter;
 }
 
