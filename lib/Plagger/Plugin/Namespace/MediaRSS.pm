@@ -20,6 +20,7 @@ sub handle {
         $content = [ $content ] unless ref $content && ref $content eq 'ARRAY';
 
         for my $media_content (@{$content}) {
+            next unless ref($media_content) eq 'HASH' && exists($media_content->{url}) && exists($media_content->{type});
             my $enclosure = Plagger::Enclosure->new;
             $enclosure->url( URI->new($media_content->{url}) );
             $enclosure->auto_set_type($media_content->{type});
@@ -31,7 +32,7 @@ sub handle {
                 url   => $thumbnail->{url},
                 width => $thumbnail->{width},
                 height => $thumbnail->{height},
-            });
+            }) if ref($thumbnail) eq 'HASH';
         }
     }
 
