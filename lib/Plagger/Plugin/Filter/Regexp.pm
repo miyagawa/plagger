@@ -17,7 +17,7 @@ sub filter {
     my($self, $body) = @_;
 
     local $_ = $body;
-    my $regexp = decode_utf8($self->conf->{regexp}, Encode::FB_CROAK);
+    my $regexp = decode_utf8($self->conf->{regexp}, Encode::FB_CROAK | Encode::LEAVE_SRC);
     my $count = eval $regexp;
 
     if ($@) {
