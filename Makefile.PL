@@ -49,6 +49,7 @@ include_deps('YAML');
 
 build_requires('Test::More', 0.42);
 build_requires('Test::Base', 0.52);
+build_requires('Module::Install::TestBase');
 
 features(
     'Better Encoding detection' => [
