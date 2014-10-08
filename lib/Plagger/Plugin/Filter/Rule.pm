@@ -24,8 +24,6 @@ sub feed {
             unless $self->{entries}->{$entry};
     }
 
-    $self->{entries} = {};
-
     if ($args->{feed}->count == 0) {
         $context->log(debug => "Deleting " . $args->{feed}->title . " since it has 0 entries");
         $context->update->delete_feed($args->{feed})

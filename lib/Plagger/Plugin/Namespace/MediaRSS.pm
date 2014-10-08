@@ -27,7 +27,9 @@ sub handle {
             $args->{entry}->add_enclosure($enclosure);
         }
 
-        if (my $thumbnail = $media->{$media_ns}->{thumbnail}) {
+        my $thumbnail = $media->{$media_ns}->{thumbnail};
+        $thumbnail = $thumbnail->[0] if (ref($thumbnail) eq "ARRAY");
+        if ($thumbnail) {
             $args->{entry}->icon({
                 url   => $thumbnail->{url},
                 width => $thumbnail->{width},
