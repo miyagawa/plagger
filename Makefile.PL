@@ -1,11 +1,9 @@
 use strict;
-use inc::Module::Install;
+use inc::Module::Install 0.80; #better handling of auto_install
 
 {
     no warnings 'redefine';
-    *recommends_hack = $Module::Install::VERSION > 0.70 ?
-        sub { recommends(@_); $_[0] } :
-        \&recommends;
+    *recommends_hack = sub { recommends(@_); $_[0] };
 }
 
 name('Plagger');
